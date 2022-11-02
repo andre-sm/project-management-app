@@ -1,0 +1,39 @@
+@import '../../../shared/variables.scss';
+:host {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 120px 1fr 120px;
+  column-gap: 10px;
+  min-height: calc(100% - 240px);
+}
+
+.container {
+  grid-row: 2 / 3;
+  grid-column: 2 / 12;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.auth-form {
+  grid-column: 5 / 9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid $primary-color;
+  border-radius: 5px;
+
+  * {
+    width: 100%;
+  }
+
+  .button {
+    width: 30%;
+    align-self: flex-start;
+  }
+
+  span {
+    color: $primary-color;
+  }
+}
