@@ -6,7 +6,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+
 import { ValidationService } from './validation.service';
+import * as fromApp from '../../../store/app.reducer';
+import * as AuthActions from '../../store/auth.actions'
 
 @Component({
   selector: 'app-login',
@@ -42,6 +46,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private validationService: ValidationService,
     private route: ActivatedRoute,
+    private store: Store<fromApp.AppState>
   ) {}
 
   ngOnInit(): void {
@@ -81,6 +86,22 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     // console.log(this.authForm);
+    if(!this.authForm.valid) return;
+    const name = `${this.authForm.value['firstName']} ${this.authForm.value['lastName']}`
+    const login = this.authForm.value['email'];
+    const password = this.authForm.value['password'];
+    if(this.isLoginMode) {
+      this.store.dispatch(
+        new AuthActions.LoginStart({login: login, password: password})
+      )
+    } else {
+      this.store.dispatch(
+        new AuthActions.SignupStart({name: name, login: login, password: password})
+      )
+      // this.store.dispatch(
+      //   new AuthActions.LoginStart({login: login, password: password})
+      // )
+    }
   }
 
   hasError(controlName: string, errorName: string) {
