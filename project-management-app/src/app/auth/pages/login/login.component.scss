@@ -28,6 +28,10 @@
     width: 100%;
   }
 
+  .auth-field {
+    margin-bottom: 20px;
+  }
+
   .button {
     width: 30%;
     align-self: flex-start;
@@ -35,5 +39,9 @@
 
   span {
     color: $primary-color;
+  }
+
+  .err-span {
+    color: $error-color;
   }
 }

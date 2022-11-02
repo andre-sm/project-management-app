@@ -1,28 +1,123 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ValidationService } from './validation.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   isLoginMode: boolean = false;
+
   authForm: FormGroup = new FormGroup({
-    'firstName': new FormControl(null),
-    'lastName': new FormControl(null),
-    'email': new FormControl(null),
-    'password': new FormControl(null),
+    firstName: new FormControl(null),
+    lastName: new FormControl(null),
+    email: new FormControl(null, [Validators.required, Validators.email]),
+    password: new FormControl(null, [
+      Validators.required,
+      this.validationService.passwordValidator.bind(this),
+    ]),
+  });
 
-  })
+  namesValidators: ValidatorFn[] = [
+    Validators.required,
+    Validators.minLength(3),
+  ];
 
-  constructor(){}
+  validationPassword = {
+    noUppercase: false,
+    noLowercase: false,
+    noNumber: false,
+    noCharacter: false,
+    noLength: false,
+  };
 
-  onSwitchMode(){
+  constructor(
+    private validationService: ValidationService,
+    private route: ActivatedRoute,
+  ) {}
+
+  ngOnInit(): void {
+    if (this.route.snapshot.routeConfig?.path === 'login') {
+      this.isLoginMode = true;
+    } else {
+      this.isLoginMode = false;
+      this.validationService.addValidation(
+        [
+          this.authForm.controls['firstName'] as FormControl,
+          this.authForm.controls['lastName'] as FormControl,
+        ],
+        this.namesValidators,
+      );
+    }
+  }
+
+  onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
     this.authForm.reset();
+    this.authForm.markAsUntouched();
+    if (!this.isLoginMode) {
+      this.validationService.addValidation(
+        [
+          this.authForm.controls['firstName'] as FormControl,
+          this.authForm.controls['lastName'] as FormControl,
+        ],
+        this.namesValidators,
+      );
+    } else {
+      this.validationService.removeValidation([
+        this.authForm.controls['firstName'] as FormControl,
+        this.authForm.controls['lastName'] as FormControl,
+      ]);
+    }
   }
-  onSubmit(){
-    console.log(this.authForm)
+
+  onSubmit() {
+    // console.log(this.authForm);
+  }
+
+  hasError(controlName: string, errorName: string) {
+    return this.authForm.controls[controlName].hasError(errorName);
+  }
+
+  passwordHasErrors() {
+    if (
+      this.authForm.controls['password'].errors &&
+      this.authForm.controls['password'].errors['uppercase'] === false
+    ) {
+      return 'uppercase';
+    }
+    if (
+      this.authForm.controls['password'].errors &&
+      this.authForm.controls['password'].errors['lowercase'] === false
+    ) {
+      return 'lowercase';
+    }
+    if (
+      this.authForm.controls['password'].errors &&
+      this.authForm.controls['password'].errors['number'] === false
+    ) {
+      return 'number';
+    }
+    if (
+      this.authForm.controls['password'].errors &&
+      this.authForm.controls['password'].errors['specialChar'] === false
+    ) {
+      return 'specialChar';
+    }
+    if (
+      this.authForm.controls['password'].errors &&
+      this.authForm.controls['password'].errors['length'] === false
+    ) {
+      return 'length';
+    }
+    return null;
   }
 }
