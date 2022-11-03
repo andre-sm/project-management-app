@@ -7,11 +7,27 @@
     min-width: 280px;
   }
 
-  &__btn {
-    align-self: flex-end;
+  &__btns {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  &__create-btn {
     padding: 10px 30px;
     background-color: $color-violet;
     color: $color-white;
+  }
+
+  &__create-btn.btn.disabled {
+    background-color: $color-grey;
+  }
+
+  &__close-btn {
+    padding: 10px 30px;
+    border: 1px solid $color-violet;
+    background-color: $color-white;
+    color: $color-violet;
   }
 }
 

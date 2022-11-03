@@ -1,14 +1,39 @@
 <div class="create-project" mat-dialog-content>
   <h1 class="create-project__title">Create project</h1>
-  <form class="create-project__form">
+  <form
+    class="create-project__form"
+    [formGroup]="createProjectForm"
+    (ngSubmit)="onSubmit()"
+  >
     <mat-form-field appearance="fill">
       <mat-label>Title</mat-label>
       <input matInput formControlName="title" />
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Description</mat-label>
-      <textarea matInput formControlName="description"></textarea>
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="3"
+        cdkAutosizeMaxRows="7"
+        formControlName="description"
+      ></textarea>
     </mat-form-field>
-    <button class="create-project__btn btn" type="submit">Create</button>
+    <div class="create-project__btns">
+      <button
+        class="create-project__close-btn btn"
+        (click)="onCloseClick()"
+        type="button"
+      >
+        Close
+      </button>
+      <button
+        class="create-project__create-btn btn"
+        [class.disabled]="createProjectForm.invalid"
+        type="submit"
+      >
+        Create
+      </button>
+    </div>
   </form>
 </div>

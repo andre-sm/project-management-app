@@ -26,3 +26,8 @@ body {
   border-radius: 8px;
   cursor: pointer;
 }
+
+.btn.disabled {
+  pointer-events: none;
+  cursor: default;
+}

@@ -13,6 +13,7 @@ export class ActionPanelComponent {
   openDialog(): void {
     this.dialog.open(ProjectFormComponent, {
       autoFocus: true,
+      disableClose: true,
     });
   }
 }
