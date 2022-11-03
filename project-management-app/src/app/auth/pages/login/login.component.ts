@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { ValidationService } from '../../services/validation.service';
 import * as fromApp from '../../../store/app.reducer';
 import * as AuthActions from '../../store/auth.actions';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -47,6 +48,7 @@ export class LoginComponent implements OnInit {
     private validationService: ValidationService,
     private route: ActivatedRoute,
     private store: Store<fromApp.AppState>,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -78,11 +80,13 @@ export class LoginComponent implements OnInit {
         ],
         this.namesValidators,
       );
+      this.location.replaceState('/auth/signup')
     } else {
       this.validationService.removeValidation([
         this.authForm.controls['firstName'] as FormControl,
         this.authForm.controls['lastName'] as FormControl,
       ]);
+      this.location.replaceState('/auth/login')
     }
   }
 

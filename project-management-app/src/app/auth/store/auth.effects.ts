@@ -21,6 +21,7 @@ export interface ILoginResponse {
   token: string,
   login: string
   userId: string,
+  name: string
 }
 
 @Injectable()
@@ -85,7 +86,8 @@ export class AuthEffects {
               login: resData.login,
               token: resData.token,
               userId: resData.userId,
-              tokenExpirationDate: tokenExpirationDate
+              tokenExpirationDate: tokenExpirationDate,
+              name: resData.name
             });
           }),
           catchError((error)=>{
@@ -107,6 +109,7 @@ export class AuthEffects {
           _userId: string;
           _token: string;
           tokenExpirationDate: string;
+          name: string
         } = JSON.parse(localStorage.getItem("currentUser") as string);
         if (!userData) {
           return new AuthActions.Logout();
@@ -116,7 +119,8 @@ export class AuthEffects {
             login: userData.login,
             userId: userData._userId,
             token: userData._token,
-            tokenExpirationDate: expirationDate
+            tokenExpirationDate: expirationDate,
+            name: userData.name
         });
         if (loadedUser.getUserToken()) {
           const expirationDuration =
@@ -128,6 +132,7 @@ export class AuthEffects {
             userId: loadedUser.getUserId(),
             token: loadedUser.getUserToken(),
             tokenExpirationDate: new Date(userData.tokenExpirationDate),
+            name: loadedUser.name
             // redirect: false,
           });
         }
@@ -142,7 +147,7 @@ export class AuthEffects {
       tap(()=>{
         this.authService.clearLogoutTimer();
         localStorage.removeItem('currentUser');
-        this.router.navigate(['/auth/login'])
+        this.router.navigate(['/auth'])
       })
     )
   }, { dispatch: false })

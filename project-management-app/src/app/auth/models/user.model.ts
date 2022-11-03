@@ -2,7 +2,7 @@ export interface IUser {
   login: string;
   token: string;
   userId: string;
-  name?: string;
+  name: string;
   tokenExpirationDate: Date;
 }
 
@@ -13,7 +13,7 @@ export class User {
 
   public login: string;
 
-  public name?: string;
+  public name: string;
 
   public tokenExpirationDate: Date;
 

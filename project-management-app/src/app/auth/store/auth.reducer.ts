@@ -24,6 +24,7 @@ export function authReducer(
         token: action.payload.token,
         userId: action.payload.userId,
         tokenExpirationDate: action.payload.tokenExpirationDate,
+        name: action.payload.name
       });
       localStorage.setItem('currentUser', JSON.stringify(user));
       console.log(`New user ${JSON.stringify(user)}`);

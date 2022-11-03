@@ -24,6 +24,7 @@ export class LoginSuccess implements Action {
       token: string;
       userId: string;
       tokenExpirationDate: Date;
+      name: string
     },
   ) {}
 }
