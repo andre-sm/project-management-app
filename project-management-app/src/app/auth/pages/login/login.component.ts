@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 
 import { ValidationService } from './validation.service';
 import * as fromApp from '../../../store/app.reducer';
-import * as AuthActions from '../../store/auth.actions'
+import * as AuthActions from '../../store/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private validationService: ValidationService,
     private route: ActivatedRoute,
-    private store: Store<fromApp.AppState>
+    private store: Store<fromApp.AppState>,
   ) {}
 
   ngOnInit(): void {
@@ -67,7 +67,9 @@ export class LoginComponent implements OnInit {
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
     this.authForm.reset();
-    this.authForm.markAsUntouched();
+    for (const control in this.authForm.controls) {
+      this.authForm.controls[control].markAsUntouched();
+    }
     if (!this.isLoginMode) {
       this.validationService.addValidation(
         [
@@ -85,22 +87,24 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.authForm);
-    if(!this.authForm.valid) return;
-    const name = `${this.authForm.value['firstName']} ${this.authForm.value['lastName']}`
-    const login = this.authForm.value['email'];
-    const password = this.authForm.value['password'];
-    if(this.isLoginMode) {
-      this.store.dispatch(
-        new AuthActions.LoginStart({login: login, password: password})
-      )
+    if (!this.authForm.valid) return;
+    const name = `${this.authForm.value.firstName} ${this.authForm.value.lastName}`;
+    const login = this.authForm.value.email;
+    const { password } = this.authForm.value;
+    if (this.isLoginMode) {
+      this.authForm.reset();
+      for (const control in this.authForm.controls) {
+        this.authForm.controls[control].markAsUntouched();
+      }
+      this.store.dispatch(new AuthActions.LoginStart({ login, password }));
     } else {
+      this.authForm.reset();
+      for (const control in this.authForm.controls) {
+        this.authForm.controls[control].markAsUntouched();
+      }
       this.store.dispatch(
-        new AuthActions.SignupStart({name: name, login: login, password: password})
-      )
-      // this.store.dispatch(
-      //   new AuthActions.LoginStart({login: login, password: password})
-      // )
+        new AuthActions.SignupStart({ name, login, password }),
+      );
     }
   }
 

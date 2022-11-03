@@ -10,41 +10,41 @@ export interface State {
 const initialState: State = {
   user: null,
   authError: null,
-  loading: false
-}
+  loading: false,
+};
 
 export function authReducer(
   state = initialState,
-  action: AuthActions.AuthActions
+  action: AuthActions.AuthActions,
 ) {
-  switch(action.type) {
+  switch (action.type) {
     case AuthActions.LOGIN_SUCCESS:
-      const user = new User(
-        {
-          login: action.payload.login,
-          token: action.payload.token
-        }
-      );
+      const user = new User({
+        login: action.payload.login,
+        token: action.payload.token,
+        userId: action.payload.userId,
+      });
+      console.log(`New user ${JSON.stringify(user)}`);
       return {
         ...state,
         authError: null,
-        user: user,
-        loading: false
-      }
+        user,
+        loading: false,
+      };
     case AuthActions.LOGIN_FAIL:
       return {
         ...state,
         user: null,
         authError: action.payload,
-        loading: false
-      }
+        loading: false,
+      };
     case AuthActions.LOGIN_START:
     case AuthActions.SIGNUP_START:
       return {
         ...state,
         authError: null,
-        loading: true
-      }
+        loading: true,
+      };
     default:
       return state;
   }

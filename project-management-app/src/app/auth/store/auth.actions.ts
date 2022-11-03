@@ -1,6 +1,6 @@
-import { Action } from "@ngrx/store";
+import { Action } from '@ngrx/store';
 
-export const LOGIN_START = '[Auth] Login Start'
+export const LOGIN_START = '[Auth] Login Start';
 export const LOGIN_SUCCESS = '[Auth] Login Success';
 export const LOGIN_FAIL = '[Auth] Login Fail';
 export const SIGNUP_START = '[Auth] Signup Start';
@@ -20,22 +20,23 @@ export class LoginSuccess implements Action {
     public payload: {
       login: string;
       token: string;
-    }
+      userId: string;
+    },
   ) {}
 }
 
 export class LoginFail implements Action {
   readonly type = LOGIN_FAIL;
 
-  constructor(public payload: string){}
+  constructor(public payload: string) {}
 }
-
-
 
 export class SignupStart implements Action {
   readonly type = SIGNUP_START;
 
-  constructor(public payload: { name: string; login: string; password: string }) {}
+  constructor(
+    public payload: { name: string; login: string; password: string },
+  ) {}
 }
 
 export class SignupSuccess implements Action {
@@ -43,17 +44,17 @@ export class SignupSuccess implements Action {
 
   constructor(
     public payload: {
-      id: string;
+      userId: string;
       name: string;
       login: string;
-    }
+    },
   ) {}
 }
 
 export class SignupFail implements Action {
   readonly type = LOGIN_FAIL;
 
-  constructor(public payload: string){}
+  constructor(public payload: string) {}
 }
 
 export type AuthActions =
@@ -62,4 +63,4 @@ export type AuthActions =
   | LoginSuccess
   | SignupStart
   | SignupFail
-  | SignupStart
+  | SignupStart;
