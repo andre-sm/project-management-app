@@ -20,6 +20,7 @@ import { Location } from '@angular/common';
 })
 export class LoginComponent implements OnInit {
   isLoginMode: boolean = false;
+  hidePassword: boolean = true;
 
   authForm: FormGroup = new FormGroup({
     firstName: new FormControl(null),

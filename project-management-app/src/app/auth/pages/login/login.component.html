@@ -60,13 +60,16 @@
       <mat-label class="auth-label">Password</mat-label>
       <input
         class="auth-input"
-        type="password"
+        [type]="hidePassword ? 'password' : 'text'"
         id="password"
         formControlName="password"
         matInput
         placeholder="Password"
         name="password"
       />
+      <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
+        hidePassword ? 'visibility_off' : 'visibility'
+      }}</mat-icon>
       <mat-hint align="start"
         >Your password should include at least 1 uppercase character, lowercase
         character, number, special symbol and be at least 8 characters
