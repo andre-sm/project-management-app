@@ -23,7 +23,9 @@ export function authReducer(
         login: action.payload.login,
         token: action.payload.token,
         userId: action.payload.userId,
+        tokenExpirationDate: action.payload.tokenExpirationDate,
       });
+      localStorage.setItem('currentUser', JSON.stringify(user));
       console.log(`New user ${JSON.stringify(user)}`);
       return {
         ...state,
@@ -45,6 +47,11 @@ export function authReducer(
         authError: null,
         loading: true,
       };
+    case AuthActions.LOGOUT:
+      return {
+        ...state,
+        user: null
+      }
     default:
       return state;
   }

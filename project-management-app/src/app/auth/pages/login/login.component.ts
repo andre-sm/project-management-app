@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { ValidationService } from './validation.service';
+import { ValidationService } from '../../services/validation.service';
 import * as fromApp from '../../../store/app.reducer';
 import * as AuthActions from '../../store/auth.actions';
 

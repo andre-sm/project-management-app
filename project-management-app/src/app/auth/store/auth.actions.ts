@@ -6,6 +6,8 @@ export const LOGIN_FAIL = '[Auth] Login Fail';
 export const SIGNUP_START = '[Auth] Signup Start';
 export const SIGNUP_SUCCESS = '[Auth] Signup Success';
 export const SIGNUP_FAIL = '[Auth] Signup Fail';
+export const AUTO_LOGIN = '[Auth] Auto Login';
+export const LOGOUT = '[Auth] Logout'
 
 export class LoginStart implements Action {
   readonly type = LOGIN_START;
@@ -21,6 +23,7 @@ export class LoginSuccess implements Action {
       login: string;
       token: string;
       userId: string;
+      tokenExpirationDate: Date;
     },
   ) {}
 }
@@ -57,10 +60,19 @@ export class SignupFail implements Action {
   constructor(public payload: string) {}
 }
 
+export class AutoLogin implements Action {
+  readonly type = AUTO_LOGIN;
+}
+
+export class Logout implements Action {
+  readonly type = LOGOUT;
+}
+
 export type AuthActions =
   | LoginStart
   | LoginFail
   | LoginSuccess
   | SignupStart
   | SignupFail
-  | SignupStart;
+  | SignupStart
+  | Logout;
