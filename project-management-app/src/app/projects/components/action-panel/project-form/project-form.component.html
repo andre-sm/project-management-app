@@ -1,0 +1,14 @@
+<div class="create-project" mat-dialog-content>
+  <h1 class="create-project__title">Create project</h1>
+  <form class="create-project__form">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+    <button class="create-project__btn btn" type="submit">Create</button>
+  </form>
+</div>

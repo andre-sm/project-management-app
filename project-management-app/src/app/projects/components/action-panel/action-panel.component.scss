@@ -1,0 +1,28 @@
+@import '../../../css/variables';
+
+.action-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-grey-lighter;
+  min-height: 100px;
+  padding: 0 30px;
+}
+
+.new-project-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background-color: $color-violet;
+  color: $color-white;
+  line-height: 1;
+}
+
+.add-icon {
+  display: flex;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  font-size: 20px;
+}

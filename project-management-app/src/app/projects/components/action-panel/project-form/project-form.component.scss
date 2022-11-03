@@ -1,0 +1,18 @@
+@import '../../../../css/variables';
+
+.create-project {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    min-width: 280px;
+  }
+
+  &__btn {
+    align-self: flex-end;
+    padding: 10px 30px;
+    background-color: $color-violet;
+    color: $color-white;
+  }
+}
+
+
