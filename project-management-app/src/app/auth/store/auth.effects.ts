@@ -24,6 +24,22 @@ export interface ILoginResponse {
   name: string
 }
 
+const handleError = (errorRes: any) => {
+  let errorMessage = "An unknown error occurred!";
+  if (!errorRes.error || !errorRes.status) {
+    return of(new AuthActions.LoginFail(errorMessage));
+  }
+  switch (errorRes.status) {
+    case 409:
+      errorMessage = "This email exists already!";
+      break;
+    case 403:
+      errorMessage = "User was not founded!";
+      break;
+  }
+  return of(new AuthActions.LoginFail(errorMessage));
+};
+
 @Injectable()
 export class AuthEffects {
 
@@ -59,8 +75,7 @@ export class AuthEffects {
               )
           }),
           catchError((error)=>{
-            console.log(error)
-            return of(error)
+            return handleError(error)
           }),
         )
       })
@@ -81,7 +96,6 @@ export class AuthEffects {
         .pipe(
           map((resData)=>{
             const tokenExpirationDate = new Date(new Date().getTime() + this.tokenExpiresIn * 1000);
-            console.log(resData)
             return new AuthActions.LoginSuccess({
               login: resData.login,
               token: resData.token,
@@ -91,16 +105,14 @@ export class AuthEffects {
             });
           }),
           catchError((error)=>{
-            console.log(error)
-            return of(error)
+            return handleError(error)
           })
         )
       })
     )
   })
 
-
-  autoLogin = createEffect(()=>{
+  autoLogin$ = createEffect(()=>{
     return this.actions$.pipe(
       ofType(AuthActions.AUTO_LOGIN),
       map(() => {
@@ -141,7 +153,7 @@ export class AuthEffects {
     );
   })
 
-  logout = createEffect(()=>{
+  logout$ = createEffect(()=>{
     return this.actions$.pipe(
       ofType(AuthActions.LOGOUT),
       tap(()=>{

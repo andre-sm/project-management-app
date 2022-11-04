@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -12,15 +12,22 @@ import { ValidationService } from '../../services/validation.service';
 import * as fromApp from '../../../store/app.reducer';
 import * as AuthActions from '../../store/auth.actions';
 import { Location } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ShowAlertService } from 'src/app/shared/services/show-alert.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+  private storeSub: Subscription | undefined;
   isLoginMode: boolean = false;
   hidePassword: boolean = true;
+  // isLoading: boolean = false;
+  error: string | null = null;
+  durationInSeconds = 5;
 
   authForm: FormGroup = new FormGroup({
     firstName: new FormControl(null),
@@ -31,12 +38,10 @@ export class LoginComponent implements OnInit {
       this.validationService.passwordValidator.bind(this),
     ]),
   });
-
   namesValidators: ValidatorFn[] = [
     Validators.required,
     Validators.minLength(3),
   ];
-
   validationPassword = {
     noUppercase: false,
     noLowercase: false,
@@ -49,7 +54,8 @@ export class LoginComponent implements OnInit {
     private validationService: ValidationService,
     private route: ActivatedRoute,
     private store: Store<fromApp.AppState>,
-    private location: Location
+    private location: Location,
+    private showAlertService: ShowAlertService
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +70,19 @@ export class LoginComponent implements OnInit {
         ],
         this.namesValidators,
       );
+    }
+    this.storeSub = this.store.select('auth').subscribe(authState => {
+      // this.isLoading = authState.loading;
+      this.error = authState.authError;
+      if (this.error) {
+        this.showErrorAlert(this.error);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.storeSub) {
+      this.storeSub.unsubscribe();
     }
   }
 
@@ -149,5 +168,13 @@ export class LoginComponent implements OnInit {
       return 'length';
     }
     return null;
+  }
+
+  onHandleError() {
+    this.store.dispatch(new AuthActions.ClearError());
+  }
+
+  private showErrorAlert(message: string) {
+    this.showAlertService.showAlert(message)
   }
 }

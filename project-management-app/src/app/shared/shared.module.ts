@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AlertComponent } from './components/alert-component/alert-component.component';
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
-  exports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
+  declarations: [AlertComponent],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatSnackBarModule],
+  exports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatSnackBarModule,AlertComponent],
 })
 export class SharedModule {}
