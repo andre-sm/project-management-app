@@ -33,13 +33,6 @@ export function authReducer(
         user,
         loading: false,
       };
-    case AuthActions.LOGIN_FAIL:
-      return {
-        ...state,
-        user: null,
-        authError: action.payload,
-        loading: false,
-      };
     case AuthActions.LOGIN_START:
     case AuthActions.SIGNUP_START:
       return {

@@ -95,9 +95,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
     this.authForm.reset();
-    for (const control in this.authForm.controls) {
-      this.authForm.controls[control].markAsUntouched();
-    }
     if (!this.isLoginMode) {
       this.validationService.addValidation(
         [
@@ -123,15 +120,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     const { password } = this.authForm.value;
     if (this.isLoginMode) {
       this.authForm.reset();
-      for (const control in this.authForm.controls) {
-        this.authForm.controls[control].markAsUntouched();
-      }
       this.store.dispatch(new AuthActions.LoginStart({ login, password }));
     } else {
       this.authForm.reset();
-      for (const control in this.authForm.controls) {
-        this.authForm.controls[control].markAsUntouched();
-      }
       this.store.dispatch(
         new AuthActions.SignupStart({ name, login, password }),
       );
