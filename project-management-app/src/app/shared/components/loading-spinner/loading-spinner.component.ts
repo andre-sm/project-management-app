@@ -5,8 +5,4 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './loading-spinner.component.html',
   styleUrls: ['./loading-spinner.component.scss'],
 })
-export class LoadingSpinnerComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class LoadingSpinnerComponent {}
