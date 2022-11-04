@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as fromApp from './store/app.reducer';
-import * as AuthActions from './auth/store/auth.actions'
+import * as AuthActions from './auth/store/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +11,9 @@ import * as AuthActions from './auth/store/auth.actions'
 export class AppComponent implements OnInit {
   title = 'project-management-app';
 
-  constructor(private store: Store<fromApp.AppState>){}
+  constructor(private store: Store) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.store.dispatch(new AuthActions.AutoLogin());
   }
 }

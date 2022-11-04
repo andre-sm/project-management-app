@@ -9,7 +9,21 @@ import { AlertComponent } from './components/alert-component/alert-component.com
 
 @NgModule({
   declarations: [AlertComponent],
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatSnackBarModule],
-  exports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatSnackBarModule,AlertComponent],
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule,
+  ],
+  exports: [
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule,
+    AlertComponent,
+  ],
 })
 export class SharedModule {}

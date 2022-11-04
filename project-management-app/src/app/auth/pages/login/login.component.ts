@@ -8,13 +8,12 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { ValidationService } from '../../services/validation.service';
-import * as fromApp from '../../../store/app.reducer';
-import * as AuthActions from '../../store/auth.actions';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ShowAlertService } from 'src/app/shared/services/show-alert.service';
+import * as AuthActions from '../../store/auth.actions';
+import * as fromApp from '../../../store/app.reducer';
+import { ValidationService } from '../../services/validation.service';
 
 @Component({
   selector: 'app-login',
@@ -23,10 +22,14 @@ import { ShowAlertService } from 'src/app/shared/services/show-alert.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private storeSub: Subscription | undefined;
+
   isLoginMode: boolean = false;
+
   hidePassword: boolean = true;
+
   // isLoading: boolean = false;
   error: string | null = null;
+
   durationInSeconds = 5;
 
   authForm: FormGroup = new FormGroup({
@@ -38,10 +41,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.validationService.passwordValidator.bind(this),
     ]),
   });
+
   namesValidators: ValidatorFn[] = [
     Validators.required,
     Validators.minLength(3),
   ];
+
   validationPassword = {
     noUppercase: false,
     noLowercase: false,
@@ -55,7 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private store: Store<fromApp.AppState>,
     private location: Location,
-    private showAlertService: ShowAlertService
+    private showAlertService: ShowAlertService,
   ) {}
 
   ngOnInit(): void {
@@ -71,7 +76,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.namesValidators,
       );
     }
-    this.storeSub = this.store.select('auth').subscribe(authState => {
+    this.storeSub = this.store.select('auth').subscribe((authState) => {
       // this.isLoading = authState.loading;
       this.error = authState.authError;
       if (this.error) {
@@ -100,13 +105,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         ],
         this.namesValidators,
       );
-      this.location.replaceState('/auth/signup')
+      this.location.replaceState('/auth/signup');
     } else {
       this.validationService.removeValidation([
         this.authForm.controls['firstName'] as FormControl,
         this.authForm.controls['lastName'] as FormControl,
       ]);
-      this.location.replaceState('/auth/login')
+      this.location.replaceState('/auth/login');
     }
   }
 
@@ -175,6 +180,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private showErrorAlert(message: string) {
-    this.showAlertService.showAlert(message)
+    this.showAlertService.showAlert(message);
   }
 }

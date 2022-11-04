@@ -24,7 +24,7 @@ export function authReducer(
         token: action.payload.token,
         userId: action.payload.userId,
         tokenExpirationDate: action.payload.tokenExpirationDate,
-        name: action.payload.name
+        name: action.payload.name,
       });
       localStorage.setItem('currentUser', JSON.stringify(user));
       console.log(`New user ${JSON.stringify(user)}`);
@@ -51,19 +51,19 @@ export function authReducer(
     case AuthActions.LOGOUT:
       return {
         ...state,
-        user: null
-      }
+        user: null,
+      };
     case AuthActions.LOGIN_FAIL:
       return {
         ...state,
         user: null,
         authError: action.payload,
-        loading: false
+        loading: false,
       };
     case AuthActions.CLEAR_ERROR:
       return {
         ...state,
-        authError: null
+        authError: null,
       };
     default:
       return state;

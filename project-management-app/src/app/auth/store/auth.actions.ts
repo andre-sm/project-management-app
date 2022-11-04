@@ -7,8 +7,8 @@ export const SIGNUP_START = '[Auth] Signup Start';
 export const SIGNUP_SUCCESS = '[Auth] Signup Success';
 export const SIGNUP_FAIL = '[Auth] Signup Fail';
 export const AUTO_LOGIN = '[Auth] Auto Login';
-export const LOGOUT = '[Auth] Logout'
-export const CLEAR_ERROR = "[Auth] Clear Error";
+export const LOGOUT = '[Auth] Logout';
+export const CLEAR_ERROR = '[Auth] Clear Error';
 
 export class LoginStart implements Action {
   readonly type = LOGIN_START;
@@ -25,7 +25,7 @@ export class LoginSuccess implements Action {
       token: string;
       userId: string;
       tokenExpirationDate: Date;
-      name: string
+      name: string;
     },
   ) {}
 }
