@@ -1,0 +1,33 @@
+<div class="projects">
+  <mat-table class="projects-table" [dataSource]="projects">
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>{{
+        'Title' | uppercase
+      }}</mat-header-cell>
+      <mat-cell class="title-cell" *matCellDef="let project">{{
+        project.title
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef>{{
+        'Description' | uppercase
+      }}</mat-header-cell>
+      <mat-cell class="description-cell" *matCellDef="let project">{{
+        project.description
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>{{
+        'Actions' | uppercase
+      }}</mat-header-cell>
+      <mat-cell class="duration-cell" *matCellDef="let project">{{
+        project.duration
+      }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>

@@ -1,1 +1,6 @@
 <app-action-panel></app-action-panel>
+<div class="projects">
+  <ng-container *ngIf="projects$ | async as projects">
+    <app-projects-list [projects]="projects"></app-projects-list>
+  </ng-container>
+</div>

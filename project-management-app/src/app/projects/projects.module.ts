@@ -6,6 +6,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { ProjectsComponent } from './pages/projects/projects.component';
@@ -13,8 +15,9 @@ import { ProjectsRoutingModule } from './projects-routing.module';
 import { ActionPanelComponent } from './components/action-panel/action-panel.component';
 import { SearchComponent } from './components/action-panel/search/search.component';
 import { ProjectFormComponent } from './components/action-panel/project-form/project-form.component';
-import { projectsReducer } from './store/reducers/projects.reducer';
+import * as fromProjects from './store/reducers/projects.reducer';
 import { ProjectsEffects } from './store/effects/projects.effects';
+import { ProjectsListComponent } from './components/project-list/projects-list.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,7 @@ import { ProjectsEffects } from './store/effects/projects.effects';
     ActionPanelComponent,
     SearchComponent,
     ProjectFormComponent,
+    ProjectsListComponent,
   ],
   imports: [
     CommonModule,
@@ -29,13 +33,16 @@ import { ProjectsEffects } from './store/effects/projects.effects';
     MatIconModule,
     MatDialogModule,
     MatFormFieldModule,
+    MatTableModule,
     MatInputModule,
+    MatSortModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    StoreModule.forFeature('projectsFeature', {
-      projects: projectsReducer,
-    }),
+    StoreModule.forFeature(
+      fromProjects.featureName,
+      fromProjects.projectsReducer,
+    ),
     EffectsModule.forFeature([ProjectsEffects]),
   ],
 })

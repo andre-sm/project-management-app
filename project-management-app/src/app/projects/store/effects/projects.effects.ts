@@ -6,6 +6,20 @@ import * as ProjectsActions from '../actions/projects.actions';
 
 @Injectable()
 export class ProjectsEffects {
+  loadProjects$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProjectsActions.getProjects),
+      switchMap(() =>
+        this.projectsService.getProjects().pipe(
+          map((projects) => ProjectsActions.getProjectsSuccess({ projects })),
+          catchError((error) =>
+            of(ProjectsActions.getProjectsError({ error: error.message })),
+          ),
+        ),
+      ),
+    );
+  });
+
   createProject$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProjectsActions.createProject),
