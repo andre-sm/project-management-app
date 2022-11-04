@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   hidePassword: boolean = true;
 
-  // isLoading: boolean = false;
+  isLoading: boolean = false;
+
   error: string | null = null;
 
   durationInSeconds = 5;
@@ -77,7 +78,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       );
     }
     this.storeSub = this.store.select('auth').subscribe((authState) => {
-      // this.isLoading = authState.loading;
+      this.isLoading = authState.loading;
       this.error = authState.authError;
       if (this.error) {
         this.showErrorAlert(this.error);

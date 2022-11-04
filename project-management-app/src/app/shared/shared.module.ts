@@ -6,9 +6,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AlertComponent } from './components/alert-component/alert-component.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 @NgModule({
-  declarations: [AlertComponent],
+  declarations: [AlertComponent, LoadingSpinnerComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -24,6 +25,7 @@ import { AlertComponent } from './components/alert-component/alert-component.com
     MatIconModule,
     MatSnackBarModule,
     AlertComponent,
+    LoadingSpinnerComponent,
   ],
 })
 export class SharedModule {}

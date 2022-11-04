@@ -27,7 +27,6 @@ export function authReducer(
         name: action.payload.name,
       });
       localStorage.setItem('currentUser', JSON.stringify(user));
-      console.log(`New user ${JSON.stringify(user)}`);
       return {
         ...state,
         authError: null,

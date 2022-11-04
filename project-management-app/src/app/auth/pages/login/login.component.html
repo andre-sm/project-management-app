@@ -1,9 +1,13 @@
 <div class="container">
+  <div class="spinner-container" *ngIf="isLoading">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
   <form
     class="auth-form"
     [formGroup]="authForm"
     (ngSubmit)="onSubmit()"
     [ngClass]="!isLoginMode ? 'signup' : 'login'"
+    *ngIf="!isLoading"
   >
     <mat-form-field
       class="auth-field"
