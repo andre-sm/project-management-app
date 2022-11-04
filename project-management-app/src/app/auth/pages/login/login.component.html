@@ -60,7 +60,11 @@
         >The login email is invalid</mat-error
       >
     </mat-form-field>
-    <mat-form-field class="auth-field" floatLabel="auto" appearance="outline">
+    <mat-form-field
+      class="auth-field password-field"
+      floatLabel="auto"
+      appearance="outline"
+    >
       <mat-label class="auth-label">Password</mat-label>
       <input
         class="auth-input"
@@ -74,7 +78,7 @@
       <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
         hidePassword ? 'visibility_off' : 'visibility'
       }}</mat-icon>
-      <mat-hint align="start"
+      <mat-hint align="start" class="password-hint"
         >Your password should include at least 1 uppercase character, lowercase
         character, number, special symbol and be at least 8 characters
         long</mat-hint
@@ -114,7 +118,6 @@
       >
         {{ isLoginMode ? 'Login' : 'Signup' }}
       </button>
-      <span> | </span>
       <button
         type="button"
         mat-stroked-button

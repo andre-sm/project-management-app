@@ -19,6 +19,10 @@
   text-align: center;
 }
 
+.buttons-container {
+  display: flex;
+  justify-content: space-evenly;
+}
 .auth-form {
   grid-column: 5 / 9;
   display: flex;
@@ -37,8 +41,12 @@
     margin-bottom: 20px;
   }
 
+  .password-field {
+    margin-bottom: 30px;
+  }
+
   .button {
-    width: 30%;
+    flex-basis: 100%;
     align-self: flex-start;
   }
 
@@ -48,5 +56,23 @@
 
   .err-span {
     color: $error-color;
+  }
+
+  @media (min-width: 768px) and (max-width: 1440px) {
+    grid-column: 4 / 10;
+  }
+  @media (min-width: 450px) and (max-width: 767px) {
+    grid-column: 2 / 12;
+    padding: 10px;
+  }
+  @media (min-width: 320px) and (max-width: 449px) {
+    grid-column: 1 / 13;
+    padding: 10px;
+    .password-field {
+      margin-bottom: 35px;
+    }
+    .button {
+      padding: 0 5px;
+    }
   }
 }
