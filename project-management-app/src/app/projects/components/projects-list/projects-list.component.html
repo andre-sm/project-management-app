@@ -22,9 +22,15 @@
       <mat-header-cell *matHeaderCellDef>{{
         'Actions' | uppercase
       }}</mat-header-cell>
-      <mat-cell class="duration-cell" *matCellDef="let project">{{
-        project.duration
-      }}</mat-cell>
+      <mat-cell class="action-cell" *matCellDef="let project">
+        <button
+          mat-icon-button
+          aria-label="delete icon"
+          (click)="openDialog(project.id)"
+        >
+          <mat-icon class="delete-icon" fontIcon="delete">delete</mat-icon>
+        </button>
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

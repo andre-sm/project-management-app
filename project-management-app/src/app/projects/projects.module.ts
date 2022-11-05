@@ -6,6 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { EffectsModule } from '@ngrx/effects';
@@ -17,7 +18,8 @@ import { SearchComponent } from './components/action-panel/search/search.compone
 import { ProjectFormComponent } from './components/action-panel/project-form/project-form.component';
 import * as fromProjects from './store/reducers/projects.reducer';
 import { ProjectsEffects } from './store/effects/projects.effects';
-import { ProjectsListComponent } from './components/project-list/projects-list.component';
+import { ProjectsListComponent } from './components/projects-list/projects-list.component';
+import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -26,12 +28,14 @@ import { ProjectsListComponent } from './components/project-list/projects-list.c
     SearchComponent,
     ProjectFormComponent,
     ProjectsListComponent,
+    ConfirmModalComponent,
   ],
   imports: [
     CommonModule,
     ProjectsRoutingModule,
     MatIconModule,
     MatDialogModule,
+    MatButtonModule,
     MatFormFieldModule,
     MatTableModule,
     MatInputModule,

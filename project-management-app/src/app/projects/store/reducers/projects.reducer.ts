@@ -33,6 +33,14 @@ export const projectsReducer = createReducer(
     (state, { error }): ProjectsState => ({
       ...state,
       error,
+      isLoading: false,
+    }),
+  ),
+  on(
+    ProjectActions.createProject,
+    (state): ProjectsState => ({
+      ...state,
+      isLoading: true,
     }),
   ),
   on(
@@ -40,6 +48,7 @@ export const projectsReducer = createReducer(
     (state, { newProject }): ProjectsState => ({
       ...state,
       projects: [...state.projects, newProject],
+      isLoading: false,
     }),
   ),
   on(
@@ -47,6 +56,30 @@ export const projectsReducer = createReducer(
     (state, { error }): ProjectsState => ({
       ...state,
       error,
+      isLoading: false,
+    }),
+  ),
+  on(
+    ProjectActions.deleteProject,
+    (state): ProjectsState => ({
+      ...state,
+      isLoading: true,
+    }),
+  ),
+  on(ProjectActions.deleteProjectSuccess, (state, { id }): ProjectsState => {
+    const updatedProjects = state.projects.filter((item) => item.id !== id);
+    return {
+      ...state,
+      projects: updatedProjects,
+      isLoading: false,
+    };
+  }),
+  on(
+    ProjectActions.deleteProjectError,
+    (state, { error }): ProjectsState => ({
+      ...state,
+      error,
+      isLoading: false,
     }),
   ),
 );

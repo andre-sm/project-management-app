@@ -36,6 +36,20 @@ export class ProjectsEffects {
     );
   });
 
+  deleteProject$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProjectsActions.deleteProject),
+      switchMap(({ id }) => {
+        return this.projectsService.deleteProject(id).pipe(
+          map(() => ProjectsActions.deleteProjectSuccess({ id })),
+          catchError((error) =>
+            of(ProjectsActions.deleteProjectError({ error: error.message })),
+          ),
+        );
+      }),
+    );
+  });
+
   constructor(
     private actions$: Actions,
     private projectsService: ProjectsService,

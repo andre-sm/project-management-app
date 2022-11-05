@@ -13,8 +13,6 @@ import { selectProjects } from '../../store/selectors/projects.selector';
 export class ProjectsComponent implements OnInit {
   projects$!: Observable<Project[]>;
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-
   constructor(private store: Store) {
     this.projects$ = this.store.select(selectProjects);
   }

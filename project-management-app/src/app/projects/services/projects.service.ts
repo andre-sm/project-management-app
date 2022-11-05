@@ -36,4 +36,8 @@ export class ProjectsService {
   createProject(projectFormData: CreateProject): Observable<Project> {
     return this.http.post<Project>(`${this.API_URL}/boards`, projectFormData);
   }
+
+  deleteProject(id: string): Observable<Response> {
+    return this.http.delete<Response>(`${this.API_URL}/boards/${id}`);
+  }
 }
