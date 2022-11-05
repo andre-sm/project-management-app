@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { ProjectsModule } from './projects/projects.module';
 import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './auth/store/auth.effects';
+import { httpInterceptorProviders } from './shared/services/interceptors';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,7 +34,7 @@ import { AuthEffects } from './auth/store/auth.effects';
     AuthModule,
     ProjectsModule,
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
