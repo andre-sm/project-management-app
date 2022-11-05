@@ -1,1 +1,132 @@
-<p>login works!</p>
+<div class="container">
+  <div class="spinner-container" *ngIf="isLoading">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <form
+    class="auth-form"
+    [formGroup]="authForm"
+    (ngSubmit)="onSubmit()"
+    [ngClass]="!isLoginMode ? 'signup' : 'login'"
+    *ngIf="!isLoading"
+  >
+    <mat-form-field
+      class="auth-field"
+      floatLabel="auto"
+      appearance="outline"
+      *ngIf="!isLoginMode"
+    >
+      <mat-label class="auth-label">First Name</mat-label>
+      <input
+        type="text"
+        id="first-name"
+        formControlName="firstName"
+        matInput
+        name="first-name"
+        placeholder="First Name"
+      />
+    </mat-form-field>
+    <mat-form-field
+      class="auth-field"
+      floatLabel="auto"
+      appearance="outline"
+      *ngIf="!isLoginMode"
+    >
+      <mat-label class="auth-label">Last Name</mat-label>
+      <input
+        type="text"
+        id="last-name"
+        formControlName="lastName"
+        matInput
+        name="last-name"
+        placeholder="Last Name"
+      />
+    </mat-form-field>
+    <mat-form-field class="auth-field" floatLabel="auto" appearance="outline">
+      <mat-label class="auth-label">Email</mat-label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        matInput
+        name="email"
+        placeholder="Email"
+      />
+      <mat-error
+        *ngIf="hasError('email', 'required') && authForm.get('email')?.touched"
+        >Please enter a login email</mat-error
+      >
+      <mat-error
+        *ngIf="hasError('email', 'email') && authForm.get('email')?.touched"
+        >The login email is invalid</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field
+      class="auth-field password-field"
+      floatLabel="auto"
+      appearance="outline"
+    >
+      <mat-label class="auth-label">Password</mat-label>
+      <input
+        class="auth-input"
+        [type]="hidePassword ? 'password' : 'text'"
+        id="password"
+        formControlName="password"
+        matInput
+        placeholder="Password"
+        name="password"
+      />
+      <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
+        hidePassword ? 'visibility_off' : 'visibility'
+      }}</mat-icon>
+      <mat-hint align="start" class="password-hint"
+        >Your password should include at least 1 uppercase character, lowercase
+        character, number, special symbol and be at least 8 characters
+        long</mat-hint
+      >
+      <mat-error *ngIf="hasError('password', 'required')"
+        >Please enter a password</mat-error
+      >
+      <mat-error
+        *ngIf="
+          !authForm.get('password')?.valid && authForm.get('password')?.touched
+        "
+        >Your password isn't strong enough:
+        <span class="err-span" *ngIf="passwordHasErrors() === 'uppercase'">
+          Password must contain at least 1 uppercase letter</span
+        >
+        <span class="err-span" *ngIf="passwordHasErrors() === 'lowercase'">
+          Password must contain at least 1 lowercase letter</span
+        >
+        <span class="err-span" *ngIf="passwordHasErrors() === 'number'">
+          Password must contain at least 1 number</span
+        >
+        <span class="err-span" *ngIf="passwordHasErrors() === 'specialChar'">
+          Password must contain at least 1 special character</span
+        >
+        <span class="err-span" *ngIf="passwordHasErrors() === 'length'">
+          Password must be at least 8 characters long</span
+        >
+      </mat-error>
+    </mat-form-field>
+    <div class="buttons-container">
+      <button
+        type="submit"
+        mat-stroked-button
+        color="primary"
+        class="button login-button"
+        [disabled]="!authForm.valid"
+      >
+        {{ isLoginMode ? 'Login' : 'Signup' }}
+      </button>
+      <button
+        type="button"
+        mat-stroked-button
+        color="primary"
+        class="button switch-button"
+        (click)="onSwitchMode()"
+      >
+        {{ isLoginMode ? 'Switch to signup' : 'Switch to login' }}
+      </button>
+    </div>
+  </form>
+</div>

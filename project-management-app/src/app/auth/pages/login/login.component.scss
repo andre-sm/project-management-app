@@ -1,0 +1,78 @@
+@import '../../../shared/variables.scss';
+:host {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 120px 1fr 120px;
+  column-gap: 10px;
+  min-height: calc(100% - 240px);
+}
+
+.container {
+  grid-row: 2 / 3;
+  grid-column: 2 / 12;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.spinner-container {
+  grid-column: 6 / 8;
+  text-align: center;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+.auth-form {
+  grid-column: 5 / 9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid $primary-color;
+  border-radius: 5px;
+
+  * {
+    width: 100%;
+  }
+
+  .auth-field {
+    margin-bottom: 20px;
+  }
+
+  .password-field {
+    margin-bottom: 30px;
+  }
+
+  .button {
+    flex-basis: 100%;
+    align-self: flex-start;
+  }
+
+  span {
+    color: $primary-color;
+  }
+
+  .err-span {
+    color: $error-color;
+  }
+
+  @media (min-width: 768px) and (max-width: 1440px) {
+    grid-column: 4 / 10;
+  }
+  @media (min-width: 450px) and (max-width: 767px) {
+    grid-column: 2 / 12;
+    padding: 10px;
+  }
+  @media (min-width: 320px) and (max-width: 449px) {
+    grid-column: 1 / 13;
+    padding: 10px;
+    .password-field {
+      margin-bottom: 35px;
+    }
+    .button {
+      padding: 0 5px;
+    }
+  }
+}

@@ -1,10 +1,10 @@
-.container {
+:host {
+  display: flex;
+  flex-direction: column;
   max-width: 1440px;
   height: 100%;
   margin: 0 auto;
   padding: 0 40px;
-  display: flex;
-  flex-direction: column;
 }
 
 .main {

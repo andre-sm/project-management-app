@@ -1,21 +1,19 @@
-@import './app/css/variables';
-
-* {
-  box-sizing: border-box;
+html,
+body {
+  height: 100%;
 }
 
-html, 
-body { 
-  height: 100%; 
-}
-
-body { 
-  margin: 0; 
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-style: normal;
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
   font-weight: 400;
   font-size: 12px;
-  line-height: 14px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .btn {
