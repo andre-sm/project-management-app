@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  baseUrl: 'https://rest-service-team-5.herokuapp.com',
 };
 
 /*
