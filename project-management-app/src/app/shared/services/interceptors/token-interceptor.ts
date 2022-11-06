@@ -8,10 +8,9 @@ import {
 } from '@angular/common/http';
 import { mergeMap, Observable } from 'rxjs';
 import { selectToken } from '../../../store/selectors/auth.selector';
-import { environment } from '../../../../environments/environment';
 
 @Injectable()
-export class ApiInterceptor implements HttpInterceptor {
+export class TokenInterceptor implements HttpInterceptor {
   constructor(private store: Store) {}
 
   intercept(
@@ -20,8 +19,10 @@ export class ApiInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return this.store.select(selectToken).pipe(
       mergeMap((token) => {
+        if (!token) {
+          return next.handle(req);
+        }
         const cloneReq = req.clone({
-          url: `${environment.baseUrl}${req.url}`,
           setHeaders: {
             Authorization: `Bearer ${token}`,
           },
