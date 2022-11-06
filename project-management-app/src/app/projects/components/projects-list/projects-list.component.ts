@@ -1,24 +1,18 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
 import { Project } from '../../models';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 import { ProjectFormComponent } from '../project-form/project-form.component';
 import * as ProjectActions from '../../store/projects.actions';
-import { selectSelectedProject } from '../../store/projects.selector';
 
 @Component({
   selector: 'app-projects-list',
   templateUrl: './projects-list.component.html',
   styleUrls: ['./projects-list.component.scss'],
 })
-export class ProjectsListComponent implements OnDestroy {
+export class ProjectsListComponent {
   displayedColumns = ['title', 'description', 'actions'];
-
-  selectedProject$!: Observable<Project | undefined>;
-
-  selectedProjectSub!: Subscription;
 
   @Input() projects!: Project[];
 
@@ -45,30 +39,20 @@ export class ProjectsListComponent implements OnDestroy {
   }
 
   editDialog(id: string): void {
-    const editDialogConfig = new MatDialogConfig();
+    const selectedProject = this.projects.find((item) => item.id === id);
 
+    const editDialogConfig = new MatDialogConfig();
     editDialogConfig.disableClose = true;
     editDialogConfig.autoFocus = true;
-
-    this.selectedProject$ = this.store.select(selectSelectedProject(id));
-    this.selectedProjectSub = this.selectedProject$.subscribe(
-      (data: Project | undefined) => {
-        editDialogConfig.data = {
-          title: data?.title,
-          description: data?.description,
-          formTitle: 'Edit project',
-          confirmText: 'Edit',
-          cancelText: 'Close',
-          type: 'edit',
-          id,
-        };
-      },
-    );
+    editDialogConfig.data = {
+      title: selectedProject?.title,
+      description: selectedProject?.description,
+      formTitle: 'Edit project',
+      confirmText: 'Save',
+      cancelText: 'Close',
+      id,
+    };
 
     this.dialog.open(ProjectFormComponent, editDialogConfig);
-  }
-
-  ngOnDestroy() {
-    this.selectedProjectSub.unsubscribe();
   }
 }

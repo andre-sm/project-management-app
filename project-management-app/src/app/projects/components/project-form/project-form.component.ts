@@ -45,18 +45,16 @@ export class ProjectFormComponent implements OnInit {
   onSubmit(): void {
     const { title, description } = this.createProjectForm.value;
 
-    if (this.formData.type === 'edit') {
+    if (this.formData.id === null) {
+      this.store.dispatch(ProjectActions.createProject({ title, description }));
+    } else {
       this.store.dispatch(
         ProjectActions.updateProject({
           title,
           description,
-          id: this.formData.id || '',
+          id: this.formData.id,
         }),
       );
-    }
-
-    if (this.formData.type === 'create') {
-      this.store.dispatch(ProjectActions.createProject({ title, description }));
     }
     this.dialogRef.close();
   }

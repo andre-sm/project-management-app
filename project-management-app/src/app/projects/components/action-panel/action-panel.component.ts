@@ -19,7 +19,7 @@ export class ActionPanelComponent {
       formTitle: 'Create project',
       confirmText: 'Create',
       cancelText: 'Close',
-      type: 'create',
+      id: null,
     };
 
     this.dialog.open(ProjectFormComponent, createDialogConfig);
