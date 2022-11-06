@@ -20,4 +20,12 @@ export class ProjectsService {
   deleteProject(id: string): Observable<Response> {
     return this.http.delete<Response>(`/boards/${id}`);
   }
+
+  updateProject(
+    title: string,
+    description: string,
+    id: string,
+  ): Observable<Project> {
+    return this.http.put<Project>(`/boards/${id}`, { title, description });
+  }
 }

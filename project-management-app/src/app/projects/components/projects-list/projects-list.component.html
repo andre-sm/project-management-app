@@ -26,9 +26,16 @@
         <button
           mat-icon-button
           aria-label="delete icon"
-          (click)="openDialog(project.id)"
+          (click)="deleteDialog(project.id)"
         >
-          <mat-icon class="delete-icon" fontIcon="delete">delete</mat-icon>
+          <mat-icon class="delete-icon" fontIcon="delete"></mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          aria-label="edit icon"
+          (click)="editDialog(project.id)"
+        >
+          <mat-icon class="edit-icon" fontIcon="edit"></mat-icon>
         </button>
       </mat-cell>
     </ng-container>

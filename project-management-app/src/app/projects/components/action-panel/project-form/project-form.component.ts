@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as ProjectActions from '../../../store/actions/projects.actions';
+import { ProjectForm } from '../../../models';
 
 @Component({
   selector: 'app-project-form',
@@ -12,23 +13,28 @@ import * as ProjectActions from '../../../store/actions/projects.actions';
 export class ProjectFormComponent implements OnInit {
   createProjectForm!: FormGroup;
 
+  formData: ProjectForm;
+
   constructor(
     private store: Store,
     private dialogRef: MatDialogRef<ProjectFormComponent>,
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: ProjectForm,
+  ) {
+    this.formData = { ...data };
+  }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.createForm();
   }
 
-  createForm() {
+  createForm(): void {
     this.createProjectForm = new FormGroup({
-      title: new FormControl('', [
+      title: new FormControl(this.formData.title || '', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(64),
       ]),
-      description: new FormControl('', [
+      description: new FormControl(this.formData.description || '', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(255),
@@ -38,7 +44,20 @@ export class ProjectFormComponent implements OnInit {
 
   onSubmit(): void {
     const { title, description } = this.createProjectForm.value;
-    this.store.dispatch(ProjectActions.createProject({ title, description }));
+
+    if (this.formData.type === 'edit') {
+      this.store.dispatch(
+        ProjectActions.updateProject({
+          title,
+          description,
+          id: this.formData.id || '',
+        }),
+      );
+    }
+
+    if (this.formData.type === 'create') {
+      this.store.dispatch(ProjectActions.createProject({ title, description }));
+    }
     this.dialogRef.close();
   }
 

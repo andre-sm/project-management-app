@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { map, switchMap, catchError, of, mergeMap } from 'rxjs';
 import { ProjectsService } from '../../services/projects.service';
 import * as ProjectsActions from '../actions/projects.actions';
@@ -50,8 +51,25 @@ export class ProjectsEffects {
     );
   });
 
+  updateProject$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProjectsActions.updateProject),
+      mergeMap(({ title, description, id }) => {
+        return this.projectsService.updateProject(title, description, id).pipe(
+          map((updatedProject) =>
+            ProjectsActions.updateProjectSuccess({ updatedProject }),
+          ),
+          catchError((error) =>
+            of(ProjectsActions.deleteProjectError({ error: error.message })),
+          ),
+        );
+      }),
+    );
+  });
+
   constructor(
     private actions$: Actions,
     private projectsService: ProjectsService,
+    private store: Store,
   ) {}
 }

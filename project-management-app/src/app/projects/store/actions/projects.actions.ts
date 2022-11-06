@@ -42,3 +42,18 @@ export const deleteProjectError = createAction(
   '[Projects] Delete Project Error',
   props<{ error: string }>(),
 );
+
+export const updateProject = createAction(
+  '[Projects] Update Project',
+  props<{ title: string; description: string; id: string }>(),
+);
+
+export const updateProjectSuccess = createAction(
+  '[Projects] Update Project Success',
+  props<{ updatedProject: Project }>(),
+);
+
+export const updateProjectError = createAction(
+  '[Projects] Update Project Error',
+  props<{ error: string }>(),
+);

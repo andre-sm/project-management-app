@@ -1,5 +1,5 @@
 <div class="create-project" mat-dialog-content>
-  <h1 class="create-project__title">Create project</h1>
+  <h1 class="create-project__title">{{ formData.formTitle }}</h1>
   <form
     class="create-project__form"
     [formGroup]="createProjectForm"
@@ -25,14 +25,14 @@
         (click)="onCloseClick()"
         type="button"
       >
-        Close
+        {{ formData.cancelText }}
       </button>
       <button
         class="create-project__create-btn btn"
         [class.disabled]="createProjectForm.invalid"
         type="submit"
       >
-        Create
+        {{ formData.confirmText }}
       </button>
     </div>
   </form>

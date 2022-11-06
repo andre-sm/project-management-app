@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ProjectFormComponent } from './project-form/project-form.component';
 
 @Component({
@@ -11,9 +11,17 @@ export class ActionPanelComponent {
   constructor(public dialog: MatDialog) {}
 
   openDialog(): void {
-    this.dialog.open(ProjectFormComponent, {
-      autoFocus: true,
-      disableClose: true,
-    });
+    const createDialogConfig = new MatDialogConfig();
+
+    createDialogConfig.disableClose = true;
+    createDialogConfig.autoFocus = true;
+    createDialogConfig.data = {
+      formTitle: 'Create project',
+      confirmText: 'Create',
+      cancelText: 'Close',
+      type: 'create',
+    };
+
+    this.dialog.open(ProjectFormComponent, createDialogConfig);
   }
 }
