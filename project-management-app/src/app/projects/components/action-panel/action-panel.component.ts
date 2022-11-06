@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ProjectFormComponent } from './project-form/project-form.component';
+import { ProjectFormComponent } from '../project-form/project-form.component';
 
 @Component({
   selector: 'app-action-panel',
@@ -10,7 +10,7 @@ import { ProjectFormComponent } from './project-form/project-form.component';
 export class ActionPanelComponent {
   constructor(public dialog: MatDialog) {}
 
-  openDialog(): void {
+  openCreateDialog(): void {
     const createDialogConfig = new MatDialogConfig();
 
     createDialogConfig.disableClose = true;

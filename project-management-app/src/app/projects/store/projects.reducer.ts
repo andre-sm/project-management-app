@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import * as ProjectActions from '../actions/projects.actions';
-import { ProjectsState } from '../models/projects-state.model';
+import * as ProjectActions from './projects.actions';
+import { ProjectsState } from './models/projects-state.model';
 
 export const featureName = 'projectsFeature';
 

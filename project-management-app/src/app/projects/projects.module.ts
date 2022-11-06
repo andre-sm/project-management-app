@@ -1,25 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../shared/shared.module';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { ProjectsRoutingModule } from './projects-routing.module';
 import { ActionPanelComponent } from './components/action-panel/action-panel.component';
 import { SearchComponent } from './components/action-panel/search/search.component';
-import { ProjectFormComponent } from './components/action-panel/project-form/project-form.component';
-import * as fromProjects from './store/reducers/projects.reducer';
-import { ProjectsEffects } from './store/effects/projects.effects';
+import { ProjectFormComponent } from './components/project-form/project-form.component';
+import { ProjectsEffects } from './store/projects.effects';
 import { ProjectsListComponent } from './components/projects-list/projects-list.component';
-import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import * as fromProjects from './store/projects.reducer';
 
 @NgModule({
   declarations: [
@@ -28,18 +23,13 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     SearchComponent,
     ProjectFormComponent,
     ProjectsListComponent,
-    ConfirmModalComponent,
   ],
   imports: [
     CommonModule,
+    SharedModule,
     ProjectsRoutingModule,
-    MatIconModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatTableModule,
-    MatInputModule,
     MatSortModule,
+    MatTableModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

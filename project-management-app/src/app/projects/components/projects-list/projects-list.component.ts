@@ -3,10 +3,10 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Project } from '../../models';
-import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
-import { ProjectFormComponent } from '../action-panel/project-form/project-form.component';
-import * as ProjectActions from '../../store/actions/projects.actions';
-import { selectSelectedProject } from '../../store/selectors/projects.selector';
+import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
+import { ProjectFormComponent } from '../project-form/project-form.component';
+import * as ProjectActions from '../../store/projects.actions';
+import { selectSelectedProject } from '../../store/projects.selector';
 
 @Component({
   selector: 'app-projects-list',

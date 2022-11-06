@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as ProjectsActions from '../../store/actions/projects.actions';
+import * as ProjectsActions from '../../store/projects.actions';
 import { Project } from '../../models';
-import { selectProjects } from '../../store/selectors/projects.selector';
+import { selectProjects } from '../../store/projects.selector';
 
 @Component({
   selector: 'app-projects',

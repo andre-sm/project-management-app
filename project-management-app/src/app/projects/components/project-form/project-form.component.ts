@@ -2,8 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import * as ProjectActions from '../../../store/actions/projects.actions';
-import { ProjectForm } from '../../../models';
+import * as ProjectActions from '../../store/projects.actions';
+import { ProjectForm } from '../../models';
 
 @Component({
   selector: 'app-project-form',
