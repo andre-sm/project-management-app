@@ -37,9 +37,8 @@ export class ProjectFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.store.dispatch(
-      ProjectActions.createProject(this.createProjectForm.value),
-    );
+    const { title, description } = this.createProjectForm.value;
+    this.store.dispatch(ProjectActions.createProject({ title, description }));
     this.dialogRef.close();
   }
 

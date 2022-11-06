@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap, catchError, of } from 'rxjs';
+import { map, switchMap, catchError, of, mergeMap } from 'rxjs';
 import { ProjectsService } from '../../services/projects.service';
 import * as ProjectsActions from '../actions/projects.actions';
 
@@ -23,8 +23,8 @@ export class ProjectsEffects {
   createProject$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProjectsActions.createProject),
-      switchMap(({ formData }) => {
-        return this.projectsService.createProject(formData).pipe(
+      mergeMap(({ title, description }) => {
+        return this.projectsService.createProject({ title, description }).pipe(
           map((newProject) =>
             ProjectsActions.createProjectSuccess({ newProject }),
           ),
@@ -39,7 +39,7 @@ export class ProjectsEffects {
   deleteProject$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProjectsActions.deleteProject),
-      switchMap(({ id }) => {
+      mergeMap(({ id }) => {
         return this.projectsService.deleteProject(id).pipe(
           map(() => ProjectsActions.deleteProjectSuccess({ id })),
           catchError((error) =>

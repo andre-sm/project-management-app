@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { CreateProject, Project } from '../../models';
+import { Project } from '../../models';
 
 export const getProjects = createAction('[Projects] Get Projects');
 
@@ -15,7 +15,7 @@ export const getProjectsError = createAction(
 
 export const createProject = createAction(
   '[Projects] Create Project',
-  props<{ formData: CreateProject }>(),
+  props<{ title: string; description: string }>(),
 );
 
 export const createProjectSuccess = createAction(

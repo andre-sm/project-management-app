@@ -37,18 +37,10 @@ export const projectsReducer = createReducer(
     }),
   ),
   on(
-    ProjectActions.createProject,
-    (state): ProjectsState => ({
-      ...state,
-      isLoading: true,
-    }),
-  ),
-  on(
     ProjectActions.createProjectSuccess,
     (state, { newProject }): ProjectsState => ({
       ...state,
       projects: [...state.projects, newProject],
-      isLoading: false,
     }),
   ),
   on(
@@ -56,14 +48,6 @@ export const projectsReducer = createReducer(
     (state, { error }): ProjectsState => ({
       ...state,
       error,
-      isLoading: false,
-    }),
-  ),
-  on(
-    ProjectActions.deleteProject,
-    (state): ProjectsState => ({
-      ...state,
-      isLoading: true,
     }),
   ),
   on(ProjectActions.deleteProjectSuccess, (state, { id }): ProjectsState => {
@@ -71,7 +55,6 @@ export const projectsReducer = createReducer(
     return {
       ...state,
       projects: updatedProjects,
-      isLoading: false,
     };
   }),
   on(
@@ -79,7 +62,6 @@ export const projectsReducer = createReducer(
     (state, { error }): ProjectsState => ({
       ...state,
       error,
-      isLoading: false,
     }),
   ),
 );
