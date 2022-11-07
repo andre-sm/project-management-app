@@ -1,0 +1,28 @@
+@import '../../variables';
+
+.confirm-modal-message {
+  font-size: 18px;
+  padding: 10px 0;
+}
+
+.confirm-modal-btns {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.dismiss-btn,
+.confirm-btn {
+  padding: 10px 30px;
+}
+
+.confirm-btn {
+  background-color: $color-violet;
+  color: $color-white;
+}
+
+.dismiss-btn {
+  color: $color-violet;
+  background-color: $color-white;
+  border: 1px solid $color-violet;
+}

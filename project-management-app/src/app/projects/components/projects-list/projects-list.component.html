@@ -1,0 +1,46 @@
+<div class="projects">
+  <mat-table class="projects-table" [dataSource]="projects">
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>{{
+        'Title' | uppercase
+      }}</mat-header-cell>
+      <mat-cell class="title-cell" *matCellDef="let project">{{
+        project.title
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef>{{
+        'Description' | uppercase
+      }}</mat-header-cell>
+      <mat-cell class="description-cell" *matCellDef="let project">{{
+        project.description
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>{{
+        'Actions' | uppercase
+      }}</mat-header-cell>
+      <mat-cell class="action-cell" *matCellDef="let project">
+        <button
+          mat-icon-button
+          aria-label="delete icon"
+          (click)="deleteDialog(project.id)"
+        >
+          <mat-icon class="delete-icon" fontIcon="delete"></mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          aria-label="edit icon"
+          (click)="editDialog(project.id)"
+        >
+          <mat-icon class="edit-icon" fontIcon="edit"></mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>

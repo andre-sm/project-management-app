@@ -1,10 +1,12 @@
 :host {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 100%;
+  max-width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
 }
 
 .main {
-  min-height: calc(100% - 240px);
+  flex: 1;
 }

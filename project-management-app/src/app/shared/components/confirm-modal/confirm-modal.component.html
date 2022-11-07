@@ -1,0 +1,14 @@
+<div class="confirm-modal-message">{{ message }}</div>
+<div class="confirm-modal-btns" mat-dialog-actions>
+  <button class="dismiss-btn btn" mat-dialog-close (click)="onDismiss()">
+    {{ cancelText }}
+  </button>
+  <button
+    class="confirm-btn btn"
+    mat-dialog-close
+    cdkFocusInitial
+    (click)="onConfirm()"
+  >
+    {{ confirmText }}
+  </button>
+</div>
