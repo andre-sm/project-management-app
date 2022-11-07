@@ -1,0 +1,11 @@
+@import '../../../shared/variables';
+
+.new-column-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background-color: $color-orange;
+  color: $color-white;
+  line-height: 1;
+}

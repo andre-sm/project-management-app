@@ -12,6 +12,7 @@ import { CoreModule } from './core/core.module';
 import { WelcomeModule } from './welcome/welcome.module';
 import { AuthModule } from './auth/auth.module';
 import { ProjectsModule } from './projects/projects.module';
+import { ProjectBoardModule } from './project-board/project-board.module';
 import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './auth/store/auth.effects';
 import { httpInterceptorProviders } from './shared/services/interceptors';
@@ -33,6 +34,7 @@ import { httpInterceptorProviders } from './shared/services/interceptors';
     WelcomeModule,
     AuthModule,
     ProjectsModule,
+    ProjectBoardModule,
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
