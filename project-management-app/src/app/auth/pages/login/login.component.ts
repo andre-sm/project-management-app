@@ -104,6 +104,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    console.log(this.authForm)
     if (!this.authForm.valid) return;
     const name = `${this.authForm.value.firstName} ${this.authForm.value.lastName}`;
     const login = this.authForm.value.email;

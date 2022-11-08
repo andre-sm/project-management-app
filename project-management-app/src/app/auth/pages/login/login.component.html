@@ -24,6 +24,20 @@
         name="first-name"
         placeholder="First Name"
       />
+      <mat-error
+        *ngIf="
+          validationService.hasError(authForm, 'firstName', 'required') &&
+          authForm.get('firstName')?.touched
+        "
+        >Please enter a first name</mat-error
+      >
+      <mat-error
+        *ngIf="
+          validationService.hasError(authForm, 'firstName', 'minlength') &&
+          authForm.get('firstName')?.touched
+        "
+        >Min length 3 characters</mat-error
+      >
     </mat-form-field>
     <mat-form-field
       class="auth-field"
@@ -40,6 +54,20 @@
         name="last-name"
         placeholder="Last Name"
       />
+      <mat-error
+        *ngIf="
+          validationService.hasError(authForm, 'lastName', 'required') &&
+          authForm.get('firstName')?.touched
+        "
+        >Please enter a last name</mat-error
+      >
+      <mat-error
+        *ngIf="
+          validationService.hasError(authForm, 'lastName', 'minlength') &&
+          authForm.get('firstName')?.touched
+        "
+        >Min length 3 characters</mat-error
+      >
     </mat-form-field>
     <mat-form-field class="auth-field" floatLabel="auto" appearance="outline">
       <mat-label class="auth-label">Email</mat-label>
@@ -154,3 +182,4 @@
     </div>
   </form>
 </div>
+<!--  -->
