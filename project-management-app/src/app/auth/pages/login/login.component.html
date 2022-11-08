@@ -52,11 +52,17 @@
         placeholder="Email"
       />
       <mat-error
-        *ngIf="hasError('email', 'required') && authForm.get('email')?.touched"
+        *ngIf="
+          validationService.hasError(authForm, 'email', 'required') &&
+          authForm.get('email')?.touched
+        "
         >Please enter a login email</mat-error
       >
       <mat-error
-        *ngIf="hasError('email', 'email') && authForm.get('email')?.touched"
+        *ngIf="
+          validationService.hasError(authForm, 'email', 'email') &&
+          authForm.get('email')?.touched
+        "
         >The login email is invalid</mat-error
       >
     </mat-form-field>
@@ -83,7 +89,8 @@
         character, number, special symbol and be at least 8 characters
         long</mat-hint
       >
-      <mat-error *ngIf="hasError('password', 'required')"
+      <mat-error
+        *ngIf="validationService.hasError(authForm, 'password', 'required')"
         >Please enter a password</mat-error
       >
       <mat-error
@@ -91,19 +98,36 @@
           !authForm.get('password')?.valid && authForm.get('password')?.touched
         "
         >Your password isn't strong enough:
-        <span class="err-span" *ngIf="passwordHasErrors() === 'uppercase'">
+        <span
+          class="err-span"
+          *ngIf="validationService.passwordHasErrors(authForm) === 'uppercase'"
+        >
           Password must contain at least 1 uppercase letter</span
         >
-        <span class="err-span" *ngIf="passwordHasErrors() === 'lowercase'">
+        <span
+          class="err-span"
+          *ngIf="validationService.passwordHasErrors(authForm) === 'lowercase'"
+        >
           Password must contain at least 1 lowercase letter</span
         >
-        <span class="err-span" *ngIf="passwordHasErrors() === 'number'">
+        <span
+          class="err-span"
+          *ngIf="validationService.passwordHasErrors(authForm) === 'number'"
+        >
           Password must contain at least 1 number</span
         >
-        <span class="err-span" *ngIf="passwordHasErrors() === 'specialChar'">
+        <span
+          class="err-span"
+          *ngIf="
+            validationService.passwordHasErrors(authForm) === 'specialChar'
+          "
+        >
           Password must contain at least 1 special character</span
         >
-        <span class="err-span" *ngIf="passwordHasErrors() === 'length'">
+        <span
+          class="err-span"
+          *ngIf="validationService.passwordHasErrors(authForm) === 'length'"
+        >
           Password must be at least 8 characters long</span
         >
       </mat-error>

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { FormControl, ValidatorFn } from '@angular/forms';
+import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 export class ValidationService {
+
   public passwordValidator(
     control: FormControl,
   ): { [key: string]: boolean } | null {
@@ -43,5 +44,43 @@ export class ValidationService {
       control.setValidators([]);
       control.updateValueAndValidity();
     });
+  }
+
+  passwordHasErrors(form: FormGroup) {
+    if (
+      form.controls['password'].errors &&
+      form.controls['password'].errors['uppercase'] === false
+    ) {
+      return 'uppercase';
+    }
+    if (
+      form.controls['password'].errors &&
+      form.controls['password'].errors['lowercase'] === false
+    ) {
+      return 'lowercase';
+    }
+    if (
+      form.controls['password'].errors &&
+      form.controls['password'].errors['number'] === false
+    ) {
+      return 'number';
+    }
+    if (
+      form.controls['password'].errors &&
+      form.controls['password'].errors['specialChar'] === false
+    ) {
+      return 'specialChar';
+    }
+    if (
+      form.controls['password'].errors &&
+      form.controls['password'].errors['length'] === false
+    ) {
+      return 'length';
+    }
+    return null;
+  }
+
+  hasError(form: FormGroup, controlName: string, errorName: string) {
+    return form.controls[controlName].hasError(errorName);
   }
 }

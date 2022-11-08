@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 import { ShowAlertService } from 'src/app/shared/services/show-alert.service';
 import * as AuthActions from '../../store/auth.actions';
 import * as fromApp from '../../../store/app.reducer';
-import { ValidationService } from '../../services/validation.service';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'app-login',
@@ -31,8 +31,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   error: string | null = null;
 
-  durationInSeconds = 5;
-
   authForm: FormGroup = new FormGroup({
     firstName: new FormControl(null),
     lastName: new FormControl(null),
@@ -48,16 +46,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     Validators.minLength(3),
   ];
 
-  validationPassword = {
-    noUppercase: false,
-    noLowercase: false,
-    noNumber: false,
-    noCharacter: false,
-    noLength: false,
-  };
-
   constructor(
-    private validationService: ValidationService,
+    protected validationService: ValidationService,
     private route: ActivatedRoute,
     private store: Store<fromApp.AppState>,
     private location: Location,
@@ -127,44 +117,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         new AuthActions.SignupStart({ name, login, password }),
       );
     }
-  }
-
-  hasError(controlName: string, errorName: string) {
-    return this.authForm.controls[controlName].hasError(errorName);
-  }
-
-  passwordHasErrors() {
-    if (
-      this.authForm.controls['password'].errors &&
-      this.authForm.controls['password'].errors['uppercase'] === false
-    ) {
-      return 'uppercase';
-    }
-    if (
-      this.authForm.controls['password'].errors &&
-      this.authForm.controls['password'].errors['lowercase'] === false
-    ) {
-      return 'lowercase';
-    }
-    if (
-      this.authForm.controls['password'].errors &&
-      this.authForm.controls['password'].errors['number'] === false
-    ) {
-      return 'number';
-    }
-    if (
-      this.authForm.controls['password'].errors &&
-      this.authForm.controls['password'].errors['specialChar'] === false
-    ) {
-      return 'specialChar';
-    }
-    if (
-      this.authForm.controls['password'].errors &&
-      this.authForm.controls['password'].errors['length'] === false
-    ) {
-      return 'length';
-    }
-    return null;
   }
 
   onHandleError() {
