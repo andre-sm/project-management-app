@@ -9,11 +9,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { Location } from '@angular/common';
-import { Subscription } from 'rxjs';
-import { ShowAlertService } from 'src/app/shared/services/show-alert.service';
+import { Observable, Subscription } from 'rxjs';
+import { ShowAlertService } from '../../../shared/services/show-alert.service';
+import { selectAuthState } from '../../../store/selectors/auth.selector';
 import * as AuthActions from '../../store/auth.actions';
-import * as fromApp from '../../../store/app.reducer';
-import { ValidationService } from '../../services/validation.service';
+import { ValidationService } from '../../../shared/services/validation.service';
+import { AuthState } from '../../store/models';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ import { ValidationService } from '../../services/validation.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  private storeSub: Subscription | undefined;
+  private authSub: Subscription | undefined;
 
   isLoginMode: boolean = false;
 
@@ -30,8 +31,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
 
   error: string | null = null;
-
-  durationInSeconds = 5;
 
   authForm: FormGroup = new FormGroup({
     firstName: new FormControl(null),
@@ -48,21 +47,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     Validators.minLength(3),
   ];
 
-  validationPassword = {
-    noUppercase: false,
-    noLowercase: false,
-    noNumber: false,
-    noCharacter: false,
-    noLength: false,
-  };
+  auth$!: Observable<AuthState>;
 
   constructor(
-    private validationService: ValidationService,
+    protected validationService: ValidationService,
     private route: ActivatedRoute,
-    private store: Store<fromApp.AppState>,
+    private store: Store,
     private location: Location,
     private showAlertService: ShowAlertService,
-  ) {}
+  ) {
+    this.auth$ = this.store.select(selectAuthState);
+  }
 
   ngOnInit(): void {
     if (this.route.snapshot.routeConfig?.path === 'login') {
@@ -77,7 +72,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.namesValidators,
       );
     }
-    this.storeSub = this.store.select('auth').subscribe((authState) => {
+    this.authSub = this.auth$.subscribe((authState) => {
       this.isLoading = authState.loading;
       this.error = authState.authError;
       if (this.error) {
@@ -87,8 +82,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.storeSub) {
-      this.storeSub.unsubscribe();
+    if (this.authSub) {
+      this.authSub.unsubscribe();
     }
   }
 
@@ -120,55 +115,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     const { password } = this.authForm.value;
     if (this.isLoginMode) {
       this.authForm.reset();
-      this.store.dispatch(new AuthActions.LoginStart({ login, password }));
+      this.store.dispatch(AuthActions.loginStart({ login, password }));
     } else {
       this.authForm.reset();
-      this.store.dispatch(
-        new AuthActions.SignupStart({ name, login, password }),
-      );
+      this.store.dispatch(AuthActions.signupStart({ name, login, password }));
     }
-  }
-
-  hasError(controlName: string, errorName: string) {
-    return this.authForm.controls[controlName].hasError(errorName);
-  }
-
-  passwordHasErrors() {
-    if (
-      this.authForm.controls['password'].errors &&
-      this.authForm.controls['password'].errors['uppercase'] === false
-    ) {
-      return 'uppercase';
-    }
-    if (
-      this.authForm.controls['password'].errors &&
-      this.authForm.controls['password'].errors['lowercase'] === false
-    ) {
-      return 'lowercase';
-    }
-    if (
-      this.authForm.controls['password'].errors &&
-      this.authForm.controls['password'].errors['number'] === false
-    ) {
-      return 'number';
-    }
-    if (
-      this.authForm.controls['password'].errors &&
-      this.authForm.controls['password'].errors['specialChar'] === false
-    ) {
-      return 'specialChar';
-    }
-    if (
-      this.authForm.controls['password'].errors &&
-      this.authForm.controls['password'].errors['length'] === false
-    ) {
-      return 'length';
-    }
-    return null;
   }
 
   onHandleError() {
-    this.store.dispatch(new AuthActions.ClearError());
+    this.store.dispatch(AuthActions.clearError());
   }
 
   private showErrorAlert(message: string) {
