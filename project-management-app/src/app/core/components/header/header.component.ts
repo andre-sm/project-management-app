@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Subscription } from 'rxjs';
 
-import { selectAuthState } from 'src/app/store/selectors/auth.selector';
+import { selectAuthState } from '../../../store/selectors/auth.selector';
 import * as AuthActions from '../../../auth/store/auth.actions';
 
 @Component({

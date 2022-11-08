@@ -8,7 +8,7 @@ import {
 } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Observable, take } from 'rxjs';
-import { selectAuthState } from 'src/app/store/selectors/auth.selector';
+import { selectAuthState } from '../../store/selectors/auth.selector';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {

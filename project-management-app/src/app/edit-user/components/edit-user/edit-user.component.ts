@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import { IUser } from 'src/app/shared/models/user.model';
-import { ValidationService } from 'src/app/shared/services/validation.service';
-import { selectAuthState } from 'src/app/store/selectors/auth.selector';
+import { Observable, Subscription } from 'rxjs';
+import { AuthState } from '../../../auth/store/models';
+import { IUser } from '../../../shared/models/user.model';
+import { ValidationService } from '../../../shared/services/validation.service';
+import { selectAuthState } from '../../../store/selectors/auth.selector';
 
 @Component({
   selector: 'app-edit-user',
@@ -20,25 +21,27 @@ export class EditUserComponent implements OnInit, OnDestroy {
     userId: '',
   };
 
-  storeSub: Subscription | undefined;
+  authSub: Subscription | undefined;
 
   editForm: FormGroup = new FormGroup({});
 
   hidePassword = true;
 
+  auth$!: Observable<AuthState>;
+
   constructor(
     protected validationService: ValidationService,
     private store: Store,
-  ) {}
+  ) {
+    this.auth$ = this.store.select(selectAuthState);
+  }
 
   ngOnInit(): void {
-    this.storeSub = this.store
-      .select(selectAuthState)
-      .subscribe((authState) => {
-        this.currentUser.login = authState.user?.login as string;
-        this.currentUser.name = authState.user?.name as string;
-        this.currentUser.userId = authState.user?.getUserId() as string;
-      });
+    this.authSub = this.auth$.subscribe((authState) => {
+      this.currentUser.login = authState.user?.login as string;
+      this.currentUser.name = authState.user?.name as string;
+      this.currentUser.userId = authState.user?.getUserId() as string;
+    });
 
     this.editForm = new FormGroup({
       firstName: new FormControl(this.currentUser.name.split(' ')[0], [
@@ -61,7 +64,9 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.storeSub?.unsubscribe();
+    if (this.authSub) {
+      this.authSub.unsubscribe();
+    }
   }
 
   onSaveChanges() {

@@ -1,4 +1,4 @@
-import { User } from 'src/app/shared/models/user.model';
+import { User } from '../../../shared/models/user.model';
 
 export interface AuthState {
   user: User | null;

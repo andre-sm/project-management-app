@@ -9,11 +9,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { Location } from '@angular/common';
-import { Subscription } from 'rxjs';
-import { ShowAlertService } from 'src/app/shared/services/show-alert.service';
-import { selectAuthState } from 'src/app/store/selectors/auth.selector';
+import { Observable, Subscription } from 'rxjs';
+import { ShowAlertService } from '../../../shared/services/show-alert.service';
+import { selectAuthState } from '../../../store/selectors/auth.selector';
 import * as AuthActions from '../../store/auth.actions';
 import { ValidationService } from '../../../shared/services/validation.service';
+import { AuthState } from '../../store/models';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ import { ValidationService } from '../../../shared/services/validation.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  private storeSub: Subscription | undefined;
+  private authSub: Subscription | undefined;
 
   isLoginMode: boolean = false;
 
@@ -46,13 +47,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     Validators.minLength(3),
   ];
 
+  auth$!: Observable<AuthState>;
+
   constructor(
     protected validationService: ValidationService,
     private route: ActivatedRoute,
     private store: Store,
     private location: Location,
     private showAlertService: ShowAlertService,
-  ) {}
+  ) {
+    this.auth$ = this.store.select(selectAuthState);
+  }
 
   ngOnInit(): void {
     if (this.route.snapshot.routeConfig?.path === 'login') {
@@ -67,20 +72,18 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.namesValidators,
       );
     }
-    this.storeSub = this.store
-      .select(selectAuthState)
-      .subscribe((authState) => {
-        this.isLoading = authState.loading;
-        this.error = authState.authError;
-        if (this.error) {
-          this.showErrorAlert(this.error);
-        }
-      });
+    this.authSub = this.auth$.subscribe((authState) => {
+      this.isLoading = authState.loading;
+      this.error = authState.authError;
+      if (this.error) {
+        this.showErrorAlert(this.error);
+      }
+    });
   }
 
   ngOnDestroy() {
-    if (this.storeSub) {
-      this.storeSub.unsubscribe();
+    if (this.authSub) {
+      this.authSub.unsubscribe();
     }
   }
 
