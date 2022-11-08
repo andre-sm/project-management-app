@@ -27,7 +27,7 @@ export interface ILoginResponse {
 const handleError = (errorRes: any) => {
   let errorMessage = 'An unknown error occurred!';
   if (!errorRes.error || !errorRes.status) {
-    return of(new AuthActions.LoginFail(errorMessage));
+    return of(AuthActions.loginFail({ error: errorMessage }));
   }
   switch (errorRes.status) {
     case 409:
@@ -39,7 +39,7 @@ const handleError = (errorRes: any) => {
     default:
       break;
   }
-  return of(new AuthActions.LoginFail(errorMessage));
+  return of(AuthActions.loginFail({ error: errorMessage }));
 };
 
 @Injectable()
@@ -57,19 +57,19 @@ export class AuthEffects {
 
   authSignup$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(AuthActions.SIGNUP_START),
-      switchMap((signupAction: AuthActions.SignupStart) => {
+      ofType(AuthActions.signupStart),
+      switchMap(({ name, login, password }) => {
         return this.http
           .post<ISignupResponse>(`${environment.baseUrl}/signup`, {
-            name: signupAction.payload.name,
-            login: signupAction.payload.login,
-            password: signupAction.payload.password,
+            name: name,
+            login: login,
+            password: password,
           })
           .pipe(
             map(() => {
-              return new AuthActions.LoginStart({
-                login: signupAction.payload.login,
-                password: signupAction.payload.password,
+              return AuthActions.loginStart({
+                login: login,
+                password: password,
               });
             }),
             catchError((error) => {
@@ -82,19 +82,19 @@ export class AuthEffects {
 
   authLogin$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(AuthActions.LOGIN_START),
-      switchMap((signupAction: AuthActions.LoginStart) => {
+      ofType(AuthActions.loginStart),
+      switchMap(({ login, password }) => {
         return this.http
           .post<ILoginResponse>(`${environment.baseUrl}/signin`, {
-            login: signupAction.payload.login,
-            password: signupAction.payload.password,
+            login: login,
+            password: password,
           })
           .pipe(
             map((resData) => {
               const tokenExpirationDate = new Date(
                 new Date().getTime() + this.tokenExpiresIn * 1000,
               );
-              return new AuthActions.LoginSuccess({
+              return AuthActions.loginSuccess({
                 login: resData.login,
                 token: resData.token,
                 userId: resData.userId,
@@ -112,23 +112,23 @@ export class AuthEffects {
 
   autoLogin$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(AuthActions.AUTO_LOGIN),
+      ofType(AuthActions.autoLogin),
       map(() => {
         const userData: {
           login: string;
-          _userId: string;
-          _token: string;
+          userId: string;
+          token: string;
           tokenExpirationDate: string;
           name: string;
         } = JSON.parse(localStorage.getItem('currentUser') as string);
         if (!userData) {
-          return new AuthActions.Logout();
+          return AuthActions.logout();
         }
         const expirationDate = new Date(userData.tokenExpirationDate);
         const loadedUser = new User({
           login: userData.login,
-          userId: userData._userId,
-          token: userData._token,
+          userId: userData.userId,
+          token: userData.token,
           tokenExpirationDate: expirationDate,
           name: userData.name,
         });
@@ -137,7 +137,7 @@ export class AuthEffects {
             new Date(userData.tokenExpirationDate).getTime() -
             new Date().getTime();
           this.authService.setLogoutTimer(expirationDuration);
-          return new AuthActions.LoginSuccess({
+          return AuthActions.loginSuccess({
             login: loadedUser.login,
             userId: loadedUser.getUserId(),
             token: loadedUser.getUserToken(),
@@ -146,7 +146,7 @@ export class AuthEffects {
             // redirect: false,
           });
         }
-        return new AuthActions.Logout();
+        return AuthActions.logout();
       }),
     );
   });
@@ -154,7 +154,7 @@ export class AuthEffects {
   logout$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(AuthActions.LOGOUT),
+        ofType(AuthActions.logout),
         tap(() => {
           this.authService.clearLogoutTimer();
           localStorage.removeItem('currentUser');

@@ -1,63 +1,68 @@
-import { User } from '../../shared/models/user.model';
+import { createReducer, on } from '@ngrx/store';
+import { User } from 'src/app/shared/models/user.model';
 import * as AuthActions from './auth.actions';
+import { AuthState } from './models/auth-state.model';
 
-export interface State {
-  user: User | null;
-  authError: string | null;
-  loading: boolean;
-}
+export const featureName = 'authFeature';
 
-const initialState: State = {
+const initialState: AuthState = {
   user: null,
   authError: null,
   loading: false,
 };
 
-export function authReducer(
-  state = initialState,
-  action: AuthActions.AuthActions,
-) {
-  switch (action.type) {
-    case AuthActions.LOGIN_SUCCESS:
-      const user = new User({
-        login: action.payload.login,
-        token: action.payload.token,
-        userId: action.payload.userId,
-        tokenExpirationDate: action.payload.tokenExpirationDate,
-        name: action.payload.name,
-      });
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      return {
-        ...state,
-        authError: null,
-        user,
-        loading: false,
-      };
-    case AuthActions.LOGIN_START:
-    case AuthActions.SIGNUP_START:
-      return {
-        ...state,
+export const authReducer = createReducer(
+  initialState,
+  on(
+    AuthActions.signupStart,
+    AuthActions.loginStart,
+    (state): AuthState => ({
+      ...state,
         authError: null,
         loading: true,
-      };
-    case AuthActions.LOGOUT:
-      return {
-        ...state,
-        user: null,
-      };
-    case AuthActions.LOGIN_FAIL:
-      return {
-        ...state,
-        user: null,
-        authError: action.payload,
-        loading: false,
-      };
-    case AuthActions.CLEAR_ERROR:
+    })
+  ),
+  on(
+    AuthActions.loginSuccess,
+    (state, user): AuthState => {
+      const newUser = new User({
+                login: user.login,
+                token: user.token,
+                userId: user.userId,
+                tokenExpirationDate: user.tokenExpirationDate,
+                name: user.name,
+              });
+              // need to move it to effects
+              localStorage.setItem('currentUser', JSON.stringify(user));
       return {
         ...state,
         authError: null,
-      };
-    default:
-      return state;
-  }
-}
+        loading: false,
+        user: newUser
+      }
+    }
+  ),
+  on(
+    AuthActions.loginFail,
+    (state, { error }): AuthState => ({
+      ...state,
+      authError: error,
+      loading: false,
+    })
+  ),
+  on(
+    AuthActions.logout,
+    (state) => {
+      return ({
+      ...state,
+      user: null,
+    })}
+  ),
+  on(
+    AuthActions.clearError,
+    (state) => ({
+      ...state,
+      authError: null,
+    })
+  ),
+)

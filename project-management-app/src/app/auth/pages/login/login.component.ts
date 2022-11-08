@@ -110,17 +110,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     const { password } = this.authForm.value;
     if (this.isLoginMode) {
       this.authForm.reset();
-      this.store.dispatch(new AuthActions.LoginStart({ login, password }));
+      this.store.dispatch(AuthActions.loginStart({ login, password }));
     } else {
       this.authForm.reset();
       this.store.dispatch(
-        new AuthActions.SignupStart({ name, login, password }),
+        AuthActions.signupStart({ name, login, password }),
       );
     }
   }
 
   onHandleError() {
-    this.store.dispatch(new AuthActions.ClearError());
+    this.store.dispatch(AuthActions.clearError());
   }
 
   private showErrorAlert(message: string) {
