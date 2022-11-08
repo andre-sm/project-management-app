@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { IUser } from 'src/app/auth/models/user.model';
+import { IUser } from 'src/app/shared/models/user.model';
 import { ValidationService } from 'src/app/shared/services/validation.service';
 import * as fromApp from '../../../store/app.reducer';
 

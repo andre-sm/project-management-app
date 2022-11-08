@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../services/auth.service';
-import { User } from '../models/user.model';
+import { User } from '../../shared/models/user.model';
 import * as fromApp from '../../store/app.reducer';
 
 export interface ISignupResponse {
