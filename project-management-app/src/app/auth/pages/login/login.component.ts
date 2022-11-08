@@ -11,8 +11,8 @@ import { Store } from '@ngrx/store';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ShowAlertService } from 'src/app/shared/services/show-alert.service';
+import { selectAuthState } from 'src/app/store/selectors/auth.selector';
 import * as AuthActions from '../../store/auth.actions';
-import * as fromApp from '../../../store/app.reducer';
 import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     protected validationService: ValidationService,
     private route: ActivatedRoute,
-    private store: Store<fromApp.AppState>,
+    private store: Store,
     private location: Location,
     private showAlertService: ShowAlertService,
   ) {}
@@ -67,13 +67,15 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.namesValidators,
       );
     }
-    this.storeSub = this.store.select('auth').subscribe((authState) => {
-      this.isLoading = authState.loading;
-      this.error = authState.authError;
-      if (this.error) {
-        this.showErrorAlert(this.error);
-      }
-    });
+    this.storeSub = this.store
+      .select(selectAuthState)
+      .subscribe((authState) => {
+        this.isLoading = authState.loading;
+        this.error = authState.authError;
+        if (this.error) {
+          this.showErrorAlert(this.error);
+        }
+      });
   }
 
   ngOnDestroy() {
@@ -113,9 +115,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.store.dispatch(AuthActions.loginStart({ login, password }));
     } else {
       this.authForm.reset();
-      this.store.dispatch(
-        AuthActions.signupStart({ name, login, password }),
-      );
+      this.store.dispatch(AuthActions.signupStart({ name, login, password }));
     }
   }
 

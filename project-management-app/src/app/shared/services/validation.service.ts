@@ -3,7 +3,6 @@ import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 export class ValidationService {
-
   public passwordValidator(
     control: FormControl,
   ): { [key: string]: boolean } | null {

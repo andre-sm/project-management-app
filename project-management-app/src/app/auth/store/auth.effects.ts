@@ -3,13 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 
 import * as AuthActions from './auth.actions';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../services/auth.service';
 import { User } from '../../shared/models/user.model';
-import * as fromApp from '../../store/app.reducer';
 
 export interface ISignupResponse {
   userId: string;
@@ -52,7 +50,6 @@ export class AuthEffects {
     private http: HttpClient,
     private authService: AuthService,
     private router: Router,
-    private store: Store<fromApp.AppState>,
   ) {}
 
   authSignup$ = createEffect(() => {
@@ -61,15 +58,15 @@ export class AuthEffects {
       switchMap(({ name, login, password }) => {
         return this.http
           .post<ISignupResponse>(`${environment.baseUrl}/signup`, {
-            name: name,
-            login: login,
-            password: password,
+            name,
+            login,
+            password,
           })
           .pipe(
             map(() => {
               return AuthActions.loginStart({
-                login: login,
-                password: password,
+                login,
+                password,
               });
             }),
             catchError((error) => {
@@ -86,8 +83,8 @@ export class AuthEffects {
       switchMap(({ login, password }) => {
         return this.http
           .post<ILoginResponse>(`${environment.baseUrl}/signin`, {
-            login: login,
-            password: password,
+            login,
+            password,
           })
           .pipe(
             map((resData) => {

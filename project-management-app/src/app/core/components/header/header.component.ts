@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Subscription } from 'rxjs';
 
-import * as fromApp from '../../../store/app.reducer';
+import { selectAuthState } from 'src/app/store/selectors/auth.selector';
 import * as AuthActions from '../../../auth/store/auth.actions';
 
 @Component({
@@ -16,15 +16,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private userSub: Subscription | undefined;
 
-  constructor(
-    private store: Store<fromApp.AppState>,
-    private router: Router,
-    private route: ActivatedRoute,
-  ) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     this.userSub = this.store
-      .select('auth')
+      .select(selectAuthState)
       .pipe(
         map((authState) => {
           return authState.user;
