@@ -40,7 +40,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.authSub = this.auth$.subscribe((authState) => {
       this.currentUser.login = authState.user?.login as string;
       this.currentUser.name = authState.user?.name as string;
-      this.currentUser.userId = authState.user?.getUserId() as string;
+      this.currentUser.userId = authState.user?.userId as string;
     });
 
     this.editForm = new FormGroup({

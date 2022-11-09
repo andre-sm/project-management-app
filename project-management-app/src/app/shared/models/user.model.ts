@@ -7,9 +7,9 @@ export interface IUser {
 }
 
 export class User {
-  private _token: string;
+  public token: string;
 
-  private _userId: string;
+  public userId: string;
 
   public login: string;
 
@@ -19,17 +19,9 @@ export class User {
 
   constructor(userObj: IUser) {
     this.login = userObj.login;
-    this._token = userObj.token;
-    this._userId = userObj.userId;
+    this.token = userObj.token;
+    this.userId = userObj.userId;
     this.name = userObj.name;
     this.tokenExpirationDate = userObj.tokenExpirationDate;
-  }
-
-  public getUserToken() {
-    return this._token;
-  }
-
-  public getUserId() {
-    return this._userId;
   }
 }

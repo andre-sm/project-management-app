@@ -91,13 +91,16 @@ export class AuthEffects {
               const tokenExpirationDate = new Date(
                 new Date().getTime() + this.tokenExpiresIn * 1000,
               );
-              return AuthActions.loginSuccess({
+              const newUser = new User({
                 login: resData.login,
                 token: resData.token,
                 userId: resData.userId,
                 tokenExpirationDate,
                 name: resData.name,
               });
+              // need to move it to effects
+              localStorage.setItem('currentUser', JSON.stringify(newUser));
+              return AuthActions.loginSuccess(newUser);
             }),
             catchError((error) => {
               return handleError(error);
@@ -129,19 +132,12 @@ export class AuthEffects {
           tokenExpirationDate: expirationDate,
           name: userData.name,
         });
-        if (loadedUser.getUserToken()) {
+        if (loadedUser.token) {
           const expirationDuration =
             new Date(userData.tokenExpirationDate).getTime() -
             new Date().getTime();
           this.authService.setLogoutTimer(expirationDuration);
-          return AuthActions.loginSuccess({
-            login: loadedUser.login,
-            userId: loadedUser.getUserId(),
-            token: loadedUser.getUserToken(),
-            tokenExpirationDate: new Date(userData.tokenExpirationDate),
-            name: loadedUser.name,
-            // redirect: false,
-          });
+          return AuthActions.loginSuccess(loadedUser);
         }
         return AuthActions.logout();
       }),

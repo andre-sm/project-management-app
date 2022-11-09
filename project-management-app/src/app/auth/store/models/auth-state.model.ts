@@ -1,7 +1,7 @@
-import { User } from '../../../shared/models/user.model';
+import { IUser } from '../../../shared/models/user.model';
 
 export interface AuthState {
-  user: User | null;
+  user: IUser | null;
   authError: string | null;
   loading: boolean;
 }

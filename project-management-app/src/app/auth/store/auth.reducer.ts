@@ -24,20 +24,11 @@ export const authReducer = createReducer(
     }),
   ),
   on(AuthActions.loginSuccess, (state, user): AuthState => {
-    const newUser = new User({
-      login: user.login,
-      token: user.token,
-      userId: user.userId,
-      tokenExpirationDate: user.tokenExpirationDate,
-      name: user.name,
-    });
-    // need to move it to effects
-    localStorage.setItem('currentUser', JSON.stringify(user));
     return {
       ...state,
       authError: null,
       loading: false,
-      user: newUser,
+      user: user,
     };
   }),
   on(
