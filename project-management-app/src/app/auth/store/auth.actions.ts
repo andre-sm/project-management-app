@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from 'src/app/shared/models/user.model';
+import { IUser } from 'src/app/shared/models/user.model';
 
 export const loginStart = createAction(
   '[Auth] Login Start',
@@ -8,7 +8,7 @@ export const loginStart = createAction(
 
 export const loginSuccess = createAction(
   '[Auth] Login Success',
-  props<User>(),
+  props<IUser>(),
 );
 
 export const loginFail = createAction(

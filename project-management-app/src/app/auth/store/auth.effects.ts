@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import * as AuthActions from './auth.actions';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../services/auth.service';
-import { User } from '../../shared/models/user.model';
 
 export interface ISignupResponse {
   userId: string;
@@ -91,13 +90,13 @@ export class AuthEffects {
               const tokenExpirationDate = new Date(
                 new Date().getTime() + this.tokenExpiresIn * 1000,
               );
-              const newUser = new User({
+              const newUser = {
                 login: resData.login,
                 token: resData.token,
                 userId: resData.userId,
                 tokenExpirationDate,
                 name: resData.name,
-              });
+              }
               localStorage.setItem('currentUser', JSON.stringify(newUser));
               return AuthActions.loginSuccess(newUser);
             }),
@@ -124,13 +123,13 @@ export class AuthEffects {
           return AuthActions.logout();
         }
         const expirationDate = new Date(userData.tokenExpirationDate);
-        const loadedUser = new User({
+        const loadedUser = {
           login: userData.login,
           userId: userData.userId,
           token: userData.token,
           tokenExpirationDate: expirationDate,
           name: userData.name,
-        });
+        }
         if (loadedUser.token) {
           const expirationDuration =
             new Date(userData.tokenExpirationDate).getTime() -
