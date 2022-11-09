@@ -15,6 +15,7 @@ import { ProjectsModule } from './projects/projects.module';
 import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './auth/store/auth.effects';
 import { httpInterceptorProviders } from './shared/services/interceptors';
+import { EditEffects } from './user/store/edit-user.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,7 @@ import { httpInterceptorProviders } from './shared/services/interceptors';
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, EditEffects]),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

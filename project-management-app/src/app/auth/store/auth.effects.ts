@@ -98,7 +98,6 @@ export class AuthEffects {
                 tokenExpirationDate,
                 name: resData.name,
               });
-              // need to move it to effects
               localStorage.setItem('currentUser', JSON.stringify(newUser));
               return AuthActions.loginSuccess(newUser);
             }),

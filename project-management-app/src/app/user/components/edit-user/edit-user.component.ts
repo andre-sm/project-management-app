@@ -6,6 +6,7 @@ import { AuthState } from '../../../auth/store/models';
 import { IUser } from '../../../shared/models/user.model';
 import { ValidationService } from '../../../shared/services/validation.service';
 import { selectAuthState } from '../../../store/selectors/auth.selector';
+import * as EditActions from '../../store/edit-user.actions'
 
 @Component({
   selector: 'app-edit-user',
@@ -71,6 +72,11 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   onSaveChanges() {
     console.log(this.editForm);
+    const name: string = `${this.editForm.value.firstName} ${this.editForm.value.lastName}`;
+    const login: string = this.editForm.value.email;
+    const password: string = this.editForm.value.password;
+    const userId: string = this.currentUser.userId;
+    this.store.dispatch(EditActions.editUserStart({name, login, password, userId}))
   }
 
   onDeleteUser() {}

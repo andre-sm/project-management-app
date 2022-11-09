@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 export const editUserStart = createAction(
   '[EditUser] Edit User Start',
-  props<{ name: string; login: string; password: string }>(),
+  props<{ name: string, login: string, password: string, userId: string }>(),
 );
 
 export const editUserSuccess = createAction(
