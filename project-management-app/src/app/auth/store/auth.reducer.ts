@@ -16,6 +16,8 @@ export const authReducer = createReducer(
   on(
     AuthActions.signupStart,
     AuthActions.loginStart,
+    EditActions.editUserStart,
+    EditActions.deleteUserStart,
     (state): AuthState => ({
       ...state,
       errorMessage: null,
@@ -54,14 +56,23 @@ export const authReducer = createReducer(
     EditActions.editUserSuccess,
     (state, updatedUser): AuthState => ({
       ...state,
+      loading: false,
       user: { ...updatedUser },
     }),
+  ),
+  on(
+    EditActions.deleteUserSuccess,
+    (state): AuthState => ({
+      ...state,
+      loading: false,
+    })
   ),
   on(
     EditActions.editUserFail,
     EditActions.deleteUserFail,
     (state, errorObj): AuthState => ({
       ...state,
+      loading: false,
       errorMessage: errorObj.message,
     }),
   ),

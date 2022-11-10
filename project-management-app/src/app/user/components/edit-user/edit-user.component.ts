@@ -36,6 +36,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   error: string | null = null;
 
+  isLoading: boolean = false;
+
   constructor(
     protected validationService: ValidationService,
     private store: Store,
@@ -51,6 +53,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
       this.currentUser.name = authState.user?.name as string;
       this.currentUser.userId = authState.user?.userId as string;
       this.error = authState.errorMessage;
+      this.isLoading = authState.loading;
       if (this.error) {
         this.showErrorAlert(this.error);
       }

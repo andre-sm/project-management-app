@@ -1,9 +1,14 @@
 <h2>Edit user:</h2>
 <div class="container">
-  <!-- <div class="spinner-container" *ngIf="isLoading">
+  <div class="spinner-container" *ngIf="isLoading">
     <app-loading-spinner></app-loading-spinner>
-  </div> -->
-  <form class="edit-form" [formGroup]="editForm" (ngSubmit)="onSaveChanges()">
+  </div>
+  <form
+    class="edit-form"
+    [formGroup]="editForm"
+    (ngSubmit)="onSaveChanges()"
+    *ngIf="!isLoading"
+  >
     <mat-form-field class="edit-field" floatLabel="auto" appearance="outline">
       <mat-label class="edit-label">First Name</mat-label>
       <input
