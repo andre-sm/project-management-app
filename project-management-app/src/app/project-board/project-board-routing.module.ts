@@ -5,7 +5,7 @@ import { ProjectBoardComponent } from './pages/project-board/project-board.compo
 
 const routes: Routes = [
   {
-    path: 'projects/board/:id',
+    path: ':id',
     component: ProjectBoardComponent,
     canActivate: [AuthGuard],
   },

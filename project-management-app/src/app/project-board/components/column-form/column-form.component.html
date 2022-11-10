@@ -1,0 +1,29 @@
+<div class="create-column" mat-dialog-content>
+  <h1 class="create-column__title">Add column</h1>
+  <form
+    class="create-column__form"
+    [formGroup]="createColumnForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+    <div class="create-column__btns">
+      <button
+        class="create-column__close-btn btn"
+        (click)="onCloseClick()"
+        type="button"
+      >
+        Close
+      </button>
+      <button
+        class="create-column__create-btn btn"
+        [class.disabled]="createColumnForm.invalid"
+        type="submit"
+      >
+        Add
+      </button>
+    </div>
+  </form>
+</div>
