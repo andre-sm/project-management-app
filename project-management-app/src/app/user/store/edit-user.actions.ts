@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { IUser } from 'src/app/shared/models/user.model';
 
 export const editUserStart = createAction(
   '[EditUser] Edit User Start',
@@ -7,7 +8,7 @@ export const editUserStart = createAction(
 
 export const editUserSuccess = createAction(
   '[EditUser] Edit User Success',
-  props<{ id: string; name: string; login: string }>(),
+  props<IUser>(),
 );
 
 export const editUserFail = createAction(

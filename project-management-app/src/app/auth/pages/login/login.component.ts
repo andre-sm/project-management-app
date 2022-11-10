@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
     this.authSub = this.auth$.subscribe((authState) => {
       this.isLoading = authState.loading;
-      this.error = authState.authError;
+      this.error = authState.errorMessage;
       if (this.error) {
         this.showErrorAlert(this.error);
       }

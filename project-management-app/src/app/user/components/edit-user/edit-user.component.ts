@@ -2,11 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
+import { ShowAlertService } from 'src/app/shared/services/show-alert.service';
 import { AuthState } from '../../../auth/store/models';
 import { IUser } from '../../../shared/models/user.model';
 import { ValidationService } from '../../../shared/services/validation.service';
 import { selectAuthState } from '../../../store/selectors/auth.selector';
 import * as EditActions from '../../store/edit-user.actions'
+import * as AuthActions from '../../../auth/store/auth.actions';
 
 @Component({
   selector: 'app-edit-user',
@@ -30,9 +32,12 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   auth$!: Observable<AuthState>;
 
+  error: string | null = null;
+
   constructor(
     protected validationService: ValidationService,
     private store: Store,
+    private showAlertService: ShowAlertService,
   ) {
     this.auth$ = this.store.select(selectAuthState);
   }
@@ -42,6 +47,11 @@ export class EditUserComponent implements OnInit, OnDestroy {
       this.currentUser.login = authState.user?.login as string;
       this.currentUser.name = authState.user?.name as string;
       this.currentUser.userId = authState.user?.userId as string;
+      this.error = authState.errorMessage;
+      console.log(authState.errorMessage)
+      if (this.error) {
+        this.showErrorAlert(this.error);
+      }
     });
 
     this.editForm = new FormGroup({
@@ -71,12 +81,19 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   onSaveChanges() {
-    console.log(this.editForm);
     const name: string = `${this.editForm.value.firstName} ${this.editForm.value.lastName}`;
     const login: string = this.editForm.value.email;
     const password: string = this.editForm.value.password;
     const userId: string = this.currentUser.userId;
     this.store.dispatch(EditActions.editUserStart({name, login, password, userId}))
+  }
+
+  onHandleError() {
+    this.store.dispatch(AuthActions.clearError());
+  }
+
+  private showErrorAlert(message: string) {
+    this.showAlertService.showAlert(message);
   }
 
   onDeleteUser() {}

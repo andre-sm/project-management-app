@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import * as AuthActions from './auth.actions';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../services/auth.service';
+import { HandleServerErrors } from 'src/app/shared/handle-server-errors.service';
 
 export interface ISignupResponse {
   userId: string;
@@ -21,23 +22,26 @@ export interface ILoginResponse {
   name: string;
 }
 
-const handleError = (errorRes: any) => {
-  let errorMessage = 'An unknown error occurred!';
-  if (!errorRes.error || !errorRes.status) {
-    return of(AuthActions.loginFail({ error: errorMessage }));
-  }
-  switch (errorRes.status) {
-    case 409:
-      errorMessage = 'This email exists already!';
-      break;
-    case 403:
-      errorMessage = 'User was not founded!';
-      break;
-    default:
-      break;
-  }
-  return of(AuthActions.loginFail({ error: errorMessage }));
-};
+// const handleError = (errorRes: any) => {
+//   let errorMessage = 'An unknown error occurred!';
+//   if (!errorRes.error || !errorRes.status) {
+//     return of(AuthActions.loginFail({ error: errorMessage }));
+//   }
+//   switch (errorRes.status) {
+//     case 409:
+//       errorMessage = 'This email exists already!';
+//       break;
+//     case 403:
+//       errorMessage = 'User was not founded!';
+//       break;
+//     case 400:
+//       errorMessage = 'Password must be a string!';
+//       break;
+//     default:
+//       break;
+//   }
+//   return of(AuthActions.loginFail({ error: errorMessage }));
+// };
 
 @Injectable()
 export class AuthEffects {
@@ -49,6 +53,7 @@ export class AuthEffects {
     private http: HttpClient,
     private authService: AuthService,
     private router: Router,
+    private handleErrorsService: HandleServerErrors
   ) {}
 
   authSignup$ = createEffect(() => {
@@ -69,7 +74,7 @@ export class AuthEffects {
               });
             }),
             catchError((error) => {
-              return handleError(error);
+              return this.handleErrorsService.handleError(error);
             }),
           );
       }),
@@ -101,7 +106,7 @@ export class AuthEffects {
               return AuthActions.loginSuccess(newUser);
             }),
             catchError((error) => {
-              return handleError(error);
+              return this.handleErrorsService.handleError(error);
             }),
           );
       }),
