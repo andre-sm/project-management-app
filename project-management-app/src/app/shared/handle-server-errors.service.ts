@@ -1,35 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { of} from 'rxjs';
+import { of } from 'rxjs';
 import * as AuthActions from '../auth/store/auth.actions';
 import * as EditActions from '../user/store/edit-user.actions';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class HandleServerErrors {
-
-  page: string = ''
+  page: string = '';
 
   constructor(private router: Router) {}
 
   handleError = (errorRes: any) => {
-    (this.router.url.indexOf('auth') !== -1) ? this.page = 'auth' : 'edit'
+    this.router.url.indexOf('auth') !== -1
+      ? (this.page = 'auth')
+      : (this.page = 'edit');
     let errorMessage = 'An unknown error occurred!';
-    if ((!errorRes.error || !errorRes.status)) {
-      if(this.page === 'auth') {
+    if (!errorRes.error || !errorRes.status) {
+      if (this.page === 'auth') {
         return of(AuthActions.loginFail({ error: errorMessage }));
-      } else {
-        return of(EditActions.editUserFail({
-          statusCode: errorRes.status,
-          message: errorMessage
-          }));
       }
+      return of(
+        EditActions.editUserFail({
+          statusCode: errorRes.status,
+          message: errorMessage,
+        }),
+      );
     }
     switch (errorRes.status) {
       case 409:
         errorMessage = 'This email exists already!';
         break;
       case 403:
-        errorMessage = 'User was not founded!';
+      case 404:
+        errorMessage = 'User was not found!';
         break;
       case 400:
         errorMessage = 'Password must be a string!';
@@ -37,13 +40,14 @@ export class HandleServerErrors {
       default:
         break;
     }
-    if(this.page === 'auth') {
+    if (this.page === 'auth') {
       return of(AuthActions.loginFail({ error: errorMessage }));
-    } else {
-      return of(EditActions.editUserFail({
-        statusCode: errorRes.status,
-        message: errorMessage
-        }));
     }
+    return of(
+      EditActions.editUserFail({
+        statusCode: errorRes.status,
+        message: errorMessage,
+      }),
+    );
   };
 }

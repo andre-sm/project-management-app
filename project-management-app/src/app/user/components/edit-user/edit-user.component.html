@@ -156,7 +156,8 @@
         type="submit"
         mat-stroked-button
         color="primary"
-        class="button login-button"
+        class="button save-button"
+        [disabled]="!editForm.valid"
       >
         Save
       </button>
@@ -164,7 +165,7 @@
         type="button"
         mat-stroked-button
         color="danger"
-        class="button switch-button"
+        class="button delete-button danger-btn"
         (click)="onDeleteUser()"
       >
         Delete User
@@ -172,4 +173,3 @@
     </div>
   </form>
 </div>
-<!--         [disabled]="!editForm.valid" -->

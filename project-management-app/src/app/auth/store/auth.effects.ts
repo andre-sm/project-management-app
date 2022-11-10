@@ -1,13 +1,13 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { HandleServerErrors } from 'src/app/shared/handle-server-errors.service';
 import * as AuthActions from './auth.actions';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../services/auth.service';
-import { HandleServerErrors } from 'src/app/shared/handle-server-errors.service';
 
 export interface ISignupResponse {
   userId: string;
@@ -22,38 +22,16 @@ export interface ILoginResponse {
   name: string;
 }
 
-// const handleError = (errorRes: any) => {
-//   let errorMessage = 'An unknown error occurred!';
-//   if (!errorRes.error || !errorRes.status) {
-//     return of(AuthActions.loginFail({ error: errorMessage }));
-//   }
-//   switch (errorRes.status) {
-//     case 409:
-//       errorMessage = 'This email exists already!';
-//       break;
-//     case 403:
-//       errorMessage = 'User was not founded!';
-//       break;
-//     case 400:
-//       errorMessage = 'Password must be a string!';
-//       break;
-//     default:
-//       break;
-//   }
-//   return of(AuthActions.loginFail({ error: errorMessage }));
-// };
-
 @Injectable()
 export class AuthEffects {
   tokenExpiresIn = 43200;
-  // tokenExpiresIn = 10;
 
   constructor(
     private actions$: Actions,
     private http: HttpClient,
     private authService: AuthService,
     private router: Router,
-    private handleErrorsService: HandleServerErrors
+    private handleErrorsService: HandleServerErrors,
   ) {}
 
   authSignup$ = createEffect(() => {
@@ -101,7 +79,7 @@ export class AuthEffects {
                 userId: resData.userId,
                 tokenExpirationDate,
                 name: resData.name,
-              }
+              };
               localStorage.setItem('currentUser', JSON.stringify(newUser));
               return AuthActions.loginSuccess(newUser);
             }),
@@ -134,7 +112,7 @@ export class AuthEffects {
           token: userData.token,
           tokenExpirationDate: expirationDate,
           name: userData.name,
-        }
+        };
         if (loadedUser.token) {
           const expirationDuration =
             new Date(userData.tokenExpirationDate).getTime() -

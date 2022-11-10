@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { AuthState } from './models/auth-state.model';
 import * as AuthActions from './auth.actions';
-import * as EditActions from '../../user/store/edit-user.actions'
+import * as EditActions from '../../user/store/edit-user.actions';
 
 export const featureName = 'authFeature';
 
@@ -27,18 +27,16 @@ export const authReducer = createReducer(
       ...state,
       errorMessage: null,
       loading: false,
-      user: user,
+      user,
     };
   }),
-  on(
-    AuthActions.loginFail,
-    (state, { error }): AuthState => {
-      return ({
+  on(AuthActions.loginFail, (state, { error }): AuthState => {
+    return {
       ...state,
       errorMessage: error,
       loading: false,
-    })},
-  ),
+    };
+  }),
   on(AuthActions.logout, (state): AuthState => {
     return {
       ...state,
@@ -54,16 +52,17 @@ export const authReducer = createReducer(
   ),
   on(
     EditActions.editUserSuccess,
-    (state, updatedUser): AuthState =>({
+    (state, updatedUser): AuthState => ({
       ...state,
-      user: {...updatedUser}
-    })
+      user: { ...updatedUser },
+    }),
   ),
   on(
     EditActions.editUserFail,
-    (state, errorObj): AuthState =>({
+    EditActions.deleteUserFail,
+    (state, errorObj): AuthState => ({
       ...state,
-      errorMessage: errorObj.message
-    })
-  )
+      errorMessage: errorObj.message,
+    }),
+  ),
 );
