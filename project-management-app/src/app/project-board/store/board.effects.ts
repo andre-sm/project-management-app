@@ -40,6 +40,38 @@ export class BoardEffects {
     );
   });
 
+  deleteColumn$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardActions.deleteColumn),
+      concatLatestFrom(() => this.store.select(selectBoardId)),
+      mergeMap(([{ id }, boardId]) => {
+        return this.boardService.deleteColumn(id, boardId).pipe(
+          map(() => BoardActions.deleteColumnSuccess({ id })),
+          catchError((error) =>
+            of(BoardActions.deleteColumnError({ error: error.message })),
+          ),
+        );
+      }),
+    );
+  });
+
+  updateColumn$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardActions.updateColumn),
+      concatLatestFrom(() => this.store.select(selectBoardId)),
+      mergeMap(([{ title, id, order }, boardId]) => {
+        return this.boardService.updateColumn(title, id, order, boardId).pipe(
+          map((updatedColumn) =>
+            BoardActions.updateColumnSuccess({ updatedColumn }),
+          ),
+          catchError((error) =>
+            of(BoardActions.deleteColumnError({ error: error.message })),
+          ),
+        );
+      }),
+    );
+  });
+
   constructor(
     private actions$: Actions,
     private boardService: BoardService,

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as BoardActions from '../../store/board.actions';
+import { ColumnForm } from '../../models';
 
 @Component({
   selector: 'app-column-form',
@@ -10,20 +11,25 @@ import * as BoardActions from '../../store/board.actions';
   styleUrls: ['./column-form.component.scss'],
 })
 export class ColumnFormComponent implements OnInit {
-  createColumnForm!: FormGroup;
+  columnForm!: FormGroup;
+
+  formData: ColumnForm;
 
   constructor(
     private store: Store,
     private dialogRef: MatDialogRef<ColumnFormComponent>,
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: ColumnForm,
+  ) {
+    this.formData = { ...data };
+  }
 
   ngOnInit(): void {
     this.createForm();
   }
 
   createForm(): void {
-    this.createColumnForm = new FormGroup({
-      title: new FormControl('', [
+    this.columnForm = new FormGroup({
+      title: new FormControl(this.formData.title || '', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(64),
@@ -32,7 +38,17 @@ export class ColumnFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.store.dispatch(BoardActions.createColumn(this.createColumnForm.value));
+    if (this.formData.id === null) {
+      this.store.dispatch(BoardActions.createColumn(this.columnForm.value));
+    } else {
+      this.store.dispatch(
+        BoardActions.updateColumn({
+          title: this.columnForm.value.title,
+          id: this.formData.id,
+          order: this.formData.order,
+        }),
+      );
+    }
     this.dialogRef.close();
   }
 

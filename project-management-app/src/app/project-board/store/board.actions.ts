@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Column, Board } from '../models';
+import { Column, Board, ColumnResponse } from '../models';
 
 export const getBoard = createAction(
   '[Board] Get Board',
@@ -28,5 +28,35 @@ export const createColumnSuccess = createAction(
 
 export const createColumnError = createAction(
   '[Column] Create Column Error',
+  props<{ error: string }>(),
+);
+
+export const deleteColumn = createAction(
+  '[Column] Delete Column',
+  props<{ id: string }>(),
+);
+
+export const deleteColumnSuccess = createAction(
+  '[Column] Delete Column Success',
+  props<{ id: string }>(),
+);
+
+export const deleteColumnError = createAction(
+  '[Column] Delete Column Error',
+  props<{ error: string }>(),
+);
+
+export const updateColumn = createAction(
+  '[Column] Update Column',
+  props<{ title: string; id: string; order: number | null }>(),
+);
+
+export const updateColumnSuccess = createAction(
+  '[Column] Update Column Success',
+  props<{ updatedColumn: ColumnResponse }>(),
+);
+
+export const updateColumnError = createAction(
+  '[Column] Update Column Error',
   props<{ error: string }>(),
 );

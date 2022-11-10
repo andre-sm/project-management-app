@@ -18,5 +18,6 @@ export const selectBoardInfo = createSelector(
 
 export const selectBoardColumns = createSelector(
   selectBoardState,
-  (state: BoardFeatureState) => state.board.columns,
+  (state: BoardFeatureState) =>
+    [...state.board.columns].sort((a, b) => a.order - b.order),
 );

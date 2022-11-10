@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Column, Board } from '../models';
+import { Column, Board, ColumnResponse } from '../models';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -18,6 +18,27 @@ export class BoardService {
     return this.http.post<Column>(
       `${environment.baseUrl}/boards/${boardId}/columns`,
       { title },
+    );
+  }
+
+  deleteColumn(id: string, boardId: string): Observable<Response> {
+    return this.http.delete<Response>(
+      `${environment.baseUrl}/boards/${boardId}/columns/${id}`,
+    );
+  }
+
+  updateColumn(
+    title: string,
+    id: string,
+    order: number | null,
+    boardId: string,
+  ): Observable<ColumnResponse> {
+    return this.http.put<ColumnResponse>(
+      `${environment.baseUrl}/boards/${boardId}/columns/${id}`,
+      {
+        title,
+        order,
+      },
     );
   }
 }

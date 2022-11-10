@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ColumnFormComponent } from '../../components/column-form/column-form.component';
 import { BoardInfo, Column } from '../../models';
 import * as BoardActions from '../../store/board.actions';
@@ -40,9 +40,16 @@ export class ProjectBoardComponent implements OnInit {
   }
 
   createColumn(): void {
-    this.dialog.open(ColumnFormComponent, {
-      disableClose: true,
-      autoFocus: true,
-    });
+    const createDialogConfig = new MatDialogConfig();
+    createDialogConfig.disableClose = true;
+    createDialogConfig.autoFocus = true;
+    createDialogConfig.data = {
+      formTitle: 'Create column',
+      confirmText: 'Create',
+      cancelText: 'Close',
+      id: null,
+    };
+
+    this.dialog.open(ColumnFormComponent, createDialogConfig);
   }
 }
