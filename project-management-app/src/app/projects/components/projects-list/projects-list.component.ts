@@ -18,7 +18,8 @@ export class ProjectsListComponent {
 
   constructor(public dialog: MatDialog, private store: Store) {}
 
-  deleteDialog(id: string): void {
+  deleteDialog(event: Event, id: string): void {
+    event.stopPropagation();
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
@@ -38,7 +39,8 @@ export class ProjectsListComponent {
     });
   }
 
-  editDialog(id: string): void {
+  editDialog(event: Event, id: string): void {
+    event.stopPropagation();
     const selectedProject = this.projects.find((item) => item.id === id);
 
     const editDialogConfig = new MatDialogConfig();

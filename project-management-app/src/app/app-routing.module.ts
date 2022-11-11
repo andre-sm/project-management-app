@@ -17,6 +17,13 @@ const routes: Routes = [
       import('./projects/projects.module').then((m) => m.ProjectsModule),
   },
   {
+    path: 'projects/board',
+    loadChildren: () =>
+      import('./project-board/project-board.module').then(
+        (m) => m.ProjectBoardModule,
+      ),
+  },
+  {
     path: 'edit-user',
     loadChildren: () =>
       import('./user/user.module').then((m) => m.EditUserModule),

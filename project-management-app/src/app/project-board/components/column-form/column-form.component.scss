@@ -1,0 +1,32 @@
+@import '../../../shared/variables';
+
+.column-form {
+  &__form-fields {
+    display: flex;
+    flex-direction: column;
+    min-width: 280px;
+  }
+
+  &__btns {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  &__confirm-btn {
+    padding: 10px 30px;
+    background-color: $color-violet;
+    color: $color-white;
+  }
+
+  &__confirm-btn.btn.disabled {
+    background-color: $color-grey;
+  }
+
+  &__close-btn {
+    padding: 10px 30px;
+    border: 1px solid $color-violet;
+    background-color: $color-white;
+    color: $color-violet;
+  }
+}
