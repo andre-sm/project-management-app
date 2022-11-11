@@ -32,6 +32,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   error: string | null = null;
 
+  param = {value: 'world'};
+
+  language = ['EN', 'RU']
+
   authForm: FormGroup = new FormGroup({
     firstName: new FormControl(null),
     lastName: new FormControl(null),
@@ -44,7 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   namesValidators: ValidatorFn[] = [
     Validators.required,
-    Validators.minLength(3),
+    Validators.minLength(2),
   ];
 
   auth$!: Observable<AuthState>;

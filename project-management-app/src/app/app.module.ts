@@ -16,6 +16,9 @@ import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './auth/store/auth.effects';
 import { httpInterceptorProviders } from './shared/services/interceptors';
 import { EditEffects } from './user/store/edit-user.effects';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,8 +37,19 @@ import { EditEffects } from './user/store/edit-user.effects';
     WelcomeModule,
     AuthModule,
     ProjectsModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient],
+      }
+  })
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

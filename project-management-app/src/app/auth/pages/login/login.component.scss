@@ -5,6 +5,9 @@
   grid-template-rows: 120px 1fr 120px;
   column-gap: 10px;
   min-height: calc(100% - 240px);
+  @media (min-width: 320px) and (max-width: 449px) {
+    width: 100%;
+  }
 }
 
 .container {
@@ -12,6 +15,9 @@
   grid-column: 2 / 12;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+  @media (min-width: 320px) and (max-width: 449px) {
+    grid-column: 1 / 13;
+  }
 }
 
 .spinner-container {
@@ -43,7 +49,7 @@
   }
 
   .password-field {
-    margin-bottom: 30px;
+    margin-bottom: 50px;
   }
 
   .button {
@@ -69,8 +75,8 @@
   @media (min-width: 320px) and (max-width: 449px) {
     grid-column: 1 / 13;
     padding: 10px;
-    .password-field {
-      margin-bottom: 35px;
+    .buttons-container {
+      flex-wrap: wrap;
     }
     .button {
       padding: 0 5px;
