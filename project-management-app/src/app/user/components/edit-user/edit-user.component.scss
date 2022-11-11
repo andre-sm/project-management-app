@@ -14,9 +14,15 @@
   grid-template-columns: repeat(12, 1fr);
 }
 
+.spinner-container {
+  grid-column: 6 / 8;
+  text-align: center;
+}
+
 .buttons-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 20px;
 }
 
 .edit-form {
@@ -52,6 +58,11 @@
 
   .err-span {
     color: $error-color;
+  }
+
+  .danger-btn {
+    background-color: $error-color;
+    color: $color-white;
   }
 
   @media (min-width: 768px) and (max-width: 1440px) {

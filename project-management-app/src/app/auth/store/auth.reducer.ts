@@ -1,13 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
-import { User } from '../../shared/models/user.model';
-import * as AuthActions from './auth.actions';
 import { AuthState } from './models/auth-state.model';
+import * as AuthActions from './auth.actions';
+import * as EditActions from '../../user/store/edit-user.actions';
 
 export const featureName = 'authFeature';
 
 const initialState: AuthState = {
   user: null,
-  authError: null,
+  errorMessage: null,
   loading: false,
 };
 
@@ -16,37 +16,29 @@ export const authReducer = createReducer(
   on(
     AuthActions.signupStart,
     AuthActions.loginStart,
+    EditActions.editUserStart,
+    EditActions.deleteUserStart,
     (state): AuthState => ({
       ...state,
-      authError: null,
+      errorMessage: null,
       loading: true,
     }),
   ),
   on(AuthActions.loginSuccess, (state, user): AuthState => {
-    const newUser = new User({
-      login: user.login,
-      token: user.token,
-      userId: user.userId,
-      tokenExpirationDate: user.tokenExpirationDate,
-      name: user.name,
-    });
-    // need to move it to effects
-    localStorage.setItem('currentUser', JSON.stringify(user));
     return {
       ...state,
-      authError: null,
+      errorMessage: null,
       loading: false,
-      user: newUser,
+      user,
     };
   }),
-  on(
-    AuthActions.loginFail,
-    (state, { error }): AuthState => ({
+  on(AuthActions.loginFail, (state, { error }): AuthState => {
+    return {
       ...state,
-      authError: error,
+      errorMessage: error,
       loading: false,
-    }),
-  ),
+    };
+  }),
   on(AuthActions.logout, (state): AuthState => {
     return {
       ...state,
@@ -57,7 +49,31 @@ export const authReducer = createReducer(
     AuthActions.clearError,
     (state): AuthState => ({
       ...state,
-      authError: null,
+      errorMessage: null,
+    }),
+  ),
+  on(
+    EditActions.editUserSuccess,
+    (state, updatedUser): AuthState => ({
+      ...state,
+      loading: false,
+      user: { ...updatedUser },
+    }),
+  ),
+  on(
+    EditActions.deleteUserSuccess,
+    (state): AuthState => ({
+      ...state,
+      loading: false,
+    })
+  ),
+  on(
+    EditActions.editUserFail,
+    EditActions.deleteUserFail,
+    (state, errorObj): AuthState => ({
+      ...state,
+      loading: false,
+      errorMessage: errorObj.message,
     }),
   ),
 );

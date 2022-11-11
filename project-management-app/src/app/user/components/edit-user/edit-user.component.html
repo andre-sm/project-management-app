@@ -1,9 +1,14 @@
 <h2>Edit user:</h2>
 <div class="container">
-  <!-- <div class="spinner-container" *ngIf="isLoading">
+  <div class="spinner-container" *ngIf="isLoading">
     <app-loading-spinner></app-loading-spinner>
-  </div> -->
-  <form class="edit-form" [formGroup]="editForm" (ngSubmit)="onSaveChanges()">
+  </div>
+  <form
+    class="edit-form"
+    [formGroup]="editForm"
+    (ngSubmit)="onSaveChanges()"
+    *ngIf="!isLoading"
+  >
     <mat-form-field class="edit-field" floatLabel="auto" appearance="outline">
       <mat-label class="edit-label">First Name</mat-label>
       <input
@@ -156,7 +161,7 @@
         type="submit"
         mat-stroked-button
         color="primary"
-        class="button login-button"
+        class="button save-button"
         [disabled]="!editForm.valid"
       >
         Save
@@ -165,7 +170,7 @@
         type="button"
         mat-stroked-button
         color="danger"
-        class="button switch-button"
+        class="button delete-button danger-btn"
         (click)="onDeleteUser()"
       >
         Delete User
@@ -173,4 +178,3 @@
     </div>
   </form>
 </div>
-<!--         [disabled]="!editForm.valid" -->

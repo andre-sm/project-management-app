@@ -11,8 +11,8 @@ export const loginSuccess = createAction(
     login: string;
     token: string;
     userId: string;
-    tokenExpirationDate: Date;
     name: string;
+    tokenExpirationDate: Date;
   }>(),
 );
 
