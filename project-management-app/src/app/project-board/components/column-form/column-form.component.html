@@ -1,0 +1,29 @@
+<div class="column-form" mat-dialog-content>
+  <h1 class="column-form__title">{{ formData.formTitle }}</h1>
+  <form
+    class="column-form__form-fields"
+    [formGroup]="columnForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+    <div class="column-form__btns">
+      <button
+        class="column-form__close-btn btn"
+        (click)="onCloseClick()"
+        type="button"
+      >
+        {{ formData.cancelText }}
+      </button>
+      <button
+        class="column-form__confirm-btn btn"
+        [class.disabled]="columnForm.invalid"
+        type="submit"
+      >
+        {{ formData.confirmText }}
+      </button>
+    </div>
+  </form>
+</div>
