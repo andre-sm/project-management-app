@@ -12,7 +12,8 @@
 }
 
 .dismiss-btn,
-.confirm-btn {
+.confirm-btn,
+.danger-btn {
   padding: 10px 30px;
 }
 
@@ -25,4 +26,9 @@
   color: $color-violet;
   background-color: $color-white;
   border: 1px solid $color-violet;
+}
+
+.danger-btn {
+  background-color: $error-color;
+  color: $color-white;
 }

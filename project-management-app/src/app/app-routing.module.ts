@@ -23,6 +23,11 @@ const routes: Routes = [
         (m) => m.ProjectBoardModule,
       ),
   },
+  {
+    path: 'edit-user',
+    loadChildren: () =>
+      import('./user/user.module').then((m) => m.EditUserModule),
+  },
 ];
 
 @NgModule({

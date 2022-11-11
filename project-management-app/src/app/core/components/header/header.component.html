@@ -30,4 +30,15 @@
   >
     Logout
   </button>
+  <button
+    type="button"
+    mat-stroked-button
+    color="primary"
+    class="button"
+    *ngIf="isAuthenticated"
+    routerLinkActive="router-link-active"
+    (click)="onEditUser()"
+  >
+    Edit User
+  </button>
 </div>

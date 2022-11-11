@@ -21,11 +21,12 @@
 
 .buttons-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 20px;
 }
 
-.auth-form {
-  grid-column: 5 / 9;
+.edit-form {
+  grid-column: 4 / 10;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -38,7 +39,7 @@
     width: 100%;
   }
 
-  .auth-field {
+  .edit-field {
     margin-bottom: 20px;
   }
 
@@ -57,6 +58,11 @@
 
   .err-span {
     color: $error-color;
+  }
+
+  .danger-btn {
+    background-color: $error-color;
+    color: $color-white;
   }
 
   @media (min-width: 768px) and (max-width: 1440px) {

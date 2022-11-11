@@ -1,63 +1,79 @@
-import { User } from '../models/user.model';
+import { createReducer, on } from '@ngrx/store';
+import { AuthState } from './models/auth-state.model';
 import * as AuthActions from './auth.actions';
+import * as EditActions from '../../user/store/edit-user.actions';
 
-export interface State {
-  user: User | null;
-  authError: string | null;
-  loading: boolean;
-}
+export const featureName = 'authFeature';
 
-const initialState: State = {
+const initialState: AuthState = {
   user: null,
-  authError: null,
+  errorMessage: null,
   loading: false,
 };
 
-export function authReducer(
-  state = initialState,
-  action: AuthActions.AuthActions,
-) {
-  switch (action.type) {
-    case AuthActions.LOGIN_SUCCESS:
-      const user = new User({
-        login: action.payload.login,
-        token: action.payload.token,
-        userId: action.payload.userId,
-        tokenExpirationDate: action.payload.tokenExpirationDate,
-        name: action.payload.name,
-      });
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      return {
-        ...state,
-        authError: null,
-        user,
-        loading: false,
-      };
-    case AuthActions.LOGIN_START:
-    case AuthActions.SIGNUP_START:
-      return {
-        ...state,
-        authError: null,
-        loading: true,
-      };
-    case AuthActions.LOGOUT:
-      return {
-        ...state,
-        user: null,
-      };
-    case AuthActions.LOGIN_FAIL:
-      return {
-        ...state,
-        user: null,
-        authError: action.payload,
-        loading: false,
-      };
-    case AuthActions.CLEAR_ERROR:
-      return {
-        ...state,
-        authError: null,
-      };
-    default:
-      return state;
-  }
-}
+export const authReducer = createReducer(
+  initialState,
+  on(
+    AuthActions.signupStart,
+    AuthActions.loginStart,
+    EditActions.editUserStart,
+    EditActions.deleteUserStart,
+    (state): AuthState => ({
+      ...state,
+      errorMessage: null,
+      loading: true,
+    }),
+  ),
+  on(AuthActions.loginSuccess, (state, user): AuthState => {
+    return {
+      ...state,
+      errorMessage: null,
+      loading: false,
+      user,
+    };
+  }),
+  on(AuthActions.loginFail, (state, { error }): AuthState => {
+    return {
+      ...state,
+      errorMessage: error,
+      loading: false,
+    };
+  }),
+  on(AuthActions.logout, (state): AuthState => {
+    return {
+      ...state,
+      user: null,
+    };
+  }),
+  on(
+    AuthActions.clearError,
+    (state): AuthState => ({
+      ...state,
+      errorMessage: null,
+    }),
+  ),
+  on(
+    EditActions.editUserSuccess,
+    (state, updatedUser): AuthState => ({
+      ...state,
+      loading: false,
+      user: { ...updatedUser },
+    }),
+  ),
+  on(
+    EditActions.deleteUserSuccess,
+    (state): AuthState => ({
+      ...state,
+      loading: false,
+    })
+  ),
+  on(
+    EditActions.editUserFail,
+    EditActions.deleteUserFail,
+    (state, errorObj): AuthState => ({
+      ...state,
+      loading: false,
+      errorMessage: errorObj.message,
+    }),
+  ),
+);

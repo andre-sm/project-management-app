@@ -4,7 +4,7 @@
     {{ cancelText }}
   </button>
   <button
-    class="confirm-btn btn"
+    [class]="source === 'projects' ? 'confirm-btn btn' : 'danger-btn btn'"
     mat-dialog-close
     cdkFocusInitial
     (click)="onConfirm()"
