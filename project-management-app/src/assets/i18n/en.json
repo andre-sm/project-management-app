@@ -44,5 +44,18 @@
         "toSignup": "Switch to signup"
       }
     }
+  },
+  "EDIT_USER": {
+    "header": "Edit user:",
+    "passwordDisclaimer": "Enter a new password. Enter the old one in case if you don't want to change it.",
+    "buttons": {
+      "save": "Save changes",
+      "delete": "Delete user"
+    },
+    "confirmDialog": {
+      "message": "Deleting user will remove all data about your existence form our database. Are you sure you want it?",
+      "confirmText": "I'm sure, delete user!",
+      "cancelText": "Cancel!!!"
+    }
   }
 }

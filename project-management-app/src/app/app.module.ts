@@ -5,6 +5,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -16,9 +19,6 @@ import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './auth/store/auth.effects';
 import { httpInterceptorProviders } from './shared/services/interceptors';
 import { EditEffects } from './user/store/edit-user.effects';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,16 +40,17 @@ import { HttpClient } from '@angular/common/http';
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient],
-      }
-  })
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }

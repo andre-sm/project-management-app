@@ -65,7 +65,7 @@ export const authReducer = createReducer(
     (state): AuthState => ({
       ...state,
       loading: false,
-    })
+    }),
   ),
   on(
     EditActions.editUserFail,

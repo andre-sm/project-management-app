@@ -28,6 +28,9 @@
 .buttons-container {
   display: flex;
   justify-content: space-evenly;
+  @media (min-width: 320px) and (max-width: 449px) {
+    flex-wrap: wrap;
+  }
 }
 
 .auth-form {
@@ -55,6 +58,9 @@
   .button {
     flex-basis: 100%;
     align-self: flex-start;
+    @media (min-width: 320px) and (max-width: 449px) {
+      padding: 0 5px;
+    }
   }
 
   span {
@@ -75,11 +81,5 @@
   @media (min-width: 320px) and (max-width: 449px) {
     grid-column: 1 / 13;
     padding: 10px;
-    .buttons-container {
-      flex-wrap: wrap;
-    }
-    .button {
-      padding: 0 5px;
-    }
   }
 }

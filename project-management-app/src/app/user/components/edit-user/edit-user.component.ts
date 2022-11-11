@@ -5,6 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import { ShowAlertService } from 'src/app/shared/services/show-alert.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthState } from '../../../auth/store/models';
 import { IUser } from '../../../shared/models/user.model';
 import { ValidationService } from '../../../shared/services/validation.service';
@@ -43,6 +44,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
     private store: Store,
     private showAlertService: ShowAlertService,
     public dialog: MatDialog,
+    private translate: TranslateService,
   ) {
     this.auth$ = this.store.select(selectAuthState);
   }
@@ -62,11 +64,11 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.editForm = new FormGroup({
       firstName: new FormControl(this.currentUser.name.split(' ')[0], [
         Validators.required,
-        Validators.minLength(3),
+        Validators.minLength(2),
       ]),
       lastName: new FormControl(this.currentUser.name.split(' ')[1], [
         Validators.required,
-        Validators.minLength(3),
+        Validators.minLength(2),
       ]),
       email: new FormControl(this.currentUser.login, [
         Validators.required,
@@ -90,14 +92,16 @@ export class EditUserComponent implements OnInit, OnDestroy {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
-      message:
-        'Deleting user will remove all data about your existence form our database. Are you sure you want it?',
-      confirmText: "I'm sure, delete user!",
-      cancelText: 'Cancel!!!',
+      message: null,
+      confirmText: null,
+      cancelText: null,
     };
-
+    this.translate.get('EDIT_USER.confirmDialog').subscribe((config) => {
+      dialogConfig.data.message = config.message;
+      dialogConfig.data.confirmText = config.confirmText;
+      dialogConfig.data.cancelText = config.cancelText;
+    });
     const dialogRef = this.dialog.open(ConfirmModalComponent, dialogConfig);
-
     dialogRef.afterClosed().subscribe((result: Boolean) => {
       if (result) {
         this.store.dispatch(EditActions.deleteUserStart({ userId: id }));

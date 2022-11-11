@@ -32,9 +32,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   error: string | null = null;
 
-  param = {value: 'world'};
+  param = { value: 'world' };
 
-  language = ['EN', 'RU']
+  language = ['EN', 'RU'];
 
   authForm: FormGroup = new FormGroup({
     firstName: new FormControl(null),

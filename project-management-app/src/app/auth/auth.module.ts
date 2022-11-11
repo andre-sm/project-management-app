@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import { MissingTranslationHandler, TranslateCompiler, TranslateLoader, TranslateModule, TranslateParser } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [LoginComponent],

@@ -1,4 +1,4 @@
-<h2>Edit user:</h2>
+<h2 class="edit-user-header">{{ 'EDIT_USER.header' | translate }}</h2>
 <div class="container">
   <div class="spinner-container" *ngIf="isLoading">
     <app-loading-spinner></app-loading-spinner>
@@ -10,84 +10,89 @@
     *ngIf="!isLoading"
   >
     <mat-form-field class="edit-field" floatLabel="auto" appearance="outline">
-      <mat-label class="edit-label">First Name</mat-label>
+      <mat-label class="edit-label">{{
+        'AUTH.firstName.value' | translate
+      }}</mat-label>
       <input
         type="text"
         id="first-name"
         formControlName="firstName"
         matInput
         name="first-name"
-        placeholder="First Name"
+        [placeholder]="'AUTH.firstName.value' | translate"
       />
       <mat-error
         *ngIf="
           validationService.hasError(editForm, 'firstName', 'required') &&
           editForm.get('firstName')?.touched
         "
-        >Please enter a first name</mat-error
+        >{{ 'AUTH.firstName.validation.error1' | translate }}</mat-error
       >
       <mat-error
         *ngIf="
           validationService.hasError(editForm, 'firstName', 'minlength') &&
           editForm.get('firstName')?.touched
         "
-        >Min length 3 characters</mat-error
+        >{{ 'AUTH.firstName.validation.error2' | translate }}</mat-error
       >
     </mat-form-field>
     <mat-form-field class="edit-field" floatLabel="auto" appearance="outline">
-      <mat-label class="edit-label">Last Name</mat-label>
+      <mat-label class="edit-label">{{
+        'AUTH.lastName.value' | translate
+      }}</mat-label>
       <input
         type="text"
         id="last-name"
         formControlName="lastName"
         matInput
         name="last-name"
-        placeholder="Last Name"
+        [placeholder]="'AUTH.lastName.value' | translate"
       />
       <mat-error
         *ngIf="
           validationService.hasError(editForm, 'lastName', 'required') &&
           editForm.get('firstName')?.touched
         "
-        >Please enter a last name</mat-error
+        >{{ 'AUTH.lastName.validation.error1' | translate }}</mat-error
       >
       <mat-error
         *ngIf="
           validationService.hasError(editForm, 'lastName', 'minlength') &&
           editForm.get('firstName')?.touched
         "
-        >Min length 3 characters</mat-error
+        >{{ 'AUTH.lastName.validation.error2' | translate }}</mat-error
       >
     </mat-form-field>
     <mat-form-field class="edit-field" floatLabel="auto" appearance="outline">
-      <mat-label class="edit-label">Email</mat-label>
+      <mat-label class="edit-label">{{
+        'AUTH.email.value' | translate
+      }}</mat-label>
       <input
         type="email"
         id="email"
         formControlName="email"
         matInput
         name="email"
-        placeholder="Email"
+        [placeholder]="'AUTH.email.value' | translate"
       />
       <mat-error
         *ngIf="
           validationService.hasError(editForm, 'email', 'required') &&
           editForm.get('email')?.touched
         "
-        >Please enter a new login email</mat-error
+        >{{ 'AUTH.email.validation.error1' | translate }}</mat-error
       >
       <mat-error
         *ngIf="
           validationService.hasError(editForm, 'email', 'email') &&
           editForm.get('email')?.touched
         "
-        >The login email is invalid</mat-error
+        >{{ 'AUTH.email.validation.error2' | translate }}</mat-error
       >
     </mat-form-field>
     <div class="hint">
       <p>
-        Enter a new password. Enter the old one in case if you don't want to
-        change it.
+        {{ 'EDIT_USER.passwordDisclaimer' | translate }}
       </p>
     </div>
     <mat-form-field
@@ -95,50 +100,50 @@
       floatLabel="auto"
       appearance="outline"
     >
-      <mat-label class="edit-label">Password</mat-label>
+      <mat-label class="edit-label">{{
+        'AUTH.password.value' | translate
+      }}</mat-label>
       <input
         [type]="hidePassword ? 'password' : 'text'"
         class="edit-input"
         id="password"
         formControlName="password"
         matInput
-        placeholder="Password"
+        [placeholder]="'AUTH.password.value' | translate"
         name="password"
       />
       <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
         hidePassword ? 'visibility_off' : 'visibility'
       }}</mat-icon>
-      <mat-hint align="start" class="password-hint"
-        >Your password should include at least 1 uppercase character, lowercase
-        character, number, special symbol and be at least 8 characters
-        long</mat-hint
-      >
+      <mat-hint align="start" class="password-hint">{{
+        'AUTH.password.hint' | translate
+      }}</mat-hint>
       <mat-error
         *ngIf="validationService.hasError(editForm, 'password', 'required')"
-        >Please enter a password</mat-error
+        >{{ 'AUTH.password.validation.error1' | translate }}</mat-error
       >
       <mat-error
         *ngIf="
           !editForm.get('password')?.valid && editForm.get('password')?.touched
         "
-        >Your password isn't strong enough:
+        >{{ 'AUTH.password.validation.common' | translate }}
         <span
           class="err-span"
           *ngIf="validationService.passwordHasErrors(editForm) === 'uppercase'"
         >
-          Password must contain at least 1 uppercase letter</span
+          {{ 'AUTH.password.validation.error2' | translate }}</span
         >
         <span
           class="err-span"
           *ngIf="validationService.passwordHasErrors(editForm) === 'lowercase'"
         >
-          Password must contain at least 1 lowercase letter</span
+          {{ 'AUTH.password.validation.error3' | translate }}</span
         >
         <span
           class="err-span"
           *ngIf="validationService.passwordHasErrors(editForm) === 'number'"
         >
-          Password must contain at least 1 number</span
+          {{ 'AUTH.password.validation.error4' | translate }}</span
         >
         <span
           class="err-span"
@@ -146,13 +151,13 @@
             validationService.passwordHasErrors(editForm) === 'specialChar'
           "
         >
-          Password must contain at least 1 special character</span
+          {{ 'AUTH.password.validation.error5' | translate }}</span
         >
         <span
           class="err-span"
           *ngIf="validationService.passwordHasErrors(editForm) === 'length'"
         >
-          Password must be at least 8 characters long</span
+          {{ 'AUTH.password.validation.error6' | translate }}</span
         >
       </mat-error>
     </mat-form-field>
@@ -164,7 +169,7 @@
         class="button save-button"
         [disabled]="!editForm.valid"
       >
-        Save
+        {{ 'EDIT_USER.buttons.save' | translate }}
       </button>
       <button
         type="button"
@@ -173,7 +178,7 @@
         class="button delete-button danger-btn"
         (click)="onDeleteUser()"
       >
-        Delete User
+        {{ 'EDIT_USER.buttons.delete' | translate }}
       </button>
     </div>
   </form>

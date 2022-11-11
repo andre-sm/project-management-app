@@ -25,7 +25,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     MatIconModule,
     MatSnackBarModule,
     MatDialogModule,
-    TranslateModule
+    TranslateModule,
   ],
   exports: [
     MatFormFieldModule,
@@ -37,7 +37,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     AlertComponent,
     LoadingSpinnerComponent,
     ConfirmModalComponent,
-    TranslateModule
+    TranslateModule,
   ],
 })
 export class SharedModule {}
