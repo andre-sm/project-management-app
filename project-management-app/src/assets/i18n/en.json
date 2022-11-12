@@ -57,5 +57,19 @@
       "confirmText": "I'm sure, delete user!",
       "cancelText": "Cancel!!!"
     }
+  },
+  "HEADER": {
+    "buttons": {
+      "logout": "Logout",
+      "login": "Login",
+      "signup": "Signup"
+    },
+    "languages": {
+      "en": "Eng",
+      "ru": "Rus"
+    },
+    "navigation": {
+      "editUser": "Edit user"
+    }
   }
 }
