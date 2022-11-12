@@ -12,9 +12,12 @@ import * as AuthActions from './auth/store/auth.actions';
 export class AppComponent implements OnInit {
   title = 'project-management-app';
 
-  constructor(private store: Store, public translate: TranslateService) {
+  constructor(private store: Store, private translate: TranslateService) {
     translate.setDefaultLang('en');
-    translate.use('ru');
+    const lang = localStorage.getItem('lang');
+    if (lang) {
+      translate.use(lang);
+    }
   }
 
   ngOnInit() {

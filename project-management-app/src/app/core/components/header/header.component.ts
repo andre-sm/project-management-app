@@ -5,6 +5,8 @@ import { map, Subscription } from 'rxjs';
 
 import { selectAuthState } from '../../../store/selectors/auth.selector';
 import * as AuthActions from '../../../auth/store/auth.actions';
+import { TranslateService } from '@ngx-translate/core';
+import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private userSub: Subscription | undefined;
 
-  constructor(private store: Store, private router: Router) {}
+  constructor(private store: Store, private router: Router, private translate: TranslateService) {}
 
   ngOnInit(): void {
     this.userSub = this.store
@@ -49,5 +51,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onEditUser() {
     this.router.navigate(['/edit-user']);
+  }
+
+  onChangeLanguage(toggleLangGroup: MatButtonToggleGroup) {
+    this.translate.use(toggleLangGroup.value);
+    localStorage.setItem('lang', toggleLangGroup.value);
   }
 }

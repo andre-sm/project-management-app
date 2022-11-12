@@ -41,4 +41,13 @@
   >
     Edit User
   </button>
+  <mat-button-toggle-group
+    name="langSelection"
+    aria-label="Language"
+    #group="matButtonToggleGroup"
+    (change)="onChangeLanguage(group)"
+  >
+    <mat-button-toggle value="en">English</mat-button-toggle>
+    <mat-button-toggle value="ru">Russian</mat-button-toggle>
+  </mat-button-toggle-group>
 </div>
