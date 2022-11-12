@@ -4,7 +4,7 @@ import { catchError, map, switchMap, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { HandleServerErrors } from 'src/app/shared/handle-server-errors.service';
+import { HandleServerErrors } from 'src/app/shared/services/handle-server-errors.service';
 import * as AuthActions from './auth.actions';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../services/auth.service';

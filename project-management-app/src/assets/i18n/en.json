@@ -71,5 +71,11 @@
     "navigation": {
       "editUser": "Edit user"
     }
+  },
+  "ERROR_ALERT": {
+    "default": "An unknown error occurred!",
+    "409": "This email exists already!",
+    "403": "User was not found!",
+    "400": "Password must be a string!"
   }
 }
