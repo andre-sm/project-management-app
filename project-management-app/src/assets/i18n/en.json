@@ -111,5 +111,15 @@
         "cancelText": "Close"
       }
     }
+  },
+  "PROJECT_BOARD": {
+    "projectBoardPage": {
+      "newColumn": "New column",
+      "dialog": {
+        "formTitle": "Create column",
+        "confirmText": "Create",
+        "cancelText": "Close"
+      }
+    }
   }
 }

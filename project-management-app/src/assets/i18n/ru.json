@@ -111,5 +111,15 @@
         "cancelText": "Закрыть"
       }
     }
+  },
+  "PROJECT_BOARD": {
+    "projectBoardPage": {
+      "newColumn": "Новая колонка",
+      "dialog": {
+        "formTitle": "Создать колонку",
+        "confirmText": "Создать",
+        "cancelText": "Закрыть"
+      }
+    }
   }
 }

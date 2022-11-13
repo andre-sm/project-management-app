@@ -10,6 +10,7 @@ import {
   selectBoardInfo,
   selectBoardColumns,
 } from '../../store/board.selectors';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-project-board',
@@ -25,6 +26,7 @@ export class ProjectBoardComponent implements OnInit {
     private route: ActivatedRoute,
     private store: Store,
     public dialog: MatDialog,
+    private translate: TranslateService
   ) {
     this.columns$ = this.store.select(selectBoardColumns);
     this.boardInfo$ = this.store.select(selectBoardInfo);
@@ -43,12 +45,15 @@ export class ProjectBoardComponent implements OnInit {
     const createDialogConfig = new MatDialogConfig();
     createDialogConfig.disableClose = true;
     createDialogConfig.autoFocus = true;
-    createDialogConfig.data = {
-      formTitle: 'Create column',
-      confirmText: 'Create',
-      cancelText: 'Close',
-      id: null,
-    };
+    this.translate.get('PROJECT_BOARD.projectBoardPage.dialog').subscribe((config) => {
+      console.log(config)
+      createDialogConfig.data = {
+        formTitle: config.formTitle,
+        confirmText: config.confirmText,
+        cancelText: config.cancelText,
+        id: null,
+      };
+    });
 
     this.dialog.open(ColumnFormComponent, createDialogConfig);
   }
