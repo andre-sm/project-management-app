@@ -93,6 +93,23 @@
     "projectForm": {
       "titleLabel": "Title",
       "descriptionLabel": "Description"
+    },
+    "projectsList": {
+      "header": {
+        "title": "Title",
+        "description": "Description",
+        "actions": "Actions"
+      },
+      "deleteDialog": {
+        "message": "Do you want to delete the project?",
+        "confirmText": "Yes",
+        "cancelText": "No"
+      },
+      "editDialog": {
+        "formTitle": "Edit project",
+        "confirmText": "Save",
+        "cancelText": "Close"
+      }
     }
   }
 }

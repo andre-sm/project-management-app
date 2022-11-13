@@ -21,6 +21,7 @@ export class ActionPanelComponent {
         formTitle: config.formTitle,
         confirmText: config.confirmText,
         cancelText: config.cancelText,
+        id: null,
       };
     });
 

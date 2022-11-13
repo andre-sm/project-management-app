@@ -93,6 +93,23 @@
     "projectForm": {
       "titleLabel": "Название",
       "descriptionLabel": "Описание"
+    },
+    "projectsList": {
+      "header": {
+        "title": "Название",
+        "description": "Описание",
+        "actions": "Действия"
+      },
+      "deleteDialog": {
+        "message": "Вы хотите удалить проект?",
+        "confirmText": "Да",
+        "cancelText": "Нет"
+      },
+      "editDialog": {
+        "formTitle": "Редактировать проект",
+        "confirmText": "Сохранить",
+        "cancelText": "Закрыть"
+      }
     }
   }
 }

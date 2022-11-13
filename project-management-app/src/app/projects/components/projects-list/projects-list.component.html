@@ -2,7 +2,7 @@
   <mat-table class="projects-table" [dataSource]="projects">
     <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef>{{
-        'Title' | uppercase
+        'PROJECTS.projectsList.header.title' | translate | uppercase
       }}</mat-header-cell>
       <mat-cell class="title-cell" *matCellDef="let project">{{
         project.title
@@ -11,7 +11,7 @@
 
     <ng-container matColumnDef="description">
       <mat-header-cell *matHeaderCellDef>{{
-        'Description' | uppercase
+        'PROJECTS.projectsList.header.description' | translate | uppercase
       }}</mat-header-cell>
       <mat-cell class="description-cell" *matCellDef="let project">{{
         project.description
@@ -20,7 +20,7 @@
 
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef>{{
-        'Actions' | uppercase
+        'PROJECTS.projectsList.header.actions' | translate | uppercase
       }}</mat-header-cell>
       <mat-cell class="action-cell" *matCellDef="let project">
         <button
