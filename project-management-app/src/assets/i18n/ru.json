@@ -89,6 +89,10 @@
       "search": {
         "placeholder": "Поиск проекта..."
       }
+    },
+    "projectForm": {
+      "titleLabel": "Название",
+      "descriptionLabel": "Описание"
     }
   }
 }

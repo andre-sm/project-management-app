@@ -89,6 +89,10 @@
       "search": {
         "placeholder": "Search projects..."
       }
+    },
+    "projectForm": {
+      "titleLabel": "Title",
+      "descriptionLabel": "Description"
     }
   }
 }
