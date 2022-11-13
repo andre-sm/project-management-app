@@ -77,5 +77,18 @@
     "409": "This email exists already!",
     "403": "User was not found!",
     "400": "Password must be a string!"
+  },
+  "PROJECTS": {
+    "actionPanel": {
+      "addProjectBtn": "New project",
+      "dialog": {
+        "formTitle": "Create project",
+        "confirmText": "Create",
+        "cancelText": "Close"
+      },
+      "search": {
+        "placeholder": "Search projects..."
+      }
+    }
   }
 }

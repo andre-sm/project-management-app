@@ -91,15 +91,12 @@ export class EditUserComponent implements OnInit, OnDestroy {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = {
-      message: null,
-      confirmText: null,
-      cancelText: null,
-    };
     this.translate.get('EDIT_USER.confirmDialog').subscribe((config) => {
-      dialogConfig.data.message = config.message;
-      dialogConfig.data.confirmText = config.confirmText;
-      dialogConfig.data.cancelText = config.cancelText;
+      dialogConfig.data = {
+        message: config.message,
+        confirmText: config.confirmText,
+        cancelText: config.cancelText,
+      };
     });
     const dialogRef = this.dialog.open(ConfirmModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe((result: Boolean) => {
