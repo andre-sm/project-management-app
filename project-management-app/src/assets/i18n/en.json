@@ -1,0 +1,144 @@
+{
+  "AUTH": {
+    "firstName": {
+      "value": "First Name",
+      "validation": {
+        "error1": "Please enter a first name",
+        "error2": "Min length 2 characters"
+      }
+    },
+    "lastName": {
+      "value": "Last Name",
+      "validation": {
+        "error1": "Please enter a last name",
+        "error2": "Min length 2 characters"
+      }
+    },
+    "email": {
+      "value": "Email",
+      "validation": {
+        "error1": "Please enter a login email",
+        "error2": "The login email is invalid"
+      }
+    },
+    "password": {
+      "value": "Password",
+      "hint": "Your password should include at least 1 uppercase character, lowercase character, number, special symbol and be at least 8 characters long",
+      "validation": {
+        "common": "Your password isn't strong enough: ",
+        "error1": "Please enter a password",
+        "error2": "Password must contain at least 1 uppercase letter",
+        "error3": "Password must contain at least 1 lowercase letter",
+        "error4": "Password must contain at least 1 number",
+        "error5": "Password must contain at least 1 special character",
+        "error6": "Password must be at least 8 characters long"
+      }
+    },
+    "buttons": {
+      "submit": {
+        "login": "Login",
+        "signup": "Signup"
+      },
+      "switch": {
+        "toLogin": "Switch to login",
+        "toSignup": "Switch to signup"
+      }
+    }
+  },
+  "EDIT_USER": {
+    "header": "Edit user:",
+    "passwordDisclaimer": "Enter a new password. Enter the old one in case if you don't want to change it.",
+    "buttons": {
+      "save": "Save changes",
+      "delete": "Delete user"
+    },
+    "confirmDialog": {
+      "message": "Deleting user will remove all data about your existence form our database. Are you sure you want it?",
+      "confirmText": "I'm sure, delete user!",
+      "cancelText": "Cancel!!!"
+    }
+  },
+  "HEADER": {
+    "buttons": {
+      "logout": "Logout",
+      "login": "Login",
+      "signup": "Signup"
+    },
+    "languages": {
+      "en": "Eng",
+      "ru": "Rus"
+    },
+    "navigation": {
+      "editUser": "Edit user"
+    }
+  },
+  "ERROR_ALERT": {
+    "default": "An unknown error occurred!",
+    "409": "This email exists already!",
+    "403": "User was not found!",
+    "400": "Password must be a string!"
+  },
+  "PROJECTS": {
+    "actionPanel": {
+      "addProjectBtn": "New project",
+      "dialog": {
+        "formTitle": "Create project",
+        "confirmText": "Create",
+        "cancelText": "Close"
+      },
+      "search": {
+        "placeholder": "Search projects..."
+      }
+    },
+    "projectForm": {
+      "titleLabel": "Title",
+      "descriptionLabel": "Description"
+    },
+    "projectsList": {
+      "header": {
+        "title": "Title",
+        "description": "Description",
+        "actions": "Actions"
+      },
+      "deleteDialog": {
+        "message": "Do you want to delete the project?",
+        "confirmText": "Yes",
+        "cancelText": "No"
+      },
+      "editDialog": {
+        "formTitle": "Edit project",
+        "confirmText": "Save",
+        "cancelText": "Close"
+      }
+    }
+  },
+  "PROJECT_BOARD": {
+    "projectBoardPage": {
+      "newColumn": "New column",
+      "dialog": {
+        "formTitle": "Create column",
+        "confirmText": "Create",
+        "cancelText": "Close"
+      }
+    },
+    "column": {
+      "menu": {
+        "addTask": "Add task",
+        "deleteColumn": "Delete column"
+      },
+      "editDialog": {
+        "formTitle": "Edit column",
+        "confirmText": "Save",
+        "cancelText": "Close"
+      },
+      "deleteDialog": {
+        "message": "Do you want to delete the column?",
+        "confirmText": "Yes",
+        "cancelText": "No"
+      }
+    },
+    "columnForm": {
+      "titleLabel": "Title"
+    }
+  }
+}

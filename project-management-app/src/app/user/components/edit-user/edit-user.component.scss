@@ -5,6 +5,9 @@
   grid-template-rows: 120px 1fr 120px;
   column-gap: 10px;
   min-height: calc(100% - 240px);
+  @media (min-width: 320px) and (max-width: 449px) {
+    width: 100%;
+  }
 }
 
 .container {
@@ -12,6 +15,9 @@
   grid-column: 2 / 12;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+  @media (min-width: 320px) and (max-width: 449px) {
+    grid-column: 1 / 13;
+  }
 }
 
 .spinner-container {
@@ -23,6 +29,16 @@
   display: flex;
   justify-content: center;
   gap: 20px;
+  @media (min-width: 450px) and (max-width: 767px) {
+    flex-wrap: wrap;
+  }
+  @media (min-width: 320px) and (max-width: 449px) {
+    flex-wrap: wrap;
+  }
+}
+
+.edit-user-header {
+  grid-column: 1 / 13;
 }
 
 .edit-form {
@@ -44,12 +60,15 @@
   }
 
   .password-field {
-    margin-bottom: 30px;
+    margin-bottom: 50px;
   }
 
   .button {
     flex-basis: 100%;
     align-self: flex-start;
+    @media (min-width: 320px) and (max-width: 449px) {
+      padding: 0 5px;
+    }
   }
 
   span {
@@ -66,7 +85,7 @@
   }
 
   @media (min-width: 768px) and (max-width: 1440px) {
-    grid-column: 4 / 10;
+    grid-column: 3 / 11;
   }
   @media (min-width: 450px) and (max-width: 767px) {
     grid-column: 2 / 12;
@@ -75,11 +94,5 @@
   @media (min-width: 320px) and (max-width: 449px) {
     grid-column: 1 / 13;
     padding: 10px;
-    .password-field {
-      margin-bottom: 35px;
-    }
-    .button {
-      padding: 0 5px;
-    }
   }
 }

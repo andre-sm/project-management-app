@@ -6,11 +6,13 @@
     (ngSubmit)="onSubmit()"
   >
     <mat-form-field appearance="fill">
-      <mat-label>Title</mat-label>
+      <mat-label>{{ 'PROJECTS.projectForm.titleLabel' | translate }}</mat-label>
       <input matInput formControlName="title" />
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>Description</mat-label>
+      <mat-label>{{
+        'PROJECTS.projectForm.descriptionLabel' | translate
+      }}</mat-label>
       <textarea
         matInput
         cdkTextareaAutosize

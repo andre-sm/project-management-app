@@ -3,7 +3,7 @@ import { catchError, map, of, switchMap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { HandleServerErrors } from 'src/app/shared/handle-server-errors.service';
+import { HandleServerErrors } from 'src/app/shared/services/handle-server-errors.service';
 import { Store } from '@ngrx/store';
 import * as EditActions from './edit-user.actions';
 import * as AuthActions from '../../auth/store/auth.actions';

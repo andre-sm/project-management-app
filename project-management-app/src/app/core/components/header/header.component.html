@@ -7,7 +7,7 @@
     *ngIf="!isAuthenticated"
     (click)="onLogin()"
   >
-    Login
+    {{ 'HEADER.buttons.login' | translate }}
   </button>
   <button
     type="button"
@@ -17,7 +17,7 @@
     *ngIf="!isAuthenticated"
     (click)="onSignup()"
   >
-    Signup
+    {{ 'HEADER.buttons.signup' | translate }}
   </button>
   <button
     type="button"
@@ -28,7 +28,7 @@
     routerLinkActive="router-link-active"
     (click)="onLogout()"
   >
-    Logout
+    {{ 'HEADER.buttons.logout' | translate }}
   </button>
   <button
     type="button"
@@ -39,6 +39,19 @@
     routerLinkActive="router-link-active"
     (click)="onEditUser()"
   >
-    Edit User
+    {{ 'HEADER.navigation.editUser' | translate }}
   </button>
+  <mat-button-toggle-group
+    name="langSelection"
+    aria-label="Language"
+    #group="matButtonToggleGroup"
+    (change)="onChangeLanguage(group)"
+  >
+    <mat-button-toggle value="en">{{
+      'HEADER.languages.en' | translate
+    }}</mat-button-toggle>
+    <mat-button-toggle value="ru">{{
+      'HEADER.languages.ru' | translate
+    }}</mat-button-toggle>
+  </mat-button-toggle-group>
 </div>
