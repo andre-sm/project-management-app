@@ -1,10 +1,13 @@
-<div class="buttons-container">
+<div
+  class="buttons-container"
+  *ngIf="{ isAuthenticated: isAuthenticated$ | async } as auth"
+>
   <button
     type="button"
     mat-stroked-button
     color="primary"
     class="button"
-    *ngIf="!isAuthenticated"
+    *ngIf="!auth.isAuthenticated"
     (click)="onLogin()"
   >
     Login
@@ -14,7 +17,7 @@
     mat-stroked-button
     color="primary"
     class="button"
-    *ngIf="!isAuthenticated"
+    *ngIf="!auth.isAuthenticated"
     (click)="onSignup()"
   >
     Signup
@@ -24,7 +27,7 @@
     mat-stroked-button
     color="primary"
     class="button"
-    *ngIf="isAuthenticated"
+    *ngIf="auth.isAuthenticated"
     routerLinkActive="router-link-active"
     (click)="onLogout()"
   >
@@ -35,10 +38,18 @@
     mat-stroked-button
     color="primary"
     class="button"
-    *ngIf="isAuthenticated"
+    *ngIf="auth.isAuthenticated"
     routerLinkActive="router-link-active"
     (click)="onEditUser()"
   >
     Edit User
+  </button>
+  <button
+    class="add-task-btn btn"
+    *ngIf="auth.isAuthenticated"
+    (click)="openCreateTaskDialog()"
+  >
+    <mat-icon class="add-icon" aria-hidden="false" fontIcon="add"></mat-icon>
+    <span>New task</span>
   </button>
 </div>

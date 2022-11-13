@@ -1,5 +1,17 @@
 import { createAction, props } from '@ngrx/store';
-import { Column, Board, ColumnResponse } from '../models';
+import { Column, Board, ColumnResponse, User, Task } from '../models';
+
+export const getUsers = createAction('[Users] Get Users');
+
+export const getUsersSuccess = createAction(
+  '[Users] Get Users Success',
+  props<{ users: User[] }>(),
+);
+
+export const getUsersError = createAction(
+  '[Users] Get Users Error',
+  props<{ error: string }>(),
+);
 
 export const getBoard = createAction(
   '[Board] Get Board',
@@ -58,5 +70,37 @@ export const updateColumnSuccess = createAction(
 
 export const updateColumnError = createAction(
   '[Column] Update Column Error',
+  props<{ error: string }>(),
+);
+
+export const setTaskColumnFilter = createAction(
+  '[Task] Set Column Filter',
+  props<{ filterValue: string }>(),
+);
+
+export const setTaskUserFilter = createAction(
+  '[Task] Set User Filter',
+  props<{ filterValue: string }>(),
+);
+
+export const clearTaskFilters = createAction('[Task] Clear User Filters');
+
+export const createTask = createAction(
+  '[Task] Create Task',
+  props<{
+    title: string;
+    description: string;
+    userId: string;
+    columnId: string;
+  }>(),
+);
+
+export const createTaskSuccess = createAction(
+  '[Task] Create Task Success',
+  props<{ newTask: Task }>(),
+);
+
+export const createTaskError = createAction(
+  '[Task] Create Task Error',
   props<{ error: string }>(),
 );

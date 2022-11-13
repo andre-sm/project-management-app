@@ -7,4 +7,6 @@ export interface Task {
   order: number;
   userId: string;
   files: File[];
+  boardId?: string;
+  columnId?: string;
 }

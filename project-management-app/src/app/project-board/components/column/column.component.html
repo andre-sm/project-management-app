@@ -27,7 +27,7 @@
       </button>
     </mat-menu>
   </div>
-  <div class="column__body body">
-    <div class="body__card"></div>
+  <div class="column__body">
+    <app-task *ngFor="let task of column.tasks" [task]="task"></app-task>
   </div>
 </div>

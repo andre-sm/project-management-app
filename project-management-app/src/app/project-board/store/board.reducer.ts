@@ -16,6 +16,9 @@ export const initialState: BoardFeatureState = {
     },
     columns: [],
   },
+  users: [],
+  taskColumnFilter: '',
+  taskUserFilter: '',
 };
 
 export const projectsReducer = createReducer(
@@ -101,6 +104,69 @@ export const projectsReducer = createReducer(
   ),
   on(
     BoardActions.updateColumnError,
+    (state, { error }): BoardFeatureState => ({
+      ...state,
+      error,
+    }),
+  ),
+  on(BoardActions.getUsersSuccess, (state, { users }): BoardFeatureState => {
+    return {
+      ...state,
+      users,
+    };
+  }),
+  on(
+    BoardActions.getUsersError,
+    (state, { error }): BoardFeatureState => ({
+      ...state,
+      error,
+    }),
+  ),
+  on(
+    BoardActions.setTaskColumnFilter,
+    (state, { filterValue }): BoardFeatureState => ({
+      ...state,
+      taskColumnFilter: filterValue,
+    }),
+  ),
+  on(
+    BoardActions.setTaskUserFilter,
+    (state, { filterValue }): BoardFeatureState => ({
+      ...state,
+      taskUserFilter: filterValue,
+    }),
+  ),
+  on(
+    BoardActions.clearTaskFilters,
+    (state): BoardFeatureState => ({
+      ...state,
+      taskUserFilter: '',
+      taskColumnFilter: '',
+    }),
+  ),
+  on(
+    BoardActions.createTaskSuccess,
+    (state, { newTask }): BoardFeatureState => {
+      const updatedColumns = state.board.columns.map((item): Column => {
+        if (item.id === newTask.columnId) {
+          return {
+            ...item,
+            tasks: [...item.tasks, newTask],
+          };
+        }
+        return item;
+      });
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          columns: updatedColumns,
+        },
+      };
+    },
+  ),
+  on(
+    BoardActions.createTaskError,
     (state, { error }): BoardFeatureState => ({
       ...state,
       error,

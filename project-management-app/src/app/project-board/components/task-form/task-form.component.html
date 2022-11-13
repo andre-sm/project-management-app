@@ -1,0 +1,73 @@
+<div class="task-form" mat-dialog-content>
+  <h1 class="task-form__title">{{ formData.formTitle }}</h1>
+  <form
+    class="task-form__form-fields"
+    [formGroup]="taskForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Column</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="column"
+        [matAutocomplete]="column"
+      />
+      <mat-autocomplete #column="matAutocomplete">
+        <mat-option
+          *ngFor="let column of columns$ | async"
+          [value]="column.title"
+          (onSelectionChange)="onColumnChange(column.id, $event)"
+        >
+          {{ column.title }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>User</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="user"
+        [matAutocomplete]="user"
+      />
+      <mat-autocomplete #user="matAutocomplete">
+        <mat-option
+          *ngFor="let user of users$ | async"
+          [value]="user.name"
+          (onSelectionChange)="onUserChange(user.id, $event)"
+        >
+          {{ user.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <div class="task-form__btns">
+      <button
+        class="task-form__close-btn btn"
+        (click)="onCloseClick()"
+        type="button"
+      >
+        {{ formData.cancelText }}
+      </button>
+      <button
+        class="task-form__confirm-btn btn"
+        [class.disabled]="taskForm.invalid"
+        type="submit"
+      >
+        {{ formData.confirmText }}
+      </button>
+    </div>
+  </form>
+</div>

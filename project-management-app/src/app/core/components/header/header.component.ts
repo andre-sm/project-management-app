@@ -1,38 +1,27 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import { selectAuthState } from '../../../store/selectors/auth.selector';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { selectIsAuthenticated } from '../../../store/selectors/auth.selector';
 import * as AuthActions from '../../../auth/store/auth.actions';
+import { TaskFormComponent } from '../../../project-board/components/task-form/task-form.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
-  isAuthenticated = false;
+export class HeaderComponent {
+  isAuthenticated$!: Observable<boolean>;
 
-  private userSub: Subscription | undefined;
-
-  constructor(private store: Store, private router: Router) {}
-
-  ngOnInit(): void {
-    this.userSub = this.store
-      .select(selectAuthState)
-      .pipe(
-        map((authState) => {
-          return authState.user;
-        }),
-      )
-      .subscribe((user) => {
-        this.isAuthenticated = !!user;
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.userSub?.unsubscribe();
+  constructor(
+    private store: Store,
+    private router: Router,
+    public dialog: MatDialog,
+  ) {
+    this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
   }
 
   onLogin() {
@@ -49,5 +38,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onEditUser() {
     this.router.navigate(['/edit-user']);
+  }
+
+  openCreateTaskDialog(): void {
+    const createDialogConfig = new MatDialogConfig();
+    createDialogConfig.disableClose = true;
+    createDialogConfig.autoFocus = true;
+    createDialogConfig.data = {
+      formTitle: 'Create task',
+      confirmText: 'Create',
+      cancelText: 'Close',
+      id: null,
+    };
+
+    this.dialog.open(TaskFormComponent, createDialogConfig);
   }
 }
