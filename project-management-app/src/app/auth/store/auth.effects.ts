@@ -81,6 +81,7 @@ export class AuthEffects {
                 name: resData.name,
               };
               localStorage.setItem('currentUser', JSON.stringify(newUser));
+              this.router.navigate(['/projects'])
               return AuthActions.loginSuccess(newUser);
             }),
             catchError((error) => {
@@ -132,7 +133,7 @@ export class AuthEffects {
         tap(() => {
           this.authService.clearLogoutTimer();
           localStorage.removeItem('currentUser');
-          this.router.navigate(['/auth']);
+          this.router.navigate(['/welcome']);
         }),
       );
     },
