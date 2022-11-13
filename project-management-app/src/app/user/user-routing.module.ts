@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthGuard } from '../auth/guards/auth.guard';
+import { AuthMainGuard } from '../auth/guards/auth-main.guard';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 
 const routes = [
-  { path: '', component: EditUserComponent, canActivate: [AuthGuard] },
+  { path: '', component: EditUserComponent, canActivate: [AuthMainGuard] },
 ];
 
 @NgModule({

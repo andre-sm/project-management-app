@@ -11,7 +11,7 @@ import { map, Observable, take } from 'rxjs';
 import { selectAuthState } from '../../store/selectors/auth.selector';
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class AuthWelcomeGuard implements CanActivate {
   constructor(private router: Router, private store: Store) {}
 
   canActivate(
@@ -29,10 +29,10 @@ export class AuthGuard implements CanActivate {
       }),
       map((user) => {
         const isSignedIn = !!user;
-        if (isSignedIn) {
+        if (!isSignedIn) {
           return true;
         }
-        return this.router.createUrlTree(['']);
+        return this.router.createUrlTree(['/projects']);
       }),
     );
   }
