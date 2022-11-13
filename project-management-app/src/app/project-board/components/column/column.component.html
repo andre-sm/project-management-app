@@ -19,11 +19,11 @@
           aria-hidden="false"
           fontIcon="add"
         ></mat-icon>
-        <span>Add task</span>
+        <span>{{ 'PROJECT_BOARD.column.menu.addTask' | translate }}</span>
       </button>
       <button mat-menu-item (click)="deleteDialog()">
         <mat-icon class="delete-icon" fontIcon="delete"></mat-icon>
-        <span>Delete column</span>
+        <span>{{ 'PROJECT_BOARD.column.menu.deleteColumn' | translate }}</span>
       </button>
     </mat-menu>
   </div>

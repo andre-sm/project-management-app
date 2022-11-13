@@ -120,6 +120,23 @@
         "confirmText": "Создать",
         "cancelText": "Закрыть"
       }
-    }
+    },
+    "column": {
+      "menu": {
+        "addTask": "Добавить задание",
+        "deleteColumn": "Удалить колонку"
+      },
+      "editDialog": {
+        "formTitle": "Редактировать колонку",
+        "confirmText": "Сохранить",
+        "cancelText": "Закрыть"
+      },
+      "deleteDialog": {
+        "message": "Вы хотите удалить колонку?",
+        "confirmText": "Да",
+        "cancelText": "Нет"
+      }
+    },
+    "columnForm": {}
   }
 }

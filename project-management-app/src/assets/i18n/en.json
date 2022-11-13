@@ -120,6 +120,23 @@
         "confirmText": "Create",
         "cancelText": "Close"
       }
-    }
+    },
+    "column": {
+      "menu": {
+        "addTask": "Add task",
+        "deleteColumn": "Delete column"
+      },
+      "editDialog": {
+        "formTitle": "Edit column",
+        "confirmText": "Save",
+        "cancelText": "Close"
+      },
+      "deleteDialog": {
+        "message": "Do you want to delete the column?",
+        "confirmText": "Yes",
+        "cancelText": "No"
+      }
+    },
+    "columnForm": {}
   }
 }
