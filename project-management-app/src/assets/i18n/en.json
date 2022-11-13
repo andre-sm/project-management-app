@@ -137,6 +137,8 @@
         "cancelText": "No"
       }
     },
-    "columnForm": {}
+    "columnForm": {
+      "titleLabel": "Title"
+    }
   }
 }

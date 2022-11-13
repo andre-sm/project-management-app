@@ -6,7 +6,9 @@
     (ngSubmit)="onSubmit()"
   >
     <mat-form-field appearance="fill">
-      <mat-label>Title</mat-label>
+      <mat-label>{{
+        'PROJECT_BOARD.columnForm.titleLabel' | translate
+      }}</mat-label>
       <input matInput formControlName="title" />
     </mat-form-field>
     <div class="column-form__btns">

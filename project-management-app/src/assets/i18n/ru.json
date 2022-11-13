@@ -137,6 +137,8 @@
         "cancelText": "Нет"
       }
     },
-    "columnForm": {}
+    "columnForm": {
+      "titleLabel": "Название"
+    }
   }
 }
