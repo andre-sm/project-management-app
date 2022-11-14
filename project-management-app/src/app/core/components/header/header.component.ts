@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, Subscription, tap } from 'rxjs';
+import { tap } from 'rxjs';
 
-import { selectAuthState, selectUser } from '../../../store/selectors/auth.selector';
+import { selectUser } from '../../../store/selectors/auth.selector';
 import * as AuthActions from '../../../auth/store/auth.actions';
 import { TranslateService } from '@ngx-translate/core';
 import { MatButtonToggleGroup } from '@angular/material/button-toggle';
