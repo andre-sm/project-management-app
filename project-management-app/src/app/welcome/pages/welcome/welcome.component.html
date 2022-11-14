@@ -1,1 +1,53 @@
-<p>welcome works!</p>
+<div class="container">
+  <h1 class="welcome__main-header">Welcome &nbsp;<span>OnBoard</span></h1>
+  <div class="welcome__buttons-container">
+    <button
+      type="button"
+      mat-stroked-button
+      color="primary"
+      class="button"
+      *ngIf="!isAuthenticated"
+      (click)="onLogin()"
+    >
+      {{ 'HEADER.buttons.login' | translate }}
+    </button>
+    <button
+      type="button"
+      mat-stroked-button
+      color="primary"
+      class="button"
+      *ngIf="!isAuthenticated"
+      (click)="onSignup()"
+    >
+      {{ 'HEADER.buttons.signup' | translate }}
+    </button>
+  </div>
+  <p class="welcome__hero-text">
+    Hello there! Our team glad to welcome you and introduce our project
+    management application "OnBoard". Thank you for choosing our app. We hope it
+    will help you a great deal with managing your team work and daily tasks.
+  </p>
+  <h2 class="welcome__header">Why OnBoard?</h2>
+  <ul class="welcome__pros-list">
+    <li class="welcome__list-item">
+      <mat-icon class="icon">done</mat-icon>
+      <p>Add new projects</p>
+    </li>
+    <li class="welcome__list-item">
+      <mat-icon class="icon">done</mat-icon>
+      <p>Edit existing projects</p>
+    </li>
+    <li class="welcome__list-item">
+      <mat-icon class="icon">done</mat-icon>
+      <p>Add progress columns</p>
+    </li>
+    <li class="welcome__list-item">
+      <mat-icon class="icon">done</mat-icon>
+      <p>Manage your tasks with draggable interface</p>
+    </li>
+    <li class="welcome__list-item">
+      <mat-icon class="icon">done</mat-icon>
+      Search tasks, change sort order
+    </li>
+  </ul>
+</div>

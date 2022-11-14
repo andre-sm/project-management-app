@@ -4,26 +4,6 @@
     mat-stroked-button
     color="primary"
     class="button"
-    *ngIf="!isAuthenticated"
-    (click)="onLogin()"
-  >
-    {{ 'HEADER.buttons.login' | translate }}
-  </button>
-  <button
-    type="button"
-    mat-stroked-button
-    color="primary"
-    class="button"
-    *ngIf="!isAuthenticated"
-    (click)="onSignup()"
-  >
-    {{ 'HEADER.buttons.signup' | translate }}
-  </button>
-  <button
-    type="button"
-    mat-stroked-button
-    color="primary"
-    class="button"
     *ngIf="isAuthenticated"
     routerLinkActive="router-link-active"
     (click)="onLogout()"

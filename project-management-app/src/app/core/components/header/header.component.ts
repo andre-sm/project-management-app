@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, Subscription } from 'rxjs';
+import { map, Subscription, tap } from 'rxjs';
 
-import { selectAuthState } from '../../../store/selectors/auth.selector';
+import { selectAuthState, selectUser } from '../../../store/selectors/auth.selector';
 import * as AuthActions from '../../../auth/store/auth.actions';
 import { TranslateService } from '@ngx-translate/core';
 import { MatButtonToggleGroup } from '@angular/material/button-toggle';
@@ -13,36 +13,15 @@ import { MatButtonToggleGroup } from '@angular/material/button-toggle';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent {
   isAuthenticated = false;
 
-  private userSub: Subscription | undefined;
-
-  constructor(private store: Store, private router: Router, private translate: TranslateService) {}
-
-  ngOnInit(): void {
-    this.userSub = this.store
-      .select(selectAuthState)
-      .pipe(
-        map((authState) => {
-          return authState.user;
-        }),
-      )
-      .subscribe((user) => {
+  constructor(private store: Store, private router: Router, private translate: TranslateService) {
+    this.store.select(selectUser).pipe(
+      tap((user) => {
         this.isAuthenticated = !!user;
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.userSub?.unsubscribe();
-  }
-
-  onLogin() {
-    this.router.navigate(['/auth/login']);
-  }
-
-  onSignup() {
-    this.router.navigate(['/auth/signup']);
+      })
+    ).subscribe();
   }
 
   onLogout() {
