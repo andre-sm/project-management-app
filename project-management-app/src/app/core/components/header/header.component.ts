@@ -15,6 +15,7 @@ import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 })
 export class HeaderComponent {
   isAuthenticated = false;
+  initialLang: string | null = null;
 
   constructor(private store: Store, private router: Router, private translate: TranslateService) {
     this.store.select(selectUser).pipe(
@@ -22,6 +23,9 @@ export class HeaderComponent {
         this.isAuthenticated = !!user;
       })
     ).subscribe();
+    if(localStorage.getItem('lang')) {
+      this.initialLang = localStorage.getItem('lang')
+    }
   }
 
   onLogout() {

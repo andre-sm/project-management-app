@@ -28,10 +28,18 @@
     #group="matButtonToggleGroup"
     (change)="onChangeLanguage(group)"
   >
-    <mat-button-toggle value="en" class="language-button">
+    <mat-button-toggle
+      value="en"
+      class="language-button"
+      [checked]="initialLang === 'en'"
+    >
       <span class="flag-icon flag-icon-gb"></span>
     </mat-button-toggle>
-    <mat-button-toggle value="ru" class="language-button">
+    <mat-button-toggle
+      value="ru"
+      class="language-button"
+      [checked]="initialLang === 'ru'"
+    >
       <span class="flag-icon flag-icon-ru"></span>
     </mat-button-toggle>
   </mat-button-toggle-group>
