@@ -60,9 +60,7 @@
   },
   "HEADER": {
     "buttons": {
-      "logout": "Logout",
-      "login": "Login",
-      "signup": "Signup"
+      "logout": "Logout"
     },
     "languages": {
       "en": "Eng",
@@ -139,6 +137,25 @@
     },
     "columnForm": {
       "titleLabel": "Title"
+    }
+  },
+  "WELCOME": {
+    "mainHeader": {
+      "value": "Welcome",
+      "styled": "OnBoard!"
+    },
+    "buttons": {
+      "login": "Login",
+      "signup": "Signup"
+    },
+    "heroText": "Hello there! Our team glad to welcome you and introduce our project management application \"OnBoard\". Thank you for choosing our app. We hope it will help you a great deal with managing your team work and daily tasks.",
+    "secondHeader": "Why OnBoard?",
+    "prosList": {
+      "item1": "Add new projects",
+      "item2": "Edit existing projects",
+      "item3": "Add progress columns",
+      "item4": "Manage your tasks with draggable interface",
+      "item5": "Search tasks, sort tasks"
     }
   }
 }
