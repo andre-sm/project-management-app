@@ -28,7 +28,7 @@
 }
 
 .welcome__buttons-container {
-  grid-column: 12 / 13;
+  grid-column: 11 / 13;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -53,7 +53,7 @@
 
 .welcome__list-item {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   margin-bottom: 12px;
   p {
     margin-bottom: 0;
