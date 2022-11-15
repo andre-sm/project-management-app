@@ -81,7 +81,7 @@ export class AuthEffects {
                 name: resData.name,
               };
               localStorage.setItem('currentUser', JSON.stringify(newUser));
-              this.router.navigate(['/projects'])
+              this.router.navigate(['/projects']);
               return AuthActions.loginSuccess(newUser);
             }),
             catchError((error) => {

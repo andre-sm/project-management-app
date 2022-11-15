@@ -5,9 +5,9 @@ import { tap } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 
+import { TeamCarouselService } from 'src/app/welcome/components/team-carousel/services/team-carousel.service';
 import { selectUser } from '../../../store/selectors/auth.selector';
 import * as AuthActions from '../../../auth/store/auth.actions';
-import { TeamCarouselService } from 'src/app/welcome/components/team-carousel/services/team-carousel.service';
 
 @Component({
   selector: 'app-header',
@@ -16,17 +16,26 @@ import { TeamCarouselService } from 'src/app/welcome/components/team-carousel/se
 })
 export class HeaderComponent {
   isAuthenticated = false;
+
   initialLang: string | null = null;
 
-  constructor(private store: Store, private router: Router, private translate: TranslateService, private teamCarouselService: TeamCarouselService) {
-    this.store.select(selectUser).pipe(
-      tap((user) => {
-        this.isAuthenticated = !!user;
-      })
-    ).subscribe();
-    if(localStorage.getItem('lang')) {
+  constructor(
+    private store: Store,
+    private router: Router,
+    private translate: TranslateService,
+    private teamCarouselService: TeamCarouselService,
+  ) {
+    this.store
+      .select(selectUser)
+      .pipe(
+        tap((user) => {
+          this.isAuthenticated = !!user;
+        }),
+      )
+      .subscribe();
+    if (localStorage.getItem('lang')) {
       this.initialLang = localStorage.getItem('lang');
-      if(this.initialLang) {
+      if (this.initialLang) {
         this.teamCarouselService.languageChanged$.next();
       }
     }

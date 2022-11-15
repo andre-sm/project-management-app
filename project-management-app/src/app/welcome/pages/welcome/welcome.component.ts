@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, tap } from 'rxjs';
-import { IUser } from 'src/app/shared/models/user.model';
+import { tap } from 'rxjs';
 import { selectUser } from 'src/app/store/selectors/auth.selector';
 
 @Component({
@@ -12,13 +11,18 @@ import { selectUser } from 'src/app/store/selectors/auth.selector';
 })
 export class WelcomeComponent {
   isAuthenticated: boolean = false;
+
   constructor(private router: Router, private store: Store) {
-    this.store.select(selectUser).pipe(
-      tap((user) => {
-        this.isAuthenticated = !!user;
-      })
-    ).subscribe();
+    this.store
+      .select(selectUser)
+      .pipe(
+        tap((user) => {
+          this.isAuthenticated = !!user;
+        }),
+      )
+      .subscribe();
   }
+
   onLogin() {
     this.router.navigate(['/auth/login']);
   }
