@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription, tap } from 'rxjs';
+
 import { TeamCarouselService } from './services/team-carousel.service';
 
 @Component({
@@ -9,10 +9,19 @@ import { TeamCarouselService } from './services/team-carousel.service';
   templateUrl: './team-carousel.component.html',
   styleUrls: ['./team-carousel.component.scss']
 })
-export class TeamCarouselComponent implements OnInit {
+export class TeamCarouselComponent implements OnInit, OnDestroy {
   langChangedSub!: Subscription;
   slides = new Array(3).fill({id: -1, src: '', title: '', subtitle: ''});
-  constructor(private translate: TranslateService, private store: Store, private teamCarouselService: TeamCarouselService) {}
+  activeSlide: number = 0;
+  smallDevice = false;
+  caption = {
+    title: '',
+    subtitle: ''
+  }
+  constructor(
+    private translate: TranslateService,
+    private teamCarouselService: TeamCarouselService
+    ) {}
 
   ngOnInit(): void {
     this.slides[0] = {
@@ -47,5 +56,18 @@ export class TeamCarouselComponent implements OnInit {
           })
         }
       )
+      if(window.screen.width <= 767) {
+        this.smallDevice = true;
+      }
+  }
+
+  ngOnDestroy(): void {
+    this.langChangedSub.unsubscribe()
+  }
+
+  onItemChange($event: any): void {
+    this.activeSlide = $event;
+    this.caption.title = `WELCOME.carousel.slides.slide${this.activeSlide}.title`
+    this.caption.subtitle = `WELCOME.carousel.slides.slide${this.activeSlide}.subtitle`
   }
 }

@@ -1,7 +1,13 @@
 <h2 class="welcome__header-team">
   {{ 'WELCOME.carousel.carousel-header' | translate }}
 </h2>
-<c-carousel [interval]="6000" hover="true" [touch]="true">
+<c-carousel
+  [interval]="6000"
+  hover="true"
+  [touch]="true"
+  (itemChange)="onItemChange($event)"
+  class="welcome__carousel"
+>
   <c-carousel-indicators></c-carousel-indicators>
   <c-carousel-inner>
     <c-carousel-item *ngFor="let slide of slides">
@@ -28,3 +34,11 @@
     direction="next"
   ></c-carousel-control>
 </c-carousel>
+<div class="welcome__captures" *ngIf="smallDevice">
+  <p class="title">
+    {{ caption.title | translate }}
+  </p>
+  <p class="subtitle">
+    {{ caption.subtitle | translate }}
+  </p>
+</div>

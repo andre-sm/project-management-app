@@ -13,7 +13,9 @@
       *ngIf="!isAuthenticated"
       (click)="onLogin()"
     >
-      {{ 'WELCOME.buttons.login' | translate }}
+      <mat-icon
+        ><span class="material-symbols-outlined"> login </span></mat-icon
+      >
     </button>
     <button
       type="button"
@@ -23,7 +25,9 @@
       *ngIf="!isAuthenticated"
       (click)="onSignup()"
     >
-      {{ 'WELCOME.buttons.signup' | translate }}
+      <mat-icon
+        ><span class="material-symbols-outlined"> person_add </span></mat-icon
+      >
     </button>
   </div>
   <p class="welcome__hero-text">
