@@ -11,32 +11,29 @@
 }
 
 .footer__copyright {
-  grid-column: 1 / 2;
+  grid-column: 1/2;
 }
 
 .footer__team {
-  grid-column: 2 / 11;
+  grid-column: 2/11;
   display: flex;
   justify-content: space-evenly;
-
-  .team-member {
-    text-decoration: none;
-  }
+}
+.footer__team .team-member {
+  text-decoration: none;
 }
 
 .footer__rs-school {
-  grid-column: 11 / 13;
+  grid-column: 11/13;
   height: 100%;
   display: flex;
   align-items: center;
-
-  .rs-school-link {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .rs-school-logo {
-    width: 50%;
-    height: auto;
-  }
+}
+.footer__rs-school .rs-school-link {
+  display: flex;
+  justify-content: flex-end;
+}
+.footer__rs-school .rs-school-logo {
+  width: 50%;
+  height: auto;
 }

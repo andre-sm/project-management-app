@@ -27,9 +27,11 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "./node_modules/flag-icon-css/css/flag-icons.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/@coreui/coreui/dist/css/coreui.min.css",
+              "./node_modules/@coreui/icons/css/all.min.css"
             ],
-            "scripts": []
+            "scripts": ["./node_modules/@coreui/coreui/dist/js/coreui.min.js"]
           },
           "configurations": {
             "production": {
