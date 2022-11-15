@@ -104,3 +104,40 @@ export const createTaskError = createAction(
   '[Task] Create Task Error',
   props<{ error: string }>(),
 );
+
+export const updateTask = createAction(
+  '[Task] Update Task',
+  props<{
+    id: string;
+    title: string;
+    description: string;
+    userId: string;
+    columnId: string;
+    order: number;
+  }>(),
+);
+
+export const updateTaskSuccess = createAction(
+  '[Task] Update Task Success',
+  props<{ updatedTask: Task }>(),
+);
+
+export const updateTaskError = createAction(
+  '[Task] Update Task Error',
+  props<{ error: string }>(),
+);
+
+export const deleteTask = createAction(
+  '[Task] Delete Task',
+  props<{ id: string; columnId: string }>(),
+);
+
+export const deleteTaskSuccess = createAction(
+  '[Task] Delete Task Success',
+  props<{ id: string; columnId: string }>(),
+);
+
+export const deleteTaskError = createAction(
+  '[Task] Delete Task Error',
+  props<{ error: string }>(),
+);

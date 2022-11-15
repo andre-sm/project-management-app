@@ -1,6 +1,6 @@
 <div class="column">
   <div class="column__header header">
-    <h2 class="header__title" (click)="editDialog()">
+    <h2 class="header__title" (click)="editColumnDialog()">
       {{ column.title }}
     </h2>
     <span class="header__task-count">{{ column.tasks.length || '' }}</span>
@@ -21,13 +21,18 @@
         ></mat-icon>
         <span>Add task</span>
       </button>
-      <button mat-menu-item (click)="deleteDialog()">
+      <button mat-menu-item (click)="deleteColumnDialog()">
         <mat-icon class="delete-icon" fontIcon="delete"></mat-icon>
         <span>Delete column</span>
       </button>
     </mat-menu>
   </div>
   <div class="column__body">
-    <app-task *ngFor="let task of column.tasks" [task]="task"></app-task>
+    <app-task
+      *ngFor="let task of column.tasks"
+      [task]="task"
+      (click)="editTaskDialog(task)"
+      (deleteClick)="deleteTaskDialog($event)"
+    ></app-task>
   </div>
 </div>

@@ -20,7 +20,16 @@ export const selectBoardInfo = createSelector(
 export const selectBoardColumns = createSelector(
   selectBoardState,
   (state: BoardFeatureState) =>
-    [...state.board.columns].sort((a, b) => a.order - b.order),
+    [...state.board.columns]
+      .map((column) => {
+        return {
+          ...column,
+          tasks: [...column.tasks].sort(
+            (taskA, taskB) => taskA.order - taskB.order,
+          ),
+        };
+      })
+      .sort((columnA, columnB) => columnA.order - columnB.order),
 );
 
 export const selectUsers = createSelector(

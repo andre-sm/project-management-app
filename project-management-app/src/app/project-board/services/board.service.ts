@@ -58,4 +58,36 @@ export class BoardService {
       { title, description, userId },
     );
   }
+
+  updateTask(
+    id: string,
+    title: string,
+    description: string,
+    userId: string,
+    columnId: string,
+    order: number,
+    boardId: string,
+  ): Observable<Task> {
+    return this.http.put<Task>(
+      `${environment.baseUrl}/boards/${boardId}/columns/${columnId}/tasks/${id}`,
+      {
+        title,
+        description,
+        order,
+        userId,
+        columnId,
+        boardId,
+      },
+    );
+  }
+
+  deleteTask(
+    id: string,
+    columnId: string,
+    boardId: string,
+  ): Observable<Response> {
+    return this.http.delete<Response>(
+      `${environment.baseUrl}/boards/${boardId}/columns/${columnId}/tasks/${id}`,
+    );
+  }
 }

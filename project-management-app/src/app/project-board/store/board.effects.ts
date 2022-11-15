@@ -79,7 +79,7 @@ export class BoardEffects {
             BoardActions.updateColumnSuccess({ updatedColumn }),
           ),
           catchError((error) =>
-            of(BoardActions.deleteColumnError({ error: error.message })),
+            of(BoardActions.updateColumnError({ error: error.message })),
           ),
         );
       }),
@@ -99,6 +99,50 @@ export class BoardEffects {
               of(BoardActions.createTaskError({ error: error.message })),
             ),
           );
+      }),
+    );
+  });
+
+  updateTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardActions.updateTask),
+      concatLatestFrom(() => this.store.select(selectBoardId)),
+      mergeMap(
+        ([{ id, title, description, userId, columnId, order }, boardId]) => {
+          return this.boardService
+            .updateTask(
+              id,
+              title,
+              description,
+              userId,
+              columnId,
+              order,
+              boardId,
+            )
+            .pipe(
+              map((updatedTask) =>
+                BoardActions.updateTaskSuccess({ updatedTask }),
+              ),
+              catchError((error) =>
+                of(BoardActions.updateTaskError({ error: error.message })),
+              ),
+            );
+        },
+      ),
+    );
+  });
+
+  deleteTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardActions.deleteTask),
+      concatLatestFrom(() => this.store.select(selectBoardId)),
+      mergeMap(([{ id, columnId }, boardId]) => {
+        return this.boardService.deleteTask(id, columnId, boardId).pipe(
+          map(() => BoardActions.deleteTaskSuccess({ id, columnId })),
+          catchError((error) =>
+            of(BoardActions.deleteTaskError({ error: error.message })),
+          ),
+        );
       }),
     );
   });

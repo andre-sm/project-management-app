@@ -25,9 +25,9 @@ export class TaskFormComponent implements OnInit, OnDestroy {
 
   users$!: Observable<User[]>;
 
-  selectedColumnId: string = '';
+  selectedColumnId: string;
 
-  selectedUserId: string = '';
+  selectedUserId: string;
 
   constructor(
     private store: Store,
@@ -35,6 +35,8 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: TaskForm,
   ) {
     this.formData = { ...data };
+    this.selectedColumnId = this.formData?.columnData?.id || '';
+    this.selectedUserId = this.formData?.userId || '';
   }
 
   ngOnInit(): void {
@@ -54,30 +56,46 @@ export class TaskFormComponent implements OnInit, OnDestroy {
 
   createForm(): void {
     this.taskForm = new FormGroup({
-      title: new FormControl('', [
+      title: new FormControl(this.formData?.title || '', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(64),
       ]),
-      description: new FormControl('', [
+      description: new FormControl(this.formData?.description || '', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(255),
       ]),
-      column: new FormControl('', [Validators.required]),
-      user: new FormControl('', [Validators.required]),
+      column: new FormControl(this.formData?.columnData?.title || '', [
+        Validators.required,
+      ]),
+      user: new FormControl(this.formData.userId, [Validators.required]),
     });
   }
 
   onSubmit(): void {
-    this.store.dispatch(
-      BoardActions.createTask({
-        title: this.taskForm.value.title,
-        description: this.taskForm.value.description,
-        userId: this.selectedUserId,
-        columnId: this.selectedColumnId,
-      }),
-    );
+    if (this.formData.id === null) {
+      this.store.dispatch(
+        BoardActions.createTask({
+          title: this.taskForm.value.title,
+          description: this.taskForm.value.description,
+          userId: this.selectedUserId,
+          columnId: this.selectedColumnId,
+        }),
+      );
+    } else {
+      this.store.dispatch(
+        BoardActions.updateTask({
+          id: this.formData.id,
+          title: this.taskForm.value.title,
+          description: this.taskForm.value.description,
+          userId: this.selectedUserId,
+          columnId: this.selectedColumnId,
+          order: this.formData.order,
+        }),
+      );
+    }
+
     this.dialogRef.close();
   }
 
