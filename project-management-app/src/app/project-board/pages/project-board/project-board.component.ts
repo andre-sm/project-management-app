@@ -46,7 +46,6 @@ export class ProjectBoardComponent implements OnInit {
     createDialogConfig.disableClose = true;
     createDialogConfig.autoFocus = true;
     this.translate.get('PROJECT_BOARD.projectBoardPage.dialog').subscribe((config) => {
-      console.log(config)
       createDialogConfig.data = {
         formTitle: config.formTitle,
         confirmText: config.confirmText,

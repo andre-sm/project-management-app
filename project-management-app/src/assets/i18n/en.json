@@ -156,6 +156,23 @@
       "item3": "Add progress columns",
       "item4": "Manage your tasks with draggable interface",
       "item5": "Search tasks, sort tasks"
+    },
+    "carousel": {
+      "carousel-header": "Our team",
+      "slides": {
+        "slide0": {
+          "title": "Andrey",
+          "subtitle": "Team leader. Contribution: backend deploy and modification, application setup, boards, columns, tasks, design."
+        },
+        "slide1": {
+          "title": "Anna",
+          "subtitle": "Contribution: login, signup, user editing, redirection, welcome page, not found page, localization."
+        },
+        "slide2": {
+          "title": "Vitaliy",
+          "subtitle": "Contribution: tasks search, task filters."
+        }
+      }
     }
   }
 }

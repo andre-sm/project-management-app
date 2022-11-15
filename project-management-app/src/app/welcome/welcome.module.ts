@@ -9,6 +9,11 @@ import { TeamCarouselComponent } from './components/team-carousel/team-carousel.
 
 @NgModule({
   declarations: [WelcomeComponent, TeamCarouselComponent],
-  imports: [CommonModule, WelcomeRoutingModule, SharedModule, CarouselModule],
+  imports: [
+    CommonModule,
+    WelcomeRoutingModule,
+    SharedModule,
+    CarouselModule,
+  ],
 })
 export class WelcomeModule {}
