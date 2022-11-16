@@ -1,1 +1,20 @@
-<p>page-not-found works!</p>
+<div class="container">
+  <div class="page-not-found__face">
+    <p>¯\_( ❛ ︵ ❛ )_/¯</p>
+  </div>
+  <div class="page-not-found__capture">
+    <p class="page-not-found__text">
+      {{ 'PAGE_NOT_FOUND.text' | translate }}
+    </p>
+    <button
+      type="button"
+      mat-stroked-button
+      color="primary"
+      class="page-not-found__button"
+      routerLinkActive="router-link-active"
+      (click)="onRedirect()"
+    >
+      {{ 'PAGE_NOT_FOUND.button' | translate }}
+    </button>
+  </div>
+</div>

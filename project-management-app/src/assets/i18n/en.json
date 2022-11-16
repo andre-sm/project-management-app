@@ -174,5 +174,9 @@
         }
       }
     }
+  },
+  "PAGE_NOT_FOUND": {
+    "text": "Unfortunately we couldn't find this page.",
+    "button": "Go to main page"
   }
 }
