@@ -4,7 +4,11 @@ import { AuthMainGuard } from '../auth/guards/auth-main.guard';
 import { ProjectsComponent } from './pages/projects/projects.component';
 
 const routes: Routes = [
-  { path: '', component: ProjectsComponent, canActivate: [AuthMainGuard] },
+  {
+    path: '',
+    component: ProjectsComponent,
+    canActivate: [AuthMainGuard]
+  },
 ];
 
 @NgModule({

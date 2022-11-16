@@ -4,7 +4,11 @@ import { AuthMainGuard } from '../auth/guards/auth-main.guard';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 
 const routes = [
-  { path: '', component: EditUserComponent, canActivate: [AuthMainGuard] },
+  {
+    path: '',
+    component: EditUserComponent,
+    canActivate: [AuthMainGuard]
+  },
 ];
 
 @NgModule({
