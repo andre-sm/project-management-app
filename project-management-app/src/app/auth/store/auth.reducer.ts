@@ -76,4 +76,11 @@ export const authReducer = createReducer(
       errorMessage: errorObj.message,
     }),
   ),
+  on(
+    AuthActions.getUserName,
+    (state): AuthState => ({
+      ...state,
+      loading: true
+    })
+  )
 );

@@ -1,4 +1,7 @@
-<div class="container">
+<div class="welcome__spinner-container" *ngIf="isLoading">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+<div class="container" *ngIf="!isLoading">
   <h1 class="welcome__main-header">
     {{ 'WELCOME.mainHeader.value' | translate }} &nbsp;<span>{{
       'WELCOME.mainHeader.styled' | translate

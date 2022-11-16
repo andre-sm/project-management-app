@@ -12,3 +12,8 @@ export const selectToken = createSelector(
   selectAuthState,
   (state: AuthState) => state.user?.token,
 );
+
+export const selectLoading = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.loading,
+);

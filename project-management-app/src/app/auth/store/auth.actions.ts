@@ -12,7 +12,6 @@ export const loginSuccess = createAction(
     token: string;
     userId: string;
     name: string;
-    tokenExpirationDate: Date;
   }>(),
 );
 
@@ -25,6 +24,14 @@ export const signupStart = createAction(
   '[Auth] Signup Start',
   props<{ name: string; login: string; password: string }>(),
 );
+
+export const getUserName = createAction(
+  '[Auth] Get User Name',
+  props<{
+    token: string;
+    userId: string;
+  }>()
+)
 
 export const autoLogin = createAction('[Auth] Auto Login');
 

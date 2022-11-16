@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map, switchMap, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import jwt_decode from "jwt-decode";
 
 import { HandleServerErrors } from 'src/app/shared/services/handle-server-errors.service';
 import * as AuthActions from './auth.actions';
@@ -17,14 +18,18 @@ export interface ISignupResponse {
 
 export interface ILoginResponse {
   token: string;
-  login: string;
-  userId: string;
-  name: string;
+}
+
+export interface IGetUserNameResponse {
+  _id: string,
+  name: string,
+  login: string
 }
 
 @Injectable()
 export class AuthEffects {
-  tokenExpiresIn = 43200;
+  endPointAuth = 'auth';
+  endPointUsers = 'users'
 
   constructor(
     private actions$: Actions,
@@ -39,7 +44,7 @@ export class AuthEffects {
       ofType(AuthActions.signupStart),
       switchMap(({ name, login, password }) => {
         return this.http
-          .post<ISignupResponse>(`${environment.baseUrl}/signup`, {
+          .post<ISignupResponse>(`${environment.baseUrl}/${this.endPointAuth}/signup`, {
             name,
             login,
             password,
@@ -64,25 +69,23 @@ export class AuthEffects {
       ofType(AuthActions.loginStart),
       switchMap(({ login, password }) => {
         return this.http
-          .post<ILoginResponse>(`${environment.baseUrl}/signin`, {
+          .post<ILoginResponse>(`${environment.baseUrl}/${this.endPointAuth}/signin`, {
             login,
             password,
           })
           .pipe(
             map((resData) => {
-              const tokenExpirationDate = new Date(
-                new Date().getTime() + this.tokenExpiresIn * 1000,
-              );
+              const decoded: {
+                id: string,
+                login: string,
+                exp: number,
+                iat: number
+              } = jwt_decode(resData.token)
               const newUser = {
-                login: resData.login,
                 token: resData.token,
-                userId: resData.userId,
-                tokenExpirationDate,
-                name: resData.name,
+                userId: decoded.id,
               };
-              localStorage.setItem('currentUser', JSON.stringify(newUser));
-              this.router.navigate(['/projects']);
-              return AuthActions.loginSuccess(newUser);
+              return AuthActions.getUserName(newUser);
             }),
             catchError((error) => {
               return this.handleErrorsService.handleError(error);
@@ -100,26 +103,17 @@ export class AuthEffects {
           login: string;
           userId: string;
           token: string;
-          tokenExpirationDate: string;
           name: string;
         } = JSON.parse(localStorage.getItem('currentUser') as string);
         if (!userData) {
           return AuthActions.logout();
         }
-        const expirationDate = new Date(userData.tokenExpirationDate);
         const loadedUser = {
-          login: userData.login,
           userId: userData.userId,
           token: userData.token,
-          tokenExpirationDate: expirationDate,
-          name: userData.name,
         };
         if (loadedUser.token) {
-          const expirationDuration =
-            new Date(userData.tokenExpirationDate).getTime() -
-            new Date().getTime();
-          this.authService.setLogoutTimer(expirationDuration);
-          return AuthActions.loginSuccess(loadedUser);
+          return AuthActions.getUserName(loadedUser);
         }
         return AuthActions.logout();
       }),
@@ -139,4 +133,36 @@ export class AuthEffects {
     },
     { dispatch: false },
   );
+
+  getUserName$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.getUserName),
+        switchMap(({token, userId}) => {
+          return this.http.get<IGetUserNameResponse>(`${environment.baseUrl}/${this.endPointUsers}/${userId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }).pipe(
+            map((resData) => {
+              const newUser = {
+                login: resData.login,
+                token: token,
+                userId: resData._id,
+                name: resData.name
+              }
+              localStorage.setItem('currentUser', JSON.stringify(newUser));
+              this.router.navigate(['/projects']);
+              return AuthActions.loginSuccess(newUser)
+            }),
+            catchError((error) => {
+              localStorage.removeItem('currentUser');
+              this.router.navigate(['/auth/login']);
+              return this.handleErrorsService.handleError(error);
+            })
+          )
+        })
+      )
+    }
+  )
 }
