@@ -21,6 +21,10 @@ import { AuthEffects } from './auth/store/auth.effects';
 import { httpInterceptorProviders } from './shared/services/interceptors';
 import { EditEffects } from './user/store/edit-user.effects';
 
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -52,7 +56,3 @@ import { EditEffects } from './user/store/edit-user.effects';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}

@@ -1,0 +1,44 @@
+<h2 class="welcome__header-team">
+  {{ 'WELCOME.carousel.carousel-header' | translate }}
+</h2>
+<c-carousel
+  [interval]="6000"
+  hover="true"
+  [touch]="true"
+  (itemChange)="onItemChange($event)"
+  class="welcome__carousel"
+>
+  <c-carousel-indicators></c-carousel-indicators>
+  <c-carousel-inner>
+    <c-carousel-item *ngFor="let slide of slides">
+      <img
+        alt="{{ slide.title | async }}"
+        class="d-block w-100"
+        loading="lazy"
+        src="{{ slide.src }}"
+      />
+      <c-carousel-caption class="d-none d-md-block">
+        <h3>{{ slide.title | async }}</h3>
+        <p>{{ slide.subtitle | async }}</p>
+      </c-carousel-caption>
+    </c-carousel-item>
+  </c-carousel-inner>
+  <c-carousel-control
+    [routerLink]
+    caption="Previous"
+    direction="prev"
+  ></c-carousel-control>
+  <c-carousel-control
+    [routerLink]
+    caption="Next"
+    direction="next"
+  ></c-carousel-control>
+</c-carousel>
+<div class="welcome__captures" *ngIf="smallDevice">
+  <p class="title">
+    {{ caption.title | translate }}
+  </p>
+  <p class="subtitle">
+    {{ caption.subtitle | translate }}
+  </p>
+</div>

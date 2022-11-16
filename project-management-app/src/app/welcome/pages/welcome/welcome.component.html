@@ -1,1 +1,63 @@
-<p>welcome works!</p>
+<div class="container">
+  <h1 class="welcome__main-header">
+    {{ 'WELCOME.mainHeader.value' | translate }} &nbsp;<span>{{
+      'WELCOME.mainHeader.styled' | translate
+    }}</span>
+  </h1>
+  <div class="welcome__buttons-container">
+    <button
+      type="button"
+      mat-stroked-button
+      color="primary"
+      class="button"
+      *ngIf="!isAuthenticated"
+      (click)="onLogin()"
+    >
+      <mat-icon
+        ><span class="material-symbols-outlined"> login </span></mat-icon
+      >
+    </button>
+    <button
+      type="button"
+      mat-stroked-button
+      color="primary"
+      class="button"
+      *ngIf="!isAuthenticated"
+      (click)="onSignup()"
+    >
+      <mat-icon
+        ><span class="material-symbols-outlined"> person_add </span></mat-icon
+      >
+    </button>
+  </div>
+  <p class="welcome__hero-text">
+    {{ 'WELCOME.heroText' | translate }}
+  </p>
+
+  <app-team-carousel></app-team-carousel>
+  <h2 class="welcome__header-second">
+    {{ 'WELCOME.secondHeader' | translate }}
+  </h2>
+  <ul class="welcome__pros-list">
+    <li class="welcome__list-item">
+      <mat-icon class="icon">done</mat-icon>
+      <p>{{ 'WELCOME.prosList.item1' | translate }}</p>
+    </li>
+    <li class="welcome__list-item">
+      <mat-icon class="icon">done</mat-icon>
+      <p>{{ 'WELCOME.prosList.item2' | translate }}</p>
+    </li>
+    <li class="welcome__list-item">
+      <mat-icon class="icon">done</mat-icon>
+      <p>{{ 'WELCOME.prosList.item3' | translate }}</p>
+    </li>
+    <li class="welcome__list-item">
+      <mat-icon class="icon">done</mat-icon>
+      <p>{{ 'WELCOME.prosList.item4' | translate }}</p>
+    </li>
+    <li class="welcome__list-item">
+      <mat-icon class="icon">done</mat-icon>
+      {{ 'WELCOME.prosList.item5' | translate }}
+    </li>
+  </ul>
+</div>

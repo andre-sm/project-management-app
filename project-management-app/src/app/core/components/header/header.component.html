@@ -4,26 +4,6 @@
     mat-stroked-button
     color="primary"
     class="button"
-    *ngIf="!isAuthenticated"
-    (click)="onLogin()"
-  >
-    {{ 'HEADER.buttons.login' | translate }}
-  </button>
-  <button
-    type="button"
-    mat-stroked-button
-    color="primary"
-    class="button"
-    *ngIf="!isAuthenticated"
-    (click)="onSignup()"
-  >
-    {{ 'HEADER.buttons.signup' | translate }}
-  </button>
-  <button
-    type="button"
-    mat-stroked-button
-    color="primary"
-    class="button"
     *ngIf="isAuthenticated"
     routerLinkActive="router-link-active"
     (click)="onLogout()"
@@ -42,16 +22,25 @@
     {{ 'HEADER.navigation.editUser' | translate }}
   </button>
   <mat-button-toggle-group
+    class="language-buttons-container"
     name="langSelection"
     aria-label="Language"
     #group="matButtonToggleGroup"
     (change)="onChangeLanguage(group)"
   >
-    <mat-button-toggle value="en">{{
-      'HEADER.languages.en' | translate
-    }}</mat-button-toggle>
-    <mat-button-toggle value="ru">{{
-      'HEADER.languages.ru' | translate
-    }}</mat-button-toggle>
+    <mat-button-toggle
+      value="en"
+      class="language-button"
+      [checked]="initialLang === 'en'"
+    >
+      <span class="flag-icon flag-icon-gb"></span>
+    </mat-button-toggle>
+    <mat-button-toggle
+      value="ru"
+      class="language-button"
+      [checked]="initialLang === 'ru'"
+    >
+      <span class="flag-icon flag-icon-ru"></span>
+    </mat-button-toggle>
   </mat-button-toggle-group>
 </div>

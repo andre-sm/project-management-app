@@ -1,48 +1,44 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, Subscription } from 'rxjs';
-
-import { selectAuthState } from '../../../store/selectors/auth.selector';
-import * as AuthActions from '../../../auth/store/auth.actions';
+import { tap } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { MatButtonToggleGroup } from '@angular/material/button-toggle';
+
+import { TeamCarouselService } from 'src/app/welcome/components/team-carousel/services/team-carousel.service';
+import { selectUser } from '../../../store/selectors/auth.selector';
+import * as AuthActions from '../../../auth/store/auth.actions';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent {
   isAuthenticated = false;
 
-  private userSub: Subscription | undefined;
+  initialLang: string | null = null;
 
-  constructor(private store: Store, private router: Router, private translate: TranslateService) {}
-
-  ngOnInit(): void {
-    this.userSub = this.store
-      .select(selectAuthState)
+  constructor(
+    private store: Store,
+    private router: Router,
+    private translate: TranslateService,
+    private teamCarouselService: TeamCarouselService,
+  ) {
+    this.store
+      .select(selectUser)
       .pipe(
-        map((authState) => {
-          return authState.user;
+        tap((user) => {
+          this.isAuthenticated = !!user;
         }),
       )
-      .subscribe((user) => {
-        this.isAuthenticated = !!user;
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.userSub?.unsubscribe();
-  }
-
-  onLogin() {
-    this.router.navigate(['/auth/login']);
-  }
-
-  onSignup() {
-    this.router.navigate(['/auth/signup']);
+      .subscribe();
+    if (localStorage.getItem('lang')) {
+      this.initialLang = localStorage.getItem('lang');
+      if (this.initialLang) {
+        this.teamCarouselService.languageChanged$.next();
+      }
+    }
   }
 
   onLogout() {
@@ -56,5 +52,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onChangeLanguage(toggleLangGroup: MatButtonToggleGroup) {
     this.translate.use(toggleLangGroup.value);
     localStorage.setItem('lang', toggleLangGroup.value);
+    this.teamCarouselService.languageChanged$.next();
   }
 }
