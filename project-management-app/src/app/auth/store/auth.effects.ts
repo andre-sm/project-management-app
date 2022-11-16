@@ -8,7 +8,6 @@ import jwt_decode from "jwt-decode";
 import { HandleServerErrors } from 'src/app/shared/services/handle-server-errors.service';
 import * as AuthActions from './auth.actions';
 import { environment } from '../../../environments/environment';
-import { AuthService } from '../services/auth.service';
 
 export interface ISignupResponse {
   userId: string;
@@ -34,7 +33,6 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private http: HttpClient,
-    private authService: AuthService,
     private router: Router,
     private handleErrorsService: HandleServerErrors,
   ) {}
@@ -125,7 +123,6 @@ export class AuthEffects {
       return this.actions$.pipe(
         ofType(AuthActions.logout),
         tap(() => {
-          this.authService.clearLogoutTimer();
           localStorage.removeItem('currentUser');
           this.router.navigate(['/welcome']);
         }),
