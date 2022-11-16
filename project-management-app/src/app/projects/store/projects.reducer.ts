@@ -8,6 +8,7 @@ export const initialState: ProjectsState = {
   isLoading: false,
   projects: [],
   error: null,
+  users: [],
 };
 
 export const projectsReducer = createReducer(
@@ -51,7 +52,7 @@ export const projectsReducer = createReducer(
     }),
   ),
   on(ProjectActions.deleteProjectSuccess, (state, { id }): ProjectsState => {
-    const updatedProjects = state.projects.filter((item) => item.id !== id);
+    const updatedProjects = state.projects.filter((item) => item._id !== id);
     return {
       ...state,
       projects: updatedProjects,
@@ -68,7 +69,7 @@ export const projectsReducer = createReducer(
     ProjectActions.updateProjectSuccess,
     (state, { updatedProject }): ProjectsState => {
       const updatedProjects = state.projects.map((item) =>
-        item.id === updatedProject.id ? updatedProject : item,
+        item._id === updatedProject._id ? updatedProject : item,
       );
       return {
         ...state,
@@ -78,6 +79,19 @@ export const projectsReducer = createReducer(
   ),
   on(
     ProjectActions.updateProjectError,
+    (state, { error }): ProjectsState => ({
+      ...state,
+      error,
+    }),
+  ),
+  on(ProjectActions.getUsersSuccess, (state, { users }): ProjectsState => {
+    return {
+      ...state,
+      users,
+    };
+  }),
+  on(
+    ProjectActions.getUsersError,
     (state, { error }): ProjectsState => ({
       ...state,
       error,

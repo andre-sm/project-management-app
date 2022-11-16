@@ -30,8 +30,8 @@ export const getUserName = createAction(
   props<{
     token: string;
     userId: string;
-  }>()
-)
+  }>(),
+);
 
 export const autoLogin = createAction('[Auth] Auto Login');
 

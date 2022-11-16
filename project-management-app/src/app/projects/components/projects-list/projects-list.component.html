@@ -26,14 +26,14 @@
         <button
           mat-icon-button
           aria-label="delete icon"
-          (click)="deleteDialog($event, project.id)"
+          (click)="deleteDialog($event, project._id)"
         >
           <mat-icon class="delete-icon" fontIcon="delete"></mat-icon>
         </button>
         <button
           mat-icon-button
           aria-label="edit icon"
-          (click)="editDialog($event, project.id)"
+          (click)="editDialog($event, project._id)"
         >
           <mat-icon class="edit-icon" fontIcon="edit"></mat-icon>
         </button>
@@ -43,7 +43,7 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row
       *matRowDef="let row; columns: displayedColumns"
-      [routerLink]="['./board', row.id]"
+      [routerLink]="['./board', row._id]"
     ></mat-row>
   </mat-table>
 </div>

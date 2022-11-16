@@ -8,7 +8,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AlertComponent } from './components/alert-component/alert-component.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
@@ -30,7 +32,9 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     MatDialogModule,
     TranslateModule,
     MatMenuModule,
+    MatAutocompleteModule,
     MatButtonToggleModule,
+    MatSelectModule,
   ],
   exports: [
     MatFormFieldModule,
@@ -44,7 +48,9 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     ConfirmModalComponent,
     TranslateModule,
     MatMenuModule,
+    MatAutocompleteModule,
     MatButtonToggleModule,
+    MatSelectModule,
   ],
 })
 export class SharedModule {}

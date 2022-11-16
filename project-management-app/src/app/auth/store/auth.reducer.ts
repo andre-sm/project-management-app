@@ -80,7 +80,7 @@ export const authReducer = createReducer(
     AuthActions.getUserName,
     (state): AuthState => ({
       ...state,
-      loading: true
-    })
-  )
+      loading: true,
+    }),
+  ),
 );

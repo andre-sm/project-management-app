@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Project } from '../models';
+import { Project, User } from '../models';
 
 export const getProjects = createAction('[Projects] Get Projects');
 
@@ -15,7 +15,7 @@ export const getProjectsError = createAction(
 
 export const createProject = createAction(
   '[Projects] Create Project',
-  props<{ title: string; description: string }>(),
+  props<{ title: string; description: string; users: Array<string> }>(),
 );
 
 export const createProjectSuccess = createAction(
@@ -45,7 +45,13 @@ export const deleteProjectError = createAction(
 
 export const updateProject = createAction(
   '[Projects] Update Project',
-  props<{ title: string; description: string; id: string }>(),
+  props<{
+    title: string;
+    description: string;
+    id: string;
+    owner: string;
+    users: Array<string>;
+  }>(),
 );
 
 export const updateProjectSuccess = createAction(
@@ -55,5 +61,17 @@ export const updateProjectSuccess = createAction(
 
 export const updateProjectError = createAction(
   '[Projects] Update Project Error',
+  props<{ error: string }>(),
+);
+
+export const getUsers = createAction('[Users] Get Users');
+
+export const getUsersSuccess = createAction(
+  '[Users] Get Users Success',
+  props<{ users: User[] }>(),
+);
+
+export const getUsersError = createAction(
+  '[Users] Get Users Error',
   props<{ error: string }>(),
 );

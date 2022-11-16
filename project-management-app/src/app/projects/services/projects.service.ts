@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { CreateProject, Project } from '../models';
+import { Project, User } from '../models';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -14,11 +14,22 @@ export class ProjectsService {
     return this.http.get<Project[]>(`${environment.baseUrl}/boards`);
   }
 
-  createProject(projectFormData: CreateProject): Observable<Project> {
-    return this.http.post<Project>(
-      `${environment.baseUrl}/boards`,
-      projectFormData,
-    );
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${environment.baseUrl}/users`);
+  }
+
+  createProject(
+    title: string,
+    description: string,
+    users: Array<string>,
+    owner: string | undefined,
+  ): Observable<Project> {
+    return this.http.post<Project>(`${environment.baseUrl}/boards`, {
+      title,
+      description,
+      owner,
+      users,
+    });
   }
 
   deleteProject(id: string): Observable<Response> {
@@ -29,10 +40,14 @@ export class ProjectsService {
     title: string,
     description: string,
     id: string,
+    owner: string,
+    users: Array<string>,
   ): Observable<Project> {
     return this.http.put<Project>(`${environment.baseUrl}/boards/${id}`, {
       title,
       description,
+      owner,
+      users,
     });
   }
 }

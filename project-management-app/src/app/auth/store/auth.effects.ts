@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map, switchMap, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 
 import { HandleServerErrors } from 'src/app/shared/services/handle-server-errors.service';
 import * as AuthActions from './auth.actions';
@@ -20,15 +20,16 @@ export interface ILoginResponse {
 }
 
 export interface IGetUserNameResponse {
-  _id: string,
-  name: string,
-  login: string
+  _id: string;
+  name: string;
+  login: string;
 }
 
 @Injectable()
 export class AuthEffects {
   endPointAuth = 'auth';
-  endPointUsers = 'users'
+
+  endPointUsers = 'users';
 
   constructor(
     private actions$: Actions,
@@ -42,11 +43,14 @@ export class AuthEffects {
       ofType(AuthActions.signupStart),
       switchMap(({ name, login, password }) => {
         return this.http
-          .post<ISignupResponse>(`${environment.baseUrl}/${this.endPointAuth}/signup`, {
-            name,
-            login,
-            password,
-          })
+          .post<ISignupResponse>(
+            `${environment.baseUrl}/${this.endPointAuth}/signup`,
+            {
+              name,
+              login,
+              password,
+            },
+          )
           .pipe(
             map(() => {
               return AuthActions.loginStart({
@@ -67,18 +71,21 @@ export class AuthEffects {
       ofType(AuthActions.loginStart),
       switchMap(({ login, password }) => {
         return this.http
-          .post<ILoginResponse>(`${environment.baseUrl}/${this.endPointAuth}/signin`, {
-            login,
-            password,
-          })
+          .post<ILoginResponse>(
+            `${environment.baseUrl}/${this.endPointAuth}/signin`,
+            {
+              login,
+              password,
+            },
+          )
           .pipe(
             map((resData) => {
               const decoded: {
-                id: string,
-                login: string,
-                exp: number,
-                iat: number
-              } = jwt_decode(resData.token)
+                id: string;
+                login: string;
+                exp: number;
+                iat: number;
+              } = jwt_decode(resData.token);
               const newUser = {
                 token: resData.token,
                 userId: decoded.id,
@@ -131,35 +138,38 @@ export class AuthEffects {
     { dispatch: false },
   );
 
-  getUserName$ = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(AuthActions.getUserName),
-        switchMap(({token, userId}) => {
-          return this.http.get<IGetUserNameResponse>(`${environment.baseUrl}/${this.endPointUsers}/${userId}`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }).pipe(
+  getUserName$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.getUserName),
+      switchMap(({ token, userId }) => {
+        return this.http
+          .get<IGetUserNameResponse>(
+            `${environment.baseUrl}/${this.endPointUsers}/${userId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            },
+          )
+          .pipe(
             map((resData) => {
               const newUser = {
                 login: resData.login,
-                token: token,
+                token,
                 userId: resData._id,
-                name: resData.name
-              }
+                name: resData.name,
+              };
               localStorage.setItem('currentUser', JSON.stringify(newUser));
               this.router.navigate(['/projects']);
-              return AuthActions.loginSuccess(newUser)
+              return AuthActions.loginSuccess(newUser);
             }),
             catchError((error) => {
               localStorage.removeItem('currentUser');
               this.router.navigate(['/auth/login']);
               return this.handleErrorsService.handleError(error);
-            })
-          )
-        })
-      )
-    }
-  )
+            }),
+          );
+      }),
+    );
+  });
 }

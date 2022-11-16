@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs';
-import { selectLoading, selectUser } from 'src/app/store/selectors/auth.selector';
+import {
+  selectLoading,
+  selectUser,
+} from 'src/app/store/selectors/auth.selector';
 
 @Component({
   selector: 'app-welcome',
@@ -11,6 +14,7 @@ import { selectLoading, selectUser } from 'src/app/store/selectors/auth.selector
 })
 export class WelcomeComponent {
   isAuthenticated: boolean = false;
+
   isLoading: boolean = false;
 
   constructor(private router: Router, private store: Store) {
@@ -22,7 +26,7 @@ export class WelcomeComponent {
         }),
       )
       .subscribe();
-      this.store
+    this.store
       .select(selectLoading)
       .pipe(
         tap((loading) => {
