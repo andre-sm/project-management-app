@@ -10,7 +10,7 @@ import * as AuthActions from '../../auth/store/auth.actions';
 import { environment } from '../../../environments/environment';
 
 export interface IEditResponse {
-  id: string;
+  _id: string;
   name: string;
   login: string;
 }
@@ -42,9 +42,8 @@ export class EditEffects {
               const updatedUser = {
                 name: data.name,
                 login: data.login,
-                userId: data.id,
+                userId: data._id,
                 token: oldUser.token as string,
-                tokenExpirationDate: oldUser.tokenExpirationDate as Date,
               };
               localStorage.setItem('currentUser', JSON.stringify(updatedUser));
               return EditActions.editUserSuccess(updatedUser);

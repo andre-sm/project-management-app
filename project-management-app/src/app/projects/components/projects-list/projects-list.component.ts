@@ -50,7 +50,7 @@ export class ProjectsListComponent {
 
   editDialog(event: Event, id: string): void {
     event.stopPropagation();
-    const selectedProject = this.projects.find((item) => item.id === id);
+    const selectedProject = this.projects.find((item) => item._id === id);
 
     const editDialogConfig = new MatDialogConfig();
     editDialogConfig.disableClose = true;
@@ -61,6 +61,8 @@ export class ProjectsListComponent {
         editDialogConfig.data = {
           title: selectedProject?.title,
           description: selectedProject?.description,
+          owner: selectedProject?.owner,
+          users: selectedProject?.users,
           formTitle: config.formTitle,
           confirmText: config.confirmText,
           cancelText: config.cancelText,

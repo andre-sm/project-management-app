@@ -22,7 +22,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
   currentUser: IUser = {
     login: '',
     token: '',
-    tokenExpirationDate: new Date(),
     name: '',
     userId: '',
   };

@@ -30,7 +30,7 @@ export class ColumnComponent {
       .subscribe((config) => {
         editDialogConfig.data = {
           title: this.column.title,
-          id: this.column.id,
+          id: this.column._id,
           order: this.column.order,
           formTitle: config.formTitle,
           confirmText: config.confirmText,
@@ -60,7 +60,7 @@ export class ColumnComponent {
 
     dialogRef.afterClosed().subscribe((result: Boolean) => {
       if (result) {
-        this.store.dispatch(BoardActions.deleteColumn({ id: this.column.id }));
+        this.store.dispatch(BoardActions.deleteColumn({ id: this.column._id }));
       }
     });
   }
