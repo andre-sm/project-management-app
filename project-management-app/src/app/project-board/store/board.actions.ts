@@ -1,17 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Column, Board, ColumnResponse, User, Task } from '../models';
-
-export const getUsers = createAction('[Users] Get Users');
-
-export const getUsersSuccess = createAction(
-  '[Users] Get Users Success',
-  props<{ users: User[] }>(),
-);
-
-export const getUsersError = createAction(
-  '[Users] Get Users Error',
-  props<{ error: string }>(),
-);
+import { Column, Board, Task } from '../models';
 
 export const getBoard = createAction(
   '[Board] Get Board',
@@ -28,9 +16,19 @@ export const getBoardError = createAction(
   props<{ error: string }>(),
 );
 
+export const getColumnsSuccess = createAction(
+  '[Columns] Get Columns Success',
+  props<{ columns: Column[] }>(),
+);
+
+export const getColumnsError = createAction(
+  '[Columns] Get Columns Error',
+  props<{ error: string }>(),
+);
+
 export const createColumn = createAction(
   '[Column] Create Column',
-  props<{ title: string }>(),
+  props<{ title: string; order: number }>(),
 );
 
 export const createColumnSuccess = createAction(
@@ -65,7 +63,7 @@ export const updateColumn = createAction(
 
 export const updateColumnSuccess = createAction(
   '[Column] Update Column Success',
-  props<{ updatedColumn: ColumnResponse }>(),
+  props<{ updatedColumn: Column }>(),
 );
 
 export const updateColumnError = createAction(

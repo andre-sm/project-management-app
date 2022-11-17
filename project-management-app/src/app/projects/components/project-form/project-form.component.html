@@ -2,15 +2,17 @@
   <h1 class="create-project__title">{{ formData.formTitle }}</h1>
   <form
     class="create-project__form"
-    [formGroup]="createProjectForm"
+    [formGroup]="projectForm"
     (ngSubmit)="onSubmit()"
   >
     <mat-form-field appearance="fill">
-      <mat-label>Title</mat-label>
+      <mat-label>{{ 'PROJECTS.projectForm.titleLabel' | translate }}</mat-label>
       <input matInput formControlName="title" />
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>Description</mat-label>
+      <mat-label>{{
+        'PROJECTS.projectForm.descriptionLabel' | translate
+      }}</mat-label>
       <textarea
         matInput
         cdkTextareaAutosize
@@ -18,6 +20,14 @@
         cdkAutosizeMaxRows="7"
         formControlName="description"
       ></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>User</mat-label>
+      <mat-select formControlName="users" multiple>
+        <mat-option *ngFor="let user of users$ | async" [value]="user.name">{{
+          user.name
+        }}</mat-option>
+      </mat-select>
     </mat-form-field>
     <div class="create-project__btns">
       <button
@@ -29,7 +39,7 @@
       </button>
       <button
         class="create-project__create-btn btn"
-        [class.disabled]="createProjectForm.invalid"
+        [class.disabled]="projectForm.invalid"
         type="submit"
       >
         {{ formData.confirmText }}

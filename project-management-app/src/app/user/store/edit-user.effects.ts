@@ -3,14 +3,14 @@ import { catchError, map, of, switchMap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { HandleServerErrors } from 'src/app/shared/handle-server-errors.service';
+import { HandleServerErrors } from 'src/app/shared/services/handle-server-errors.service';
 import { Store } from '@ngrx/store';
 import * as EditActions from './edit-user.actions';
 import * as AuthActions from '../../auth/store/auth.actions';
 import { environment } from '../../../environments/environment';
 
 export interface IEditResponse {
-  id: string;
+  _id: string;
   name: string;
   login: string;
 }
@@ -42,9 +42,8 @@ export class EditEffects {
               const updatedUser = {
                 name: data.name,
                 login: data.login,
-                userId: data.id,
+                userId: data._id,
                 token: oldUser.token as string,
-                tokenExpirationDate: oldUser.tokenExpirationDate as Date,
               };
               localStorage.setItem('currentUser', JSON.stringify(updatedUser));
               return EditActions.editUserSuccess(updatedUser);

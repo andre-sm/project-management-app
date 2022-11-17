@@ -3,5 +3,4 @@ export interface IUser {
   token: string;
   userId: string;
   name: string;
-  tokenExpirationDate: Date;
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Column, Board, ColumnResponse, User, Task } from '../models';
+import { Column, Board, Task } from '../models';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -14,14 +14,20 @@ export class BoardService {
     return this.http.get<Board>(`${environment.baseUrl}/boards/${boardId}`);
   }
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${environment.baseUrl}/users`);
+  getColumns(boardId: string): Observable<Column[]> {
+    return this.http.get<Column[]>(
+      `${environment.baseUrl}/boards/${boardId}/columns`,
+    );
   }
 
-  createColumn(title: string, boardId: string | null): Observable<Column> {
+  createColumn(
+    title: string,
+    order: number,
+    boardId: string | null,
+  ): Observable<Column> {
     return this.http.post<Column>(
       `${environment.baseUrl}/boards/${boardId}/columns`,
-      { title },
+      { title, order },
     );
   }
 
@@ -36,8 +42,8 @@ export class BoardService {
     id: string,
     order: number | null,
     boardId: string,
-  ): Observable<ColumnResponse> {
-    return this.http.put<ColumnResponse>(
+  ): Observable<Column> {
+    return this.http.put<Column>(
       `${environment.baseUrl}/boards/${boardId}/columns/${id}`,
       {
         title,

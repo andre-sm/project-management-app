@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { Column, Task } from '../../models';
 import { ColumnFormComponent } from '../column-form/column-form.component';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
@@ -15,20 +16,28 @@ import { TaskFormComponent } from '../task-form/task-form.component';
 export class ColumnComponent {
   @Input() column!: Column;
 
-  constructor(public dialog: MatDialog, private store: Store) {}
+  constructor(
+    public dialog: MatDialog,
+    private store: Store,
+    private translate: TranslateService,
+  ) {}
 
   editColumnDialog(): void {
     const editDialogConfig = new MatDialogConfig();
     editDialogConfig.disableClose = true;
     editDialogConfig.autoFocus = true;
-    editDialogConfig.data = {
-      title: this.column.title,
-      formTitle: 'Edit column',
-      confirmText: 'Save',
-      cancelText: 'Close',
-      id: this.column.id,
-      order: this.column.order,
-    };
+    this.translate
+      .get('PROJECT_BOARD.column.editDialog')
+      .subscribe((config) => {
+        editDialogConfig.data = {
+          title: this.column.title,
+          id: this.column._id,
+          order: this.column.order,
+          formTitle: config.formTitle,
+          confirmText: config.confirmText,
+          cancelText: config.cancelText,
+        };
+      });
 
     this.dialog.open(ColumnFormComponent, editDialogConfig);
   }
@@ -38,17 +47,21 @@ export class ColumnComponent {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = {
-      message: 'Are you want to delete column?',
-      confirmText: 'Yes',
-      cancelText: 'No',
-    };
+    this.translate
+      .get('PROJECT_BOARD.column.deleteDialog')
+      .subscribe((config) => {
+        dialogConfig.data = {
+          message: config.message,
+          confirmText: config.confirmText,
+          cancelText: config.cancelText,
+        };
+      });
 
     const dialogRef = this.dialog.open(ConfirmModalComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result: Boolean) => {
       if (result) {
-        this.store.dispatch(BoardActions.deleteColumn({ id: this.column.id }));
+        this.store.dispatch(BoardActions.deleteColumn({ id: this.column._id }));
       }
     });
   }

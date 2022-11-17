@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { Project } from '../../models';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 import { ProjectFormComponent } from '../project-form/project-form.component';
@@ -16,7 +17,11 @@ export class ProjectsListComponent {
 
   @Input() projects!: Project[];
 
-  constructor(public dialog: MatDialog, private store: Store) {}
+  constructor(
+    public dialog: MatDialog,
+    private store: Store,
+    private translate: TranslateService,
+  ) {}
 
   deleteDialog(event: Event, id: string): void {
     event.stopPropagation();
@@ -24,11 +29,15 @@ export class ProjectsListComponent {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = {
-      message: 'Are you want to delete project?',
-      confirmText: 'Yes',
-      cancelText: 'No',
-    };
+    this.translate
+      .get('PROJECTS.projectsList.deleteDialog')
+      .subscribe((config) => {
+        dialogConfig.data = {
+          message: config.message,
+          confirmText: config.confirmText,
+          cancelText: config.cancelText,
+        };
+      });
 
     const dialogRef = this.dialog.open(ConfirmModalComponent, dialogConfig);
 
@@ -41,20 +50,25 @@ export class ProjectsListComponent {
 
   editDialog(event: Event, id: string): void {
     event.stopPropagation();
-    const selectedProject = this.projects.find((item) => item.id === id);
+    const selectedProject = this.projects.find((item) => item._id === id);
 
     const editDialogConfig = new MatDialogConfig();
     editDialogConfig.disableClose = true;
     editDialogConfig.autoFocus = true;
-    editDialogConfig.data = {
-      title: selectedProject?.title,
-      description: selectedProject?.description,
-      formTitle: 'Edit project',
-      confirmText: 'Save',
-      cancelText: 'Close',
-      id,
-    };
-
+    this.translate
+      .get('PROJECTS.projectsList.editDialog')
+      .subscribe((config) => {
+        editDialogConfig.data = {
+          title: selectedProject?.title,
+          description: selectedProject?.description,
+          owner: selectedProject?.owner,
+          users: selectedProject?.users,
+          formTitle: config.formTitle,
+          confirmText: config.confirmText,
+          cancelText: config.cancelText,
+          id,
+        };
+      });
     this.dialog.open(ProjectFormComponent, editDialogConfig);
   }
 }

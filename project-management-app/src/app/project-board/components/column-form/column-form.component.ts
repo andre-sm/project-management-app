@@ -38,12 +38,13 @@ export class ColumnFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    const { title } = this.columnForm.value;
     if (this.formData.id === null) {
-      this.store.dispatch(BoardActions.createColumn(this.columnForm.value));
+      this.store.dispatch(BoardActions.createColumn({ title, order: 0 }));
     } else {
       this.store.dispatch(
         BoardActions.updateColumn({
-          title: this.columnForm.value.title,
+          title,
           id: this.formData.id,
           order: this.formData.order,
         }),

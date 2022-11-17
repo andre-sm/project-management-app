@@ -1,7 +1,13 @@
-@import '../../../shared//variables';
+@import '../../../shared/variables';
 
 :host {
   height: 120px;
+  padding: 20px;
+}
+
+.flag-icon {
+  border: 1px solid $primary-color;
+  background-size: cover;
 }
 
 .buttons-container {

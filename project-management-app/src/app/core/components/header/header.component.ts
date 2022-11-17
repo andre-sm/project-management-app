@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { MatButtonToggleGroup } from '@angular/material/button-toggle';
+import { TeamCarouselService } from 'src/app/welcome/components/team-carousel/services/team-carousel.service';
 import { selectIsAuthenticated } from '../../../store/selectors/auth.selector';
 import * as AuthActions from '../../../auth/store/auth.actions';
 import { TaskFormComponent } from '../../../project-board/components/task-form/task-form.component';
@@ -16,12 +18,23 @@ import { TaskFormComponent } from '../../../project-board/components/task-form/t
 export class HeaderComponent {
   isAuthenticated$!: Observable<boolean>;
 
+  initialLang: string | null = null;
+
   constructor(
     private store: Store,
     private router: Router,
     public dialog: MatDialog,
+    private translate: TranslateService,
+    private teamCarouselService: TeamCarouselService,
   ) {
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
+
+    if (localStorage.getItem('lang')) {
+      this.initialLang = localStorage.getItem('lang');
+      if (this.initialLang) {
+        this.teamCarouselService.languageChanged$.next();
+      }
+    }
   }
 
   onLogin() {
@@ -52,5 +65,11 @@ export class HeaderComponent {
     };
 
     this.dialog.open(TaskFormComponent, createDialogConfig);
+  }
+
+  onChangeLanguage(toggleLangGroup: MatButtonToggleGroup) {
+    this.translate.use(toggleLangGroup.value);
+    localStorage.setItem('lang', toggleLangGroup.value);
+    this.teamCarouselService.languageChanged$.next();
   }
 }

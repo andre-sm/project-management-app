@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map, catchError, of, mergeMap, switchMap } from 'rxjs';
-import { Column, Board, User, Task } from '../models';
+import { Column, Board, Task } from '../models';
 import { BoardService } from '../services/board.service';
 import * as BoardActions from './board.actions';
 import { selectBoardId } from './board.selectors';
@@ -23,14 +23,17 @@ export class BoardEffects {
     );
   });
 
-  getUsers$ = createEffect(() => {
+  getColumns$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(BoardActions.getUsers),
-      switchMap(() => {
-        return this.boardService.getUsers().pipe(
-          map((users: User[]) => BoardActions.getUsersSuccess({ users })),
+      ofType(BoardActions.getBoardSuccess),
+      concatLatestFrom(() => this.store.select(selectBoardId)),
+      switchMap(([, boardId]) => {
+        return this.boardService.getColumns(boardId).pipe(
+          map((columns: Column[]) =>
+            BoardActions.getColumnsSuccess({ columns }),
+          ),
           catchError((error) =>
-            of(BoardActions.getUsersError({ error: error.message })),
+            of(BoardActions.getColumnsError({ error: error.message })),
           ),
         );
       }),
@@ -41,8 +44,8 @@ export class BoardEffects {
     return this.actions$.pipe(
       ofType(BoardActions.createColumn),
       concatLatestFrom(() => this.store.select(selectBoardId)),
-      mergeMap(([{ title }, id]) => {
-        return this.boardService.createColumn(title, id).pipe(
+      mergeMap(([{ title, order }, id]) => {
+        return this.boardService.createColumn(title, order, id).pipe(
           map((newColumn: Column) =>
             BoardActions.createColumnSuccess({ newColumn }),
           ),

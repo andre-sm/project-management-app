@@ -1,8 +1,7 @@
-import { Column } from './column.model';
-
 export interface Board {
-  id: string;
+  _id: string;
   title: string;
   description: string;
-  columns: Column[];
+  owner: string;
+  users: Array<string>;
 }

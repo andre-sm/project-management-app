@@ -13,6 +13,8 @@ export const initialState: BoardFeatureState = {
       id: '',
       title: '',
       description: '',
+      owner: '',
+      users: [],
     },
     columns: [],
   },
@@ -27,12 +29,14 @@ export const projectsReducer = createReducer(
     return {
       ...state,
       board: {
+        ...state.board,
         info: {
-          id: board.id,
+          id: board._id,
           title: board.title,
           description: board.description,
+          owner: board.owner,
+          users: board.users,
         },
-        columns: board.columns,
       },
     };
   }),
@@ -44,14 +48,32 @@ export const projectsReducer = createReducer(
     }),
   ),
   on(
-    BoardActions.createColumnSuccess,
-    (state, { newColumn }): BoardFeatureState => {
-      const column = { ...newColumn, tasks: [] };
+    BoardActions.getColumnsSuccess,
+    (state, { columns }): BoardFeatureState => {
       return {
         ...state,
         board: {
           ...state.board,
-          columns: [...state.board.columns, column],
+          columns,
+        },
+      };
+    },
+  ),
+  on(
+    BoardActions.getColumnsError,
+    (state, { error }): BoardFeatureState => ({
+      ...state,
+      error,
+    }),
+  ),
+  on(
+    BoardActions.createColumnSuccess,
+    (state, { newColumn }): BoardFeatureState => {
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          columns: [...state.board.columns, newColumn],
         },
       };
     },
@@ -64,7 +86,9 @@ export const projectsReducer = createReducer(
     }),
   ),
   on(BoardActions.deleteColumnSuccess, (state, { id }): BoardFeatureState => {
-    const updatedColumns = state.board.columns.filter((item) => item.id !== id);
+    const updatedColumns = state.board.columns.filter(
+      (item) => item._id !== id,
+    );
     return {
       ...state,
       board: {
@@ -84,11 +108,12 @@ export const projectsReducer = createReducer(
     BoardActions.updateColumnSuccess,
     (state, { updatedColumn }): BoardFeatureState => {
       const updatedColumns = state.board.columns.map((item): Column => {
-        if (item.id === updatedColumn.id) {
+        if (item._id === updatedColumn._id) {
           return {
             ...item,
             title: updatedColumn.title,
             order: updatedColumn.order,
+            boardId: updatedColumn.boardId,
           };
         }
         return item;
@@ -104,19 +129,6 @@ export const projectsReducer = createReducer(
   ),
   on(
     BoardActions.updateColumnError,
-    (state, { error }): BoardFeatureState => ({
-      ...state,
-      error,
-    }),
-  ),
-  on(BoardActions.getUsersSuccess, (state, { users }): BoardFeatureState => {
-    return {
-      ...state,
-      users,
-    };
-  }),
-  on(
-    BoardActions.getUsersError,
     (state, { error }): BoardFeatureState => ({
       ...state,
       error,

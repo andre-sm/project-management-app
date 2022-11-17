@@ -1,0 +1,37 @@
+:host {
+  grid-row: 3 / 5;
+  grid-column: 1 / 7;
+  width: 501px;
+  @media (min-width: 320px) and (max-width: 1032px) {
+    order: 3;
+  }
+  @media (min-width: 320px) and (max-width: 767px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+
+.welcome__carousel {
+  @media (min-width: 600px) and (max-width: 767px) {
+    flex-basis: 50%;
+  }
+  @media (min-width: 320px) and (max-width: 601px) {
+    flex-basis: 50%;
+  }
+}
+
+.welcome__captures {
+  @media (min-width: 600px) and (max-width: 767px) {
+    flex-basis: 100%;
+  }
+  @media (min-width: 320px) and (max-width: 601px) {
+    flex-basis: 100%;
+  }
+}
+
+.welcome__header-team {
+  @media (min-width: 320px) and (max-width: 767px) {
+    flex-basis: 100%;
+  }
+}

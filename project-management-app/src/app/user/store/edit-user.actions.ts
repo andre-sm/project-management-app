@@ -12,7 +12,6 @@ export const editUserSuccess = createAction(
     token: string;
     userId: string;
     name: string;
-    tokenExpirationDate: Date;
   }>(),
 );
 

@@ -1,4 +1,4 @@
-import { Column, User } from '../../models';
+import { Column } from '../../models';
 
 export interface BoardFeatureState {
   isLoading: boolean;
@@ -8,10 +8,11 @@ export interface BoardFeatureState {
       id: string;
       title: string;
       description: string;
+      owner: string;
+      users: Array<string>;
     };
     columns: Column[];
   };
-  users: User[];
   taskColumnFilter: string;
   taskUserFilter: string;
 }

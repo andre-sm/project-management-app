@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { ColumnFormComponent } from '../../components/column-form/column-form.component';
 import { BoardInfo, Column } from '../../models';
 import * as BoardActions from '../../store/board.actions';
@@ -25,6 +26,7 @@ export class ProjectBoardComponent implements OnInit {
     private route: ActivatedRoute,
     private store: Store,
     public dialog: MatDialog,
+    private translate: TranslateService,
   ) {
     this.columns$ = this.store.select(selectBoardColumns);
     this.boardInfo$ = this.store.select(selectBoardInfo);
@@ -43,12 +45,16 @@ export class ProjectBoardComponent implements OnInit {
     const createDialogConfig = new MatDialogConfig();
     createDialogConfig.disableClose = true;
     createDialogConfig.autoFocus = true;
-    createDialogConfig.data = {
-      formTitle: 'Create column',
-      confirmText: 'Create',
-      cancelText: 'Close',
-      id: null,
-    };
+    this.translate
+      .get('PROJECT_BOARD.projectBoardPage.dialog')
+      .subscribe((config) => {
+        createDialogConfig.data = {
+          formTitle: config.formTitle,
+          confirmText: config.confirmText,
+          cancelText: config.cancelText,
+          id: null,
+        };
+      });
 
     this.dialog.open(ColumnFormComponent, createDialogConfig);
   }
