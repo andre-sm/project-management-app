@@ -8,6 +8,8 @@ export interface BoardFeatureState {
       id: string;
       title: string;
       description: string;
+      owner: string;
+      users: Array<string>;
     };
     columns: Column[];
   };
