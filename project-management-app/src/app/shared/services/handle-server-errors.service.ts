@@ -11,9 +11,11 @@ export class HandleServerErrors {
 
   alertMessageObj!: {
     default: string;
-    409: string;
-    403: string;
     400: string;
+    401: string;
+    403: string;
+    404: string;
+    409: string;
   };
 
   constructor(private router: Router, private translate: TranslateService) {}
@@ -38,6 +40,9 @@ export class HandleServerErrors {
       );
     }
     switch (errorRes.status) {
+      case 401:
+        errorMessage = this.alertMessageObj['401'];
+        break;
       case 409:
         errorMessage = this.alertMessageObj['409'];
         break;

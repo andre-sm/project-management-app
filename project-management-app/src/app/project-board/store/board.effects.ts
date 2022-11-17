@@ -23,12 +23,29 @@ export class BoardEffects {
     );
   });
 
+  getColumns$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardActions.getBoardSuccess),
+      concatLatestFrom(() => this.store.select(selectBoardId)),
+      switchMap(([, boardId]) => {
+        return this.boardService.getColumns(boardId).pipe(
+          map((columns: Column[]) =>
+            BoardActions.getColumnsSuccess({ columns }),
+          ),
+          catchError((error) =>
+            of(BoardActions.getColumnsError({ error: error.message })),
+          ),
+        );
+      }),
+    );
+  });
+
   createColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(BoardActions.createColumn),
       concatLatestFrom(() => this.store.select(selectBoardId)),
-      mergeMap(([{ title }, id]) => {
-        return this.boardService.createColumn(title, id).pipe(
+      mergeMap(([{ title, order }, id]) => {
+        return this.boardService.createColumn(title, order, id).pipe(
           map((newColumn: Column) =>
             BoardActions.createColumnSuccess({ newColumn }),
           ),

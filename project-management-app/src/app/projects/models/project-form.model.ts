@@ -5,4 +5,6 @@ export interface ProjectForm {
   title?: string;
   description?: string;
   id: string | null;
+  owner: string;
+  users: Array<string>;
 }

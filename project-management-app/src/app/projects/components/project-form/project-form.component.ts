@@ -2,8 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import * as ProjectActions from '../../store/projects.actions';
-import { ProjectForm } from '../../models';
+import { Observable } from 'rxjs';
+import * as ProjectsActions from '../../store/projects.actions';
+import { ProjectForm, User } from '../../models';
+import { selectUsers } from '../../store/projects.selector';
 
 @Component({
   selector: 'app-project-form',
@@ -11,9 +13,11 @@ import { ProjectForm } from '../../models';
   styleUrls: ['./project-form.component.scss'],
 })
 export class ProjectFormComponent implements OnInit {
-  createProjectForm!: FormGroup;
+  projectForm!: FormGroup;
 
   formData: ProjectForm;
+
+  users$!: Observable<User[]>;
 
   constructor(
     private store: Store,
@@ -25,10 +29,18 @@ export class ProjectFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+
+    this.projectForm.patchValue({
+      users: this.formData.users,
+    });
+
+    this.store.dispatch(ProjectsActions.getUsers());
+
+    this.users$ = this.store.select(selectUsers);
   }
 
   createForm(): void {
-    this.createProjectForm = new FormGroup({
+    this.projectForm = new FormGroup({
       title: new FormControl(this.formData.title || '', [
         Validators.required,
         Validators.minLength(3),
@@ -39,20 +51,25 @@ export class ProjectFormComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(255),
       ]),
+      users: new FormControl('', [Validators.required]),
     });
   }
 
   onSubmit(): void {
-    const { title, description } = this.createProjectForm.value;
+    const { title, description, users } = this.projectForm.value;
 
     if (this.formData.id === null) {
-      this.store.dispatch(ProjectActions.createProject({ title, description }));
+      this.store.dispatch(
+        ProjectsActions.createProject({ title, description, users }),
+      );
     } else {
       this.store.dispatch(
-        ProjectActions.updateProject({
+        ProjectsActions.updateProject({
           title,
           description,
           id: this.formData.id,
+          owner: this.formData.owner,
+          users,
         }),
       );
     }

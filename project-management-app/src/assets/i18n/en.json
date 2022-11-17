@@ -72,9 +72,11 @@
   },
   "ERROR_ALERT": {
     "default": "An unknown error occurred!",
-    "409": "This email exists already!",
-    "403": "User was not found!",
-    "400": "Password must be a string!"
+    "400": "Password must be a string!",
+    "401": "Authorization error occurred. Check email and password.",
+    "403": "Your access token has expired, you need to login again.",
+    "404": "User was not found.",
+    "409": "This email exists already."
   },
   "PROJECTS": {
     "actionPanel": {

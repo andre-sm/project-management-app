@@ -44,6 +44,11 @@
   }
 }
 
+.welcome__spinner-container {
+  grid-column: 6 / 8;
+  text-align: center;
+}
+
 .welcome__hero-text {
   grid-row: 2 / 3;
   grid-column: 1 / 7;
