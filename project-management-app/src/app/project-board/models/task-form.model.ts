@@ -7,5 +7,6 @@ export interface TaskForm {
   order: number;
   description: string;
   userId: string;
-  columnData: { id: string; title: string };
+  users: string[];
+  columnData: { columnId: string; title: string };
 }

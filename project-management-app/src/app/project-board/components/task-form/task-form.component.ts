@@ -4,12 +4,12 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 import { MatOptionSelectionChange } from '@angular/material/core';
-import { Column, TaskForm, User } from '../../models';
+import { Column, TaskForm } from '../../models';
+import { User } from '../../../projects/models';
 import * as BoardActions from '../../store/board.actions';
-import {
-  selectFilteredColumns,
-  selectFilteredUsers,
-} from '../../store/board.selectors';
+import * as ProjectsActions from '../../../projects/store/projects.actions';
+import { selectFilteredColumns } from '../../store/board.selectors';
+import { selectUsers } from '../../../projects/store/projects.selector';
 
 @Component({
   selector: 'app-task-form',
@@ -19,7 +19,7 @@ import {
 export class TaskFormComponent implements OnInit, OnDestroy {
   taskForm!: FormGroup;
 
-  formData!: TaskForm;
+  taskData!: TaskForm;
 
   columns$!: Observable<Column[]>;
 
@@ -27,27 +27,27 @@ export class TaskFormComponent implements OnInit, OnDestroy {
 
   selectedColumnId: string;
 
-  selectedUserId: string;
-
   constructor(
     private store: Store,
     private dialogRef: MatDialogRef<TaskFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: TaskForm,
   ) {
-    this.formData = { ...data };
-    this.selectedColumnId = this.formData?.columnData?.id || '';
-    this.selectedUserId = this.formData?.userId || '';
+    this.taskData = { ...data };
+    this.selectedColumnId = this.taskData?.columnData?.columnId || '';
   }
 
   ngOnInit(): void {
-    this.store.dispatch(BoardActions.getUsers());
     this.createForm();
 
+    this.store.dispatch(ProjectsActions.getUsers());
     this.columns$ = this.store.select(selectFilteredColumns);
-    this.users$ = this.store.select(selectFilteredUsers);
+    this.users$ = this.store.select(selectUsers);
 
     this.onColumnInputChange();
-    this.onUserInputChange();
+
+    this.taskForm.patchValue({
+      users: this.taskData.users,
+    });
   }
 
   ngOnDestroy(): void {
@@ -56,42 +56,45 @@ export class TaskFormComponent implements OnInit, OnDestroy {
 
   createForm(): void {
     this.taskForm = new FormGroup({
-      title: new FormControl(this.formData?.title || '', [
+      title: new FormControl(this.taskData?.title || '', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(64),
       ]),
-      description: new FormControl(this.formData?.description || '', [
+      description: new FormControl(this.taskData?.description || '', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(255),
       ]),
-      column: new FormControl(this.formData?.columnData?.title || '', [
+      column: new FormControl(this.taskData?.columnData?.title || '', [
         Validators.required,
       ]),
-      user: new FormControl(this.formData.userId, [Validators.required]),
+      users: new FormControl('', [Validators.required]),
     });
   }
 
   onSubmit(): void {
-    if (this.formData.id === null) {
+    const { title, description, users } = this.taskForm.value;
+
+    if (this.taskData.id === null) {
       this.store.dispatch(
         BoardActions.createTask({
-          title: this.taskForm.value.title,
-          description: this.taskForm.value.description,
-          userId: this.selectedUserId,
+          title,
+          description,
           columnId: this.selectedColumnId,
+          order: 0,
+          users,
         }),
       );
     } else {
       this.store.dispatch(
         BoardActions.updateTask({
-          id: this.formData.id,
-          title: this.taskForm.value.title,
-          description: this.taskForm.value.description,
-          userId: this.selectedUserId,
+          id: this.taskData.id,
+          title,
+          description,
           columnId: this.selectedColumnId,
-          order: this.formData.order,
+          order: this.taskData.order,
+          users,
         }),
       );
     }
@@ -116,28 +119,9 @@ export class TaskFormComponent implements OnInit, OnDestroy {
       );
   }
 
-  onUserInputChange(): void {
-    this.taskForm.controls['user'].valueChanges
-      .pipe(
-        map((value) => value.trim().toLowerCase()),
-        distinctUntilChanged(),
-      )
-      .subscribe((value) =>
-        this.store.dispatch(
-          BoardActions.setTaskUserFilter({ filterValue: value }),
-        ),
-      );
-  }
-
   onColumnChange(columnId: string, event: MatOptionSelectionChange) {
     if (event.isUserInput) {
       this.selectedColumnId = columnId;
-    }
-  }
-
-  onUserChange(userId: string, event: MatOptionSelectionChange) {
-    if (event.isUserInput) {
-      this.selectedUserId = userId;
     }
   }
 }

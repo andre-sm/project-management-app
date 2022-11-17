@@ -1,12 +1,10 @@
-import { File } from './file.model';
-
 export interface Task {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   order: number;
   userId: string;
-  files: File[];
-  boardId?: string;
-  columnId?: string;
+  boardId: string;
+  columnId: string;
+  users: string[];
 }

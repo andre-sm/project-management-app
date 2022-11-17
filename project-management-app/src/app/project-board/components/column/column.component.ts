@@ -74,12 +74,13 @@ export class ColumnComponent {
       formTitle: 'Edit task',
       confirmText: 'Save',
       cancelText: 'Close',
-      id: task.id,
+      id: task._id,
       order: task.order,
       title: task.title,
       description: task.description,
       userId: task.userId,
-      columnData: { id: this.column.id, title: this.column.title },
+      users: task.users,
+      columnData: { columnId: this.column._id, title: this.column.title },
     };
 
     this.dialog.open(TaskFormComponent, editDialogConfig);
@@ -101,7 +102,7 @@ export class ColumnComponent {
     dialogRef.afterClosed().subscribe((result: Boolean) => {
       if (result) {
         this.store.dispatch(
-          BoardActions.deleteTask({ id: task.id, columnId: this.column.id }),
+          BoardActions.deleteTask({ id: task._id, columnId: this.column._id }),
         );
       }
     });

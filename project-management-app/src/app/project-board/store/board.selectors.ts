@@ -1,5 +1,5 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { Column, User } from '../models';
+import { Column, Task } from '../models';
 import * as fromBoard from './board.reducer';
 import { BoardFeatureState } from './models';
 
@@ -17,24 +17,31 @@ export const selectBoardInfo = createSelector(
   (state: BoardFeatureState) => state.board.info,
 );
 
+export const selectTasks = createSelector(
+  selectBoardState,
+  (state: BoardFeatureState) => state.board.tasks,
+);
+
 export const selectBoardColumns = createSelector(
   selectBoardState,
   (state: BoardFeatureState) =>
-    [...state.board.columns]
-      .map((column) => {
-        return {
-          ...column,
-          tasks: [...column.tasks].sort(
-            (taskA, taskB) => taskA.order - taskB.order,
-          ),
-        };
-      })
-      .sort((columnA, columnB) => columnA.order - columnB.order),
+    [...state.board.columns].sort(
+      (columnA, columnB) => columnA.order - columnB.order,
+    ),
 );
 
-export const selectUsers = createSelector(
-  selectBoardState,
-  (state: BoardFeatureState) => state.users,
+export const selectColumnsWithTasks = createSelector(
+  selectTasks,
+  selectBoardColumns,
+  (tasks: Task[], columns: Column[]) =>
+    columns.map((column) => {
+      return {
+        ...column,
+        tasks: tasks
+          .filter((task) => task.columnId === column._id)
+          .sort((taskA, taskB) => taskA.order - taskB.order),
+      };
+    }),
 );
 
 export const selectTaskColumnFilter = createSelector(
@@ -47,16 +54,4 @@ export const selectFilteredColumns = createSelector(
   selectTaskColumnFilter,
   (columns: Column[], value: string) =>
     columns.filter((column) => column.title.toLowerCase().includes(value)),
-);
-
-export const selectTaskUserFilter = createSelector(
-  selectBoardState,
-  (state: BoardFeatureState) => state.taskUserFilter,
-);
-
-export const selectFilteredUsers = createSelector(
-  selectUsers,
-  selectTaskUserFilter,
-  (users: User[], value: string) =>
-    users.filter((user) => user.name.toLowerCase().includes(value)),
 );

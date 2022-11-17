@@ -20,6 +20,10 @@ export class BoardService {
     );
   }
 
+  getTasks(boardId: string): Observable<Task[]> {
+    return this.http.get<Task[]>(`${environment.baseUrl}/tasksSet/${boardId}`);
+  }
+
   createColumn(
     title: string,
     order: number,
@@ -55,13 +59,15 @@ export class BoardService {
   createTask(
     title: string,
     description: string,
-    userId: string,
     columnId: string,
+    order: number,
+    users: string[],
+    userId: string | undefined,
     boardId: string | null,
   ): Observable<Task> {
     return this.http.post<Task>(
       `${environment.baseUrl}/boards/${boardId}/columns/${columnId}/tasks`,
-      { title, description, userId },
+      { title, description, order, userId, users },
     );
   }
 
@@ -69,9 +75,10 @@ export class BoardService {
     id: string,
     title: string,
     description: string,
-    userId: string,
     columnId: string,
     order: number,
+    users: string[],
+    userId: string | undefined,
     boardId: string,
   ): Observable<Task> {
     return this.http.put<Task>(
@@ -82,7 +89,7 @@ export class BoardService {
         order,
         userId,
         columnId,
-        boardId,
+        users,
       },
     );
   }

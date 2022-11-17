@@ -76,20 +76,26 @@ export const setTaskColumnFilter = createAction(
   props<{ filterValue: string }>(),
 );
 
-export const setTaskUserFilter = createAction(
-  '[Task] Set User Filter',
-  props<{ filterValue: string }>(),
+export const clearTaskFilters = createAction('[Task] Clear User Filters');
+
+export const getTasksSuccess = createAction(
+  '[Task] Get Tasks Success',
+  props<{ tasks: Task[] }>(),
 );
 
-export const clearTaskFilters = createAction('[Task] Clear User Filters');
+export const getTasksError = createAction(
+  '[Task] Get Tasks Error',
+  props<{ error: string }>(),
+);
 
 export const createTask = createAction(
   '[Task] Create Task',
   props<{
     title: string;
     description: string;
-    userId: string;
     columnId: string;
+    order: number;
+    users: string[];
   }>(),
 );
 
@@ -109,9 +115,9 @@ export const updateTask = createAction(
     id: string;
     title: string;
     description: string;
-    userId: string;
     columnId: string;
     order: number;
+    users: string[];
   }>(),
 );
 
@@ -132,7 +138,7 @@ export const deleteTask = createAction(
 
 export const deleteTaskSuccess = createAction(
   '[Task] Delete Task Success',
-  props<{ id: string; columnId: string }>(),
+  props<{ id: string }>(),
 );
 
 export const deleteTaskError = createAction(
