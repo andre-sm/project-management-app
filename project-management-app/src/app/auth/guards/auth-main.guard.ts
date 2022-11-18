@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -7,13 +8,27 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, Observable, take } from 'rxjs';
+import { catchError, map, Observable, of, switchMap, take, tap } from 'rxjs';
 import { selectAuthState } from '../../store/selectors/auth.selector';
+import * as AuthActions from '../store/auth.actions';
 
 @Injectable({ providedIn: 'root' })
 export class AuthMainGuard implements CanActivate {
   constructor(private router: Router, private store: Store) {}
 
+  getFromStoreOrAPI(state: RouterStateSnapshot): Observable<any> {
+
+    return this.store
+      .select(selectAuthState).pipe(
+        map((authState) => {
+          if(!authState.user) {
+            console.log(state)
+            this.store.dispatch(AuthActions.autoLogin());
+          }
+        }),
+        take(1)
+      )
+  }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
@@ -22,18 +37,9 @@ export class AuthMainGuard implements CanActivate {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    return this.store.select(selectAuthState).pipe(
-      take(1),
-      map((authState) => {
-        return authState.user;
-      }),
-      map((user) => {
-        const isSignedIn = !!user;
-        if (isSignedIn) {
-          return true;
-        }
-        return this.router.createUrlTree(['']);
-      }),
-    );
+    return this.getFromStoreOrAPI(state).pipe(
+      switchMap(()=>of(true)),
+      catchError(() => of(false))
+    )
   }
 }

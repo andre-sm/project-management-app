@@ -70,6 +70,7 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(AuthActions.loginStart),
       switchMap(({ login, password }) => {
+        console.log('authLogin$ effect')
         return this.http
           .post<ILoginResponse>(
             `${environment.baseUrl}/${this.endPointAuth}/signin`,
@@ -89,6 +90,7 @@ export class AuthEffects {
               const newUser = {
                 token: resData.token,
                 userId: decoded.id,
+                isAutoLogin: false
               };
               return AuthActions.getUserName(newUser);
             }),
@@ -104,6 +106,7 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(AuthActions.autoLogin),
       map(() => {
+        console.log('autoLogin$ effect')
         const userData: {
           login: string;
           userId: string;
@@ -111,16 +114,17 @@ export class AuthEffects {
           name: string;
         } = JSON.parse(localStorage.getItem('currentUser') as string);
         if (!userData) {
-          return AuthActions.logout();
+          return AuthActions.logout({ isAutoLogout: true });
         }
         const loadedUser = {
           userId: userData.userId,
           token: userData.token,
+          isAutoLogin: true
         };
         if (loadedUser.token) {
           return AuthActions.getUserName(loadedUser);
         }
-        return AuthActions.logout();
+        return AuthActions.logout({ isAutoLogout: true });
       }),
     );
   });
@@ -129,9 +133,13 @@ export class AuthEffects {
     () => {
       return this.actions$.pipe(
         ofType(AuthActions.logout),
-        tap(() => {
+        tap(({ isAutoLogout }) => {
+          console.log('logout$ effect')
           localStorage.removeItem('currentUser');
-          this.router.navigate(['/welcome']);
+          if(!isAutoLogout) {
+            this.router.navigate(['/welcome']);
+          }
+
         }),
       );
     },
@@ -141,7 +149,8 @@ export class AuthEffects {
   getUserName$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.getUserName),
-      switchMap(({ token, userId }) => {
+      switchMap(({ token, userId, isAutoLogin }) => {
+        console.log('getUserName$ effect')
         return this.http
           .get<IGetUserNameResponse>(
             `${environment.baseUrl}/${this.endPointUsers}/${userId}`,
@@ -159,8 +168,11 @@ export class AuthEffects {
                 userId: resData._id,
                 name: resData.name,
               };
+              console.log(`newUser: ${JSON.stringify(newUser.token)}` )
               localStorage.setItem('currentUser', JSON.stringify(newUser));
-              this.router.navigate(['/projects']);
+              if(!isAutoLogin) {
+                this.router.navigate(['/projects']);
+              }
               return AuthActions.loginSuccess(newUser);
             }),
             catchError((error) => {

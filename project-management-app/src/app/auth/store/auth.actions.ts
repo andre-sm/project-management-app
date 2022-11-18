@@ -30,11 +30,17 @@ export const getUserName = createAction(
   props<{
     token: string;
     userId: string;
+    isAutoLogin: boolean;
   }>(),
 );
 
 export const autoLogin = createAction('[Auth] Auto Login');
 
-export const logout = createAction('[Auth] Logout');
+export const logout = createAction(
+  '[Auth] Logout',
+  props<{
+    isAutoLogout: boolean;
+  }>()
+  );
 
 export const clearError = createAction('[Auth] Clear Error');

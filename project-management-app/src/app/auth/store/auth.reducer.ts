@@ -25,6 +25,7 @@ export const authReducer = createReducer(
     }),
   ),
   on(AuthActions.loginSuccess, (state, user): AuthState => {
+    console.log('loginSuccess update state', user.token)
     return {
       ...state,
       errorMessage: null,

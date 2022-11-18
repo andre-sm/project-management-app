@@ -7,12 +7,26 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, Observable, take } from 'rxjs';
+import { catchError, map, Observable, of, switchMap, take } from 'rxjs';
 import { selectAuthState } from '../../store/selectors/auth.selector';
+import * as AuthActions from '../store/auth.actions';
 
 @Injectable({ providedIn: 'root' })
 export class AuthWelcomeGuard implements CanActivate {
   constructor(private router: Router, private store: Store) {}
+
+  getFromStoreOrAPI(): Observable<any> {
+    return this.store
+      .select(selectAuthState).pipe(
+        take(1),
+        map((authState) => {
+          if(!authState.user) {
+            this.store.dispatch(AuthActions.autoLogin());
+          }
+        }),
+        take(1)
+      )
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -25,6 +39,7 @@ export class AuthWelcomeGuard implements CanActivate {
     return this.store.select(selectAuthState).pipe(
       take(1),
       map((authState) => {
+        console.log('AuthWelcomeGuard', authState.user)
         return authState.user;
       }),
       map((user) => {
@@ -35,5 +50,10 @@ export class AuthWelcomeGuard implements CanActivate {
         return this.router.createUrlTree(['/projects']);
       }),
     );
+    // return this.getFromStoreOrAPI().pipe(
+    //   switchMap(()=>of(true)),
+    //   catchError(() => of(false))
+    // )
   }
 }
+// this.router.createUrlTree(['/projects'])

@@ -76,7 +76,7 @@ export class EditEffects {
     return this.actions$.pipe(
       ofType(EditActions.deleteUserSuccess),
       switchMap(() => {
-        return of(AuthActions.logout());
+        return of(AuthActions.logout({ isAutoLogout: false }));
       }),
     );
   });
