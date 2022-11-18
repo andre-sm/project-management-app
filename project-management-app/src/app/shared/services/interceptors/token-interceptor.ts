@@ -1,36 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import {
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
   HttpEvent,
 } from '@angular/common/http';
-import { mergeMap, Observable, take } from 'rxjs';
-import { selectToken } from '../../../store/selectors/auth.selector';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private store: Store) {}
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
-    return this.store.select(selectToken).pipe(
-      take(1),
-      mergeMap((token) => {
-        if (!token) {
-          return next.handle(req);
-        }
-        console.log('TokenInterceptor', token, req)
-        const cloneReq = req.clone({
+    let cloneReq = req;
+    let storageToken = '';
+    if(localStorage.getItem('currentUser')) {
+      storageToken = JSON.parse(localStorage.getItem('currentUser') as string).token;
+      if (storageToken) {
+        cloneReq = req.clone({
           setHeaders: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${storageToken}`,
           },
         });
-        return next.handle(cloneReq);
-      }),
-    );
+        return next.handle(cloneReq)
+      }
+    }
+    return next.handle(req)
   }
 }

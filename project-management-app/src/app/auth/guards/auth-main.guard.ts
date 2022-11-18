@@ -16,19 +16,18 @@ import * as AuthActions from '../store/auth.actions';
 export class AuthMainGuard implements CanActivate {
   constructor(private router: Router, private store: Store) {}
 
-  getFromStoreOrAPI(state: RouterStateSnapshot): Observable<any> {
-
+  getFromStoreOrAPI(): Observable<any> {
     return this.store
       .select(selectAuthState).pipe(
         map((authState) => {
           if(!authState.user) {
-            console.log(state)
             this.store.dispatch(AuthActions.autoLogin());
           }
         }),
         take(1)
       )
   }
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
@@ -37,7 +36,7 @@ export class AuthMainGuard implements CanActivate {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    return this.getFromStoreOrAPI(state).pipe(
+    return this.getFromStoreOrAPI().pipe(
       switchMap(()=>of(true)),
       catchError(() => of(false))
     )
