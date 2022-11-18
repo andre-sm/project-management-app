@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Column, Board, Task } from '../models';
+import { Column, Board, Task, TaskSet } from '../models';
 
 export const getBoard = createAction(
   '[Board] Get Board',
@@ -94,7 +94,6 @@ export const createTask = createAction(
     title: string;
     description: string;
     columnId: string;
-    order: number;
     users: string[];
   }>(),
 );
@@ -143,5 +142,20 @@ export const deleteTaskSuccess = createAction(
 
 export const deleteTaskError = createAction(
   '[Task] Delete Task Error',
+  props<{ error: string }>(),
+);
+
+export const updateTasksSet = createAction(
+  '[TasksSet] Update Tasks Set',
+  props<{ tasks: TaskSet[] }>(),
+);
+
+export const updateTasksSetSuccess = createAction(
+  '[TasksSet] Update Tasks Set Success',
+  props<{ updatedTasks: Task[] }>(),
+);
+
+export const updateTasksSetError = createAction(
+  '[TasksSet] Update Tasks Set Error',
   props<{ error: string }>(),
 );

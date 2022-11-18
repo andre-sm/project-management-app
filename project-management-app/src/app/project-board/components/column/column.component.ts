@@ -86,7 +86,7 @@ export class ColumnComponent {
     this.dialog.open(TaskFormComponent, editDialogConfig);
   }
 
-  deleteTaskDialog(task: Task): void {
+  deleteTaskDialog(task: Task, deletedTaskIndex: number): void {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
@@ -104,7 +104,21 @@ export class ColumnComponent {
         this.store.dispatch(
           BoardActions.deleteTask({ id: task._id, columnId: this.column._id }),
         );
+        if (deletedTaskIndex !== this.column.tasks.length - 1) {
+          this.changeTasksOrder(deletedTaskIndex);
+        }
       }
     });
+  }
+
+  changeTasksOrder(index: number): void {
+    const newOrder = this.column.tasks.slice(index + 1).map((item) => {
+      return {
+        _id: item._id,
+        order: item.order - 1,
+        columnId: item.columnId,
+      };
+    });
+    this.store.dispatch(BoardActions.updateTasksSet({ tasks: newOrder }));
   }
 }

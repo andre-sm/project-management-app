@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Column, Board, Task } from '../models';
+import { Column, Board, Task, TaskSet } from '../models';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -60,8 +60,8 @@ export class BoardService {
     title: string,
     description: string,
     columnId: string,
-    order: number,
     users: string[],
+    order: number | undefined,
     userId: string | undefined,
     boardId: string | null,
   ): Observable<Task> {
@@ -102,5 +102,9 @@ export class BoardService {
     return this.http.delete<Response>(
       `${environment.baseUrl}/boards/${boardId}/columns/${columnId}/tasks/${id}`,
     );
+  }
+
+  updateTasksSet(tasks: TaskSet[]): Observable<Task[]> {
+    return this.http.patch<Task[]>(`${environment.baseUrl}/tasksSet`, tasks);
   }
 }

@@ -82,7 +82,6 @@ export class TaskFormComponent implements OnInit, OnDestroy {
           title,
           description,
           columnId: this.selectedColumnId,
-          order: 0,
           users,
         }),
       );

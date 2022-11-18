@@ -44,6 +44,16 @@ export const selectColumnsWithTasks = createSelector(
     }),
 );
 
+export const selectNextTaskOrder = (columnId: string) =>
+  createSelector(selectColumnsWithTasks, (columns: Column[]) => {
+    const taskCount = columns.find((column) => column._id === columnId)?.tasks
+      .length;
+    if (taskCount !== undefined) {
+      return taskCount === 0 ? 0 : taskCount;
+    }
+    return undefined;
+  });
+
 export const selectTaskColumnFilter = createSelector(
   selectBoardState,
   (state: BoardFeatureState) => state.taskColumnFilter,

@@ -29,10 +29,10 @@
   </div>
   <div class="column__body">
     <app-task
-      *ngFor="let task of column.tasks"
+      *ngFor="let task of column.tasks; let i = index"
       [task]="task"
       (click)="editTaskDialog(task)"
-      (deleteClick)="deleteTaskDialog($event)"
+      (deleteClick)="deleteTaskDialog(task, i)"
     ></app-task>
   </div>
 </div>

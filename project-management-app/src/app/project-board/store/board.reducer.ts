@@ -219,4 +219,28 @@ export const projectsReducer = createReducer(
       error,
     }),
   ),
+  on(
+    BoardActions.updateTasksSetSuccess,
+    (state, { updatedTasks }): BoardFeatureState => {
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          tasks: state.board.tasks.map((task) => {
+            const updated = updatedTasks.find(
+              (updatedTask) => task._id === updatedTask._id,
+            );
+            return updated || task;
+          }),
+        },
+      };
+    },
+  ),
+  on(
+    BoardActions.updateTaskError,
+    (state, { error }): BoardFeatureState => ({
+      ...state,
+      error,
+    }),
+  ),
 );

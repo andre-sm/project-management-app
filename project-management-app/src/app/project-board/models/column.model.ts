@@ -5,5 +5,5 @@ export interface Column {
   title: string;
   order: number;
   boardId: string;
-  tasks?: Task[];
+  tasks: Task[];
 }
