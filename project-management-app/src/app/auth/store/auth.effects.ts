@@ -70,7 +70,6 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(AuthActions.loginStart),
       switchMap(({ login, password }) => {
-        console.log('authLogin$ effect')
         return this.http
           .post<ILoginResponse>(
             `${environment.baseUrl}/${this.endPointAuth}/signin`,
@@ -106,7 +105,6 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(AuthActions.autoLogin),
       map(() => {
-        console.log('autoLogin$ effect')
         const userData: {
           login: string;
           userId: string;
@@ -134,7 +132,6 @@ export class AuthEffects {
       return this.actions$.pipe(
         ofType(AuthActions.logout),
         tap(({ isAutoLogout }) => {
-          console.log('logout$ effect')
           localStorage.removeItem('currentUser');
           if(!isAutoLogout) {
             this.router.navigate(['/welcome']);
@@ -149,7 +146,6 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(AuthActions.getUserName),
       switchMap(({ token, userId, isAutoLogin }) => {
-        console.log('getUserName$ effect')
         return this.http
           .get<IGetUserNameResponse>(
             `${environment.baseUrl}/${this.endPointUsers}/${userId}`,
