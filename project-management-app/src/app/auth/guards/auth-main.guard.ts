@@ -19,6 +19,7 @@ export class AuthMainGuard implements CanActivate {
     return this.store
       .select(selectAuthState).pipe(
         map((authState) => {
+          console.log('AuthMainGuard')
           if(!authState.user) {
             this.store.dispatch(AuthActions.autoLogin());
           }
