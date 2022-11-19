@@ -12,6 +12,7 @@ export const loginSuccess = createAction(
     token: string;
     userId: string;
     name: string;
+    isAutoLogin: boolean
   }>(),
 );
 

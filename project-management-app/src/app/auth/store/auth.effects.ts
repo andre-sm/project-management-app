@@ -139,7 +139,6 @@ export class AuthEffects {
           if(!isAutoLogout) {
             this.router.navigate(['/welcome']);
           }
-
         }),
       );
     },
@@ -167,12 +166,9 @@ export class AuthEffects {
                 token,
                 userId: resData._id,
                 name: resData.name,
+                isAutoLogin
               };
-              console.log(`newUser: ${JSON.stringify(newUser.token)}` )
               localStorage.setItem('currentUser', JSON.stringify(newUser));
-              if(!isAutoLogin) {
-                this.router.navigate(['/projects']);
-              }
               return AuthActions.loginSuccess(newUser);
             }),
             catchError((error) => {
@@ -184,4 +180,17 @@ export class AuthEffects {
       }),
     );
   });
+
+  loginSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.loginSuccess),
+      tap(({ login, token, userId, name, isAutoLogin }) => {
+        if(!isAutoLogin) {
+          this.router.navigate(['/projects']);
+        }
+      })
+    )
+  },
+  { dispatch: false }
+  )
 }

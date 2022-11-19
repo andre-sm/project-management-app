@@ -1,4 +1,3 @@
-import { state } from '@angular/animations';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -37,7 +36,13 @@ export class AuthMainGuard implements CanActivate {
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
     return this.getFromStoreOrAPI().pipe(
-      switchMap(()=>of(true)),
+      switchMap(()=>{
+        if(!localStorage.getItem('currentUser')) {
+          this.router.navigate(['/welcome'])
+          return of(false)
+        };
+        return of(true)
+      }),
       catchError(() => of(false))
     )
   }
