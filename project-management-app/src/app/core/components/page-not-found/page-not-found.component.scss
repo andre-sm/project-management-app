@@ -1,0 +1,31 @@
+@import '../../../shared/variables';
+
+.container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 1.5fr 1.5fr;
+}
+
+.page-not-found__face {
+  font-size: 5rem;
+  grid-column: 1 / 13;
+  width: fit-content;
+  height: fit-content;
+  align-self: center;
+  justify-self: center;
+}
+
+.page-not-found__capture {
+  grid-column: 1 / 13;
+  font-size: 1.5rem;
+
+  .page-not-found__text {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .page-not-found__button {
+    display: block;
+    margin: 0 auto;
+  }
+}

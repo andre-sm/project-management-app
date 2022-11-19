@@ -4,7 +4,11 @@ import { AuthWelcomeGuard } from '../auth/guards/auth-welcome.guard';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent, canActivate: [AuthWelcomeGuard] },
+  {
+    path: '',
+    component: WelcomeComponent,
+    canActivate: [AuthWelcomeGuard],
+  },
 ];
 
 @NgModule({

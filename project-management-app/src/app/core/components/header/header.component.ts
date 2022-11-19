@@ -46,7 +46,7 @@ export class HeaderComponent {
   }
 
   onLogout() {
-    this.store.dispatch(AuthActions.logout());
+    this.store.dispatch(AuthActions.logout({ isAutoLogout: false }));
   }
 
   onEditUser() {
