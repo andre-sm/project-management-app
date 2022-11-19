@@ -1,6 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { TranslateService } from '@ngx-translate/core';
 import { Column, Task } from '../../models';
 import { ColumnFormComponent } from '../column-form/column-form.component';
@@ -120,5 +125,66 @@ export class ColumnComponent {
       };
     });
     this.store.dispatch(BoardActions.updateTasksSet({ tasks: newOrder }));
+  }
+
+  drop(event: CdkDragDrop<Task[]>): void {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+
+      if (event.previousIndex !== event.currentIndex) {
+        const previousContainerOrder = this.getUpdatedTaskOrder(
+          event.previousContainer.data,
+        );
+
+        this.store.dispatch(
+          BoardActions.updateTasksSet({ tasks: previousContainerOrder }),
+        );
+      }
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+
+      const previousContainerOrder = this.getUpdatedTaskOrder(
+        event.previousContainer.data,
+      );
+
+      const targetColumn = event.event.target as HTMLElement;
+      const targetColumnId = targetColumn.dataset['columnid'] as string;
+      const droppedItemIndex = event.currentIndex;
+
+      const currentContainerOrder = this.getUpdatedTaskOrder(
+        event.container.data,
+        targetColumnId,
+        droppedItemIndex,
+      );
+
+      this.store.dispatch(
+        BoardActions.updateTasksSet({
+          tasks: [...previousContainerOrder, ...currentContainerOrder],
+        }),
+      );
+    }
+  }
+
+  getUpdatedTaskOrder(
+    tasks: Task[],
+    columnId: string = '',
+    taskIndex: number | null = null,
+  ) {
+    return tasks.map((item, i) => {
+      return {
+        _id: item._id,
+        order: i,
+        columnId: columnId && i === taskIndex ? columnId : item.columnId,
+      };
+    });
   }
 }

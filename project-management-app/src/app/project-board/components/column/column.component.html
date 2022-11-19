@@ -27,12 +27,19 @@
       </button>
     </mat-menu>
   </div>
-  <div class="column__body">
+  <div
+    class="column__body"
+    cdkDropList
+    [attr.data-columnId]="column._id"
+    [cdkDropListData]="column.tasks"
+    (cdkDropListDropped)="drop($event)"
+  >
     <app-task
       *ngFor="let task of column.tasks; let i = index"
       [task]="task"
       (click)="editTaskDialog(task)"
       (deleteClick)="deleteTaskDialog(task, i)"
+      cdkDrag
     ></app-task>
   </div>
 </div>

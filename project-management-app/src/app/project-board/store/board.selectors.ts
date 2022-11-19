@@ -22,6 +22,11 @@ export const selectTasks = createSelector(
   (state: BoardFeatureState) => state.board.tasks,
 );
 
+export const selectColumnsIds = createSelector(
+  selectBoardState,
+  (state: BoardFeatureState) => state.board.columns.map((column) => column._id),
+);
+
 export const selectBoardColumns = createSelector(
   selectBoardState,
   (state: BoardFeatureState) =>

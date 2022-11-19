@@ -16,7 +16,7 @@
         }}</span>
       </button>
     </section>
-    <section class="columns-section">
+    <section class="columns-section" cdkDropListGroup>
       <app-column
         *ngFor="let column of columns$ | async"
         [column]="column"
