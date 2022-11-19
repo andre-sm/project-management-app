@@ -16,16 +16,15 @@ export class AuthWelcomeGuard implements CanActivate {
   constructor(private router: Router, private store: Store) {}
 
   getFromStoreOrAPI(): Observable<any> {
-    return this.store
-      .select(selectAuthState).pipe(
-        take(1),
-        map((authState) => {
-          if(!authState.user) {
-            this.store.dispatch(AuthActions.autoLogin());
-          }
-        }),
-        take(1)
-      )
+    return this.store.select(selectAuthState).pipe(
+      take(1),
+      map((authState) => {
+        if (!authState.user) {
+          this.store.dispatch(AuthActions.autoLogin());
+        }
+      }),
+      take(1),
+    );
   }
 
   canActivate(
@@ -37,12 +36,12 @@ export class AuthWelcomeGuard implements CanActivate {
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
     return this.store.select(selectAuthState).pipe(
-      switchMap(()=>{
-        if(localStorage.getItem('currentUser')) {
-          this.router.navigate(['/projects'])
-          return of(false)
-        };
-        return of(true)
+      switchMap(() => {
+        if (localStorage.getItem('currentUser')) {
+          this.router.navigate(['/projects']);
+          return of(false);
+        }
+        return of(true);
       }),
     );
   }

@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: ProjectsComponent,
-    canActivate: [AuthMainGuard]
+    canActivate: [AuthMainGuard],
   },
 ];
 

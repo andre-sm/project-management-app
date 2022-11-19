@@ -89,7 +89,7 @@ export class AuthEffects {
               const newUser = {
                 token: resData.token,
                 userId: decoded.id,
-                isAutoLogin: false
+                isAutoLogin: false,
               };
               return AuthActions.getUserName(newUser);
             }),
@@ -117,7 +117,7 @@ export class AuthEffects {
         const loadedUser = {
           userId: userData.userId,
           token: userData.token,
-          isAutoLogin: true
+          isAutoLogin: true,
         };
         if (loadedUser.token) {
           return AuthActions.getUserName(loadedUser);
@@ -133,7 +133,7 @@ export class AuthEffects {
         ofType(AuthActions.logout),
         tap(({ isAutoLogout }) => {
           localStorage.removeItem('currentUser');
-          if(!isAutoLogout) {
+          if (!isAutoLogout) {
             this.router.navigate(['/welcome']);
           }
         }),
@@ -162,7 +162,7 @@ export class AuthEffects {
                 token,
                 userId: resData._id,
                 name: resData.name,
-                isAutoLogin
+                isAutoLogin,
               };
               localStorage.setItem('currentUser', JSON.stringify(newUser));
               return AuthActions.loginSuccess(newUser);
@@ -177,16 +177,17 @@ export class AuthEffects {
     );
   });
 
-  loginSuccess$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(AuthActions.loginSuccess),
-      tap(({ login, token, userId, name, isAutoLogin }) => {
-        if(!isAutoLogin) {
-          this.router.navigate(['/projects']);
-        }
-      })
-    )
-  },
-  { dispatch: false }
-  )
+  loginSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.loginSuccess),
+        tap(({ ...isAutoLogin }) => {
+          if (!isAutoLogin) {
+            this.router.navigate(['/projects']);
+          }
+        }),
+      );
+    },
+    { dispatch: false },
+  );
 }

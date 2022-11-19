@@ -49,39 +49,39 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.authSub = this.auth$.pipe(
-      tap((authState) => {
-        this.currentUser.login = authState.user?.login as string;
-        this.currentUser.name = authState.user?.name as string;
-        this.currentUser.userId = authState.user?.userId as string;
-        this.error = authState.errorMessage;
-        this.isLoading = authState.loading;
-        console.log(this.currentUser)
-        if (this.error) {
-          this.showErrorAlert(this.error);
-        }
-      })
-    )
-    .subscribe(() => {
-      this.editForm = new FormGroup({
-        firstName: new FormControl(this.currentUser.name.split(' ')[0], [
-          Validators.required,
-          Validators.minLength(2),
-        ]),
-        lastName: new FormControl(this.currentUser.name.split(' ')[1], [
-          Validators.required,
-          Validators.minLength(2),
-        ]),
-        email: new FormControl(this.currentUser.login, [
-          Validators.required,
-          Validators.email,
-        ]),
-        password: new FormControl(null, [
-          Validators.required,
-          this.validationService.passwordValidator.bind(this),
-        ]),
+    this.authSub = this.auth$
+      .pipe(
+        tap((authState) => {
+          this.currentUser.login = authState.user?.login as string;
+          this.currentUser.name = authState.user?.name as string;
+          this.currentUser.userId = authState.user?.userId as string;
+          this.error = authState.errorMessage;
+          this.isLoading = authState.loading;
+          if (this.error) {
+            this.showErrorAlert(this.error);
+          }
+        }),
+      )
+      .subscribe(() => {
+        this.editForm = new FormGroup({
+          firstName: new FormControl(this.currentUser.name.split(' ')[0], [
+            Validators.required,
+            Validators.minLength(2),
+          ]),
+          lastName: new FormControl(this.currentUser.name.split(' ')[1], [
+            Validators.required,
+            Validators.minLength(2),
+          ]),
+          email: new FormControl(this.currentUser.login, [
+            Validators.required,
+            Validators.email,
+          ]),
+          password: new FormControl(null, [
+            Validators.required,
+            this.validationService.passwordValidator.bind(this),
+          ]),
+        });
       });
-    });
   }
 
   ngOnDestroy(): void {

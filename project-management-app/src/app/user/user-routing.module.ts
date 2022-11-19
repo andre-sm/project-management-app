@@ -7,7 +7,7 @@ const routes = [
   {
     path: '',
     component: EditUserComponent,
-    canActivate: [AuthMainGuard]
+    canActivate: [AuthMainGuard],
   },
 ];
 

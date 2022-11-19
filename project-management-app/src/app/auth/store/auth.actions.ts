@@ -12,7 +12,7 @@ export const loginSuccess = createAction(
     token: string;
     userId: string;
     name: string;
-    isAutoLogin: boolean
+    isAutoLogin: boolean;
   }>(),
 );
 
@@ -41,7 +41,7 @@ export const logout = createAction(
   '[Auth] Logout',
   props<{
     isAutoLogout: boolean;
-  }>()
-  );
+  }>(),
+);
 
 export const clearError = createAction('[Auth] Clear Error');

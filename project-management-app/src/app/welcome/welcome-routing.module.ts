@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: WelcomeComponent,
-    canActivate: [AuthWelcomeGuard]
+    canActivate: [AuthWelcomeGuard],
   },
 ];
 
