@@ -17,7 +17,9 @@ export const initialState: BoardFeatureState = {
       users: [],
     },
     columns: [],
+    tasks: [],
   },
+  taskColumnFilter: '',
 };
 
 export const projectsReducer = createReducer(
@@ -58,6 +60,22 @@ export const projectsReducer = createReducer(
   ),
   on(
     BoardActions.getColumnsError,
+    (state, { error }): BoardFeatureState => ({
+      ...state,
+      error,
+    }),
+  ),
+  on(BoardActions.getTasksSuccess, (state, { tasks }): BoardFeatureState => {
+    return {
+      ...state,
+      board: {
+        ...state.board,
+        tasks,
+      },
+    };
+  }),
+  on(
+    BoardActions.getTasksError,
     (state, { error }): BoardFeatureState => ({
       ...state,
       error,
@@ -126,6 +144,100 @@ export const projectsReducer = createReducer(
   ),
   on(
     BoardActions.updateColumnError,
+    (state, { error }): BoardFeatureState => ({
+      ...state,
+      error,
+    }),
+  ),
+  on(
+    BoardActions.setTaskColumnFilter,
+    (state, { filterValue }): BoardFeatureState => ({
+      ...state,
+      taskColumnFilter: filterValue,
+    }),
+  ),
+  on(
+    BoardActions.clearTaskFilters,
+    (state): BoardFeatureState => ({
+      ...state,
+      taskColumnFilter: '',
+    }),
+  ),
+  on(
+    BoardActions.createTaskSuccess,
+    (state, { newTask }): BoardFeatureState => {
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          tasks: [...state.board.tasks, newTask],
+        },
+      };
+    },
+  ),
+  on(
+    BoardActions.createTaskError,
+    (state, { error }): BoardFeatureState => ({
+      ...state,
+      error,
+    }),
+  ),
+  on(
+    BoardActions.updateTaskSuccess,
+    (state, { updatedTask }): BoardFeatureState => {
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          tasks: state.board.tasks.map((task) =>
+            task._id === updatedTask._id ? updatedTask : task,
+          ),
+        },
+      };
+    },
+  ),
+  on(
+    BoardActions.updateTaskError,
+    (state, { error }): BoardFeatureState => ({
+      ...state,
+      error,
+    }),
+  ),
+  on(BoardActions.deleteTaskSuccess, (state, { id }): BoardFeatureState => {
+    return {
+      ...state,
+      board: {
+        ...state.board,
+        tasks: state.board.tasks.filter((task) => task._id !== id),
+      },
+    };
+  }),
+  on(
+    BoardActions.deleteTaskError,
+    (state, { error }): BoardFeatureState => ({
+      ...state,
+      error,
+    }),
+  ),
+  on(
+    BoardActions.updateTasksSetSuccess,
+    (state, { updatedTasks }): BoardFeatureState => {
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          tasks: state.board.tasks.map((task) => {
+            const updated = updatedTasks.find(
+              (updatedTask) => task._id === updatedTask._id,
+            );
+            return updated || task;
+          }),
+        },
+      };
+    },
+  ),
+  on(
+    BoardActions.updateTaskError,
     (state, { error }): BoardFeatureState => ({
       ...state,
       error,

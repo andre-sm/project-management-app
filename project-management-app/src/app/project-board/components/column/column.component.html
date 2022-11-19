@@ -1,6 +1,6 @@
 <div class="column">
   <div class="column__header header">
-    <h2 class="header__title" (click)="editDialog()">
+    <h2 class="header__title" (click)="editColumnDialog()">
       {{ column.title }}
     </h2>
     <span class="header__task-count"></span>
@@ -21,13 +21,25 @@
         ></mat-icon>
         <span>{{ 'PROJECT_BOARD.column.menu.addTask' | translate }}</span>
       </button>
-      <button mat-menu-item (click)="deleteDialog()">
+      <button mat-menu-item (click)="deleteColumnDialog()">
         <mat-icon class="delete-icon" fontIcon="delete"></mat-icon>
         <span>{{ 'PROJECT_BOARD.column.menu.deleteColumn' | translate }}</span>
       </button>
     </mat-menu>
   </div>
-  <div class="column__body body">
-    <div class="body__card"></div>
+  <div
+    class="column__body"
+    cdkDropList
+    [attr.data-columnId]="column._id"
+    [cdkDropListData]="column.tasks"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <app-task
+      *ngFor="let task of column.tasks; let i = index"
+      [task]="task"
+      (click)="editTaskDialog(task)"
+      (deleteClick)="deleteTaskDialog(task, i)"
+      cdkDrag
+    ></app-task>
   </div>
 </div>

@@ -9,7 +9,7 @@ import { BoardInfo, Column } from '../../models';
 import * as BoardActions from '../../store/board.actions';
 import {
   selectBoardInfo,
-  selectBoardColumns,
+  selectColumnsWithTasks,
 } from '../../store/board.selectors';
 
 @Component({
@@ -28,7 +28,7 @@ export class ProjectBoardComponent implements OnInit {
     public dialog: MatDialog,
     private translate: TranslateService,
   ) {
-    this.columns$ = this.store.select(selectBoardColumns);
+    this.columns$ = this.store.select(selectColumnsWithTasks);
     this.boardInfo$ = this.store.select(selectBoardInfo);
   }
 

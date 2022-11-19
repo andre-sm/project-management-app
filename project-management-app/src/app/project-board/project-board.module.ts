@@ -10,9 +10,17 @@ import { ColumnFormComponent } from './components/column-form/column-form.compon
 import { BoardEffects } from './store/board.effects';
 import * as fromBoard from './store/board.reducer';
 import { ColumnComponent } from './components/column/column.component';
+import { TaskComponent } from './components/task/task.component';
+import { TaskFormComponent } from './components/task-form/task-form.component';
 
 @NgModule({
-  declarations: [ProjectBoardComponent, ColumnFormComponent, ColumnComponent],
+  declarations: [
+    ProjectBoardComponent,
+    ColumnFormComponent,
+    ColumnComponent,
+    TaskComponent,
+    TaskFormComponent,
+  ],
   imports: [
     CommonModule,
     ProjectBoardRoutingModule,

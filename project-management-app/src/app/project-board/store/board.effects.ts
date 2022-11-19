@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map, catchError, of, mergeMap, switchMap } from 'rxjs';
-import { Column, Board } from '../models';
+import { selectUserId } from 'src/app/store/selectors/auth.selector';
+import { Column, Board, Task } from '../models';
 import { BoardService } from '../services/board.service';
 import * as BoardActions from './board.actions';
-import { selectBoardId } from './board.selectors';
+import { selectBoardId, selectNextTaskOrder } from './board.selectors';
 
 @Injectable()
 export class BoardEffects {
@@ -34,6 +35,21 @@ export class BoardEffects {
           ),
           catchError((error) =>
             of(BoardActions.getColumnsError({ error: error.message })),
+          ),
+        );
+      }),
+    );
+  });
+
+  getTasks$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardActions.getColumnsSuccess),
+      concatLatestFrom(() => this.store.select(selectBoardId)),
+      switchMap(([, boardId]) => {
+        return this.boardService.getTasks(boardId).pipe(
+          map((tasks: Task[]) => BoardActions.getTasksSuccess({ tasks })),
+          catchError((error) =>
+            of(BoardActions.getTasksError({ error: error.message })),
           ),
         );
       }),
@@ -82,7 +98,108 @@ export class BoardEffects {
             BoardActions.updateColumnSuccess({ updatedColumn }),
           ),
           catchError((error) =>
-            of(BoardActions.deleteColumnError({ error: error.message })),
+            of(BoardActions.updateColumnError({ error: error.message })),
+          ),
+        );
+      }),
+    );
+  });
+
+  createTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardActions.createTask),
+      concatLatestFrom((action) => [
+        this.store.select(selectNextTaskOrder(action.columnId)),
+        this.store.select(selectUserId),
+        this.store.select(selectBoardId),
+      ]),
+      mergeMap(
+        ([{ title, description, columnId, users }, order, userId, boardId]) => {
+          return this.boardService
+            .createTask(
+              title,
+              description,
+              columnId,
+              users,
+              order,
+              userId,
+              boardId,
+            )
+            .pipe(
+              map((newTask: Task) =>
+                BoardActions.createTaskSuccess({ newTask }),
+              ),
+              catchError((error) =>
+                of(BoardActions.createTaskError({ error: error.message })),
+              ),
+            );
+        },
+      ),
+    );
+  });
+
+  updateTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardActions.updateTask),
+      concatLatestFrom(() => [
+        this.store.select(selectUserId),
+        this.store.select(selectBoardId),
+      ]),
+      mergeMap(
+        ([
+          { id, title, description, columnId, order, users },
+          userId,
+          boardId,
+        ]) => {
+          return this.boardService
+            .updateTask(
+              id,
+              title,
+              description,
+              columnId,
+              order,
+              users,
+              userId,
+              boardId,
+            )
+            .pipe(
+              map((updatedTask) =>
+                BoardActions.updateTaskSuccess({ updatedTask }),
+              ),
+              catchError((error) =>
+                of(BoardActions.updateTaskError({ error: error.message })),
+              ),
+            );
+        },
+      ),
+    );
+  });
+
+  deleteTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardActions.deleteTask),
+      concatLatestFrom(() => this.store.select(selectBoardId)),
+      mergeMap(([{ id, columnId }, boardId]) => {
+        return this.boardService.deleteTask(id, columnId, boardId).pipe(
+          map(() => BoardActions.deleteTaskSuccess({ id })),
+          catchError((error) =>
+            of(BoardActions.deleteTaskError({ error: error.message })),
+          ),
+        );
+      }),
+    );
+  });
+
+  updateTasksSet$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardActions.updateTasksSet),
+      mergeMap(({ tasks }) => {
+        return this.boardService.updateTasksSet(tasks).pipe(
+          map((updatedTasks) =>
+            BoardActions.updateTasksSetSuccess({ updatedTasks }),
+          ),
+          catchError((error) =>
+            of(BoardActions.updateTasksSetError({ error: error.message })),
           ),
         );
       }),

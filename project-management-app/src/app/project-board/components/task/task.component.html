@@ -1,0 +1,7 @@
+<div class="task">
+  <h3 class="task__title">{{ task.title }}</h3>
+  <p class="task__description">{{ task.description }}</p>
+  <button mat-icon-button aria-label="delete icon" (click)="deleteTask($event)">
+    <mat-icon class="delete-icon" fontIcon="delete"></mat-icon>
+  </button>
+</div>

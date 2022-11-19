@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Column, Board } from '../models';
+import { Column, Board, Task, TaskSet } from '../models';
 
 export const getBoard = createAction(
   '[Board] Get Board',
@@ -68,5 +68,94 @@ export const updateColumnSuccess = createAction(
 
 export const updateColumnError = createAction(
   '[Column] Update Column Error',
+  props<{ error: string }>(),
+);
+
+export const setTaskColumnFilter = createAction(
+  '[Task] Set Column Filter',
+  props<{ filterValue: string }>(),
+);
+
+export const clearTaskFilters = createAction('[Task] Clear User Filters');
+
+export const getTasksSuccess = createAction(
+  '[Task] Get Tasks Success',
+  props<{ tasks: Task[] }>(),
+);
+
+export const getTasksError = createAction(
+  '[Task] Get Tasks Error',
+  props<{ error: string }>(),
+);
+
+export const createTask = createAction(
+  '[Task] Create Task',
+  props<{
+    title: string;
+    description: string;
+    columnId: string;
+    users: string[];
+  }>(),
+);
+
+export const createTaskSuccess = createAction(
+  '[Task] Create Task Success',
+  props<{ newTask: Task }>(),
+);
+
+export const createTaskError = createAction(
+  '[Task] Create Task Error',
+  props<{ error: string }>(),
+);
+
+export const updateTask = createAction(
+  '[Task] Update Task',
+  props<{
+    id: string;
+    title: string;
+    description: string;
+    columnId: string;
+    order: number;
+    users: string[];
+  }>(),
+);
+
+export const updateTaskSuccess = createAction(
+  '[Task] Update Task Success',
+  props<{ updatedTask: Task }>(),
+);
+
+export const updateTaskError = createAction(
+  '[Task] Update Task Error',
+  props<{ error: string }>(),
+);
+
+export const deleteTask = createAction(
+  '[Task] Delete Task',
+  props<{ id: string; columnId: string }>(),
+);
+
+export const deleteTaskSuccess = createAction(
+  '[Task] Delete Task Success',
+  props<{ id: string }>(),
+);
+
+export const deleteTaskError = createAction(
+  '[Task] Delete Task Error',
+  props<{ error: string }>(),
+);
+
+export const updateTasksSet = createAction(
+  '[TasksSet] Update Tasks Set',
+  props<{ tasks: TaskSet[] }>(),
+);
+
+export const updateTasksSetSuccess = createAction(
+  '[TasksSet] Update Tasks Set Success',
+  props<{ updatedTasks: Task[] }>(),
+);
+
+export const updateTasksSetError = createAction(
+  '[TasksSet] Update Tasks Set Error',
   props<{ error: string }>(),
 );

@@ -13,6 +13,11 @@ export const selectToken = createSelector(
   (state: AuthState) => state.user?.token,
 );
 
+export const selectIsAuthenticated = createSelector(
+  selectAuthState,
+  (state: AuthState) => !!state.user,
+);
+
 export const selectLoading = createSelector(
   selectAuthState,
   (state: AuthState) => state.loading,

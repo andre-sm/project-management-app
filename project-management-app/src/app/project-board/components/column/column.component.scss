@@ -8,6 +8,14 @@
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   background-color: $color-grey-lighter;
   border-radius: 8px;
+
+  &__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 15px;  flex: 1;
+  }
 }
 
 .header {
@@ -30,11 +38,4 @@
   &__more-icon {
     margin-left: auto;
   }
-}
-
-.body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }

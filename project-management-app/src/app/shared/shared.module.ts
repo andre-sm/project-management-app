@@ -11,7 +11,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AlertComponent } from './components/alert-component/alert-component.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
@@ -35,6 +35,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     MatAutocompleteModule,
     MatButtonToggleModule,
     MatSelectModule,
+    DragDropModule,
   ],
   exports: [
     MatFormFieldModule,
@@ -51,6 +52,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     MatAutocompleteModule,
     MatButtonToggleModule,
     MatSelectModule,
+    DragDropModule,
   ],
 })
 export class SharedModule {}
