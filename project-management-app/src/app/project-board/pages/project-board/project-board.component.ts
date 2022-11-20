@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
@@ -11,6 +11,7 @@ import {
   selectBoardInfo,
   selectColumnsWithTasks,
 } from '../../store/board.selectors';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-project-board',
@@ -18,9 +19,12 @@ import {
   styleUrls: ['./project-board.component.scss'],
 })
 export class ProjectBoardComponent implements OnInit {
+
   boardInfo$!: Observable<BoardInfo>;
 
   columns$!: Observable<Column[]>;
+
+  columns!: Column[];
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +38,12 @@ export class ProjectBoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProjectData();
+    this.columns$.pipe(
+      tap(columns => {
+        this.columns = columns;
+        console.log('onInit', this.columns)
+      })
+      ).subscribe()
   }
 
   getProjectData(): void {
@@ -57,5 +67,48 @@ export class ProjectBoardComponent implements OnInit {
       });
 
     this.dialog.open(ColumnFormComponent, createDialogConfig);
+  }
+
+  // changeColumnOrder(index: number): void {
+  //   const newOrder = this.columns.slice(index + 1).map((item) => {
+  //     return {
+  //       _id: item._id,
+  //       order: item.order - 1,
+  //     };
+  //   });
+  //   this.store.dispatch(BoardActions.updateColumnsSet({ columns: newOrder }));
+  // }
+
+  drop(event: CdkDragDrop<Column[]>): void {
+    console.log('event', event)
+    moveItemInArray(
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex,
+    );
+    if (event.previousIndex !== event.currentIndex) {
+      console.log('event.previousContainer.data', event.previousContainer.data)
+      console.log('event.container.data',event.container.data)
+      const previousContainerOrder = this.getUpdatedColumnsOrder(
+        event.previousContainer.data,
+      );
+
+      this.store.dispatch(
+        BoardActions.updateColumnsSet({ columns: previousContainerOrder }),
+      );
+    }
+
+  }
+
+  getUpdatedColumnsOrder(
+    columns: Column[],
+  ) {
+    return columns.map((item, i) => {
+      console.log(item, i)
+      return {
+        _id: item._id,
+        order: i,
+      };
+    });
   }
 }

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Column, Board, Task, TaskSet } from '../models';
 import { environment } from '../../../environments/environment';
+import { ColumnSet } from '../models/column-set.model';
 
 @Injectable({
   providedIn: 'root',
@@ -106,5 +107,9 @@ export class BoardService {
 
   updateTasksSet(tasks: TaskSet[]): Observable<Task[]> {
     return this.http.patch<Task[]>(`${environment.baseUrl}/tasksSet`, tasks);
+  }
+
+  updateColumnsSet(columns: ColumnSet[]): Observable<Column[]> {
+    return this.http.patch<Column[]>(`${environment.baseUrl}/columnsSet`, columns)
   }
 }

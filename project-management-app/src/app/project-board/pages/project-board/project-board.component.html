@@ -16,11 +16,20 @@
         }}</span>
       </button>
     </section>
-    <section class="columns-section" cdkDropListGroup>
+    <section
+      class="columns-section"
+      cdkDropList
+      cdkDropListGroup
+      [cdkDropListData]="columns"
+      (cdkDropListDropped)="drop($event)"
+    >
       <app-column
         *ngFor="let column of columns$ | async"
         [column]="column"
+        cdkDrag
       ></app-column>
     </section>
   </div>
 </ng-container>
+<!-- [attr.data-columnId]="column._id" -->
+<!-- [cdkDropListData]="column.tasks" -->
