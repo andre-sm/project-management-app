@@ -1,6 +1,11 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  ValidationErrors,
+} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 import { MatOptionSelectionChange } from '@angular/material/core';
@@ -8,7 +13,10 @@ import { Column, TaskForm } from '../../models';
 import { User } from '../../../projects/models';
 import * as BoardActions from '../../store/board.actions';
 import * as ProjectsActions from '../../../projects/store/projects.actions';
-import { selectFilteredColumns } from '../../store/board.selectors';
+import {
+  selectColumnsTitles,
+  selectFilteredColumns,
+} from '../../store/board.selectors';
 import { selectUsers } from '../../../projects/store/projects.selector';
 
 @Component({
@@ -20,7 +28,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   taskForm!: FormGroup;
 
   taskData!: TaskForm;
-
+  columnsArr!: string[];
   columns$!: Observable<Column[]>;
 
   users$!: Observable<User[]>;
@@ -37,6 +45,12 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.store.select(selectColumnsTitles).subscribe((arr) => {
+      if (!this.columnsArr) {
+        this.columnsArr = arr;
+      }
+    });
+
     this.createForm();
 
     this.store.dispatch(ProjectsActions.getUsers());
@@ -68,6 +82,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
       ]),
       column: new FormControl(this.taskData?.columnData?.title || '', [
         Validators.required,
+        this.columnValidator.bind(this),
       ]),
       users: new FormControl('', [Validators.required]),
     });
@@ -122,5 +137,14 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     if (event.isUserInput) {
       this.selectedColumnId = columnId;
     }
+  }
+
+  columnValidator(control: FormControl): ValidationErrors | null {
+    if (control.value) {
+      if (!this.columnsArr.includes(control.value)) {
+        return { columnError: true };
+      }
+    }
+    return null;
   }
 }
