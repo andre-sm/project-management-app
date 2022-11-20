@@ -6,7 +6,7 @@ import { selectUserId } from 'src/app/store/selectors/auth.selector';
 import { Column, Board, Task } from '../models';
 import { BoardService } from '../services/board.service';
 import * as BoardActions from './board.actions';
-import { selectBoardId, selectNextTaskOrder } from './board.selectors';
+import { selectBoardId, selectNextColumnOrder, selectNextTaskOrder } from './board.selectors';
 
 @Injectable()
 export class BoardEffects {
@@ -59,8 +59,11 @@ export class BoardEffects {
   createColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(BoardActions.createColumn),
-      concatLatestFrom(() => this.store.select(selectBoardId)),
-      mergeMap(([{ title, order }, id]) => {
+      concatLatestFrom(() => [
+        this.store.select(selectBoardId),
+        this.store.select(selectNextColumnOrder)
+      ]),
+      mergeMap(([{ title }, id, order]) => {
         return this.boardService.createColumn(title, order, id).pipe(
           map((newColumn: Column) =>
             BoardActions.createColumnSuccess({ newColumn }),
@@ -200,6 +203,22 @@ export class BoardEffects {
           ),
           catchError((error) =>
             of(BoardActions.updateTasksSetError({ error: error.message })),
+          ),
+        );
+      }),
+    );
+  });
+
+  updateColumnsSet$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardActions.updateColumnsSet),
+      mergeMap(({ columns }) => {
+        return this.boardService.updateColumnsSet(columns).pipe(
+          map((updatedColumns) =>
+            BoardActions.updateColumnsSetSuccess({ updatedColumns }),
+          ),
+          catchError((error) =>
+            of(BoardActions.updateColumnsSetError({ error: error.message })),
           ),
         );
       }),

@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Column, Board, Task, TaskSet } from '../models';
+import { ColumnSet } from '../models/column-set.model';
 
 export const getBoard = createAction(
   '[Board] Get Board',
@@ -28,7 +29,7 @@ export const getColumnsError = createAction(
 
 export const createColumn = createAction(
   '[Column] Create Column',
-  props<{ title: string; order: number }>(),
+  props<{ title: string }>(),
 );
 
 export const createColumnSuccess = createAction(
@@ -159,3 +160,18 @@ export const updateTasksSetError = createAction(
   '[TasksSet] Update Tasks Set Error',
   props<{ error: string }>(),
 );
+
+export const updateColumnsSet = createAction(
+  '[Column] Update Column Set',
+  props<{ columns: ColumnSet[] }>(),
+)
+
+export const updateColumnsSetSuccess = createAction(
+  '[Column] Update Column Set Success',
+  props<{ updatedColumns: Column[] }>(),
+)
+
+export const updateColumnsSetError = createAction(
+  '[Column] Update Column Set Error',
+  props<{ error: string }>()
+)

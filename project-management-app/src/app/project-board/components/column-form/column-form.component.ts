@@ -1,9 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as BoardActions from '../../store/board.actions';
-import { ColumnForm } from '../../models';
+import { Column, ColumnForm } from '../../models';
+import { Observable, tap } from 'rxjs';
+import { selectColumnsWithTasks } from '../../store/board.selectors';
 
 @Component({
   selector: 'app-column-form',
@@ -15,16 +17,26 @@ export class ColumnFormComponent implements OnInit {
 
   formData: ColumnForm;
 
+  columns$!: Observable<Column[]>;
+
+  columns!: Column[];
+
   constructor(
     private store: Store,
     private dialogRef: MatDialogRef<ColumnFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ColumnForm,
   ) {
     this.formData = { ...data };
+    this.columns$ = this.store.select(selectColumnsWithTasks);
   }
 
   ngOnInit(): void {
     this.createForm();
+    this.columns$.pipe(
+      tap(columns => {
+        this.columns = columns;
+      })
+      ).subscribe()
   }
 
   createForm(): void {
@@ -40,7 +52,7 @@ export class ColumnFormComponent implements OnInit {
   onSubmit(): void {
     const { title } = this.columnForm.value;
     if (this.formData.id === null) {
-      this.store.dispatch(BoardActions.createColumn({ title, order: 0 }));
+      this.store.dispatch(BoardActions.createColumn({ title }));
     } else {
       this.store.dispatch(
         BoardActions.updateColumn({
