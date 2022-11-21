@@ -1,10 +1,9 @@
 :host {
   display: flex;
   flex-direction: column;
-  max-width: 1440px;
   height: 100%;
   margin: 0 auto;
-  padding: 0 40px;
+
   @media (min-width: 320px) and (max-width: 449px) {
     padding: 0 20px;
   }

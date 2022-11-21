@@ -1,26 +1,12 @@
 <ng-container *ngIf="boardInfo$ | async as info">
-  <div class="board">
-    <section class="board__actions">
-      <div class="board__info">
-        <h1 class="board__title">{{ info.title }}</h1>
-        <p class="board__description">{{ info.description }}</p>
-      </div>
-      <button class="new-column-btn btn" (click)="createColumn()">
-        <mat-icon
-          class="add-icon"
-          aria-hidden="false"
-          fontIcon="add"
-        ></mat-icon>
-        <span>{{
-          'PROJECT_BOARD.projectBoardPage.newColumn' | translate
-        }}</span>
-      </button>
-    </section>
-    <section class="columns-section" cdkDropListGroup>
-      <app-column
-        *ngFor="let column of columns$ | async"
-        [column]="column"
-      ></app-column>
-    </section>
-  </div>
+  <app-board-actions [boardInfo]="info"></app-board-actions>
 </ng-container>
+
+<div class="board">
+  <section class="columns-section" cdkDropListGroup>
+    <app-column
+      *ngFor="let column of columns$ | async"
+      [column]="column"
+    ></app-column>
+  </section>
+</div>

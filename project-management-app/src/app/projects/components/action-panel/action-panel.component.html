@@ -1,7 +1,9 @@
-<div class="action-panel">
-  <app-search></app-search>
-  <button class="new-project-btn btn" (click)="openCreateDialog()">
-    <mat-icon class="add-icon" aria-hidden="false" fontIcon="add"></mat-icon>
-    <span>{{ 'PROJECTS.actionPanel.addProjectBtn' | translate }}</span>
-  </button>
+<div class="action-panel projects">
+  <div class="projects__info">
+    <h2 class="projects__title">Projects</h2>
+    <p class="projects__description">Manage your projects</p>
+  </div>
+  <div class="projects__search-bar">
+    <app-search></app-search>
+  </div>
 </div>
