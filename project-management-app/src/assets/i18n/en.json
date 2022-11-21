@@ -168,7 +168,7 @@
         },
         "slide1": {
           "title": "Anna",
-          "subtitle": "Contribution: login, signup, user editing, redirection, welcome page, not found page, localization."
+          "subtitle": "Contribution: login, signup, user editing, redirection, welcome page, not found page, routing."
         },
         "slide2": {
           "title": "Vitaliy",
