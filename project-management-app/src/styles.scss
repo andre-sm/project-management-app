@@ -1,3 +1,5 @@
+@import './app/shared/variables';
+
 html,
 body {
   height: 100%;
@@ -17,7 +19,7 @@ body {
 }
 
 .btn {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-weight: 500;
   font-size: 14px;
   border: none;
@@ -28,4 +30,25 @@ body {
 .btn.disabled {
   pointer-events: none;
   cursor: default;
+}
+
+.arrow-icon,
+.delete-icon {
+  color: $color-grey;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: $color-grey-light;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: $color-purple-light;
+}
+
+.mat-slide-toggle .mat-slide-toggle-bar {
+  background-color: $color-grey-light;
+}
+
+.mat-slide-toggle .mat-slide-toggle-thumb {
+  background-color: $color-purple-light;
 }

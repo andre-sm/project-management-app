@@ -1,57 +1,42 @@
-<div
-  class="buttons-container"
-  *ngIf="{ isAuthenticated: isAuthenticated$ | async } as auth"
->
-  <button
-    type="button"
-    mat-stroked-button
-    color="primary"
-    class="button"
-    *ngIf="auth.isAuthenticated"
-    routerLinkActive="router-link-active"
-    (click)="onLogout()"
-  >
-    {{ 'HEADER.buttons.logout' | translate }}
-  </button>
-  <button
-    type="button"
-    mat-stroked-button
-    color="primary"
-    class="button"
-    *ngIf="auth.isAuthenticated"
-    routerLinkActive="router-link-active"
-    (click)="onEditUser()"
-  >
-    {{ 'HEADER.navigation.editUser' | translate }}
-  </button>
-  <button
-    class="add-task-btn btn"
-    *ngIf="auth.isAuthenticated"
-    (click)="openCreateTaskDialog()"
-  >
-    <mat-icon class="add-icon" aria-hidden="false" fontIcon="add"></mat-icon>
-    <span>New task</span>
-  </button>
-  <mat-button-toggle-group
-    class="language-buttons-container"
-    name="langSelection"
-    aria-label="Language"
-    #group="matButtonToggleGroup"
-    (change)="onChangeLanguage(group)"
-  >
-    <mat-button-toggle
-      value="en"
-      class="language-button"
-      [checked]="initialLang === 'en'"
-    >
-      <span class="flag-icon flag-icon-gb"></span>
-    </mat-button-toggle>
-    <mat-button-toggle
-      value="ru"
-      class="language-button"
-      [checked]="initialLang === 'ru'"
-    >
-      <span class="flag-icon flag-icon-ru"></span>
-    </mat-button-toggle>
-  </mat-button-toggle-group>
-</div>
+<header class="header">
+  <h1 class="header__logo">
+    <a routerLink="/" class="logo-link">OnBoard</a>
+  </h1>
+  <div class="nav-container">
+    <nav class="header__navbar nav">
+      <ul class="nav__list">
+        <li class="nav__item" routerLinkActive="active">
+          <a routerLink="/projects" class="nav__link">Projects</a>
+        </li>
+        <li class="nav__item" routerLinkActive="active">
+          <a routerLink="/tasks" class="nav__link">Tasks</a>
+        </li>
+        <li class="nav__item" routerLinkActive="active">
+          <a routerLink="/team" class="nav__link">Team</a>
+        </li>
+      </ul>
+    </nav>
+    <button class="new-project-btn btn" (click)="openCreateProjectDialog()">
+      <mat-icon class="add-icon" aria-hidden="false" fontIcon="add"></mat-icon>
+      <span>{{
+        'PROJECTS.actionPanel.addProjectBtn' | translate | uppercase
+      }}</span>
+    </button>
+  </div>
+  <div class="header__actions">
+    <div class="header__language">
+      <mat-label mat-slide-toggle-content class="toggle-lable">ru</mat-label>
+      <mat-slide-toggle
+        class="toggle-language"
+        [checked]="isChecked"
+        (change)="onLanguageChange()"
+      ></mat-slide-toggle>
+      <mat-label mat-slide-toggle-content class="toggle-lable">en</mat-label>
+    </div>
+    <div class="header__login">
+      <app-login-menu
+        [isAuthenticated]="isAuthenticated$ | async"
+      ></app-login-menu>
+    </div>
+  </div>
+</header>

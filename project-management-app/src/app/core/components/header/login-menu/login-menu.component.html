@@ -1,0 +1,46 @@
+<div class="login" *ngIf="isAuthenticated; else login">
+  <div
+    class="login__menu"
+    [matMenuTriggerFor]="menu"
+    #triggerMenu="matMenuTrigger"
+  >
+    <div class="login__avatar">
+      <span class="login__initials">AS</span>
+    </div>
+    <div *ngIf="triggerMenu.menuOpen; else arrowUp">
+      <mat-icon
+        class="arrow-icon"
+        aria-hidden="false"
+        fontIcon="expand_less"
+      ></mat-icon>
+    </div>
+    <ng-template #arrowUp>
+      <mat-icon
+        class="arrow-icon"
+        aria-hidden="false"
+        fontIcon="expand_more"
+      ></mat-icon>
+    </ng-template>
+  </div>
+  <mat-menu #menu="matMenu" class="login__menu">
+    <button
+      mat-menu-item
+      *ngIf="isAuthenticated"
+      routerLinkActive="router-link-active"
+      (click)="onEditUser()"
+    >
+      {{ 'HEADER.navigation.editUser' | translate }}
+    </button>
+    <button
+      mat-menu-item
+      *ngIf="isAuthenticated"
+      routerLinkActive="router-link-active"
+      (click)="onLogout()"
+    >
+      {{ 'HEADER.buttons.logout' | translate }}
+    </button>
+  </mat-menu>
+</div>
+<ng-template #login>
+  <a routerLink="/auth/login" class="sign-in-link"> Sign in</a>
+</ng-template>

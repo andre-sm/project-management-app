@@ -73,6 +73,5 @@ export const selectFilteredColumns = createSelector(
 
 export const selectColumnsTitles = createSelector(
   selectBoardColumns,
-  (columns: Column[]) =>
-    columns.map((column) => column.title),
+  (columns: Column[]) => columns.map((column) => column.title),
 );
