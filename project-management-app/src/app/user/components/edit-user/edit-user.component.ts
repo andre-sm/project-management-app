@@ -63,7 +63,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
         }),
       )
       .subscribe(() => {
-        if(this.currentUser.login) {
+        if (this.currentUser.login) {
           this.editForm = new FormGroup({
             firstName: new FormControl(this.currentUser.name.split(' ')[0], [
               Validators.required,
@@ -83,7 +83,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
             ]),
           });
         }
-
       });
   }
 

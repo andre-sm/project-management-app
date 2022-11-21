@@ -28,7 +28,9 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   taskForm!: FormGroup;
 
   taskData!: TaskForm;
+
   columnsArr!: string[];
+
   columns$!: Observable<Column[]>;
 
   users$!: Observable<User[]>;
