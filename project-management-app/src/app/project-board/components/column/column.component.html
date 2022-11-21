@@ -1,32 +1,23 @@
 <div class="column">
-  <div class="column__header header">
-    <h2 class="header__title" (click)="editColumnDialog()">
-      {{ column.title }}
-    </h2>
-    <span class="header__task-count"></span>
+  <div class="column__title title">
+    <div class="title__wrapper">
+      <mat-icon class="title__dot-icon" fontIcon="circle"></mat-icon>
+      <h2 class="title__column-title" (click)="editColumnDialog()">
+        {{ column.title }}
+      </h2>
+      <div class="title__count-wrapper" *ngIf="column.tasks.length">
+        <span class="title__task-count">{{ column.tasks.length || '' }}</span>
+      </div>
+    </div>
     <button
-      class="header__more-icon"
       mat-icon-button
-      [matMenuTriggerFor]="menu"
-      aria-label="Column actions menu"
+      aria-label="delete icon"
+      (click)="deleteColumnDialog()"
     >
-      <mat-icon class="edit-icon" fontIcon="more_vert"></mat-icon>
+      <mat-icon class="delete-icon" fontIcon="delete"></mat-icon>
     </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon
-          class="add-icon"
-          aria-hidden="false"
-          fontIcon="add"
-        ></mat-icon>
-        <span>{{ 'PROJECT_BOARD.column.menu.addTask' | translate }}</span>
-      </button>
-      <button mat-menu-item (click)="deleteColumnDialog()">
-        <mat-icon class="delete-icon" fontIcon="delete"></mat-icon>
-        <span>{{ 'PROJECT_BOARD.column.menu.deleteColumn' | translate }}</span>
-      </button>
-    </mat-menu>
   </div>
+  <div class="column__line"></div>
   <div
     class="column__body"
     cdkDropList
