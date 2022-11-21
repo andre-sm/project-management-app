@@ -60,8 +60,8 @@ export class BoardEffects {
     return this.actions$.pipe(
       ofType(BoardActions.createColumn),
       concatLatestFrom(() => this.store.select(selectBoardId)),
-      mergeMap(([{ title, order }, id]) => {
-        return this.boardService.createColumn(title, order, id).pipe(
+      mergeMap(([{ title, color, order }, id]) => {
+        return this.boardService.createColumn(title, color, order, id).pipe(
           map((newColumn: Column) =>
             BoardActions.createColumnSuccess({ newColumn }),
           ),
@@ -92,15 +92,17 @@ export class BoardEffects {
     return this.actions$.pipe(
       ofType(BoardActions.updateColumn),
       concatLatestFrom(() => this.store.select(selectBoardId)),
-      mergeMap(([{ title, id, order }, boardId]) => {
-        return this.boardService.updateColumn(title, id, order, boardId).pipe(
-          map((updatedColumn) =>
-            BoardActions.updateColumnSuccess({ updatedColumn }),
-          ),
-          catchError((error) =>
-            of(BoardActions.updateColumnError({ error: error.message })),
-          ),
-        );
+      mergeMap(([{ title, color, id, order }, boardId]) => {
+        return this.boardService
+          .updateColumn(title, color, id, order, boardId)
+          .pipe(
+            map((updatedColumn) =>
+              BoardActions.updateColumnSuccess({ updatedColumn }),
+            ),
+            catchError((error) =>
+              of(BoardActions.updateColumnError({ error: error.message })),
+            ),
+          );
       }),
     );
   });

@@ -36,6 +36,7 @@ export class ColumnComponent {
       .subscribe((config) => {
         editDialogConfig.data = {
           title: this.column.title,
+          color: this.column.color,
           id: this.column._id,
           order: this.column.order,
           formTitle: config.formTitle,
