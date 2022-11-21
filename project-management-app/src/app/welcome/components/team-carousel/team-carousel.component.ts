@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription, tap } from 'rxjs';
+import { Observable, of, Subscription, tap } from 'rxjs';
 
 import { TeamCarouselService } from './services/team-carousel.service';
 
@@ -16,12 +16,14 @@ export class TeamCarouselComponent implements OnInit, OnDestroy {
 
   activeSlide: number = 0;
 
-  smallDevice = false;
+  smallDevice$!: Observable<boolean>;
+  @ViewChild('carouselWrapper') carousel!: ElementRef<HTMLElement>;
 
   caption = {
     title: '',
     subtitle: '',
   };
+  carouselWrapper: any;
 
   constructor(
     private translate: TranslateService,
@@ -71,18 +73,34 @@ export class TeamCarouselComponent implements OnInit, OnDestroy {
         });
       },
     );
-    if (window.screen.width <= 767) {
-      this.smallDevice = true;
-    }
+    this.checkIfSmall()
+    window.addEventListener('resize', () => {
+      this.checkIfSmall()
+    })
   }
 
   ngOnDestroy(): void {
     this.langChangedSub.unsubscribe();
   }
 
-  onItemChange($event: any): void {
-    this.activeSlide = $event;
+  onSlideChange(): void {
+    const activeId =  +(this.carousel.nativeElement.querySelector('.active')?.getAttribute('aria-id') as string)
+    activeId === 2 ? this.activeSlide = 0 : this.activeSlide = activeId + 1;
     this.caption.title = `WELCOME.carousel.slides.slide${this.activeSlide}.title`;
     this.caption.subtitle = `WELCOME.carousel.slides.slide${this.activeSlide}.subtitle`;
+  }
+
+  checkIfSmall() {
+    if (window.screen.width <= 767) {
+      this.smallDevice$ = of(true)
+      this.smallDevice$.subscribe((val) => {
+        if(val) {
+          this.caption.title = `WELCOME.carousel.slides.slide${this.activeSlide}.title`;
+          this.caption.subtitle = `WELCOME.carousel.slides.slide${this.activeSlide}.subtitle`;
+        }
+      });
+    } else {
+      this.smallDevice$ = of(false)
+    }
   }
 }

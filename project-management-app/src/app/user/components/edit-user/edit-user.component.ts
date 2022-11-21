@@ -63,24 +63,27 @@ export class EditUserComponent implements OnInit, OnDestroy {
         }),
       )
       .subscribe(() => {
-        this.editForm = new FormGroup({
-          firstName: new FormControl(this.currentUser.name.split(' ')[0], [
-            Validators.required,
-            Validators.minLength(2),
-          ]),
-          lastName: new FormControl(this.currentUser.name.split(' ')[1], [
-            Validators.required,
-            Validators.minLength(2),
-          ]),
-          email: new FormControl(this.currentUser.login, [
-            Validators.required,
-            Validators.email,
-          ]),
-          password: new FormControl(null, [
-            Validators.required,
-            this.validationService.passwordValidator.bind(this),
-          ]),
-        });
+        if(this.currentUser.login) {
+          this.editForm = new FormGroup({
+            firstName: new FormControl(this.currentUser.name.split(' ')[0], [
+              Validators.required,
+              Validators.minLength(2),
+            ]),
+            lastName: new FormControl(this.currentUser.name.split(' ')[1], [
+              Validators.required,
+              Validators.minLength(2),
+            ]),
+            email: new FormControl(this.currentUser.login, [
+              Validators.required,
+              Validators.email,
+            ]),
+            password: new FormControl(null, [
+              Validators.required,
+              this.validationService.passwordValidator.bind(this),
+            ]),
+          });
+        }
+
       });
   }
 

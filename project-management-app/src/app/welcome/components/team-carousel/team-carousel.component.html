@@ -1,44 +1,31 @@
 <h2 class="welcome__header-team">
   {{ 'WELCOME.carousel.carousel-header' | translate }}
 </h2>
-<c-carousel
-  [interval]="6000"
-  hover="true"
-  [touch]="true"
-  (itemChange)="onItemChange($event)"
-  class="welcome__carousel"
->
-  <c-carousel-indicators></c-carousel-indicators>
-  <c-carousel-inner>
-    <c-carousel-item *ngFor="let slide of slides">
+
+<div #carouselWrapper>
+  <mdb-carousel
+    [controls]="true"
+    class="welcome__carousel"
+    (slideChange)="onSlideChange()"
+  >
+    <mdb-carousel-item *ngFor="let slide of slides" [attr.aria-id]="slide.id">
       <img
-        alt="{{ slide.title | async }}"
-        class="d-block w-100"
-        loading="lazy"
         src="{{ slide.src }}"
+        class="d-block w-100"
+        alt="{{ slide.title | async }}"
       />
-      <c-carousel-caption class="d-none d-md-block">
-        <h3>{{ slide.title | async }}</h3>
+      <div class="carousel-caption d-none d-md-block">
+        <h5>{{ slide.title | async }}</h5>
         <p>{{ slide.subtitle | async }}</p>
-      </c-carousel-caption>
-    </c-carousel-item>
-  </c-carousel-inner>
-  <c-carousel-control
-    [routerLink]
-    caption="Previous"
-    direction="prev"
-  ></c-carousel-control>
-  <c-carousel-control
-    [routerLink]
-    caption="Next"
-    direction="next"
-  ></c-carousel-control>
-</c-carousel>
-<div class="welcome__captures" *ngIf="smallDevice">
-  <p class="title">
-    {{ caption.title | translate }}
-  </p>
-  <p class="subtitle">
-    {{ caption.subtitle | translate }}
-  </p>
+      </div>
+    </mdb-carousel-item>
+  </mdb-carousel>
+  <div class="welcome__caption" *ngIf="smallDevice$ | async">
+    <p class="title">
+      {{ caption.title | translate }}
+    </p>
+    <p class="subtitle">
+      {{ caption.subtitle | translate }}
+    </p>
+  </div>
 </div>

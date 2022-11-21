@@ -1,3 +1,4 @@
+@import 'mdb-angular-ui-kit/assets/scss/mdb.scss';
 :host {
   grid-row: 3 / 5;
   grid-column: 1 / 7;
@@ -21,7 +22,7 @@
   }
 }
 
-.welcome__captures {
+.welcome__caption {
   @media (min-width: 600px) and (max-width: 767px) {
     flex-basis: 100%;
   }

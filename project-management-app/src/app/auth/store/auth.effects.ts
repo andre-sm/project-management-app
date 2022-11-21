@@ -181,7 +181,7 @@ export class AuthEffects {
     () => {
       return this.actions$.pipe(
         ofType(AuthActions.loginSuccess),
-        tap(({ ...isAutoLogin }) => {
+        tap(({ login, token, userId, name, isAutoLogin }) => {
           if (!isAutoLogin) {
             this.router.navigate(['/projects']);
           }

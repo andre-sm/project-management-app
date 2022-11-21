@@ -17,6 +17,7 @@ import { AlertComponent } from './components/alert-component/alert-component.com
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { SearchComponent } from './components/search/search.component';
+import { InitialsPipe } from './pipes/initials.pipe';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SearchComponent } from './components/search/search.component';
     LoadingSpinnerComponent,
     ConfirmModalComponent,
     SearchComponent,
+    InitialsPipe,
   ],
   imports: [
     CommonModule,
@@ -59,6 +61,7 @@ import { SearchComponent } from './components/search/search.component';
     DragDropModule,
     MatSlideToggleModule,
     SearchComponent,
+    InitialsPipe,
   ],
 })
 export class SharedModule {}

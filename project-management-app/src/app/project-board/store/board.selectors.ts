@@ -70,3 +70,9 @@ export const selectFilteredColumns = createSelector(
   (columns: Column[], value: string) =>
     columns.filter((column) => column.title.toLowerCase().includes(value)),
 );
+
+export const selectColumnsTitles = createSelector(
+  selectBoardColumns,
+  (columns: Column[]) =>
+    columns.map((column) => column.title),
+);
