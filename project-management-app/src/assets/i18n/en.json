@@ -84,6 +84,8 @@
     "409": "This email exists already."
   },
   "PROJECTS": {
+    "header": "Projects",
+    "description": "Manage your projects",
     "actionPanel": {
       "addProjectBtn": "New project",
       "dialog": {
@@ -97,7 +99,8 @@
     },
     "projectForm": {
       "titleLabel": "Title",
-      "descriptionLabel": "Description"
+      "descriptionLabel": "Description",
+      "userLabel": "User"
     },
     "projectsList": {
       "header": {
@@ -119,7 +122,10 @@
   },
   "PROJECT_BOARD": {
     "projectBoardPage": {
-      "newColumn": "New column",
+      "actions": {
+        "newColumn": "New column",
+        "newTask": "New task"
+      },
       "dialog": {
         "formTitle": "Create column",
         "confirmText": "Create",
@@ -144,6 +150,24 @@
     },
     "columnForm": {
       "titleLabel": "Title"
+    },
+    "taskForm": {
+      "editDialog": {
+        "formTitle": "Edit task",
+        "confirmText": "Save",
+        "cancelText": "Close"
+      },
+      "deleteDialog": {
+        "message": "Do you want to delete the task?",
+        "confirmText": "Yes",
+        "cancelText": "No"
+      },
+      "labels": {
+        "title": "Title",
+        "description": "Description",
+        "column": "Column",
+        "users": "Users"
+      }
     }
   },
   "WELCOME": {

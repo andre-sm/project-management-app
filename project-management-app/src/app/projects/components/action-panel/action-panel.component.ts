@@ -7,5 +7,5 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./action-panel.component.scss'],
 })
 export class ActionPanelComponent {
-  constructor(private translate: TranslateService) {}
+  constructor() {}
 }

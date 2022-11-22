@@ -85,6 +85,8 @@
   },
   "PROJECTS": {
     "actionPanel": {
+      "header": "Проекты",
+      "description": "Управление проектами",
       "addProjectBtn": "Новый проект",
       "dialog": {
         "formTitle": "Создать проект",
@@ -97,7 +99,8 @@
     },
     "projectForm": {
       "titleLabel": "Название",
-      "descriptionLabel": "Описание"
+      "descriptionLabel": "Описание",
+      "userLabel": "Пользователь"
     },
     "projectsList": {
       "header": {
@@ -119,7 +122,10 @@
   },
   "PROJECT_BOARD": {
     "projectBoardPage": {
-      "newColumn": "Новая колонка",
+      "actions": {
+        "newColumn": "Новая колонка",
+        "newTask": "Новое задание"
+      },
       "dialog": {
         "formTitle": "Создать колонку",
         "confirmText": "Создать",
@@ -144,6 +150,24 @@
     },
     "columnForm": {
       "titleLabel": "Название"
+    },
+    "taskForm": {
+      "editDialog": {
+        "formTitle": "Редактировать задание",
+        "confirmText": "Сохранить",
+        "cancelText": "Закрыть"
+      },
+      "deleteDialog": {
+        "message": "Вы хотите удалить задание?",
+        "confirmText": "Да",
+        "cancelText": "Нет"
+      },
+      "labels": {
+        "title": "Название",
+        "description": "Описание",
+        "column": "Колонка",
+        "users": "Пользователи"
+      }
     }
   },
   "WELCOME": {
