@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { BoardInfo, Column } from '../../models';
 import * as BoardActions from '../../store/board.actions';
+import * as ProjectsActions from '../../../projects/store/projects.actions';
 import {
   selectBoardInfo,
   selectColumnsWithTasks,
@@ -26,6 +27,7 @@ export class ProjectBoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProjectData();
+    this.store.dispatch(ProjectsActions.getUsers());
   }
 
   getProjectData(): void {

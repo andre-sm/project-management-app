@@ -12,7 +12,13 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Description</mat-label>
-      <input matInput formControlName="description" />
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="3"
+        cdkAutosizeMaxRows="7"
+        formControlName="description"
+      ></textarea>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -36,7 +42,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Users</mat-label>
       <mat-select formControlName="users" multiple>
-        <mat-option *ngFor="let user of users$ | async" [value]="user.name">{{
+        <mat-option *ngFor="let user of users$ | async" [value]="user._id">{{
           user.name
         }}</mat-option>
       </mat-select>

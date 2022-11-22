@@ -12,7 +12,6 @@ import { MatOptionSelectionChange } from '@angular/material/core';
 import { Column, TaskForm } from '../../models';
 import { User } from '../../../projects/models';
 import * as BoardActions from '../../store/board.actions';
-import * as ProjectsActions from '../../../projects/store/projects.actions';
 import {
   selectColumnsTitles,
   selectFilteredColumns,
@@ -55,7 +54,6 @@ export class TaskFormComponent implements OnInit, OnDestroy {
 
     this.createForm();
 
-    this.store.dispatch(ProjectsActions.getUsers());
     this.columns$ = this.store.select(selectFilteredColumns);
     this.users$ = this.store.select(selectUsers);
 

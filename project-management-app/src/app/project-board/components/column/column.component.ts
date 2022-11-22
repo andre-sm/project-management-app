@@ -19,6 +19,8 @@ import { TaskFormComponent } from '../task-form/task-form.component';
   styleUrls: ['./column.component.scss'],
 })
 export class ColumnComponent {
+  height!: number;
+
   @Input() column!: Column;
 
   constructor(
@@ -187,5 +189,9 @@ export class ColumnComponent {
         columnId: columnId && i === taskIndex ? columnId : item.columnId,
       };
     });
+  }
+
+  cdkDragStarted(event: any) {
+    this.height = event.source.element.nativeElement.offsetHeight;
   }
 }
