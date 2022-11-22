@@ -24,6 +24,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
     token: '',
     name: '',
     userId: '',
+    color: ''
   };
 
   authSub: Subscription | undefined;
@@ -81,6 +82,10 @@ export class EditUserComponent implements OnInit, OnDestroy {
               Validators.required,
               this.validationService.passwordValidator.bind(this),
             ]),
+            color: new FormControl(this.currentUser.color, [
+              Validators.required,
+              Validators.pattern(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/)
+            ])
           });
         }
       });
@@ -116,8 +121,9 @@ export class EditUserComponent implements OnInit, OnDestroy {
     const login: string = this.editForm.value.email;
     const { password } = this.editForm.value;
     const { userId } = this.currentUser;
+    const { color } = this.editForm.value
     this.store.dispatch(
-      EditActions.editUserStart({ name, login, password, userId }),
+      EditActions.editUserStart({ name, login, password, userId, color }),
     );
     this.editForm.controls['password'].reset();
   }

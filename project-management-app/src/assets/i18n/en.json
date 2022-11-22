@@ -34,6 +34,10 @@
         "error6": "Password must be at least 8 characters long"
       }
     },
+    "color": {
+      "label": "Pick the avatar color",
+      "error": "Please enter color in HEX format or just pick it from the picker"
+    },
     "buttons": {
       "submit": {
         "login": "Login",
