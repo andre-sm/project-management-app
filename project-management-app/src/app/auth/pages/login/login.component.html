@@ -100,6 +100,45 @@
         >{{ 'AUTH.email.validation.error2' | translate }}</mat-error
       >
     </mat-form-field>
+    <div class="color-field-wrapper" *ngIf="!isLoginMode">
+      <mat-form-field
+        class="auth-field color-field"
+        floatLabel="auto"
+        appearance="outline"
+      >
+        <mat-label class="auth-label">{{
+          'AUTH.color.label' | translate
+        }}</mat-label>
+        <input matInput [ngxMatColorPicker]="picker" formControlName="color" />
+        <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+        <ngx-mat-color-picker
+          #picker
+          [touchUi]="touchUi"
+          [color]="color"
+        ></ngx-mat-color-picker>
+        <mat-error
+          *ngIf="
+            (validationService.hasError(authForm, 'color', 'required') &&
+              authForm.get('color')?.touched) ||
+            (validationService.hasError(authForm, 'color', 'pattern') &&
+              authForm.get('color')?.touched)
+          "
+        >
+          {{ 'AUTH.color.error' | translate }}
+        </mat-error>
+      </mat-form-field>
+      <div
+        class="avatar-preview"
+        [ngStyle]="{ 'background-color': authForm.value.color }"
+      >
+        <p class="avatar-initials">
+          {{
+            authForm.value.firstName + ' ' + authForm.value.lastName | initials
+          }}
+        </p>
+      </div>
+    </div>
+
     <mat-form-field
       class="auth-field password-field"
       floatLabel="auto"
@@ -166,6 +205,7 @@
         >
       </mat-error>
     </mat-form-field>
+
     <div class="buttons-container">
       <button
         type="submit"

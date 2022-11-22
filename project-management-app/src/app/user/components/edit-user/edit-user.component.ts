@@ -12,6 +12,8 @@ import { ValidationService } from '../../../shared/services/validation.service';
 import { selectAuthState } from '../../../store/selectors/auth.selector';
 import * as EditActions from '../../store/edit-user.actions';
 import * as AuthActions from '../../../auth/store/auth.actions';
+import { ThemePalette } from '@angular/material/core';
+import { Color } from '@angular-material-components/color-picker';
 
 @Component({
   selector: 'app-edit-user',
@@ -24,6 +26,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
     token: '',
     name: '',
     userId: '',
+    color: ''
   };
 
   authSub: Subscription | undefined;
@@ -37,6 +40,10 @@ export class EditUserComponent implements OnInit, OnDestroy {
   error: string | null = null;
 
   isLoading: boolean = false;
+
+  public color: ThemePalette = 'primary';
+
+  public touchUi = true;
 
   constructor(
     protected validationService: ValidationService,
@@ -55,6 +62,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
           this.currentUser.login = authState.user?.login as string;
           this.currentUser.name = authState.user?.name as string;
           this.currentUser.userId = authState.user?.userId as string;
+          this.currentUser.color = authState.user?.color as string;
           this.error = authState.errorMessage;
           this.isLoading = authState.loading;
           if (this.error) {
@@ -64,6 +72,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
       )
       .subscribe(() => {
         if (this.currentUser.login) {
+          const RGBA = this.hexToRgbA(this.currentUser.color)
           this.editForm = new FormGroup({
             firstName: new FormControl(this.currentUser.name.split(' ')[0], [
               Validators.required,
@@ -81,6 +90,10 @@ export class EditUserComponent implements OnInit, OnDestroy {
               Validators.required,
               this.validationService.passwordValidator.bind(this),
             ]),
+            color: new FormControl(new Color(RGBA.r, RGBA.g, RGBA.b, RGBA.a), [
+              Validators.required,
+              Validators.pattern(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/)
+            ])
           });
         }
       });
@@ -116,8 +129,9 @@ export class EditUserComponent implements OnInit, OnDestroy {
     const login: string = this.editForm.value.email;
     const { password } = this.editForm.value;
     const { userId } = this.currentUser;
+    const color = `#${this.editForm.value.color.hex}`
     this.store.dispatch(
-      EditActions.editUserStart({ name, login, password, userId }),
+      EditActions.editUserStart({ name, login, password, userId, color }),
     );
     this.editForm.controls['password'].reset();
   }
@@ -132,5 +146,14 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   private showErrorAlert(message: string) {
     this.showAlertService.showAlert(message);
+  }
+
+  private hexToRgbA(hex: string){
+    return {
+      r: parseInt(hex.slice(1, 3), 16),
+      g: parseInt(hex.slice(3, 5), 16),
+      b: parseInt(hex.slice(5, 7), 16),
+      a: 1
+    }
   }
 }

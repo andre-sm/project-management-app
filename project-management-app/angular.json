@@ -30,7 +30,7 @@
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
-            "scripts": ["./node_modules/@coreui/coreui/dist/js/coreui.min.js"]
+            "scripts": []
           },
           "configurations": {
             "production": {

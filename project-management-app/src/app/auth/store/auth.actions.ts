@@ -12,6 +12,7 @@ export const loginSuccess = createAction(
     token: string;
     userId: string;
     name: string;
+    color: string,
     isAutoLogin: boolean;
   }>(),
 );
@@ -23,7 +24,7 @@ export const loginFail = createAction(
 
 export const signupStart = createAction(
   '[Auth] Signup Start',
-  props<{ name: string; login: string; password: string }>(),
+  props<{ name: string; login: string; password: string, color: string }>(),
 );
 
 export const getUserName = createAction(

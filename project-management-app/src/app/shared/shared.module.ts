@@ -18,6 +18,8 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { SearchComponent } from './components/search/search.component';
 import { InitialsPipe } from './pipes/initials.pipe';
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { InitialsPipe } from './pipes/initials.pipe';
     MatSelectModule,
     DragDropModule,
     MatSlideToggleModule,
+    NgxMatColorPickerModule
   ],
   exports: [
     MatFormFieldModule,
@@ -62,6 +65,10 @@ import { InitialsPipe } from './pipes/initials.pipe';
     MatSlideToggleModule,
     SearchComponent,
     InitialsPipe,
+    NgxMatColorPickerModule
+  ],
+  providers: [
+    { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }
   ],
 })
 export class SharedModule {}
