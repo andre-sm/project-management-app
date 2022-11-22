@@ -131,15 +131,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (!this.authForm.valid) return;
-    const name = `${this.authForm.value.firstName} ${this.authForm.value.lastName}`;
     const login = this.authForm.value.email;
     const { password } = this.authForm.value;
-    const color = `#${this.authForm.value.color.hex}`;
-    console.log(name, login, password, color)
     if (this.isLoginMode) {
       this.authForm.reset();
       this.store.dispatch(AuthActions.loginStart({ login, password }));
     } else {
+      const color = `#${this.authForm.value.color.hex}`;
+      const name = `${this.authForm.value.firstName} ${this.authForm.value.lastName}`;
       this.authForm.reset();
       this.store.dispatch(AuthActions.signupStart({ name, login, password, color }));
 

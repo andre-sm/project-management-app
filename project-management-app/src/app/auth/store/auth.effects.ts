@@ -81,7 +81,6 @@ export class AuthEffects {
           )
           .pipe(
             map((resData) => {
-              console.log(resData)
               const decoded: {
                 id: string;
                 login: string;

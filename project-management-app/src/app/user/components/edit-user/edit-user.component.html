@@ -90,6 +90,33 @@
         >{{ 'AUTH.email.validation.error2' | translate }}</mat-error
       >
     </mat-form-field>
+    <mat-form-field class="edit-field" floatLabel="auto" appearance="outline">
+      <mat-label class="edit-label">{{
+        'AUTH.color.label' | translate
+      }}</mat-label>
+      <input
+        matInput
+        [ngxMatColorPicker]="picker"
+        formControlName="color"
+        [disabled]="disabled"
+      />
+      <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+      <ngx-mat-color-picker
+        #picker
+        [touchUi]="touchUi"
+        [color]="color"
+      ></ngx-mat-color-picker>
+      <mat-error
+        *ngIf="
+          (validationService.hasError(editForm, 'color', 'required') &&
+            editForm.get('color')?.touched) ||
+          (validationService.hasError(editForm, 'color', 'pattern') &&
+            editForm.get('color')?.touched)
+        "
+      >
+        {{ 'AUTH.color.error' | translate }}
+      </mat-error>
+    </mat-form-field>
     <div class="hint">
       <p>
         {{ 'EDIT_USER.passwordDisclaimer' | translate }}
