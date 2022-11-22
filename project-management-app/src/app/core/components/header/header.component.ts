@@ -23,7 +23,7 @@ export class HeaderComponent {
 
   initialLang: string | null = null;
 
-  isChecked: boolean = false;
+  isChecked!: boolean;
 
   constructor(
     private store: Store,
@@ -36,21 +36,17 @@ export class HeaderComponent {
 
     if (localStorage.getItem('lang')) {
       this.initialLang = localStorage.getItem('lang');
+      this.initialLang === 'en' ? this.isChecked = true : this.isChecked = false;
       if (this.initialLang) {
         this.teamCarouselService.languageChanged$.next();
       }
+    } else {
+      this.isChecked = true;
     }
-  }
-
-  onChangeLanguage(toggleLangGroup: MatButtonToggleGroup) {
-    this.translate.use(toggleLangGroup.value);
-    localStorage.setItem('lang', toggleLangGroup.value);
-    this.teamCarouselService.languageChanged$.next();
   }
 
   onLanguageChange() {
     this.isChecked = !this.isChecked;
-
     const language = this.isChecked ? 'en' : 'ru';
     this.translate.use(language);
     localStorage.setItem('lang', language);

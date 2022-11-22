@@ -6,17 +6,23 @@
     (ngSubmit)="onSubmit()"
   >
     <mat-form-field appearance="fill">
-      <mat-label>Title</mat-label>
+      <mat-label>{{
+        'PROJECT_BOARD.taskForm.labels.title' | translate
+      }}</mat-label>
       <input matInput formControlName="title" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Description</mat-label>
+      <mat-label>{{
+        'PROJECT_BOARD.taskForm.labels.description' | translate
+      }}</mat-label>
       <input matInput formControlName="description" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Column</mat-label>
+      <mat-label>{{
+        'PROJECT_BOARD.taskForm.labels.column' | translate
+      }}</mat-label>
       <input
         type="text"
         matInput
@@ -34,7 +40,9 @@
       </mat-autocomplete>
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>Users</mat-label>
+      <mat-label>{{
+        'PROJECT_BOARD.taskForm.labels.users' | translate
+      }}</mat-label>
       <mat-select formControlName="users" multiple>
         <mat-option *ngFor="let user of users$ | async" [value]="user.name">{{
           user.name
