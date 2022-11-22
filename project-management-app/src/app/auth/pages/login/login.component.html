@@ -110,12 +110,7 @@
         <mat-label class="auth-label">{{
           'AUTH.color.label' | translate
         }}</mat-label>
-        <input
-          matInput
-          [ngxMatColorPicker]="picker"
-          formControlName="color"
-          [disabled]="disabled"
-        />
+        <input matInput [ngxMatColorPicker]="picker" formControlName="color" />
         <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
         <ngx-mat-color-picker
           #picker

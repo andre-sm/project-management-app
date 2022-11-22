@@ -41,9 +41,9 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   isLoading: boolean = false;
 
-  public disabled = false;
   public color: ThemePalette = 'primary';
-  public touchUi = false;
+
+  public touchUi = true;
 
   constructor(
     protected validationService: ValidationService,

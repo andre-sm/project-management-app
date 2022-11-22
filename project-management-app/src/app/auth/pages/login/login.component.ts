@@ -34,9 +34,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   error: string | null = null;
 
-  public disabled = false;
   public color: ThemePalette = 'primary';
-  public touchUi = false;
+
+  public touchUi = true;
 
   authForm: FormGroup = new FormGroup({
     firstName: new FormControl(''),
