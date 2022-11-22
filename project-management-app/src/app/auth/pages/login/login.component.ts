@@ -107,6 +107,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
     this.authForm.reset();
+    this.authForm.patchValue({
+      firstName: '',
+      lastName: '',
+      color: new Color(252, 211, 71, 1)
+    });
     if (!this.isLoginMode) {
       this.validationService.addValidation(
         [
@@ -131,6 +136,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     const { password } = this.authForm.value;
     if (this.isLoginMode) {
       this.authForm.reset();
+      this.authForm.patchValue({
+        firstName: '',
+        lastName: '',
+        color: new Color(252, 211, 71, 1)
+      });
       this.store.dispatch(AuthActions.loginStart({ login, password }));
     } else {
       const color = `#${this.authForm.value.color.hex}`;

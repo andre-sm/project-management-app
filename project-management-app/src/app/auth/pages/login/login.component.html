@@ -100,9 +100,8 @@
         >{{ 'AUTH.email.validation.error2' | translate }}</mat-error
       >
     </mat-form-field>
-    <div class="color-field-wrapper">
+    <div class="color-field-wrapper" *ngIf="!isLoginMode">
       <mat-form-field
-        *ngIf="!isLoginMode"
         class="auth-field color-field"
         floatLabel="auto"
         appearance="outline"

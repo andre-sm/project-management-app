@@ -43,11 +43,8 @@
   border: 1px solid $primary-color;
   border-radius: 5px;
 
-  * {
-    width: 100%;
-  }
-
   .auth-field {
+    width: 100%;
     margin-bottom: 20px;
   }
 
@@ -56,18 +53,20 @@
   }
 
   .color-field-wrapper {
+    width: 100%;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
   }
+
   .color-field {
     flex-basis: 70%;
   }
 
   .avatar-preview {
-    flex-basis: 20%;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
