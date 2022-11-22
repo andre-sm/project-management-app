@@ -22,7 +22,7 @@
       ></textarea>
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>User</mat-label>
+      <mat-label>{{ 'PROJECTS.projectForm.userLabel' | translate }}</mat-label>
       <mat-select formControlName="users" multiple>
         <mat-option *ngFor="let user of users$ | async" [value]="user._id">{{
           user.name

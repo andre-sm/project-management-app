@@ -23,6 +23,7 @@ export interface IGetUserNameResponse {
   _id: string;
   name: string;
   login: string;
+  color: string;
 }
 
 @Injectable()
@@ -37,11 +38,10 @@ export class AuthEffects {
     private router: Router,
     private handleErrorsService: HandleServerErrors,
   ) {}
-
   authSignup$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.signupStart),
-      switchMap(({ name, login, password }) => {
+      switchMap(({ name, login, password, color }) => {
         return this.http
           .post<ISignupResponse>(
             `${environment.baseUrl}/${this.endPointAuth}/signup`,
@@ -49,6 +49,7 @@ export class AuthEffects {
               name,
               login,
               password,
+              color
             },
           )
           .pipe(
@@ -110,6 +111,7 @@ export class AuthEffects {
           userId: string;
           token: string;
           name: string;
+          color: string
         } = JSON.parse(localStorage.getItem('currentUser') as string);
         if (!userData) {
           return AuthActions.logout({ isAutoLogout: true });
@@ -162,6 +164,7 @@ export class AuthEffects {
                 token,
                 userId: resData._id,
                 name: resData.name,
+                color: resData.color,
                 isAutoLogin,
               };
               localStorage.setItem('currentUser', JSON.stringify(newUser));

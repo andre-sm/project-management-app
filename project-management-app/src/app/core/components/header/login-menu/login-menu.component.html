@@ -4,8 +4,11 @@
     [matMenuTriggerFor]="menu"
     #triggerMenu="matMenuTrigger"
   >
-    <div class="login__avatar">
-      <span class="login__initials">AS</span>
+    <div
+      class="login__avatar"
+      [ngStyle]="{ backgroundColor: avatarColor$ | async }"
+    >
+      <span class="login__initials">{{ avatarInitials | initials }}</span>
     </div>
     <div *ngIf="triggerMenu.menuOpen; else arrowUp">
       <mat-icon
@@ -29,7 +32,7 @@
       routerLinkActive="router-link-active"
       (click)="onEditUser()"
     >
-      {{ 'HEADER.navigation.editUser' | translate }}
+      {{ 'HEADER.buttons.editUser' | translate }}
     </button>
     <button
       mat-menu-item
@@ -42,5 +45,41 @@
   </mat-menu>
 </div>
 <ng-template #login>
-  <a routerLink="/auth/login" class="sign-in-link"> Sign in</a>
+  <div
+    class="login__menu"
+    [matMenuTriggerFor]="loginMenu"
+    #triggerMenu="matMenuTrigger"
+  >
+    <mat-icon
+      class="login-icon"
+      aria-hidden="false"
+      fontIcon="login"
+    ></mat-icon>
+    <div *ngIf="triggerMenu.menuOpen; else arrowUp">
+      <mat-icon
+        class="arrow-icon"
+        aria-hidden="false"
+        fontIcon="expand_less"
+      ></mat-icon>
+    </div>
+    <ng-template #arrowUp>
+      <mat-icon
+        class="arrow-icon"
+        aria-hidden="false"
+        fontIcon="expand_more"
+      ></mat-icon>
+    </ng-template>
+  </div>
+  <mat-menu #loginMenu>
+    <a
+      mat-menu-item
+      class="login__item"
+      routerLink="/auth/login"
+      class="sign-in-link"
+      >{{ 'HEADER.buttons.signin' | translate }}
+    </a>
+    <a mat-menu-item routerLink="/auth/signup" class="sign-in-link">{{
+      'HEADER.buttons.signup' | translate
+    }}</a>
+  </mat-menu>
 </ng-template>

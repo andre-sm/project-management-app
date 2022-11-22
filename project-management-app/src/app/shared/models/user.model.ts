@@ -3,4 +3,5 @@ export interface IUser {
   token: string;
   userId: string;
   name: string;
+  color: string;
 }

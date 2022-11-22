@@ -7,32 +7,6 @@
       'WELCOME.mainHeader.styled' | translate
     }}</span>
   </h1>
-  <div class="welcome__buttons-container">
-    <button
-      type="button"
-      mat-stroked-button
-      color="primary"
-      class="button"
-      *ngIf="!isAuthenticated"
-      (click)="onLogin()"
-    >
-      <mat-icon
-        ><span class="material-symbols-outlined"> login </span></mat-icon
-      >
-    </button>
-    <button
-      type="button"
-      mat-stroked-button
-      color="primary"
-      class="button"
-      *ngIf="!isAuthenticated"
-      (click)="onSignup()"
-    >
-      <mat-icon
-        ><span class="material-symbols-outlined"> person_add </span></mat-icon
-      >
-    </button>
-  </div>
   <p class="welcome__hero-text">
     {{ 'WELCOME.heroText' | translate }}
   </p>

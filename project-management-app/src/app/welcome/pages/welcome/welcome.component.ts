@@ -35,12 +35,4 @@ export class WelcomeComponent {
       )
       .subscribe();
   }
-
-  onLogin() {
-    this.router.navigate(['/auth/login']);
-  }
-
-  onSignup() {
-    this.router.navigate(['/auth/signup']);
-  }
 }
