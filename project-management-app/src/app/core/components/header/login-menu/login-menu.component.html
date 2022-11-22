@@ -4,7 +4,10 @@
     [matMenuTriggerFor]="menu"
     #triggerMenu="matMenuTrigger"
   >
-    <div class="login__avatar">
+    <div
+      class="login__avatar"
+      [ngStyle]="{ backgroundColor: avatarColor$ | async }"
+    >
       <span class="login__initials">AS</span>
     </div>
     <div *ngIf="triggerMenu.menuOpen; else arrowUp">

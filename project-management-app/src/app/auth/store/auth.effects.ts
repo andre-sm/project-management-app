@@ -23,6 +23,7 @@ export interface IGetUserNameResponse {
   _id: string;
   name: string;
   login: string;
+  color: string;
 }
 
 @Injectable()
@@ -80,6 +81,7 @@ export class AuthEffects {
           )
           .pipe(
             map((resData) => {
+              console.log(resData)
               const decoded: {
                 id: string;
                 login: string;
@@ -163,7 +165,7 @@ export class AuthEffects {
                 token,
                 userId: resData._id,
                 name: resData.name,
-                color: '#fffff',
+                color: resData.color,
                 isAutoLogin,
               };
               localStorage.setItem('currentUser', JSON.stringify(newUser));

@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import * as AuthActions from '../../../../auth/store/auth.actions';
+import { Observable } from 'rxjs';
+import { selectAvatarColor } from '../../../../store/selectors/auth.selector'
 
 @Component({
   selector: 'app-login-menu',
@@ -10,8 +12,11 @@ import * as AuthActions from '../../../../auth/store/auth.actions';
 })
 export class LoginMenuComponent {
   @Input() isAuthenticated!: boolean | null;
+  avatarColor$: Observable<string | undefined>
 
-  constructor(private router: Router, private store: Store) {}
+  constructor(private router: Router, private store: Store) {
+    this.avatarColor$ = this.store.select(selectAvatarColor);
+  }
 
   onLogin() {
     this.router.navigate(['/auth/login']);
