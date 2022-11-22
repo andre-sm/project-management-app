@@ -26,6 +26,7 @@
 }
 
 .buttons-container {
+  width: 100%;
   display: flex;
   justify-content: space-evenly;
   @media (min-width: 320px) and (max-width: 449px) {
