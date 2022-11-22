@@ -34,17 +34,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   error: string | null = null;
 
-  param = { value: 'world' };
-
-  language = ['EN', 'RU'];
-
   public disabled = false;
   public color: ThemePalette = 'primary';
   public touchUi = false;
 
   authForm: FormGroup = new FormGroup({
-    firstName: new FormControl(null),
-    lastName: new FormControl(null),
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [
       Validators.required,
