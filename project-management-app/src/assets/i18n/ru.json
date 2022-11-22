@@ -63,15 +63,16 @@
     }
   },
   "HEADER": {
+    "nav": {
+      "projects": "Проекты",
+      "tasks": "Задания",
+      "team": "Команда"
+    },
     "buttons": {
-      "logout": "Выйти"
-    },
-    "languages": {
-      "en": "Английский",
-      "ru": "Русский"
-    },
-    "navigation": {
-      "editUser": "Редактировать пользователя"
+      "logout": "Выйти",
+      "editUser": "Редактировать пользователя",
+      "signin": "Вход",
+      "signup": "Регистрация"
     }
   },
   "ERROR_ALERT": {

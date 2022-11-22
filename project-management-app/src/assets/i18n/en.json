@@ -63,15 +63,16 @@
     }
   },
   "HEADER": {
+    "nav": {
+      "projects": "Projects",
+      "tasks": "Tasks",
+      "team": "Team"
+    },
     "buttons": {
-      "logout": "Logout"
-    },
-    "languages": {
-      "en": "Eng",
-      "ru": "Rus"
-    },
-    "navigation": {
-      "editUser": "Edit user"
+      "logout": "Logout",
+      "editUser": "Edit user",
+      "signin": "Sign in",
+      "signup": "Sign up"
     }
   },
   "ERROR_ALERT": {

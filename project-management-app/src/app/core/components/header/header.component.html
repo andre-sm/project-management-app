@@ -6,13 +6,19 @@
     <nav class="header__navbar nav">
       <ul class="nav__list">
         <li class="nav__item" routerLinkActive="active">
-          <a routerLink="/projects" class="nav__link">Projects</a>
+          <a routerLink="/projects" class="nav__link">{{
+            'HEADER.nav.projects' | translate
+          }}</a>
         </li>
         <li class="nav__item" routerLinkActive="active">
-          <a routerLink="/tasks" class="nav__link">Tasks</a>
+          <a routerLink="/tasks" class="nav__link">{{
+            'HEADER.nav.tasks' | translate
+          }}</a>
         </li>
         <li class="nav__item" routerLinkActive="active">
-          <a routerLink="/team" class="nav__link">Team</a>
+          <a routerLink="/team" class="nav__link">{{
+            'HEADER.nav.team' | translate
+          }}</a>
         </li>
       </ul>
     </nav>
