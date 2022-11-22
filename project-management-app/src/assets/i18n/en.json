@@ -84,9 +84,9 @@
     "409": "This email exists already."
   },
   "PROJECTS": {
-    "header": "Projects",
-    "description": "Manage your projects",
     "actionPanel": {
+      "header": "Projects",
+      "description": "Manage your projects",
       "addProjectBtn": "New project",
       "dialog": {
         "formTitle": "Create project",
