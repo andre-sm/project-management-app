@@ -146,6 +146,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       const color = `#${this.authForm.value.color.hex}`;
       const name = `${this.authForm.value.firstName} ${this.authForm.value.lastName}`;
       this.authForm.reset();
+      this.authForm.patchValue({
+        firstName: '',
+        lastName: '',
+        color: new Color(252, 211, 71, 1)
+      });
       this.store.dispatch(AuthActions.signupStart({ name, login, password, color }));
 
     }
