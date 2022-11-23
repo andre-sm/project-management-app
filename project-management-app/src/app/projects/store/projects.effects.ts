@@ -15,8 +15,8 @@ export class ProjectsEffects {
       switchMap(() =>
         this.projectsService.getProjects().pipe(
           map((projects) => ProjectsActions.getProjectsSuccess({ projects })),
-          catchError((error) =>
-            of(ProjectsActions.getProjectsError({ error: error.message })),
+          catchError((error) => {
+           return of(ProjectsActions.getProjectsError({ error: error.message }))},
           ),
         ),
       ),

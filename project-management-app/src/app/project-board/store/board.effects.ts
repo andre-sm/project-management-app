@@ -33,8 +33,7 @@ export class BoardEffects {
           map((columns: Column[]) =>
             BoardActions.getColumnsSuccess({ columns }),
           ),
-          catchError((error) =>
-            of(BoardActions.getColumnsError({ error: error.message })),
+          catchError((error) => of(BoardActions.getColumnsError({ error: error.message }))
           ),
         );
       }),

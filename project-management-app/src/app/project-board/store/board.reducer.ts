@@ -244,4 +244,11 @@ export const projectsReducer = createReducer(
       error,
     }),
   ),
+  on(
+    BoardActions.clearError,
+    (state): BoardFeatureState => ({
+      ...state,
+      error: null
+    })
+  )
 );

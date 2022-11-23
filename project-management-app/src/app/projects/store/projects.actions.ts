@@ -75,3 +75,5 @@ export const getUsersError = createAction(
   '[Users] Get Users Error',
   props<{ error: string }>(),
 );
+
+export const clearError = createAction('[Auth] Clear Error');

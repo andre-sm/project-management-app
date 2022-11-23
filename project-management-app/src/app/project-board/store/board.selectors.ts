@@ -75,3 +75,8 @@ export const selectColumnsTitles = createSelector(
   selectBoardColumns,
   (columns: Column[]) => columns.map((column) => column.title),
 );
+
+export const selectError = createSelector(
+  selectBoardState,
+  (state) => state.error
+)
