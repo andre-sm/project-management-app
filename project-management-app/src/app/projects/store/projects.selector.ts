@@ -1,7 +1,7 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import * as fromProjects from './projects.reducer';
 import { ProjectsState } from './models';
-import { Project } from '../models';
+import { Project, User } from '../models';
 import { Task } from '../../project-board/models';
 
 export const selectProjectsState = createFeatureSelector<ProjectsState>(
@@ -18,14 +18,25 @@ export const selectTasks = createSelector(
   (state: ProjectsState) => state.tasks,
 );
 
+export const selectUsers = createSelector(
+  selectProjectsState,
+  (state: ProjectsState) => state.users,
+);
+
 export const selectRenderProjects = createSelector(
   selectProjects,
   selectTasks,
-  (projects: Project[], tasks: Task[]) =>
+  selectUsers,
+  (projects: Project[], tasks: Task[], allUsers: User[]) =>
     projects.map((project) => {
+      const owner = allUsers.find((user) => user._id === project.owner);
       return {
         ...project,
         tasks: tasks.filter((task) => task.boardId === project._id).length,
+        ownerData: {
+          name: owner ? owner.name : '',
+          color: owner ? owner.color : '',
+        },
       };
     }),
 );
@@ -33,9 +44,4 @@ export const selectRenderProjects = createSelector(
 export const selectProjectsIds = createSelector(
   selectProjectsState,
   (state: ProjectsState) => state.projects.map((project) => project._id),
-);
-
-export const selectUsers = createSelector(
-  selectProjectsState,
-  (state: ProjectsState) => state.users,
 );

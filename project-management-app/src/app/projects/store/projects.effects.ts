@@ -110,7 +110,7 @@ export class ProjectsEffects {
 
   getUsers$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ProjectsActions.getUsers),
+      ofType(ProjectsActions.getUsers, ProjectsActions.getProjects),
       switchMap(() => {
         return this.projectsService.getUsers().pipe(
           map((users: User[]) => ProjectsActions.getUsersSuccess({ users })),

@@ -1,5 +1,10 @@
 <div class="project-card project">
   <div class="title-wrapper">
+    <span
+      class="project__owner-name"
+      [ngStyle]="{ backgroundColor: project.ownerData.color }"
+      >{{ project.ownerData.name | initials }}</span
+    >
     <h2 class="project__title">
       {{ project.title }}
     </h2>
@@ -26,14 +31,4 @@
     dolor placerat nibh.
   </div>
   <span class="project__task-count">{{ project.tasks }} Tasks</span>
-  <div class="project__users users">
-    <div class="owner-wrapper">
-      <span class="users__owner-title">Owner</span>
-      <span class="users__owner-avatar">AS</span>
-    </div>
-    <div class="contributors-wrapper">
-      <span class="users__contributors-title">Users</span>
-      <span class="users__contributors-avatar">AS</span>
-    </div>
-  </div>
 </div>

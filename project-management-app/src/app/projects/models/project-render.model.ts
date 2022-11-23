@@ -3,6 +3,10 @@ export interface ProjectRender {
   title: string;
   description: string;
   owner: string;
+  ownerData: {
+    name: string;
+    color: string;
+  };
   users: Array<string>;
   tasks: number;
 }
