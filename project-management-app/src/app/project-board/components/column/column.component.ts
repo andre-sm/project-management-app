@@ -19,6 +19,8 @@ import { TaskFormComponent } from '../task-form/task-form.component';
   styleUrls: ['./column.component.scss'],
 })
 export class ColumnComponent {
+  height!: number;
+
   @Input() column!: Column;
 
   constructor(
@@ -36,6 +38,7 @@ export class ColumnComponent {
       .subscribe((config) => {
         editDialogConfig.data = {
           title: this.column.title,
+          color: this.column.color,
           id: this.column._id,
           order: this.column.order,
           formTitle: config.formTitle,
@@ -197,5 +200,9 @@ export class ColumnComponent {
         columnId: columnId && i === taskIndex ? columnId : item.columnId,
       };
     });
+  }
+
+  cdkDragStarted(event: any) {
+    this.height = event.source.element.nativeElement.offsetHeight;
   }
 }

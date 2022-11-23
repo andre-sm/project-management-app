@@ -28,7 +28,7 @@ export const getColumnsError = createAction(
 
 export const createColumn = createAction(
   '[Column] Create Column',
-  props<{ title: string; order: number }>(),
+  props<{ title: string; color: string; order: number }>(),
 );
 
 export const createColumnSuccess = createAction(
@@ -58,7 +58,7 @@ export const deleteColumnError = createAction(
 
 export const updateColumn = createAction(
   '[Column] Update Column',
-  props<{ title: string; id: string; order: number | null }>(),
+  props<{ title: string; color: string; id: string; order: number | null }>(),
 );
 
 export const updateColumnSuccess = createAction(

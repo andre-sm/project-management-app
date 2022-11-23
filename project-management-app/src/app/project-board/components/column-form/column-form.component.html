@@ -11,6 +11,23 @@
       }}</mat-label>
       <input matInput formControlName="title" />
     </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Color</mat-label>
+      <mat-select formControlName="color" [(value)]="selectedColor">
+        <mat-select-trigger>
+          <span
+            class="color-preview"
+            [ngStyle]="{ 'background-color': selectedColor }"
+          ></span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let color of colors" [value]="color">
+          <span
+            class="color-preview"
+            [ngStyle]="{ 'background-color': color }"
+          ></span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <div class="column-form__btns">
       <button
         class="column-form__close-btn btn"

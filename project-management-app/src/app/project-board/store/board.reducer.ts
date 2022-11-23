@@ -126,6 +126,7 @@ export const projectsReducer = createReducer(
         if (item._id === updatedColumn._id) {
           return {
             ...item,
+            color: updatedColumn.color,
             title: updatedColumn.title,
             order: updatedColumn.order,
             boardId: updatedColumn.boardId,
