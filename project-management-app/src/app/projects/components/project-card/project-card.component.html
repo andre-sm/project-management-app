@@ -1,0 +1,39 @@
+<div class="project-card project">
+  <div class="title-wrapper">
+    <h2 class="project__title">
+      {{ project.title }}
+    </h2>
+    <button
+      class="project__menu-btn"
+      mat-icon-button
+      aria-label="more icon"
+      [matMenuTriggerFor]="menu"
+    >
+      <mat-icon class="more-icon" fontIcon="more_vert"></mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" class="project__menu">
+      <button mat-menu-item (click)="editDialog($event, project._id)">
+        Edit
+      </button>
+      <button mat-menu-item (click)="deleteDialog($event, project._id)">
+        Delete
+      </button>
+    </mat-menu>
+  </div>
+  <div class="project__description">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eleifend,
+    nisl nec posuere venenatis, nibh tellus finibus odio, vitae tristique odio
+    dolor placerat nibh.
+  </div>
+  <span class="project__task-count"> 12 tasks </span>
+  <div class="project__users users">
+    <div class="owner-wrapper">
+      <span class="users__owner-title">Owner</span>
+      <span class="users__owner-avatar">AS</span>
+    </div>
+    <div class="contributors-wrapper">
+      <span class="users__contributors-title">Users</span>
+      <span class="users__contributors-avatar">AS</span>
+    </div>
+  </div>
+</div>

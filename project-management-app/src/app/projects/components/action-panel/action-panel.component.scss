@@ -4,10 +4,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: $color-grey-lighter;
   min-height: 130px;
   padding: 0 40px;
-  border-top: 1px solid $color-grey-light;
   border-bottom: 1px solid $color-grey-light;
 
   &__info {

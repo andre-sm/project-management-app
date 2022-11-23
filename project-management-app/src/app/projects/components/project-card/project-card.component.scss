@@ -1,0 +1,94 @@
+@import '../../../shared/variables';
+
+.project {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  overflow: auto;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  background-color: $color-grey-lighter;
+  border-radius: 8px;
+
+  &__menu-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &__title {
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    margin: 0;
+  }
+
+  &__description {
+    padding: 0 20px;
+  }
+
+  &__task-count {
+    align-self: center;
+    background-color: rgba($color: $color-grey, $alpha: 0.075);
+    border: 1px solid #c6c6c6;
+    border-radius: 8px;
+    font-size: 20px;
+    padding: 10px;
+  }
+}
+
+.title-wrapper {
+  position: relative;
+  padding: 20px;
+}
+
+.owner-wrapper,
+.contributors-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.users {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+
+  &__owner-title,
+  &__contributors-title {
+    font-family: 'Raleway', sans-serif;
+  }
+
+  &__owner-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Raleway", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    color: #ffffff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid $color-white;
+    background-color: rgb(255, 169, 169);
+  }
+
+  &__contributors-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Raleway", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    color: #ffffff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid $color-white;
+    background-color: rgb(159, 255, 145);
+  }
+}
