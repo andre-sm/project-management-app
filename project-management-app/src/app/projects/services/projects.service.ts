@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Project, User } from '../models';
 import { environment } from '../../../environments/environment';
+import { Task } from '../../project-board/models';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,10 @@ export class ProjectsService {
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${environment.baseUrl}/users`);
+  }
+
+  getProjectTasks(boardId: string): Observable<Task[]> {
+    return this.http.get<Task[]>(`${environment.baseUrl}/tasksSet/${boardId}`);
   }
 
   createProject(

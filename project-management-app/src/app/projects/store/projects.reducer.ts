@@ -9,6 +9,7 @@ export const initialState: ProjectsState = {
   projects: [],
   error: null,
   users: [],
+  tasks: [],
 };
 
 export const projectsReducer = createReducer(
@@ -31,6 +32,22 @@ export const projectsReducer = createReducer(
   ),
   on(
     ProjectActions.getProjectsError,
+    (state, { error }): ProjectsState => ({
+      ...state,
+      error,
+      isLoading: false,
+    }),
+  ),
+  on(
+    ProjectActions.getProjectsTasksSuccess,
+    (state, { tasks }): ProjectsState => ({
+      ...state,
+      tasks: [...state.tasks, ...tasks],
+      isLoading: false,
+    }),
+  ),
+  on(
+    ProjectActions.getProjectsTasksError,
     (state, { error }): ProjectsState => ({
       ...state,
       error,

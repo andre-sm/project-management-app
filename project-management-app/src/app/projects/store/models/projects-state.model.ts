@@ -1,3 +1,4 @@
+import { Task } from '../../../project-board/models';
 import { Project, User } from '../../models';
 
 export interface ProjectsState {
@@ -5,4 +6,5 @@ export interface ProjectsState {
   projects: Project[];
   error: string | null;
   users: User[];
+  tasks: Task[];
 }

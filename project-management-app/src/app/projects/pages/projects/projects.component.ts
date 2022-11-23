@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as ProjectsActions from '../../store/projects.actions';
-import { Project } from '../../models';
-import { selectProjects } from '../../store/projects.selector';
+import { ProjectRender } from '../../models';
+import { selectRenderProjects } from '../../store/projects.selector';
 
 @Component({
   selector: 'app-projects',
@@ -11,10 +11,10 @@ import { selectProjects } from '../../store/projects.selector';
   styleUrls: ['./projects.component.scss'],
 })
 export class ProjectsComponent implements OnInit {
-  projects$!: Observable<Project[]>;
+  projects$!: Observable<ProjectRender[]>;
 
   constructor(private store: Store) {
-    this.projects$ = this.store.select(selectProjects);
+    this.projects$ = this.store.select(selectRenderProjects);
   }
 
   ngOnInit(): void {

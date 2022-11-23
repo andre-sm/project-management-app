@@ -36,7 +36,9 @@ export class HeaderComponent {
 
     if (localStorage.getItem('lang')) {
       this.initialLang = localStorage.getItem('lang');
-      this.initialLang === 'en' ? this.isChecked = true : this.isChecked = false;
+      this.initialLang === 'en'
+        ? (this.isChecked = true)
+        : (this.isChecked = false);
       if (this.initialLang) {
         this.teamCarouselService.languageChanged$.next();
       }

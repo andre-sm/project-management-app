@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Project } from '../../models';
+import { ProjectRender } from '../../models';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 import { ProjectFormComponent } from '../project-form/project-form.component';
 import * as ProjectActions from '../../store/projects.actions';
@@ -13,7 +13,7 @@ import * as ProjectActions from '../../store/projects.actions';
   styleUrls: ['./project-card.component.scss'],
 })
 export class ProjectCardComponent {
-  @Input() project!: Project;
+  @Input() project!: ProjectRender;
 
   constructor(
     public dialog: MatDialog,
