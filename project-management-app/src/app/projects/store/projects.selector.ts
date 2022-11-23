@@ -21,3 +21,8 @@ export const selectError = createSelector(
   selectProjectsState,
   (state: ProjectsState) => state.error
 )
+
+export const selectIsLoading = createSelector(
+  selectProjectsState,
+  (state: ProjectsState) => state.isLoading
+)

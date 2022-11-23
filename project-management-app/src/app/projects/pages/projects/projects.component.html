@@ -1,6 +1,14 @@
 <app-action-panel></app-action-panel>
-<div class="projects">
-  <ng-container *ngIf="projects$ | async as projects">
-    <app-projects-list [projects]="projects"></app-projects-list>
-  </ng-container>
+<div class="projects" [ngClass]="{ 'is-loading': isLoading$ | async }">
+  <div
+    class="spinner-container"
+    *ngIf="isLoading$ | async; else projectsContainer"
+  >
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <ng-template #projectsContainer>
+    <ng-container *ngIf="projects$ | async as projects">
+      <app-projects-list [projects]="projects"></app-projects-list>
+    </ng-container>
+  </ng-template>
 </div>

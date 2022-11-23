@@ -3,7 +3,7 @@ import { Observable, Subscription, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as ProjectsActions from '../../store/projects.actions';
 import { Project } from '../../models';
-import { selectError, selectProjects } from '../../store/projects.selector';
+import { selectError, selectIsLoading, selectProjects } from '../../store/projects.selector';
 import { ShowAlertService } from 'src/app/shared/services/show-alert.service';
 
 @Component({
@@ -14,9 +14,11 @@ import { ShowAlertService } from 'src/app/shared/services/show-alert.service';
 export class ProjectsComponent implements OnInit, OnDestroy {
   projects$!: Observable<Project[]>;
   errorSub!: Subscription;
+  isLoading$: Observable<boolean>
 
   constructor(private store: Store, private showAlertService: ShowAlertService) {
     this.projects$ = this.store.select(selectProjects);
+    this.isLoading$ = this.store.select(selectIsLoading)
     this.errorSub = this.store.select(selectError).pipe(
       tap((data) => {
         if(data) {
