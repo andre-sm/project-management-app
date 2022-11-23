@@ -86,3 +86,8 @@ export const getUsersError = createAction(
   '[Users] Get Users Error',
   props<{ error: string }>(),
 );
+
+export const setViewMode = createAction(
+  '[Projects] Set View Mode',
+  props<{ view: string }>(),
+);

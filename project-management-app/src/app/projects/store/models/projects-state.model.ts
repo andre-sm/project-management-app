@@ -7,4 +7,5 @@ export interface ProjectsState {
   error: string | null;
   users: User[];
   tasks: Task[];
+  view: string;
 }

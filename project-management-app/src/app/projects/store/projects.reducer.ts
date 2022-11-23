@@ -10,6 +10,7 @@ export const initialState: ProjectsState = {
   error: null,
   users: [],
   tasks: [],
+  view: localStorage.getItem('projectsView') || 'grid',
 };
 
 export const projectsReducer = createReducer(
@@ -114,4 +115,10 @@ export const projectsReducer = createReducer(
       error,
     }),
   ),
+  on(ProjectActions.setViewMode, (state, { view }): ProjectsState => {
+    return {
+      ...state,
+      view,
+    };
+  }),
 );

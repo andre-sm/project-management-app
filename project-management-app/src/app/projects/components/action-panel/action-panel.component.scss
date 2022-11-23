@@ -26,3 +26,17 @@
     flex: 2;
   }
 }
+
+.mat-button-toggle-appearance-standard {
+  color: $color-grey-light-second;
+  font-weight: 200;
+}
+
+.mat-button-toggle-checked {
+  background-color: $color-grey-lighter;
+}
+
+.mat-button-toggle-standalone.mat-button-toggle-appearance-standard, .mat-button-toggle-group-appearance-standard {
+  border-radius: 8px;
+  border: 1px solid $color-grey-light;
+}

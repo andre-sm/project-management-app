@@ -45,3 +45,8 @@ export const selectProjectsIds = createSelector(
   selectProjectsState,
   (state: ProjectsState) => state.projects.map((project) => project._id),
 );
+
+export const selectViewMode = createSelector(
+  selectProjectsState,
+  (state: ProjectsState) => state.view,
+);
