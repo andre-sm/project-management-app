@@ -65,6 +65,8 @@
     align-items: center;
     font-size: 1.3em;
     transition: all 0.35s ease;
+    padding: 0;
+    margin-bottom: 0;
   }
 
   &__item {
@@ -124,12 +126,16 @@
   display: none;
 }
 
-@media (min-width: 320px) and (max-width: 1033px) {
+@media (min-width: 320px) and (max-width: 767px) {
   .mobile-menu {
     display: block;
   }
   .nav {
     display: none;
+  }
+
+  .nav-container {
+    order: 1;
   }
 }
 
@@ -147,15 +153,18 @@
     padding: 10px;
     min-width: 58px;
     justify-content: center;
+    order: 1;
   }
   .add-icon {
     justify-content: center;
+  }
+  .mobile-menu {
+    order: 2;
   }
 }
 
 @media (min-width: 320px) and (max-width: 550px) {
   .header {
-    // padding: 10px;
     &__logo {
       font-size: 28px;
     }
@@ -178,7 +187,7 @@
 @media (min-width: 320px) and (max-width: 400px) {
   .nav-container,
   .header__actions {
-    gap: 0;
+    gap: 10px;
   }
   .toggle-lable {
     font-size: 12px;

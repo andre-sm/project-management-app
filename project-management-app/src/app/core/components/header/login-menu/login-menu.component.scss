@@ -1,5 +1,9 @@
 @import '../../../../shared/variables';
-
+:host {
+  @media (min-width: 320px) and (max-width: 767px) {
+    display: none;
+  }
+}
 .login {
   display: flex;
   justify-content: center;
