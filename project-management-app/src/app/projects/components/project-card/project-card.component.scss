@@ -7,6 +7,7 @@
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   background-color: $color-grey-lighter;
   border-radius: 8px;
+  cursor: pointer;
 
   &__owner-name {
     position: absolute;
@@ -40,6 +41,7 @@
 
   &__description {
     padding: 0 20px;
+    font-size: 15px;
   }
 
   &__task-count {

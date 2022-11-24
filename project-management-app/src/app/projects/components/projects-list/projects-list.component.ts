@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Project } from '../../models';
+import { ProjectRender } from '../../models';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 import { ProjectFormComponent } from '../project-form/project-form.component';
 import * as ProjectActions from '../../store/projects.actions';
@@ -13,9 +13,9 @@ import * as ProjectActions from '../../store/projects.actions';
   styleUrls: ['./projects-list.component.scss'],
 })
 export class ProjectsListComponent {
-  displayedColumns = ['title', 'description', 'actions'];
+  displayedColumns = ['owner', 'title', 'description', 'tasks', 'actions'];
 
-  @Input() projects!: Project[];
+  @Input() projects!: ProjectRender[];
 
   constructor(
     public dialog: MatDialog,

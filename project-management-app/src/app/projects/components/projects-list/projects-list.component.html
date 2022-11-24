@@ -1,5 +1,17 @@
 <div class="projects">
   <mat-table class="projects-table" [dataSource]="projects">
+    <ng-container matColumnDef="owner">
+      <mat-header-cell *matHeaderCellDef>{{
+        'Owner' | uppercase
+      }}</mat-header-cell>
+      <mat-cell class="owner-cell" *matCellDef="let project">
+        <span
+          class="projects-table__owner-avatar"
+          [ngStyle]="{ backgroundColor: project.ownerData.color }"
+          >{{ project.ownerData.name | initials }}</span
+        >
+      </mat-cell>
+    </ng-container>
     <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef>{{
         'PROJECTS.projectsList.header.title' | translate | uppercase
@@ -18,6 +30,15 @@
       }}</mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="tasks">
+      <mat-header-cell *matHeaderCellDef>{{
+        'Tasks' | uppercase
+      }}</mat-header-cell>
+      <mat-cell class="tasks-cell" *matCellDef="let project">{{
+        project.tasks
+      }}</mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef>{{
         'PROJECTS.projectsList.header.actions' | translate | uppercase
@@ -28,7 +49,7 @@
           aria-label="delete icon"
           (click)="deleteDialog($event, project._id)"
         >
-          <mat-icon class="delete-icon" fontIcon="delete"></mat-icon>
+          <mat-icon class="delete-icon" fontIcon="close"></mat-icon>
         </button>
         <button
           mat-icon-button

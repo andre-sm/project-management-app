@@ -1,15 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import {
-  map,
-  switchMap,
-  catchError,
-  of,
-  mergeMap,
-  exhaustMap,
-  merge,
-} from 'rxjs';
+import { map, switchMap, catchError, of, mergeMap, forkJoin } from 'rxjs';
 import { selectUserId } from '../../store/selectors/auth.selector';
 import { selectProjectsIds } from './projects.selector';
 import { User } from '../models';
@@ -36,21 +28,20 @@ export class ProjectsEffects {
     return this.actions$.pipe(
       ofType(ProjectsActions.getProjectsSuccess),
       concatLatestFrom(() => this.store.select(selectProjectsIds)),
-      exhaustMap(([, ids]) =>
-        merge(
-          ...ids.map((id) => {
-            return this.projectsService.getProjectTasks(id).pipe(
-              map((tasks) =>
-                ProjectsActions.getProjectsTasksSuccess({ tasks }),
-              ),
-              catchError((error) =>
-                of(
-                  ProjectsActions.getProjectsTasksError({
-                    error: error.message,
-                  }),
-                ),
-              ),
-            );
+      mergeMap(([, ids]) =>
+        forkJoin(
+          ids.map((id) => {
+            return this.projectsService.getProjectTasks(id);
+          }),
+        ),
+      ),
+      map((tasks) =>
+        ProjectsActions.getProjectsTasksSuccess({ tasks: tasks.flat(1) }),
+      ),
+      catchError((error) =>
+        of(
+          ProjectsActions.getProjectsTasksError({
+            error: error.message,
           }),
         ),
       ),

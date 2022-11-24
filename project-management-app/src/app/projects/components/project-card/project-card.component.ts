@@ -68,4 +68,8 @@ export class ProjectCardComponent {
       });
     this.dialog.open(ProjectFormComponent, editDialogConfig);
   }
+
+  onEvent(event: Event) {
+    event.stopPropagation();
+  }
 }

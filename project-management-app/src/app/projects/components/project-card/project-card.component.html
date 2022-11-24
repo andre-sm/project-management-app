@@ -1,4 +1,4 @@
-<div class="project-card project">
+<div class="project-card project" [routerLink]="['./board', project._id]">
   <div class="title-wrapper">
     <span
       class="project__owner-name"
@@ -13,6 +13,7 @@
       mat-icon-button
       aria-label="more icon"
       [matMenuTriggerFor]="menu"
+      (click)="onEvent($event)"
     >
       <mat-icon class="more-icon" fontIcon="more_vert"></mat-icon>
     </button>

@@ -43,7 +43,7 @@ export const projectsReducer = createReducer(
     ProjectActions.getProjectsTasksSuccess,
     (state, { tasks }): ProjectsState => ({
       ...state,
-      tasks: [...state.tasks, ...tasks],
+      tasks,
       isLoading: false,
     }),
   ),
