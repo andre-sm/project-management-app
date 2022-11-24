@@ -44,7 +44,7 @@ export const createColumnError = createAction(
 
 export const deleteColumn = createAction(
   '[Column] Delete Column',
-  props<{ id: string }>(),
+  props<{ id: string; currentOrder: number }>(),
 );
 
 export const deleteColumnSuccess = createAction(
@@ -56,6 +56,21 @@ export const deleteColumnError = createAction(
   '[Column] Delete Column Error',
   props<{ error: string }>(),
 );
+
+// export const updateColumnsOrder = createAction(
+//   '[Column] Update Columns Order',
+//   props<{ newOrder: { _id: string; order: number }[] }>(),
+// );
+
+// export const updateColumnsOrderSuccess = createAction(
+//   '[Column] Update Columns Order Success',
+//   props<{ updatedColumns: Column[] }>(),
+// );
+
+// export const updateColumnsOrderError = createAction(
+//   '[Column] Update Columns Order Error',
+//   props<{ error: string }>(),
+// );
 
 export const updateColumn = createAction(
   '[Column] Update Column',

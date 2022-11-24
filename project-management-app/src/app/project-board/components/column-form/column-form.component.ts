@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import * as BoardActions from '../../store/board.actions';
 import { Column, ColumnForm } from '../../models';
 import { selectColumnsWithTasks } from '../../store/board.selectors';
@@ -19,8 +19,6 @@ export class ColumnFormComponent implements OnInit {
 
   columns$!: Observable<Column[]>;
 
-  columns!: Column[];
-
   colors: string[] = ['#49c385', '#63baff', '#fcd347', '#4f30e5'];
 
   selectedColor = '';
@@ -36,13 +34,6 @@ export class ColumnFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.columns$
-      .pipe(
-        tap((columns) => {
-          this.columns = columns;
-        }),
-      )
-      .subscribe();
 
     this.selectedColor = this.formData.color;
     this.columnForm.patchValue({

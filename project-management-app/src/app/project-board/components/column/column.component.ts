@@ -69,7 +69,12 @@ export class ColumnComponent {
 
     dialogRef.afterClosed().subscribe((result: Boolean) => {
       if (result) {
-        this.store.dispatch(BoardActions.deleteColumn({ id: this.column._id }));
+        this.store.dispatch(
+          BoardActions.deleteColumn({
+            id: this.column._id,
+            currentOrder: this.column.order,
+          }),
+        );
       }
     });
   }

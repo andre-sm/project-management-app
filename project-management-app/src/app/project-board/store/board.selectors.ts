@@ -1,5 +1,5 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { Column, Task } from '../models';
+import { Column, Task, ColumnSet } from '../models';
 import * as fromBoard from './board.reducer';
 import { BoardFeatureState } from './models';
 
@@ -43,6 +43,22 @@ export const selectNextColumnOrder = createSelector(
       : Math.max(...columns.map((column) => column.order)) + 1;
   },
 );
+
+export const selectNewColumnOrder = (index: number) =>
+  createSelector(
+    selectBoardColumns,
+    (columns: Column[]): ColumnSet[] | null => {
+      if (index !== columns.length - 1) {
+        return columns.slice(index + 1).map((item) => {
+          return {
+            _id: item._id,
+            order: item.order - 1,
+          };
+        });
+      }
+      return null;
+    },
+  );
 
 export const selectColumnsWithTasks = createSelector(
   selectTasks,

@@ -10,6 +10,7 @@ import {
   selectBoardId,
   selectNextColumnOrder,
   selectNextTaskOrder,
+  selectNewColumnOrder,
 } from './board.selectors';
 
 @Injectable()
@@ -85,10 +86,21 @@ export class BoardEffects {
   deleteColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(BoardActions.deleteColumn),
-      concatLatestFrom(() => this.store.select(selectBoardId)),
-      mergeMap(([{ id }, boardId]) => {
+      concatLatestFrom((action) => [
+        this.store.select(selectNewColumnOrder(action.currentOrder)),
+        this.store.select(selectBoardId),
+      ]),
+      mergeMap(([{ id }, columns, boardId]) => {
         return this.boardService.deleteColumn(id, boardId).pipe(
-          map(() => BoardActions.deleteColumnSuccess({ id })),
+          switchMap(() => {
+            if (columns) {
+              return [
+                BoardActions.deleteColumnSuccess({ id }),
+                BoardActions.updateColumnsSet({ columns }),
+              ];
+            }
+            return [BoardActions.deleteColumnSuccess({ id })];
+          }),
           catchError((error) =>
             of(BoardActions.deleteColumnError({ error: error.message })),
           ),
