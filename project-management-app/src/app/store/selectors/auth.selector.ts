@@ -36,4 +36,4 @@ export const selectUserName = createSelector(
 export const selectAvatarColor = createSelector(
   selectAuthState,
   (state: AuthState) => state.user?.color,
-)
+);

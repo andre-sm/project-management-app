@@ -9,6 +9,8 @@ export const initialState: ProjectsState = {
   projects: [],
   error: null,
   users: [],
+  tasks: [],
+  view: localStorage.getItem('projectsView') || 'grid',
 };
 
 export const projectsReducer = createReducer(
@@ -31,6 +33,22 @@ export const projectsReducer = createReducer(
   ),
   on(
     ProjectActions.getProjectsError,
+    (state, { error }): ProjectsState => ({
+      ...state,
+      error,
+      isLoading: false,
+    }),
+  ),
+  on(
+    ProjectActions.getProjectsTasksSuccess,
+    (state, { tasks }): ProjectsState => ({
+      ...state,
+      tasks,
+      isLoading: false,
+    }),
+  ),
+  on(
+    ProjectActions.getProjectsTasksError,
     (state, { error }): ProjectsState => ({
       ...state,
       error,
@@ -103,5 +121,11 @@ export const projectsReducer = createReducer(
       ...state,
       error: null
     })
-  )
+  ),
+  on(ProjectActions.setViewMode, (state, { view }): ProjectsState => {
+    return {
+      ...state,
+      view,
+    };
+  }),
 );

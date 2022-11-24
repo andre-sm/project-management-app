@@ -1,9 +1,12 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import * as AuthActions from '../../../../auth/store/auth.actions';
 import { Observable, Subscription } from 'rxjs';
-import { selectAvatarColor, selectUserName } from '../../../../store/selectors/auth.selector'
+import * as AuthActions from '../../../../auth/store/auth.actions';
+import {
+  selectAvatarColor,
+  selectUserName,
+} from '../../../../store/selectors/auth.selector';
 
 @Component({
   selector: 'app-login-menu',
@@ -12,17 +15,20 @@ import { selectAvatarColor, selectUserName } from '../../../../store/selectors/a
 })
 export class LoginMenuComponent implements OnDestroy {
   @Input() isAuthenticated!: boolean | null;
-  avatarColor$: Observable<string | undefined>
+
+  avatarColor$: Observable<string | undefined>;
+
   avatarInitials$: Subscription;
-  avatarInitials: string = ''
+
+  avatarInitials: string = '';
 
   constructor(private router: Router, private store: Store) {
     this.avatarColor$ = this.store.select(selectAvatarColor);
-    this.avatarInitials$ = this.store.select(selectUserName).subscribe(
-      (data) => {
-        this.avatarInitials = data as string
-      }
-    )
+    this.avatarInitials$ = this.store
+      .select(selectUserName)
+      .subscribe((data) => {
+        this.avatarInitials = data as string;
+      });
   }
 
   onLogin() {

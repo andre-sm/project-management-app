@@ -38,6 +38,7 @@ export class AuthEffects {
     private router: Router,
     private handleErrorsService: HandleServerErrors,
   ) {}
+
   authSignup$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.signupStart),
@@ -49,7 +50,7 @@ export class AuthEffects {
               name,
               login,
               password,
-              color
+              color,
             },
           )
           .pipe(
@@ -111,7 +112,7 @@ export class AuthEffects {
           userId: string;
           token: string;
           name: string;
-          color: string
+          color: string;
         } = JSON.parse(localStorage.getItem('currentUser') as string);
         if (!userData) {
           return AuthActions.logout({ isAutoLogout: true });

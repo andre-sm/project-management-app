@@ -6,9 +6,20 @@
   >
     <app-loading-spinner></app-loading-spinner>
   </div>
-  <ng-template #projectsContainer>
-    <ng-container *ngIf="projects$ | async as projects">
-      <app-projects-list [projects]="projects"></app-projects-list>
-    </ng-container>
-  </ng-template>
+  <ng-template #projectsContainer></ng-template>
+  <ng-container *ngIf="projects$ | async as projects">
+    <div [ngSwitch]="view$ | async">
+      <div class="projects-container" *ngSwitchCase="'grid'">
+        <app-project-card
+          *ngFor="let project of projects"
+          [project]="project"
+        ></app-project-card>
+      </div>
+      <app-projects-list
+        *ngSwitchCase="'list'"
+        [projects]="projects"
+      ></app-projects-list>
+    </div>
+  </ng-container>
+  <ng-template #projectsContainer></ng-template>
 </div>

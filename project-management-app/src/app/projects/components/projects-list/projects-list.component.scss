@@ -4,7 +4,73 @@
   margin-top: 40px;
 }
 
+.projects-table {
+  &__owner-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Raleway", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    color: #ffffff;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+  }
+}
+
 .delete-icon,
 .edit-icon {
   color: $color-grey;
+}
+
+.mat-row:nth-child(even){
+  background-color: $color-white;
+}
+      
+.mat-row:nth-child(odd){
+  background-color: $color-grey-lighter;
+}
+
+.mat-header-row {
+  background-color: $color-grey-lighter;
+  color: $color-black-light;
+  padding-top: 5px;
+}
+
+.mat-header-cell {
+  font-family: 'Raleway', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.mat-cell {
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.mat-row {
+  transition: all 0.35s ease;
+}
+
+.mat-row:hover {
+  background-color: rgb(231, 231, 231);
+}
+
+.mat-column-title,
+.mat-column-description {
+  flex: 0 0 35%;
+}
+
+.mat-column-owner,
+.mat-column-tasks,
+.mat-column-actions {
+  flex: 0 0 10%;
+}
+
+.mat-column-tasks,
+.mat-column-actions {
+  justify-content: center;
 }
