@@ -24,6 +24,25 @@ export const initialState: BoardFeatureState = {
 
 export const projectsReducer = createReducer(
   initialState,
+  on (
+    BoardActions.getBoard,
+    (state): BoardFeatureState => ({
+      ...state,
+      isLoading: true,
+      board: {
+        info: {
+          id: '',
+          title: '',
+          description: '',
+          owner: '',
+          users: [],
+        },
+        columns: [],
+        tasks: [],
+      },
+      taskColumnFilter: '',
+    })
+  ),
   on(BoardActions.getBoardSuccess, (state, { board }): BoardFeatureState => {
     return {
       ...state,
