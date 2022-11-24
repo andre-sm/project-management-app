@@ -56,6 +56,7 @@ export const projectsReducer = createReducer(
           users: board.users,
         },
       },
+      isLoading: false,
     };
   }),
   on(
@@ -63,6 +64,7 @@ export const projectsReducer = createReducer(
     (state, { error }): BoardFeatureState => ({
       ...state,
       error,
+      isLoading: false,
     }),
   ),
   on(

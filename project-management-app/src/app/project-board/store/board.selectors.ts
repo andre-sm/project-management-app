@@ -80,3 +80,8 @@ export const selectError = createSelector(
   selectBoardState,
   (state) => state.error
 )
+
+export const selectIsLoading = createSelector(
+  selectBoardState,
+  (state) => state.isLoading
+)

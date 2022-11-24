@@ -2,11 +2,19 @@
   <app-board-actions [boardInfo]="info"></app-board-actions>
 </ng-container>
 
-<div class="board">
-  <section class="columns-section" cdkDropListGroup>
-    <app-column
-      *ngFor="let column of columns$ | async"
-      [column]="column"
-    ></app-column>
-  </section>
+<div class="board" [ngClass]="{ 'is-loading': isLoading$ | async }">
+  <div
+    class="spinner-container"
+    *ngIf="isLoading$ | async; else columnsContainer"
+  >
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <ng-template #columnsContainer>
+    <section class="columns-section" cdkDropListGroup>
+      <app-column
+        *ngFor="let column of columns$ | async"
+        [column]="column"
+      ></app-column>
+    </section>
+  </ng-template>
 </div>

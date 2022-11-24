@@ -8,6 +8,7 @@ import * as ProjectsActions from '../../../projects/store/projects.actions';
 import {
   selectBoardInfo,
   selectColumnsWithTasks,
+  selectIsLoading,
 } from '../../store/board.selectors';
 import { selectError } from '../../store/board.selectors';
 import { ShowAlertService } from 'src/app/shared/services/show-alert.service';
@@ -22,11 +23,14 @@ export class ProjectBoardComponent implements OnInit,  OnDestroy {
 
   columns$!: Observable<Column[]>;
 
+  isLoading$!: Observable<boolean>;
+
   errorSub!: Subscription
 
   constructor(private route: ActivatedRoute, private store: Store,  private showAlertService: ShowAlertService) {
     this.columns$ = this.store.select(selectColumnsWithTasks);
     this.boardInfo$ = this.store.select(selectBoardInfo);
+    this.isLoading$ = this.store.select(selectIsLoading)
     this.errorSub = this.store.select(selectError).pipe(
       tap((data) => {
         if(data) {
