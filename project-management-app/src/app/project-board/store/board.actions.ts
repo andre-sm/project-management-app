@@ -29,7 +29,7 @@ export const getColumnsError = createAction(
 
 export const createColumn = createAction(
   '[Column] Create Column',
-  props<{ title: string }>(),
+  props<{ title: string; color: string }>(),
 );
 
 export const createColumnSuccess = createAction(
@@ -59,7 +59,7 @@ export const deleteColumnError = createAction(
 
 export const updateColumn = createAction(
   '[Column] Update Column',
-  props<{ title: string; id: string; order: number | null }>(),
+  props<{ title: string; color: string; id: string; order: number | null }>(),
 );
 
 export const updateColumnSuccess = createAction(
@@ -164,14 +164,14 @@ export const updateTasksSetError = createAction(
 export const updateColumnsSet = createAction(
   '[Column] Update Column Set',
   props<{ columns: ColumnSet[] }>(),
-)
+);
 
 export const updateColumnsSetSuccess = createAction(
   '[Column] Update Column Set Success',
   props<{ updatedColumns: Column[] }>(),
-)
+);
 
 export const updateColumnsSetError = createAction(
   '[Column] Update Column Set Error',
-  props<{ error: string }>()
-)
+  props<{ error: string }>(),
+);

@@ -27,3 +27,13 @@ export const selectUserId = createSelector(
   selectAuthState,
   (state: AuthState) => state.user?.userId,
 );
+
+export const selectUserName = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.user?.name,
+);
+
+export const selectAvatarColor = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.user?.color,
+);

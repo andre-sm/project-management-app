@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
-import { ProjectFormComponent } from '../project-form/project-form.component';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as ProjectsActions from '../../store/projects.actions';
+import { selectViewMode } from '../../store/projects.selector';
 
 @Component({
   selector: 'app-action-panel',
@@ -9,22 +10,19 @@ import { ProjectFormComponent } from '../project-form/project-form.component';
   styleUrls: ['./action-panel.component.scss'],
 })
 export class ActionPanelComponent {
-  constructor(public dialog: MatDialog, private translate: TranslateService) {}
+  selectedView!: string;
 
-  openCreateDialog(): void {
-    const createDialogConfig = new MatDialogConfig();
+  view$!: Observable<string>;
 
-    createDialogConfig.disableClose = true;
-    createDialogConfig.autoFocus = true;
-    this.translate.get('PROJECTS.actionPanel.dialog').subscribe((config) => {
-      createDialogConfig.data = {
-        formTitle: config.formTitle,
-        confirmText: config.confirmText,
-        cancelText: config.cancelText,
-        id: null,
-      };
-    });
+  constructor(private store: Store) {
+    this.view$ = this.store.select(selectViewMode);
+  }
 
-    this.dialog.open(ProjectFormComponent, createDialogConfig);
+  onViewChange(view: string) {
+    this.selectedView = view;
+    this.store.dispatch(
+      ProjectsActions.setViewMode({ view: this.selectedView }),
+    );
+    localStorage.setItem('projectsView', this.selectedView);
   }
 }

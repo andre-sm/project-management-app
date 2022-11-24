@@ -1,7 +1,63 @@
 @import '../../../shared/variables';
 
 .task {
+  display: flex;
+  flex-direction: column;
   border-radius: 8px;
   background-color: $color-white;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 2px, rgba(0, 0, 0, 0.12) 0px 1px 1px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 15px;
+  }
+
+  &__title {
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  
+  &__description {
+    padding: 0 15px;
+  }
+  
+  &__delete-icon {
+    font-size: 20px;
+  }
+
+  &__separator {
+    height: 1px;
+    background-color: $color-grey-light;
+  }
+}
+
+.users {
+  display: flex;
   padding: 10px;
+
+  &__avatar {
+    box-sizing: content-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Raleway", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    color: #ffffff;
+    background-color: #fcd347;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid $color-white;
+
+    &:not(:last-child) {
+      margin-right: -15px;
+    }
+  }
 }

@@ -12,6 +12,7 @@ import * as fromBoard from './store/board.reducer';
 import { ColumnComponent } from './components/column/column.component';
 import { TaskComponent } from './components/task/task.component';
 import { TaskFormComponent } from './components/task-form/task-form.component';
+import { BoardActionsComponent } from './components/board-actions/board-actions.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { TaskFormComponent } from './components/task-form/task-form.component';
     ColumnComponent,
     TaskComponent,
     TaskFormComponent,
+    BoardActionsComponent,
   ],
   imports: [
     CommonModule,

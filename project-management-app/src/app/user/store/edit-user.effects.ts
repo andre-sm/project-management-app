@@ -12,6 +12,7 @@ export interface IEditResponse {
   _id: string;
   name: string;
   login: string;
+  color: string;
 }
 
 @Injectable()
@@ -25,12 +26,13 @@ export class EditEffects {
   editStart$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(EditActions.editUserStart),
-      switchMap(({ name, login, password, userId }) => {
+      switchMap(({ name, login, password, userId, color }) => {
         return this.http
           .put<IEditResponse>(`${environment.baseUrl}/users/${userId}`, {
             name,
             login,
             password,
+            color,
           })
           .pipe(
             map((data) => {
@@ -42,6 +44,7 @@ export class EditEffects {
                 login: data.login,
                 userId: data._id,
                 token: oldUser.token as string,
+                color: data.color,
               };
               localStorage.setItem('currentUser', JSON.stringify(updatedUser));
               return EditActions.editUserSuccess(updatedUser);

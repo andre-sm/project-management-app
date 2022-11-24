@@ -1,28 +1,48 @@
 @import '../../../shared/variables';
 
-.action-panel {
+.projects {
+  border-bottom: 1px solid $color-grey-light;
+
+  &__info {
+    flex: 1.2;
+  }
+  
+  &__title {
+    color: $color-black-light;
+    font-size: 22px;
+    font-weight: 400;
+  }
+
+  &__description {
+    font-size: 16px;
+  }
+
+  &__search-bar {
+    flex: 2;
+  }
+}
+
+.action-panel-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 1440px;
+  min-height: 130px;
+  padding: 0 40px;
+  margin: 0 auto;
+}
+
+.mat-button-toggle-appearance-standard {
+  color: $color-grey-light-second;
+  font-weight: 200;
+}
+
+.mat-button-toggle-checked {
   background-color: $color-grey-lighter;
-  min-height: 100px;
-  padding: 0 30px;
 }
 
-.new-project-btn {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  background-color: $color-violet;
-  color: $color-white;
-  line-height: 1;
-}
-
-.add-icon {
-  display: flex;
-  align-items: center;
-  width: 16px;
-  height: 16px;
-  font-size: 20px;
+.mat-button-toggle-standalone.mat-button-toggle-appearance-standard, 
+.mat-button-toggle-group-appearance-standard {
+  border-radius: 8px;
+  border: 1px solid $color-grey-light;
 }

@@ -1,31 +1,15 @@
 @import '../../../shared/variables';
 
 .board {
-  &__actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: $color-grey-lighter;
-    border-radius: 8px;
-    padding: 20px;
-  }
-}
-
-.new-column-btn {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  background-color: $color-orange;
-  color: $color-white;
-  line-height: 1;
+  border-top: 1px solid $color-grey-light;
 }
 
 .columns-section {
   display: flex;
   flex-wrap: nowrap;
   gap: 25px;
-  margin-top: 40px;
+  max-width: 1440px;
+  margin: 40px auto 0 auto;
   padding: 0 40px 40px;
   overflow-x: auto;
 }

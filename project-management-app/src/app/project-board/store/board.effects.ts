@@ -6,7 +6,11 @@ import { selectUserId } from 'src/app/store/selectors/auth.selector';
 import { Column, Board, Task } from '../models';
 import { BoardService } from '../services/board.service';
 import * as BoardActions from './board.actions';
-import { selectBoardId, selectNextColumnOrder, selectNextTaskOrder } from './board.selectors';
+import {
+  selectBoardId,
+  selectNextColumnOrder,
+  selectNextTaskOrder,
+} from './board.selectors';
 
 @Injectable()
 export class BoardEffects {
@@ -61,17 +65,19 @@ export class BoardEffects {
       ofType(BoardActions.createColumn),
       concatLatestFrom(() => [
         this.store.select(selectBoardId),
-        this.store.select(selectNextColumnOrder)
+        this.store.select(selectNextColumnOrder),
       ]),
-      mergeMap(([{ title }, id, order]) => {
-        return this.boardService.createColumn(title, order, id).pipe(
-          map((newColumn: Column) =>
-            BoardActions.createColumnSuccess({ newColumn }),
-          ),
-          catchError((error) =>
-            of(BoardActions.createColumnError({ error: error.message })),
-          ),
-        );
+      mergeMap(([{ title, color }, boardId, order]) => {
+        return this.boardService
+          .createColumn(title, color, boardId, order)
+          .pipe(
+            map((newColumn: Column) =>
+              BoardActions.createColumnSuccess({ newColumn }),
+            ),
+            catchError((error) =>
+              of(BoardActions.createColumnError({ error: error.message })),
+            ),
+          );
       }),
     );
   });
@@ -95,15 +101,17 @@ export class BoardEffects {
     return this.actions$.pipe(
       ofType(BoardActions.updateColumn),
       concatLatestFrom(() => this.store.select(selectBoardId)),
-      mergeMap(([{ title, id, order }, boardId]) => {
-        return this.boardService.updateColumn(title, id, order, boardId).pipe(
-          map((updatedColumn) =>
-            BoardActions.updateColumnSuccess({ updatedColumn }),
-          ),
-          catchError((error) =>
-            of(BoardActions.updateColumnError({ error: error.message })),
-          ),
-        );
+      mergeMap(([{ title, color, id, order }, boardId]) => {
+        return this.boardService
+          .updateColumn(title, color, id, order, boardId)
+          .pipe(
+            map((updatedColumn) =>
+              BoardActions.updateColumnSuccess({ updatedColumn }),
+            ),
+            catchError((error) =>
+              of(BoardActions.updateColumnError({ error: error.message })),
+            ),
+          );
       }),
     );
   });

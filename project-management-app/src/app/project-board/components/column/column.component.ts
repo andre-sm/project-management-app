@@ -19,6 +19,8 @@ import { TaskFormComponent } from '../task-form/task-form.component';
   styleUrls: ['./column.component.scss'],
 })
 export class ColumnComponent {
+  height!: number;
+
   @Input() column!: Column;
 
   constructor(
@@ -36,6 +38,7 @@ export class ColumnComponent {
       .subscribe((config) => {
         editDialogConfig.data = {
           title: this.column.title,
+          color: this.column.color,
           id: this.column._id,
           order: this.column.order,
           formTitle: config.formTitle,
@@ -75,18 +78,22 @@ export class ColumnComponent {
     const editDialogConfig = new MatDialogConfig();
     editDialogConfig.disableClose = true;
     editDialogConfig.autoFocus = true;
-    editDialogConfig.data = {
-      formTitle: 'Edit task',
-      confirmText: 'Save',
-      cancelText: 'Close',
-      id: task._id,
-      order: task.order,
-      title: task.title,
-      description: task.description,
-      userId: task.userId,
-      users: task.users,
-      columnData: { columnId: this.column._id, title: this.column.title },
-    };
+    this.translate
+      .get('PROJECT_BOARD.taskForm.editDialog')
+      .subscribe((config) => {
+        editDialogConfig.data = {
+          formTitle: config.formTitle,
+          confirmText: config.confirmText,
+          cancelText: config.cancelText,
+          id: task._id,
+          order: task.order,
+          title: task.title,
+          description: task.description,
+          userId: task.userId,
+          users: task.users,
+          columnData: { columnId: this.column._id, title: this.column.title },
+        };
+      });
 
     this.dialog.open(TaskFormComponent, editDialogConfig);
   }
@@ -96,11 +103,15 @@ export class ColumnComponent {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = {
-      message: 'Are you want to delete the task?',
-      confirmText: 'Yes',
-      cancelText: 'No',
-    };
+    this.translate
+      .get('PROJECT_BOARD.taskForm.deleteDialog')
+      .subscribe((config) => {
+        dialogConfig.data = {
+          message: config.message,
+          confirmText: config.confirmText,
+          cancelText: config.cancelText,
+        };
+      });
 
     const dialogRef = this.dialog.open(ConfirmModalComponent, dialogConfig);
 
@@ -186,5 +197,9 @@ export class ColumnComponent {
         columnId: columnId && i === taskIndex ? columnId : item.columnId,
       };
     });
+  }
+
+  cdkDragStarted(event: any) {
+    this.height = event.source.element.nativeElement.offsetHeight;
   }
 }

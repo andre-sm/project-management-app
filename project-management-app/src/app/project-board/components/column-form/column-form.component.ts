@@ -2,9 +2,9 @@ import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Observable, tap } from 'rxjs';
 import * as BoardActions from '../../store/board.actions';
 import { Column, ColumnForm } from '../../models';
-import { Observable, tap } from 'rxjs';
 import { selectColumnsWithTasks } from '../../store/board.selectors';
 
 @Component({
@@ -21,6 +21,10 @@ export class ColumnFormComponent implements OnInit {
 
   columns!: Column[];
 
+  colors: string[] = ['#49c385', '#63baff', '#fcd347', '#4f30e5'];
+
+  selectedColor = '';
+
   constructor(
     private store: Store,
     private dialogRef: MatDialogRef<ColumnFormComponent>,
@@ -32,11 +36,18 @@ export class ColumnFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.columns$.pipe(
-      tap(columns => {
-        this.columns = columns;
-      })
-      ).subscribe()
+    this.columns$
+      .pipe(
+        tap((columns) => {
+          this.columns = columns;
+        }),
+      )
+      .subscribe();
+
+    this.selectedColor = this.formData.color;
+    this.columnForm.patchValue({
+      color: this.formData.color,
+    });
   }
 
   createForm(): void {
@@ -46,17 +57,19 @@ export class ColumnFormComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(64),
       ]),
+      color: new FormControl('', [Validators.required]),
     });
   }
 
   onSubmit(): void {
-    const { title } = this.columnForm.value;
+    const { title, color } = this.columnForm.value;
     if (this.formData.id === null) {
-      this.store.dispatch(BoardActions.createColumn({ title }));
+      this.store.dispatch(BoardActions.createColumn({ title, color }));
     } else {
       this.store.dispatch(
         BoardActions.updateColumn({
           title,
+          color,
           id: this.formData.id,
           order: this.formData.order,
         }),

@@ -1,14 +1,16 @@
-@import '../../../../shared/variables';
+@import '../../variables';
 
 .search-form {
   &__input {
     min-width: 400px;
-    height: 40px;
+    height: 46px;
     padding: 0 20px;
     font-size: 14px;
+    color: $color-black-light;
     border: 1px solid $color-grey-light;
     border-radius: 8px;
     background-color: $color-white;
     outline: none;
+    transition: all 0.35s ease;
   }
 }

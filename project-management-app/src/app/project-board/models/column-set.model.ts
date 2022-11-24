@@ -1,4 +1,4 @@
 export interface ColumnSet {
-  "_id": string,
-  "order": number
+  _id: string;
+  order: number;
 }

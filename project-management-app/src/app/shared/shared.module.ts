@@ -10,17 +10,27 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {
+  MAT_COLOR_FORMATS,
+  NgxMatColorPickerModule,
+  NGX_MAT_COLOR_FORMATS,
+} from '@angular-material-components/color-picker';
 import { AlertComponent } from './components/alert-component/alert-component.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import { SearchComponent } from './components/search/search.component';
+import { InitialsPipe } from './pipes/initials.pipe';
 
 @NgModule({
   declarations: [
     AlertComponent,
     LoadingSpinnerComponent,
     ConfirmModalComponent,
+    SearchComponent,
+    InitialsPipe,
   ],
   imports: [
     CommonModule,
@@ -36,6 +46,8 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     MatButtonToggleModule,
     MatSelectModule,
     DragDropModule,
+    MatSlideToggleModule,
+    NgxMatColorPickerModule,
   ],
   exports: [
     MatFormFieldModule,
@@ -53,6 +65,11 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     MatButtonToggleModule,
     MatSelectModule,
     DragDropModule,
+    MatSlideToggleModule,
+    SearchComponent,
+    InitialsPipe,
+    NgxMatColorPickerModule,
   ],
+  providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
 })
 export class SharedModule {}

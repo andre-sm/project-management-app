@@ -1,0 +1,57 @@
+@import '../../../shared/variables';
+
+.board {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 130px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+
+  &__title {
+    color: $color-black-light;
+    font-size: 22px;
+    font-weight: 400;
+  }
+
+  &__description {
+    font-size: 16px;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+.new-column-btn,
+.new-task-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 15px 16px;
+  border-radius: 8px;
+  line-height: 1;
+  letter-spacing: 1px;
+  transition: all 0.35s ease;
+}
+
+.new-column-btn {
+  background-color: $color-blue;
+  color: $color-white;
+}
+
+.new-task-btn {
+  background-color: $color-green;
+  color: $color-white;
+}
+
+.add-icon {
+  display: flex;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  font-size: 20px;
+}

@@ -38,8 +38,11 @@ export const selectBoardColumns = createSelector(
 export const selectNextColumnOrder = createSelector(
   selectBoardColumns,
   (columns: Column[]) => {
-    return columns.length === 0 ? 0 : Math.max(...columns.map(column => column.order)) + 1;
-  });
+    return columns.length === 0
+      ? 0
+      : Math.max(...columns.map((column) => column.order)) + 1;
+  },
+);
 
 export const selectColumnsWithTasks = createSelector(
   selectTasks,
@@ -75,4 +78,9 @@ export const selectFilteredColumns = createSelector(
   selectTaskColumnFilter,
   (columns: Column[], value: string) =>
     columns.filter((column) => column.title.toLowerCase().includes(value)),
+);
+
+export const selectColumnsTitles = createSelector(
+  selectBoardColumns,
+  (columns: Column[]) => columns.map((column) => column.title),
 );

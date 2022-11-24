@@ -8,21 +8,21 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
 import { ProjectsComponent } from './pages/projects/projects.component';
-import { ProjectsRoutingModule } from './projects-routing.module';
 import { ActionPanelComponent } from './components/action-panel/action-panel.component';
-import { SearchComponent } from './components/action-panel/search/search.component';
+import { ProjectsRoutingModule } from './projects-routing.module';
 import { ProjectFormComponent } from './components/project-form/project-form.component';
 import { ProjectsEffects } from './store/projects.effects';
 import { ProjectsListComponent } from './components/projects-list/projects-list.component';
 import * as fromProjects from './store/projects.reducer';
+import { ProjectCardComponent } from './components/project-card/project-card.component';
 
 @NgModule({
   declarations: [
     ProjectsComponent,
-    ActionPanelComponent,
-    SearchComponent,
     ProjectFormComponent,
     ProjectsListComponent,
+    ActionPanelComponent,
+    ProjectCardComponent,
   ],
   imports: [
     CommonModule,
