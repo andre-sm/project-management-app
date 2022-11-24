@@ -1,0 +1,39 @@
+<div class="hamburger-container">
+  <label
+    for="open-toggler"
+    id="hamburger"
+    class="hamburger"
+    [ngClass]="{ opened: triggerMenu.menuOpen }"
+  >
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+  </label>
+  <input
+    #openToggler
+    id="open-toggler"
+    type="checkbox"
+    class="opacity"
+    [matMenuTriggerFor]="mainMenu"
+    #triggerMenu="matMenuTrigger"
+  />
+  <mat-menu #mainMenu class="main-nav__mobile" xPosition="before">
+    <ul class="nav__list">
+      <li class="nav__item" routerLinkActive="active">
+        <a routerLink="/projects" class="nav__link">{{
+          'HEADER.nav.projects' | translate
+        }}</a>
+      </li>
+      <li class="nav__item" routerLinkActive="active">
+        <a routerLink="/tasks" class="nav__link">{{
+          'HEADER.nav.tasks' | translate
+        }}</a>
+      </li>
+      <li class="nav__item" routerLinkActive="active">
+        <a routerLink="/team" class="nav__link">{{
+          'HEADER.nav.team' | translate
+        }}</a>
+      </li>
+    </ul>
+  </mat-menu>
+</div>

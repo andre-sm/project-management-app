@@ -83,7 +83,6 @@
 
 .nav__link:hover,
 .nav__list .active .nav__link {
-
 }
 
 .toggle-lable {
@@ -118,5 +117,12 @@
 }
 
 .new-project-btn:hover {
-
+}
+@media (min-width: 320px) and (max-width: 1033px) {
+  .mobile-menu {
+    display: block;
+  }
+  .nav {
+    display: none;
+  }
 }
