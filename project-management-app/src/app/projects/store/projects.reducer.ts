@@ -115,6 +115,13 @@ export const projectsReducer = createReducer(
       error,
     }),
   ),
+  on(
+    ProjectActions.clearError,
+    (state): ProjectsState => ({
+      ...state,
+      error: null
+    })
+  ),
   on(ProjectActions.setViewMode, (state, { view }): ProjectsState => {
     return {
       ...state,

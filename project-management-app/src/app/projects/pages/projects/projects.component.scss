@@ -9,3 +9,12 @@
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   grid-gap: 40px;
 }
+.projects.is-loading {
+  display: flex;
+  justify-content: center;
+  min-height: 50%;
+}
+
+.spinner-container {
+  align-self: center;
+}

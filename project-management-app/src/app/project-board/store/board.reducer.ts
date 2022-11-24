@@ -24,6 +24,25 @@ export const initialState: BoardFeatureState = {
 
 export const projectsReducer = createReducer(
   initialState,
+  on (
+    BoardActions.getBoard,
+    (state): BoardFeatureState => ({
+      ...state,
+      isLoading: true,
+      board: {
+        info: {
+          id: '',
+          title: '',
+          description: '',
+          owner: '',
+          users: [],
+        },
+        columns: [],
+        tasks: [],
+      },
+      taskColumnFilter: '',
+    })
+  ),
   on(BoardActions.getBoardSuccess, (state, { board }): BoardFeatureState => {
     return {
       ...state,
@@ -37,6 +56,7 @@ export const projectsReducer = createReducer(
           users: board.users,
         },
       },
+      isLoading: false,
     };
   }),
   on(
@@ -44,6 +64,7 @@ export const projectsReducer = createReducer(
     (state, { error }): BoardFeatureState => ({
       ...state,
       error,
+      isLoading: false,
     }),
   ),
   on(
@@ -244,4 +265,11 @@ export const projectsReducer = createReducer(
       error,
     }),
   ),
+  on(
+    BoardActions.clearError,
+    (state): BoardFeatureState => ({
+      ...state,
+      error: null
+    })
+  )
 );

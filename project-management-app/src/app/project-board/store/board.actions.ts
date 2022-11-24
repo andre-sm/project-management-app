@@ -159,3 +159,7 @@ export const updateTasksSetError = createAction(
   '[TasksSet] Update Tasks Set Error',
   props<{ error: string }>(),
 );
+
+export const clearError = createAction(
+  '[Boards] Clear Error'
+)

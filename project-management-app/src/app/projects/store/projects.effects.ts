@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map, switchMap, catchError, of, mergeMap, forkJoin } from 'rxjs';
+import { HandleErrorsService } from 'src/app/shared/services/handle-error.service';
 import { selectUserId } from '../../store/selectors/auth.selector';
 import { selectProjectsIds } from './projects.selector';
 import { User } from '../models';
@@ -16,8 +17,9 @@ export class ProjectsEffects {
       switchMap(() =>
         this.projectsService.getProjects().pipe(
           map((projects) => ProjectsActions.getProjectsSuccess({ projects })),
-          catchError((error) =>
-            of(ProjectsActions.getProjectsError({ error: error.message })),
+          catchError((error) => {
+            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
+            return of(ProjectsActions.getProjectsError({ error: errorMessage }))},
           ),
         ),
       ),
@@ -59,8 +61,10 @@ export class ProjectsEffects {
             map((newProject) =>
               ProjectsActions.createProjectSuccess({ newProject }),
             ),
-            catchError((error) =>
-              of(ProjectsActions.createProjectError({ error: error.message })),
+            catchError((error) =>{
+              const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
+              return of(ProjectsActions.createProjectError({ error: errorMessage }))
+            }
             ),
           );
       }),
@@ -73,8 +77,10 @@ export class ProjectsEffects {
       mergeMap(({ id }) => {
         return this.projectsService.deleteProject(id).pipe(
           map(() => ProjectsActions.deleteProjectSuccess({ id })),
-          catchError((error) =>
-            of(ProjectsActions.deleteProjectError({ error: error.message })),
+          catchError((error) =>{
+            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
+            return of(ProjectsActions.deleteProjectError({ error: errorMessage }))
+          }
           ),
         );
       }),
@@ -91,8 +97,10 @@ export class ProjectsEffects {
             map((updatedProject) =>
               ProjectsActions.updateProjectSuccess({ updatedProject }),
             ),
-            catchError((error) =>
-              of(ProjectsActions.deleteProjectError({ error: error.message })),
+            catchError((error) => {
+                const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
+                return of(ProjectsActions.deleteProjectError({ error: errorMessage }))
+              }
             ),
           );
       }),
@@ -105,8 +113,10 @@ export class ProjectsEffects {
       switchMap(() => {
         return this.projectsService.getUsers().pipe(
           map((users: User[]) => ProjectsActions.getUsersSuccess({ users })),
-          catchError((error) =>
-            of(ProjectsActions.getUsersError({ error: error.message })),
+          catchError((error) => {
+            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
+            return of(ProjectsActions.getUsersError({ error: errorMessage }))
+          }
           ),
         );
       }),
@@ -117,5 +127,6 @@ export class ProjectsEffects {
     private actions$: Actions,
     private projectsService: ProjectsService,
     private store: Store,
+    private handleErrorsService: HandleErrorsService
   ) {}
 }

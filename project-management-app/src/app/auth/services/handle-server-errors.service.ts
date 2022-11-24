@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import * as AuthActions from '../../auth/store/auth.actions';
+import * as AuthActions from '../store/auth.actions';
 import * as EditActions from '../../user/store/edit-user.actions';
 
 @Injectable({ providedIn: 'root' })

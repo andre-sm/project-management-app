@@ -87,6 +87,8 @@ export const getUsersError = createAction(
   props<{ error: string }>(),
 );
 
+export const clearError = createAction('[Auth] Clear Error');
+
 export const setViewMode = createAction(
   '[Projects] Set View Mode',
   props<{ view: string }>(),

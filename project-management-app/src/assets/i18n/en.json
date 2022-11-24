@@ -170,6 +170,12 @@
       }
     }
   },
+  "ERROR_ALERT_PROJECTS": {
+    "default": "An unknown error occurred!",
+    "404": "Not found.",
+    "400": "Bad request",
+    "403": "Forbidden"
+  },
   "WELCOME": {
     "mainHeader": {
       "value": "Welcome",
