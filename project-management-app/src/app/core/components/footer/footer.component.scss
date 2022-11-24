@@ -1,9 +1,14 @@
 :host {
-  height: 120px;
+  height: 100px;
   display: flex;
   align-items: center;
+  padding: 40px;
   @media (min-width: 320px) and (max-width: 767px) {
+    padding: 0 20px;
     justify-content: center;
+  }
+  @media (min-width: 320px) and (max-width: 450px) {
+    padding: 0 5px;
   }
 }
 
@@ -11,32 +16,16 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   align-items: center;
-  @media (min-width: 320px) and (max-width: 767px) {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    * {
-      width: 100%;
-    }
-  }
 }
 
 .footer__copyright {
   grid-column: 1 / 2;
-  @media (min-width: 320px) and (max-width: 767px) {
-    justify-content: center;
-  }
 }
 
 .footer__team {
   grid-column: 2 / 11;
   display: flex;
   justify-content: space-evenly;
-
-  @media (min-width: 320px) and (max-width: 767px) {
-    flex-direction: column;
-    align-items: center;
-  }
 
   .team-member {
     text-decoration: none;
@@ -52,13 +41,35 @@
   .rs-school-link {
     display: flex;
     justify-content: flex-end;
-    @media (min-width: 320px) and (max-width: 767px) {
-      justify-content: flex-start;
-    }
   }
 
   .rs-school-logo {
     width: 50%;
     height: auto;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .footer-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .footer__copyright {
+    justify-content: center;
+  }
+  .footer__team {
+    flex-basis: 30%;
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer__rs-school {
+    flex-basis: 300px;
+  }
+  .rs-school-logo {
+    flex-basis: 50%;
+  }
+  .rs-school-link {
+    justify-content: flex-start;
   }
 }
