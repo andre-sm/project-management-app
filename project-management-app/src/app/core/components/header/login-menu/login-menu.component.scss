@@ -37,3 +37,9 @@
   transition: all 0.35s ease;
   cursor: pointer;
 }
+
+@media (min-width: 320px) and (max-width: 550px) {
+  .login__avatar {
+    display: none;
+  }
+}

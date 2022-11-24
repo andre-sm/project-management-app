@@ -7,6 +7,12 @@
   }
 }
 
+.hamburger-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .hidden {
   display: none;
 }
@@ -61,4 +67,25 @@
 .nav__link {
   text-decoration: none;
   color: $color-black-light;
+}
+
+@media (min-width: 320px) and (max-width: 450px) {
+  .line {
+    width: 20px;
+    margin: 5px auto;
+  }
+  #hamburger.opened .line:nth-child(1) {
+    width: 20px;
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  #hamburger.opened .line:nth-child(2) {
+    width: 20px;
+    display: none;
+  }
+
+  #hamburger.opened .line:nth-child(3) {
+    width: 20px;
+    transform: translateY(0) rotate(-45deg);
+  }
 }

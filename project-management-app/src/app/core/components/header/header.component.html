@@ -31,6 +31,12 @@
         'PROJECTS.actionPanel.addProjectBtn' | translate | uppercase
       }}</span>
     </button>
+    <button
+      class="new-project-btn btn new-project-btn__mobile"
+      (click)="openCreateProjectDialog()"
+    >
+      <mat-icon class="add-icon" aria-hidden="false" fontIcon="add"></mat-icon>
+    </button>
   </div>
   <div class="header__actions">
     <div class="header__language">
