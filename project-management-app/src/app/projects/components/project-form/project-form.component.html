@@ -24,7 +24,7 @@
     <mat-form-field appearance="fill">
       <mat-label>{{ 'PROJECTS.projectForm.userLabel' | translate }}</mat-label>
       <mat-select formControlName="users" multiple>
-        <mat-option *ngFor="let user of users$ | async" [value]="user.name">{{
+        <mat-option *ngFor="let user of users$ | async" [value]="user._id">{{
           user.name
         }}</mat-option>
       </mat-select>

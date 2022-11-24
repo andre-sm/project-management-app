@@ -26,12 +26,13 @@ export class BoardService {
 
   createColumn(
     title: string,
+    color: string,
     order: number,
     boardId: string | null,
   ): Observable<Column> {
     return this.http.post<Column>(
       `${environment.baseUrl}/boards/${boardId}/columns`,
-      { title, order },
+      { title, color, order },
     );
   }
 
@@ -43,6 +44,7 @@ export class BoardService {
 
   updateColumn(
     title: string,
+    color: string,
     id: string,
     order: number | null,
     boardId: string,
@@ -51,6 +53,7 @@ export class BoardService {
       `${environment.baseUrl}/boards/${boardId}/columns/${id}`,
       {
         title,
+        color,
         order,
       },
     );

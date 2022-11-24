@@ -15,6 +15,10 @@ export class ColumnFormComponent implements OnInit {
 
   formData: ColumnForm;
 
+  colors: string[] = ['#49c385', '#63baff', '#fcd347', '#4f30e5'];
+
+  selectedColor = '';
+
   constructor(
     private store: Store,
     private dialogRef: MatDialogRef<ColumnFormComponent>,
@@ -25,6 +29,10 @@ export class ColumnFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    this.selectedColor = this.formData.color;
+    this.columnForm.patchValue({
+      color: this.formData.color,
+    });
   }
 
   createForm(): void {
@@ -34,17 +42,21 @@ export class ColumnFormComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(64),
       ]),
+      color: new FormControl('', [Validators.required]),
     });
   }
 
   onSubmit(): void {
-    const { title } = this.columnForm.value;
+    const { title, color } = this.columnForm.value;
     if (this.formData.id === null) {
-      this.store.dispatch(BoardActions.createColumn({ title, order: 0 }));
+      this.store.dispatch(
+        BoardActions.createColumn({ title, color, order: 0 }),
+      );
     } else {
       this.store.dispatch(
         BoardActions.updateColumn({
           title,
+          color,
           id: this.formData.id,
           order: this.formData.order,
         }),
