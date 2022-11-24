@@ -12,7 +12,7 @@ export interface IEditResponse {
   _id: string;
   name: string;
   login: string;
-  color: string
+  color: string;
 }
 
 @Injectable()
@@ -32,7 +32,7 @@ export class EditEffects {
             name,
             login,
             password,
-            color
+            color,
           })
           .pipe(
             map((data) => {
@@ -44,7 +44,7 @@ export class EditEffects {
                 login: data.login,
                 userId: data._id,
                 token: oldUser.token as string,
-                color: data.color
+                color: data.color,
               };
               localStorage.setItem('currentUser', JSON.stringify(updatedUser));
               return EditActions.editUserSuccess(updatedUser);

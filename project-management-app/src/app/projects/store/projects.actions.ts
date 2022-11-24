@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Project, User } from '../models';
+import { Task } from '../../project-board/models';
 
 export const getProjects = createAction('[Projects] Get Projects');
 
@@ -10,6 +11,16 @@ export const getProjectsSuccess = createAction(
 
 export const getProjectsError = createAction(
   '[Projects] Get Projects Error',
+  props<{ error: string }>(),
+);
+
+export const getProjectsTasksSuccess = createAction(
+  '[Projects] Get All Tasks Success',
+  props<{ tasks: Task[] }>(),
+);
+
+export const getProjectsTasksError = createAction(
+  '[Projects] Get All Tasks Error',
   props<{ error: string }>(),
 );
 
@@ -74,4 +85,9 @@ export const getUsersSuccess = createAction(
 export const getUsersError = createAction(
   '[Users] Get Users Error',
   props<{ error: string }>(),
+);
+
+export const setViewMode = createAction(
+  '[Projects] Set View Mode',
+  props<{ view: string }>(),
 );

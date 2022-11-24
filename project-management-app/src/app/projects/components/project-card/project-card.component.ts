@@ -8,14 +8,12 @@ import { ProjectFormComponent } from '../project-form/project-form.component';
 import * as ProjectActions from '../../store/projects.actions';
 
 @Component({
-  selector: 'app-projects-list',
-  templateUrl: './projects-list.component.html',
-  styleUrls: ['./projects-list.component.scss'],
+  selector: 'app-project-card',
+  templateUrl: './project-card.component.html',
+  styleUrls: ['./project-card.component.scss'],
 })
-export class ProjectsListComponent {
-  displayedColumns = ['owner', 'title', 'description', 'tasks', 'actions'];
-
-  @Input() projects!: ProjectRender[];
+export class ProjectCardComponent {
+  @Input() project!: ProjectRender;
 
   constructor(
     public dialog: MatDialog,
@@ -50,7 +48,6 @@ export class ProjectsListComponent {
 
   editDialog(event: Event, id: string): void {
     event.stopPropagation();
-    const selectedProject = this.projects.find((item) => item._id === id);
 
     const editDialogConfig = new MatDialogConfig();
     editDialogConfig.disableClose = true;
@@ -59,10 +56,10 @@ export class ProjectsListComponent {
       .get('PROJECTS.projectsList.editDialog')
       .subscribe((config) => {
         editDialogConfig.data = {
-          title: selectedProject?.title,
-          description: selectedProject?.description,
-          owner: selectedProject?.owner,
-          users: selectedProject?.users,
+          title: this.project?.title,
+          description: this.project?.description,
+          owner: this.project?.owner,
+          users: this.project?.users,
           formTitle: config.formTitle,
           confirmText: config.confirmText,
           cancelText: config.cancelText,
@@ -70,5 +67,9 @@ export class ProjectsListComponent {
         };
       });
     this.dialog.open(ProjectFormComponent, editDialogConfig);
+  }
+
+  onEvent(event: Event) {
+    event.stopPropagation();
   }
 }

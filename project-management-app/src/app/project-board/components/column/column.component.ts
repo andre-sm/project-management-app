@@ -95,8 +95,6 @@ export class ColumnComponent {
         };
       });
 
-
-
     this.dialog.open(TaskFormComponent, editDialogConfig);
   }
 
@@ -106,15 +104,14 @@ export class ColumnComponent {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     this.translate
-    .get('PROJECT_BOARD.taskForm.deleteDialog')
-    .subscribe((config) => {
-      dialogConfig.data = {
-        message: config.message,
-        confirmText: config.confirmText,
-        cancelText: config.cancelText,
-      };
-    })
-
+      .get('PROJECT_BOARD.taskForm.deleteDialog')
+      .subscribe((config) => {
+        dialogConfig.data = {
+          message: config.message,
+          confirmText: config.confirmText,
+          cancelText: config.cancelText,
+        };
+      });
 
     const dialogRef = this.dialog.open(ConfirmModalComponent, dialogConfig);
 

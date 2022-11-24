@@ -33,9 +33,6 @@ export class ProjectFormComponent implements OnInit {
     this.projectForm.patchValue({
       users: this.formData.users,
     });
-
-    this.store.dispatch(ProjectsActions.getUsers());
-
     this.users$ = this.store.select(selectUsers);
   }
 
