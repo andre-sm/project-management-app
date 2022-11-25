@@ -79,19 +79,16 @@
   }
 }
 
+@media (min-width: 320px) and (max-width: 600px) {
+  .projects {
+    &__search-bar {
+      flex-basis: 100%;
+    }
+  }
+}
+
 @media (min-width: 320px) and (max-width: 450px) {
   .action-panel-container {
     padding: 20px 5px;
-  }
-  .projects {
-    flex-wrap: wrap;
-    &__info {
-      flex: 1;
-      flex-basis: 50%;
-    }
-    &__search-bar {
-      flex-basis: 100%;
-      order: 3;
-    }
   }
 }
