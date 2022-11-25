@@ -1,9 +1,27 @@
 <form class="search-form">
-  <input
+  <!-- <input
     class="search-form__input"
     type="search"
     name="search"
     [placeholder]="'PROJECTS.actionPanel.search.placeholder' | translate"
     #searchInput
-  />
+  /> -->
+  <mat-form-field class="example-full-width" appearance="fill">
+    <input
+      #searchInput
+      matInput
+      aria-label="State"
+      [placeholder]="'PROJECTS.actionPanel.search.placeholder' | translate"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option> TITLE | DESCRIPTION </mat-option>
+      <mat-option *ngFor="let search of searchResults">
+        <a href="/projects/board/{{ search.boardId }}">
+          {{ search.title }} |
+          {{ search.description }}
+        </a>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
 </form>

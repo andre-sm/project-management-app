@@ -18,9 +18,13 @@ export class ProjectsEffects {
         this.projectsService.getProjects().pipe(
           map((projects) => ProjectsActions.getProjectsSuccess({ projects })),
           catchError((error) => {
-            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
-            return of(ProjectsActions.getProjectsError({ error: errorMessage }))},
-          ),
+            const errorMessage = this.handleErrorsService.handleErrorMessage(
+              error.status,
+            );
+            return of(
+              ProjectsActions.getProjectsError({ error: errorMessage }),
+            );
+          }),
         ),
       ),
     );
@@ -61,11 +65,14 @@ export class ProjectsEffects {
             map((newProject) =>
               ProjectsActions.createProjectSuccess({ newProject }),
             ),
-            catchError((error) =>{
-              const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
-              return of(ProjectsActions.createProjectError({ error: errorMessage }))
-            }
-            ),
+            catchError((error) => {
+              const errorMessage = this.handleErrorsService.handleErrorMessage(
+                error.status,
+              );
+              return of(
+                ProjectsActions.createProjectError({ error: errorMessage }),
+              );
+            }),
           );
       }),
     );
@@ -77,11 +84,14 @@ export class ProjectsEffects {
       mergeMap(({ id }) => {
         return this.projectsService.deleteProject(id).pipe(
           map(() => ProjectsActions.deleteProjectSuccess({ id })),
-          catchError((error) =>{
-            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
-            return of(ProjectsActions.deleteProjectError({ error: errorMessage }))
-          }
-          ),
+          catchError((error) => {
+            const errorMessage = this.handleErrorsService.handleErrorMessage(
+              error.status,
+            );
+            return of(
+              ProjectsActions.deleteProjectError({ error: errorMessage }),
+            );
+          }),
         );
       }),
     );
@@ -98,10 +108,13 @@ export class ProjectsEffects {
               ProjectsActions.updateProjectSuccess({ updatedProject }),
             ),
             catchError((error) => {
-                const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
-                return of(ProjectsActions.deleteProjectError({ error: errorMessage }))
-              }
-            ),
+              const errorMessage = this.handleErrorsService.handleErrorMessage(
+                error.status,
+              );
+              return of(
+                ProjectsActions.deleteProjectError({ error: errorMessage }),
+              );
+            }),
           );
       }),
     );
@@ -114,10 +127,11 @@ export class ProjectsEffects {
         return this.projectsService.getUsers().pipe(
           map((users: User[]) => ProjectsActions.getUsersSuccess({ users })),
           catchError((error) => {
-            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
-            return of(ProjectsActions.getUsersError({ error: errorMessage }))
-          }
-          ),
+            const errorMessage = this.handleErrorsService.handleErrorMessage(
+              error.status,
+            );
+            return of(ProjectsActions.getUsersError({ error: errorMessage }));
+          }),
         );
       }),
     );
@@ -127,6 +141,6 @@ export class ProjectsEffects {
     private actions$: Actions,
     private projectsService: ProjectsService,
     private store: Store,
-    private handleErrorsService: HandleErrorsService
+    private handleErrorsService: HandleErrorsService,
   ) {}
 }

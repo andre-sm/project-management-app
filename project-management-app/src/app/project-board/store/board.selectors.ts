@@ -78,10 +78,10 @@ export const selectColumnsTitles = createSelector(
 
 export const selectError = createSelector(
   selectBoardState,
-  (state) => state.error
-)
+  (state) => state.error,
+);
 
 export const selectIsLoading = createSelector(
   selectBoardState,
-  (state) => state.isLoading
-)
+  (state) => state.isLoading,
+);

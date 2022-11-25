@@ -93,6 +93,6 @@ export const selectSearchResult = createSelector(
       );
       return modifiedTasks;
     }
-    return;
+    return undefined;
   },
 );

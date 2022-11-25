@@ -18,10 +18,11 @@ export class BoardEffects {
         return this.boardService.getBoardById(id).pipe(
           map((board: Board) => BoardActions.getBoardSuccess({ board })),
           catchError((error) => {
-            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
-            return of(BoardActions.getBoardError({ error: errorMessage }))
-          }
-          ),
+            const errorMessage = this.handleErrorsService.handleErrorMessage(
+              error.status,
+            );
+            return of(BoardActions.getBoardError({ error: errorMessage }));
+          }),
         );
       }),
     );
@@ -37,10 +38,11 @@ export class BoardEffects {
             BoardActions.getColumnsSuccess({ columns }),
           ),
           catchError((error) => {
-            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
-            return of(BoardActions.getColumnsError({ error: errorMessage }))
-          }
-          ),
+            const errorMessage = this.handleErrorsService.handleErrorMessage(
+              error.status,
+            );
+            return of(BoardActions.getColumnsError({ error: errorMessage }));
+          }),
         );
       }),
     );
@@ -54,10 +56,11 @@ export class BoardEffects {
         return this.boardService.getTasks(boardId).pipe(
           map((tasks: Task[]) => BoardActions.getTasksSuccess({ tasks })),
           catchError((error) => {
-            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
-            return of(BoardActions.getTasksError({ error: errorMessage }))
-          }
-          ),
+            const errorMessage = this.handleErrorsService.handleErrorMessage(
+              error.status,
+            );
+            return of(BoardActions.getTasksError({ error: errorMessage }));
+          }),
         );
       }),
     );
@@ -73,10 +76,11 @@ export class BoardEffects {
             BoardActions.createColumnSuccess({ newColumn }),
           ),
           catchError((error) => {
-            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
-            return of(BoardActions.createColumnError({ error: errorMessage }))
-          }
-          ),
+            const errorMessage = this.handleErrorsService.handleErrorMessage(
+              error.status,
+            );
+            return of(BoardActions.createColumnError({ error: errorMessage }));
+          }),
         );
       }),
     );
@@ -90,11 +94,11 @@ export class BoardEffects {
         return this.boardService.deleteColumn(id, boardId).pipe(
           map(() => BoardActions.deleteColumnSuccess({ id })),
           catchError((error) => {
-            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
-            return of(BoardActions.deleteColumnError({ error: errorMessage }))
-          }
-
-          ),
+            const errorMessage = this.handleErrorsService.handleErrorMessage(
+              error.status,
+            );
+            return of(BoardActions.deleteColumnError({ error: errorMessage }));
+          }),
         );
       }),
     );
@@ -112,11 +116,13 @@ export class BoardEffects {
               BoardActions.updateColumnSuccess({ updatedColumn }),
             ),
             catchError((error) => {
-              const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
-              return of(BoardActions.updateColumnError({ error: errorMessage }))
-            }
-
-            ),
+              const errorMessage = this.handleErrorsService.handleErrorMessage(
+                error.status,
+              );
+              return of(
+                BoardActions.updateColumnError({ error: errorMessage }),
+              );
+            }),
           );
       }),
     );
@@ -147,11 +153,12 @@ export class BoardEffects {
                 BoardActions.createTaskSuccess({ newTask }),
               ),
               catchError((error) => {
-                const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
-                return of(BoardActions.createTaskError({ error: errorMessage }))
-              }
-
-              ),
+                const errorMessage =
+                  this.handleErrorsService.handleErrorMessage(error.status);
+                return of(
+                  BoardActions.createTaskError({ error: errorMessage }),
+                );
+              }),
             );
         },
       ),
@@ -187,10 +194,12 @@ export class BoardEffects {
                 BoardActions.updateTaskSuccess({ updatedTask }),
               ),
               catchError((error) => {
-                const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
-                return of(BoardActions.updateTaskError({ error: errorMessage }))
-              }
-              ),
+                const errorMessage =
+                  this.handleErrorsService.handleErrorMessage(error.status);
+                return of(
+                  BoardActions.updateTaskError({ error: errorMessage }),
+                );
+              }),
             );
         },
       ),
@@ -205,10 +214,11 @@ export class BoardEffects {
         return this.boardService.deleteTask(id, columnId, boardId).pipe(
           map(() => BoardActions.deleteTaskSuccess({ id })),
           catchError((error) => {
-            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
-            return of(BoardActions.deleteTaskError({ error: errorMessage }))
-          }
-          ),
+            const errorMessage = this.handleErrorsService.handleErrorMessage(
+              error.status,
+            );
+            return of(BoardActions.deleteTaskError({ error: errorMessage }));
+          }),
         );
       }),
     );
@@ -223,10 +233,13 @@ export class BoardEffects {
             BoardActions.updateTasksSetSuccess({ updatedTasks }),
           ),
           catchError((error) => {
-            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
-            return of(BoardActions.updateTasksSetError({ error: errorMessage }))
-          }
-          ),
+            const errorMessage = this.handleErrorsService.handleErrorMessage(
+              error.status,
+            );
+            return of(
+              BoardActions.updateTasksSetError({ error: errorMessage }),
+            );
+          }),
         );
       }),
     );
@@ -236,6 +249,6 @@ export class BoardEffects {
     private actions$: Actions,
     private boardService: BoardService,
     private store: Store,
-    private handleErrorsService: HandleErrorsService
+    private handleErrorsService: HandleErrorsService,
   ) {}
 }

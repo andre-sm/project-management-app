@@ -24,7 +24,7 @@ export const initialState: BoardFeatureState = {
 
 export const projectsReducer = createReducer(
   initialState,
-  on (
+  on(
     BoardActions.getBoard,
     (state): BoardFeatureState => ({
       ...state,
@@ -41,7 +41,7 @@ export const projectsReducer = createReducer(
         tasks: [],
       },
       taskColumnFilter: '',
-    })
+    }),
   ),
   on(BoardActions.getBoardSuccess, (state, { board }): BoardFeatureState => {
     return {
@@ -269,7 +269,7 @@ export const projectsReducer = createReducer(
     BoardActions.clearError,
     (state): BoardFeatureState => ({
       ...state,
-      error: null
-    })
-  )
+      error: null,
+    }),
+  ),
 );

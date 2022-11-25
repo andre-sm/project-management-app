@@ -10,6 +10,17 @@ import {
 import { selectSearchResult } from 'src/app/projects/store/projects.selector';
 import * as ProjectsActions from '../../../projects/store/projects.actions';
 
+export interface SearchTasks {
+  boardId: string;
+  columnId: string;
+  description: string;
+  order: number;
+  title: string;
+  userId: string;
+  users: Array<{ name: string; id: string }>;
+  _id: string;
+}
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -18,6 +29,8 @@ import * as ProjectsActions from '../../../projects/store/projects.actions';
 export class SearchComponent implements AfterViewInit {
   @ViewChild('searchInput', { static: true })
   searchInput!: ElementRef;
+
+  searchResults!: SearchTasks[] | undefined;
 
   constructor(private store: Store) {}
 
@@ -35,12 +48,13 @@ export class SearchComponent implements AfterViewInit {
               }),
             );
             this.store.select(selectSearchResult).subscribe((result) => {
-              console.log(result);
+              this.searchResults = result;
             });
           } else {
             this.store.dispatch(
               ProjectsActions.setGlobalSearch({ globalSearchValue: '' }),
             );
+            this.searchResults = undefined;
           }
         }),
       )
