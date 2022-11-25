@@ -10,13 +10,15 @@
     </div>
     <nav class="header__navbar nav">
       <ul class="nav__list">
-        <ng-template [isAuthenticated]="isAuthenticated$ | async">
-          <li class="nav__item" routerLinkActive="active">
-            <a routerLink="/projects" class="nav__link">{{
-              'HEADER.nav.projects' | translate
-            }}</a>
-          </li>
-        </ng-template>
+        <li
+          class="nav__item"
+          routerLinkActive="active"
+          *ngIf="isAuthenticated$ | async"
+        >
+          <a routerLink="/projects" class="nav__link">{{
+            'HEADER.nav.projects' | translate
+          }}</a>
+        </li>
       </ul>
     </nav>
     <button
