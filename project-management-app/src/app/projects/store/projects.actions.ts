@@ -93,3 +93,8 @@ export const setViewMode = createAction(
   '[Projects] Set View Mode',
   props<{ view: string }>(),
 );
+
+export const setGlobalSearch = createAction(
+  '[Projects] Set Global Search',
+  props<{ globalSearchValue: string }>(),
+);

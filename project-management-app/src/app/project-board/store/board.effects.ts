@@ -74,6 +74,7 @@ export class BoardEffects {
   createColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(BoardActions.createColumn),
+
       concatLatestFrom(() => [
         this.store.select(selectBoardId),
         this.store.select(selectNextColumnOrder),
@@ -94,6 +95,7 @@ export class BoardEffects {
               );
             }),
           );
+
       }),
     );
   });
@@ -263,6 +265,7 @@ export class BoardEffects {
               BoardActions.updateTasksSetError({ error: errorMessage }),
             );
           }),
+
         );
       }),
     );
@@ -279,6 +282,7 @@ export class BoardEffects {
           catchError((error) =>
             of(BoardActions.updateColumnsSetError({ error: error.message })),
           ),
+
         );
       }),
     );
