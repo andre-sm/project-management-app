@@ -7,6 +7,7 @@ import {
   fromEvent,
   tap,
 } from 'rxjs';
+import { selectSearchResult } from 'src/app/projects/store/projects.selector';
 import * as ProjectsActions from '../../../projects/store/projects.actions';
 
 @Component({
@@ -29,8 +30,13 @@ export class SearchComponent implements AfterViewInit {
         tap(() => {
           if (this.searchInput.nativeElement.value.length >= 3) {
             this.store.dispatch(
-              ProjectsActions.setGlobalSearch({ globalSearchValue: this.searchInput.nativeElement.value }),
+              ProjectsActions.setGlobalSearch({
+                globalSearchValue: this.searchInput.nativeElement.value,
+              }),
             );
+            this.store.select(selectSearchResult).subscribe((result) => {
+              console.log(result);
+            });
           } else {
             this.store.dispatch(
               ProjectsActions.setGlobalSearch({ globalSearchValue: '' }),
