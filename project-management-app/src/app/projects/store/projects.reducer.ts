@@ -119,8 +119,8 @@ export const projectsReducer = createReducer(
     ProjectActions.clearError,
     (state): ProjectsState => ({
       ...state,
-      error: null
-    })
+      error: null,
+    }),
   ),
   on(ProjectActions.setViewMode, (state, { view }): ProjectsState => {
     return {

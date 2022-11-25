@@ -24,7 +24,7 @@ export const initialState: BoardFeatureState = {
 
 export const projectsReducer = createReducer(
   initialState,
-  on (
+  on(
     BoardActions.getBoard,
     (state): BoardFeatureState => ({
       ...state,
@@ -41,7 +41,7 @@ export const projectsReducer = createReducer(
         tasks: [],
       },
       taskColumnFilter: '',
-    })
+    }),
   ),
   on(BoardActions.getBoardSuccess, (state, { board }): BoardFeatureState => {
     return {
@@ -172,6 +172,30 @@ export const projectsReducer = createReducer(
     }),
   ),
   on(
+    BoardActions.updateColumnsSetSuccess,
+    (state, { updatedColumns }): BoardFeatureState => {
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          columns: state.board.columns.map((column) => {
+            const updated = updatedColumns.find(
+              (updatedColumn) => column._id === updatedColumn._id,
+            );
+            return updated || column;
+          }),
+        },
+      };
+    },
+  ),
+  on(
+    BoardActions.updateColumnsSetError,
+    (state, { error }): BoardFeatureState => ({
+      ...state,
+      error,
+    }),
+  ),
+  on(
     BoardActions.setTaskColumnFilter,
     (state, { filterValue }): BoardFeatureState => ({
       ...state,
@@ -269,7 +293,7 @@ export const projectsReducer = createReducer(
     BoardActions.clearError,
     (state): BoardFeatureState => ({
       ...state,
-      error: null
-    })
-  )
+      error: null,
+    }),
+  ),
 );

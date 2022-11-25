@@ -1,5 +1,5 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { Column, Task } from '../models';
+import { Column, Task, ColumnSet } from '../models';
 import * as fromBoard from './board.reducer';
 import { BoardFeatureState } from './models';
 
@@ -34,6 +34,38 @@ export const selectBoardColumns = createSelector(
       (columnA, columnB) => columnA.order - columnB.order,
     ),
 );
+
+export const selectBoardColumnsIds = createSelector(
+  selectBoardColumns,
+  (columns: Column[]) => {
+    return columns.map((column) => column._id);
+  },
+);
+
+export const selectNextColumnOrder = createSelector(
+  selectBoardColumns,
+  (columns: Column[]) => {
+    return columns.length === 0
+      ? 0
+      : Math.max(...columns.map((column) => column.order)) + 1;
+  },
+);
+
+export const selectNewColumnOrder = (index: number) =>
+  createSelector(
+    selectBoardColumns,
+    (columns: Column[]): ColumnSet[] | null => {
+      if (index !== columns.length - 1) {
+        return columns.slice(index + 1).map((item) => {
+          return {
+            _id: item._id,
+            order: item.order - 1,
+          };
+        });
+      }
+      return null;
+    },
+  );
 
 export const selectColumnsWithTasks = createSelector(
   selectTasks,
@@ -78,10 +110,10 @@ export const selectColumnsTitles = createSelector(
 
 export const selectError = createSelector(
   selectBoardState,
-  (state) => state.error
-)
+  (state) => state.error,
+);
 
 export const selectIsLoading = createSelector(
   selectBoardState,
-  (state) => state.isLoading
-)
+  (state) => state.isLoading,
+);

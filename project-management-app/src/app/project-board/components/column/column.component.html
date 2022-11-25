@@ -28,13 +28,16 @@
   <div
     class="column__body"
     cdkDropList
+    id="{{ column._id }}"
     [attr.data-columnId]="column._id"
     [cdkDropListData]="column.tasks"
+    [cdkDropListConnectedTo]="columnsIds"
     (cdkDropListDropped)="drop($event)"
   >
     <app-task
       *ngFor="let task of column.tasks; let i = index"
       [task]="task"
+      [cdkDragData]="task"
       (click)="editTaskDialog(task)"
       (deleteClick)="deleteTaskDialog(task, i)"
       (cdkDragStarted)="cdkDragStarted($event)"
