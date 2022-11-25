@@ -190,3 +190,5 @@ export const updateColumnsSetError = createAction(
   '[Column] Update Column Set Error',
   props<{ error: string }>(),
 );
+
+export const clearError = createAction('[Boards] Clear Error');

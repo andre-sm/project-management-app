@@ -7,5 +7,5 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
   styleUrls: ['./alert-component.component.scss'],
 })
 export class AlertComponent {
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: string) {}
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: string | null) {}
 }
