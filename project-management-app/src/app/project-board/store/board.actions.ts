@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Column, Board, Task, TaskSet } from '../models';
+import { ColumnSet } from '../models/column-set.model';
 
 export const getBoard = createAction(
   '[Board] Get Board',
@@ -28,7 +29,7 @@ export const getColumnsError = createAction(
 
 export const createColumn = createAction(
   '[Column] Create Column',
-  props<{ title: string; color: string; order: number }>(),
+  props<{ title: string; color: string }>(),
 );
 
 export const createColumnSuccess = createAction(
@@ -43,7 +44,7 @@ export const createColumnError = createAction(
 
 export const deleteColumn = createAction(
   '[Column] Delete Column',
-  props<{ id: string }>(),
+  props<{ id: string; currentOrder: number }>(),
 );
 
 export const deleteColumnSuccess = createAction(
@@ -55,6 +56,21 @@ export const deleteColumnError = createAction(
   '[Column] Delete Column Error',
   props<{ error: string }>(),
 );
+
+// export const updateColumnsOrder = createAction(
+//   '[Column] Update Columns Order',
+//   props<{ newOrder: { _id: string; order: number }[] }>(),
+// );
+
+// export const updateColumnsOrderSuccess = createAction(
+//   '[Column] Update Columns Order Success',
+//   props<{ updatedColumns: Column[] }>(),
+// );
+
+// export const updateColumnsOrderError = createAction(
+//   '[Column] Update Columns Order Error',
+//   props<{ error: string }>(),
+// );
 
 export const updateColumn = createAction(
   '[Column] Update Column',
@@ -157,6 +173,21 @@ export const updateTasksSetSuccess = createAction(
 
 export const updateTasksSetError = createAction(
   '[TasksSet] Update Tasks Set Error',
+  props<{ error: string }>(),
+);
+
+export const updateColumnsSet = createAction(
+  '[Column] Update Column Set',
+  props<{ columns: ColumnSet[] }>(),
+);
+
+export const updateColumnsSetSuccess = createAction(
+  '[Column] Update Column Set Success',
+  props<{ updatedColumns: Column[] }>(),
+);
+
+export const updateColumnsSetError = createAction(
+  '[Column] Update Column Set Error',
   props<{ error: string }>(),
 );
 

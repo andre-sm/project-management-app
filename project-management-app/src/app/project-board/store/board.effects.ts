@@ -7,7 +7,12 @@ import { selectUserId } from 'src/app/store/selectors/auth.selector';
 import { Column, Board, Task } from '../models';
 import { BoardService } from '../services/board.service';
 import * as BoardActions from './board.actions';
-import { selectBoardId, selectNextTaskOrder } from './board.selectors';
+import {
+  selectBoardId,
+  selectNextColumnOrder,
+  selectNextTaskOrder,
+  selectNewColumnOrder,
+} from './board.selectors';
 
 @Injectable()
 export class BoardEffects {
@@ -69,19 +74,28 @@ export class BoardEffects {
   createColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(BoardActions.createColumn),
-      concatLatestFrom(() => this.store.select(selectBoardId)),
-      mergeMap(([{ title, color, order }, id]) => {
-        return this.boardService.createColumn(title, color, order, id).pipe(
-          map((newColumn: Column) =>
-            BoardActions.createColumnSuccess({ newColumn }),
-          ),
-          catchError((error) => {
-            const errorMessage = this.handleErrorsService.handleErrorMessage(
-              error.status,
-            );
-            return of(BoardActions.createColumnError({ error: errorMessage }));
-          }),
-        );
+
+      concatLatestFrom(() => [
+        this.store.select(selectBoardId),
+        this.store.select(selectNextColumnOrder),
+      ]),
+      mergeMap(([{ title, color }, boardId, order]) => {
+        return this.boardService
+          .createColumn(title, color, boardId, order)
+          .pipe(
+            map((newColumn: Column) =>
+              BoardActions.createColumnSuccess({ newColumn }),
+            ),
+            catchError((error) => {
+              const errorMessage = this.handleErrorsService.handleErrorMessage(
+                error.status,
+              );
+              return of(
+                BoardActions.createColumnError({ error: errorMessage }),
+              );
+            }),
+          );
+
       }),
     );
   });
@@ -89,10 +103,21 @@ export class BoardEffects {
   deleteColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(BoardActions.deleteColumn),
-      concatLatestFrom(() => this.store.select(selectBoardId)),
-      mergeMap(([{ id }, boardId]) => {
+      concatLatestFrom((action) => [
+        this.store.select(selectNewColumnOrder(action.currentOrder)),
+        this.store.select(selectBoardId),
+      ]),
+      mergeMap(([{ id }, columns, boardId]) => {
         return this.boardService.deleteColumn(id, boardId).pipe(
-          map(() => BoardActions.deleteColumnSuccess({ id })),
+          switchMap(() => {
+            if (columns) {
+              return [
+                BoardActions.deleteColumnSuccess({ id }),
+                BoardActions.updateColumnsSet({ columns }),
+              ];
+            }
+            return [BoardActions.deleteColumnSuccess({ id })];
+          }),
           catchError((error) => {
             const errorMessage = this.handleErrorsService.handleErrorMessage(
               error.status,
@@ -240,6 +265,24 @@ export class BoardEffects {
               BoardActions.updateTasksSetError({ error: errorMessage }),
             );
           }),
+
+        );
+      }),
+    );
+  });
+
+  updateColumnsSet$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardActions.updateColumnsSet),
+      mergeMap(({ columns }) => {
+        return this.boardService.updateColumnsSet(columns).pipe(
+          map((updatedColumns) =>
+            BoardActions.updateColumnsSetSuccess({ updatedColumns }),
+          ),
+          catchError((error) =>
+            of(BoardActions.updateColumnsSetError({ error: error.message })),
+          ),
+
         );
       }),
     );

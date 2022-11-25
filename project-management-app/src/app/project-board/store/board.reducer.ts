@@ -172,6 +172,30 @@ export const projectsReducer = createReducer(
     }),
   ),
   on(
+    BoardActions.updateColumnsSetSuccess,
+    (state, { updatedColumns }): BoardFeatureState => {
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          columns: state.board.columns.map((column) => {
+            const updated = updatedColumns.find(
+              (updatedColumn) => column._id === updatedColumn._id,
+            );
+            return updated || column;
+          }),
+        },
+      };
+    },
+  ),
+  on(
+    BoardActions.updateColumnsSetError,
+    (state, { error }): BoardFeatureState => ({
+      ...state,
+      error,
+    }),
+  ),
+  on(
     BoardActions.setTaskColumnFilter,
     (state, { filterValue }): BoardFeatureState => ({
       ...state,

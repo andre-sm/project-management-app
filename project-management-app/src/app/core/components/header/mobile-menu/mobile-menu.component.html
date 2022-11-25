@@ -1,0 +1,57 @@
+<div class="hamburger-container">
+  <label
+    for="open-toggler"
+    id="hamburger"
+    class="hamburger"
+    [ngClass]="{ opened: triggerMenu.menuOpen }"
+    (click)="onClick()"
+  >
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+  </label>
+  <input
+    id="open-toggler"
+    type="checkbox"
+    class="opacity checkbox"
+    [matMenuTriggerFor]="mainMenu"
+    #triggerMenu="matMenuTrigger"
+  />
+  <mat-menu #mainMenu class="main-nav__mobile" xPosition="before">
+    <ul class="nav__list">
+      <li class="nav__item" routerLinkActive="active" *ngIf="isAuthenticated">
+        <a routerLink="/projects" class="nav__link">{{
+          'HEADER.nav.projects' | translate
+        }}</a>
+      </li>
+      <li class="nav__item" *ngIf="isAuthenticated">
+        <a
+          routerLinkActive="router-link-active"
+          class="nav__link"
+          routerLink="/edit-user"
+        >
+          {{ 'HEADER.buttons.editUser' | translate }}
+        </a>
+      </li>
+      <li class="nav__item" *ngIf="isAuthenticated">
+        <a
+          routerLinkActive="router-link-active"
+          class="nav__link"
+          (click)="onLogout()"
+        >
+          {{ 'HEADER.buttons.logout' | translate }}
+        </a>
+      </li>
+      <li class="nav__item" *ngIf="!isAuthenticated">
+        <a class="login__item nav__link" routerLink="/auth/login"
+          >{{ 'HEADER.buttons.signin' | translate }}
+        </a>
+      </li>
+      <li class="nav__item" *ngIf="!isAuthenticated">
+        <a routerLink="/auth/signup" class="sign-in-link nav__link">{{
+          'HEADER.buttons.signup' | translate
+        }}</a>
+      </li>
+    </ul>
+  </mat-menu>
+</div>

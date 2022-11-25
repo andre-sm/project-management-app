@@ -21,6 +21,7 @@
     padding: 30px 0;
     text-align: center;
     cursor: pointer;
+    margin-right: 5px;
   }
 
   &__language {
@@ -65,6 +66,8 @@
     font-size: 1.3em;
     margin: 0;
     transition: all 0.35s ease;
+    padding: 0;
+    margin-bottom: 0;
   }
 
   &__item {
@@ -84,7 +87,6 @@
 
 .nav__link:hover,
 .nav__list .active .nav__link {
-
 }
 
 .toggle-lable {
@@ -119,5 +121,76 @@
 }
 
 .new-project-btn:hover {
+}
 
+.new-project-btn__mobile {
+  display: none;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .mobile-menu {
+    display: block;
+  }
+  .nav {
+    display: none;
+  }
+
+  .nav-container {
+    order: 1;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .header {
+    padding: 0 20px;
+  }
+  .new-project-btn {
+    display: none;
+  }
+
+  .new-project-btn__mobile {
+    display: flex;
+    flex-basis: 20%;
+    padding: 10px;
+    min-width: 58px;
+    justify-content: center;
+    order: 1;
+  }
+  .add-icon {
+    justify-content: center;
+  }
+  .mobile-menu {
+    order: 2;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 550px) {
+  .header {
+    &__logo {
+      font-size: 28px;
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 450px) {
+  .header {
+    padding: 0 5px;
+  }
+  .new-project-btn__mobile {
+    display: flex;
+    flex-basis: 20%;
+    padding: 5px;
+    min-width: 30px;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 400px) {
+  .nav-container,
+  .header__actions {
+    gap: 10px;
+  }
+  .toggle-lable {
+    font-size: 12px;
+  }
 }

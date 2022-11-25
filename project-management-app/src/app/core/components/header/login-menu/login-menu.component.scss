@@ -1,5 +1,9 @@
 @import '../../../../shared/variables';
-
+:host {
+  @media (min-width: 320px) and (max-width: 767px) {
+    display: none;
+  }
+}
 .login {
   display: flex;
   justify-content: center;
@@ -36,4 +40,10 @@
   text-decoration: none;
   transition: all 0.35s ease;
   cursor: pointer;
+}
+
+@media (min-width: 320px) and (max-width: 550px) {
+  .login__avatar {
+    display: none;
+  }
 }
