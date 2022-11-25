@@ -22,11 +22,14 @@
   &__search-bar {
     flex-basis: 40%;
     margin: 20px 20px 20px 0;
+    flex-shrink: 1;
   }
 
   &__buttons {
     display: flex;
     gap: 10px;
+    flex-basis: 397px;
+    flex-shrink: 0;
   }
 }
 
@@ -61,7 +64,7 @@
   font-size: 20px;
 }
 
-@media (min-width: 320px) and (max-width: 1033px) {
+@media (min-width: 768px) and (max-width: 1033px) {
   .board {
     flex-wrap: wrap;
     padding: 20px;
@@ -70,6 +73,54 @@
     }
     &__search-bar {
       flex-basis: 40%;
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .board {
+    flex-wrap: wrap;
+    padding: 20px;
+    &__info {
+      width: 50%;
+    }
+    &__search-bar {
+      flex-basis: 100%;
+      margin: 20px 0 20px;
+      order: 3;
+    }
+    &__buttons {
+      flex-direction: column;
+      flex-basis: 194.891px;
+    }
+    .btn {
+      justify-content: space-between;
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 675px) {
+  .btn {
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 450px) {
+  .board {
+    &__buttons {
+      flex-direction: row;
+      flex-basis: 46px;
+      .btn {
+        padding: 15px 15px;
+      }
+      span {
+        display: none;
+      }
+      .add-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 }

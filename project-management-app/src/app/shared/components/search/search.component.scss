@@ -15,7 +15,7 @@
     transition: all 0.35s ease;
   }
 }
-@media (min-width: 320px) and (max-width: 600px) {
+@media (min-width: 320px) and (max-width: 767px) {
   .search-form {
     &__input {
       width: 100%;
