@@ -1,19 +1,22 @@
+@import '../../../shared/variables';
 :host {
-  height: 100px;
+  background-color: $color-grey-lighter;
+  border-top: 1px solid $color-grey-light;
+}
+
+.footer {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 40px;
-  @media (min-width: 320px) and (max-width: 767px) {
-    padding: 0 20px;
-    justify-content: center;
-  }
-  @media (min-width: 320px) and (max-width: 450px) {
-    padding: 0 5px;
-  }
+  padding: 0 40px;
+  max-width: 1440px;
+  min-height: 100px;
+  margin: 0 auto;
 }
 
 .footer-container {
   display: grid;
+  flex-basis: 100%;
   grid-template-columns: repeat(12, 1fr);
   align-items: center;
 }
@@ -29,6 +32,7 @@
 
   .team-member {
     text-decoration: none;
+    color: $color-black-light;
   }
 }
 
@@ -44,12 +48,16 @@
   }
 
   .rs-school-logo {
-    width: 50%;
+    min-width: 100px;
+    width: auto;
     height: auto;
   }
 }
 
 @media (min-width: 320px) and (max-width: 767px) {
+  .footer {
+    padding: 0 20px;
+  }
   .footer-container {
     width: 100%;
     display: flex;
@@ -58,18 +66,30 @@
   .footer__copyright {
     justify-content: center;
   }
+  .footer__copyright {
+    flex-basis: 35%;
+    flex-grow: 1;
+  }
   .footer__team {
-    flex-basis: 30%;
+    flex-basis: 80%;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    flex-grow: 1;
   }
   .footer__rs-school {
-    flex-basis: 300px;
+    flex-basis: 30%;
+    flex-grow: 0;
   }
   .rs-school-logo {
     flex-basis: 50%;
   }
   .rs-school-link {
     justify-content: flex-start;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 450px) {
+  .footer {
+    padding: 0 5px;
   }
 }
