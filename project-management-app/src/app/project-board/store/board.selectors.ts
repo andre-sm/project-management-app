@@ -35,6 +35,13 @@ export const selectBoardColumns = createSelector(
     ),
 );
 
+export const selectBoardColumnsIds = createSelector(
+  selectBoardColumns,
+  (columns: Column[]) => {
+    return columns.map((column) => column._id);
+  },
+);
+
 export const selectNextColumnOrder = createSelector(
   selectBoardColumns,
   (columns: Column[]) => {

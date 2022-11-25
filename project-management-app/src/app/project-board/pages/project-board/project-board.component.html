@@ -2,11 +2,26 @@
   <app-board-actions [boardInfo]="info"></app-board-actions>
 </ng-container>
 
-<div class="board">
-  <section class="columns-section" cdkDropListGroup>
-    <app-column
-      *ngFor="let column of columns$ | async"
-      [column]="column"
-    ></app-column>
-  </section>
+<div class="board" cdkDropListGroup>
+  <ng-container *ngIf="columns$ | async as columns">
+    <section
+      class="columns-section"
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      [cdkDropListData]="columns"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <ng-container *ngIf="columnsIds$ | async as columnsIds">
+        <app-column
+          *ngFor="let column of columns"
+          [column]="column"
+          [columnsIds]="columnsIds"
+          [cdkDragData]="column"
+          cdkDrag
+        >
+          <div class="column-placeholder" *cdkDragPlaceholder></div>
+        </app-column>
+      </ng-container>
+    </section>
+  </ng-container>
 </div>
