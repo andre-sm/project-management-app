@@ -2,7 +2,7 @@
   <mat-table class="projects-table" [dataSource]="projects">
     <ng-container matColumnDef="owner">
       <mat-header-cell *matHeaderCellDef>{{
-        'Owner' | uppercase
+        'PROJECTS.projectsList.header.owner' | translate | uppercase
       }}</mat-header-cell>
       <mat-cell class="owner-cell" *matCellDef="let project">
         <span
@@ -17,7 +17,9 @@
         'PROJECTS.projectsList.header.title' | translate | uppercase
       }}</mat-header-cell>
       <mat-cell class="title-cell" *matCellDef="let project">{{
-        project.title
+        (screenSize$ | async)! <= 767
+          ? (project.title | truncate: 10)
+          : project.title
       }}</mat-cell>
     </ng-container>
 
@@ -26,13 +28,15 @@
         'PROJECTS.projectsList.header.description' | translate | uppercase
       }}</mat-header-cell>
       <mat-cell class="description-cell" *matCellDef="let project">{{
-        project.description
+        (screenSize$ | async)! <= 767
+          ? (project.description | truncate: 10)
+          : project.description
       }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="tasks">
       <mat-header-cell *matHeaderCellDef>{{
-        'Tasks' | uppercase
+        'PROJECTS.projectsList.header.tasks' | translate | uppercase
       }}</mat-header-cell>
       <mat-cell class="tasks-cell" *matCellDef="let project">{{
         project.tasks

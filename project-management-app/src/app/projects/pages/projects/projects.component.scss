@@ -18,3 +18,14 @@
 .spinner-container {
   align-self: center;
 }
+
+@media (min-width: 451px) and (max-width: 767px) {
+  .projects {
+    padding: 0 20px;
+  }
+}
+@media (min-width: 320px) and (max-width: 450px) {
+  .projects {
+    padding: 0 5px;
+  }
+}

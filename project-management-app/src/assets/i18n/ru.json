@@ -104,8 +104,10 @@
     },
     "projectsList": {
       "header": {
+        "owner": "Создатель",
         "title": "Название",
         "description": "Описание",
+        "tasks": "Задания",
         "actions": "Действия"
       },
       "deleteDialog": {

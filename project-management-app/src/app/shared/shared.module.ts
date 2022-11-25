@@ -23,6 +23,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { SearchComponent } from './components/search/search.component';
 import { InitialsPipe } from './pipes/initials.pipe';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { InitialsPipe } from './pipes/initials.pipe';
     ConfirmModalComponent,
     SearchComponent,
     InitialsPipe,
+    TruncatePipe,
   ],
   imports: [
     CommonModule,
@@ -69,6 +71,7 @@ import { InitialsPipe } from './pipes/initials.pipe';
     SearchComponent,
     InitialsPipe,
     NgxMatColorPickerModule,
+    TruncatePipe
   ],
   providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
 })
