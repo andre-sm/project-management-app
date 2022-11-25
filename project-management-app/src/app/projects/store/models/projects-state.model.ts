@@ -8,4 +8,5 @@ export interface ProjectsState {
   users: User[];
   tasks: Task[];
   view: string;
+  globalSearch: string;
 }
