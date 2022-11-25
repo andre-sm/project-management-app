@@ -3,30 +3,40 @@
     <a routerLink="/" class="logo-link">OnBoard</a>
   </h1>
   <div class="nav-container">
+    <div class="mobile-menu">
+      <app-mobile-menu
+        [isAuthenticated]="isAuthenticated$ | async"
+      ></app-mobile-menu>
+    </div>
     <nav class="header__navbar nav">
       <ul class="nav__list">
-        <li class="nav__item" routerLinkActive="active">
+        <li
+          class="nav__item"
+          routerLinkActive="active"
+          *ngIf="isAuthenticated$ | async"
+        >
           <a routerLink="/projects" class="nav__link">{{
             'HEADER.nav.projects' | translate
           }}</a>
         </li>
-        <li class="nav__item" routerLinkActive="active">
-          <a routerLink="/tasks" class="nav__link">{{
-            'HEADER.nav.tasks' | translate
-          }}</a>
-        </li>
-        <li class="nav__item" routerLinkActive="active">
-          <a routerLink="/team" class="nav__link">{{
-            'HEADER.nav.team' | translate
-          }}</a>
-        </li>
       </ul>
     </nav>
-    <button class="new-project-btn btn" (click)="openCreateProjectDialog()">
+    <button
+      class="new-project-btn btn"
+      *ngIf="isAuthenticated$ | async"
+      (click)="openCreateProjectDialog()"
+    >
       <mat-icon class="add-icon" aria-hidden="false" fontIcon="add"></mat-icon>
       <span>{{
         'PROJECTS.actionPanel.addProjectBtn' | translate | uppercase
       }}</span>
+    </button>
+    <button
+      class="new-project-btn btn new-project-btn__mobile"
+      *ngIf="isAuthenticated$ | async"
+      (click)="openCreateProjectDialog()"
+    >
+      <mat-icon class="add-icon" aria-hidden="false" fontIcon="add"></mat-icon>
     </button>
   </div>
   <div class="header__actions">

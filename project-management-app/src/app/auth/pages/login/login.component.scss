@@ -62,11 +62,14 @@
 
   .color-field {
     flex-basis: 70%;
+    margin-right: 10px;
+    flex-shrink: 1;
+    @media (min-width: 320px) and (max-width: 370px) {
+      width: 50%;
+    }
   }
 
   .avatar-preview {
-    width: 80px;
-    height: 80px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -76,6 +79,13 @@
     font-weight: 500;
     letter-spacing: 1.2px;
     color: $color-white;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    @media (min-width: 320px) and (max-width: 370px) {
+      width: 50px;
+      height: 50px;
+    }
   }
 
   .avatar-initials {
@@ -101,14 +111,17 @@
     color: $error-color;
   }
 
-  @media (min-width: 768px) and (max-width: 1440px) {
+  @media (min-width: 992px) and (max-width: 1440px) {
     grid-column: 4 / 10;
   }
-  @media (min-width: 450px) and (max-width: 767px) {
+  @media (min-width: 768px) and (max-width: 991px) {
+    grid-column: 3 / 11;
+  }
+  @media (min-width: 532px) and (max-width: 767px) {
     grid-column: 2 / 12;
     padding: 10px;
   }
-  @media (min-width: 320px) and (max-width: 449px) {
+  @media (min-width: 320px) and (max-width: 532px) {
     grid-column: 1 / 13;
     padding: 10px;
   }
