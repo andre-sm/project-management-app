@@ -1,40 +1,83 @@
-<div class="welcome__spinner-container" *ngIf="isLoading">
+<div class="spinner-container" *ngIf="isLoading">
   <app-loading-spinner></app-loading-spinner>
 </div>
-<div class="container" *ngIf="!isLoading">
-  <h2 class="welcome__main-header">
-    {{ 'WELCOME.mainHeader.value' | translate }} &nbsp;<span>{{
-      'WELCOME.mainHeader.styled' | translate
-    }}</span>
-  </h2>
-  <p class="welcome__hero-text">
-    {{ 'WELCOME.heroText' | translate }}
-  </p>
-
-  <app-team-carousel></app-team-carousel>
-  <h2 class="welcome__header-second">
-    {{ 'WELCOME.secondHeader' | translate }}
-  </h2>
-  <ul class="welcome__pros-list">
-    <li class="welcome__list-item">
-      <mat-icon class="icon">done</mat-icon>
-      <p>{{ 'WELCOME.prosList.item1' | translate }}</p>
-    </li>
-    <li class="welcome__list-item">
-      <mat-icon class="icon">done</mat-icon>
-      <p>{{ 'WELCOME.prosList.item2' | translate }}</p>
-    </li>
-    <li class="welcome__list-item">
-      <mat-icon class="icon">done</mat-icon>
-      <p>{{ 'WELCOME.prosList.item3' | translate }}</p>
-    </li>
-    <li class="welcome__list-item">
-      <mat-icon class="icon">done</mat-icon>
-      <p>{{ 'WELCOME.prosList.item4' | translate }}</p>
-    </li>
-    <li class="welcome__list-item">
-      <mat-icon class="icon">done</mat-icon>
-      {{ 'WELCOME.prosList.item5' | translate }}
-    </li>
-  </ul>
+<div class="welcome" *ngIf="!isLoading">
+  <section class="app-section app">
+    <div class="app__wrapper">
+      <div class="app__hello-wrapper">
+        <h3 class="app__hello">
+          {{ 'WELCOME.mainHeader.value' | translate }} &nbsp;<span
+            class="app__name"
+            >{{ 'WELCOME.mainHeader.styled' | translate }}</span
+          >
+        </h3>
+        <h2 class="app__title">Powerful Project Management Software</h2>
+        <p class="app__text">
+          Helps plan your projects, track work efficiently and collaborate with
+          your team
+        </p>
+        <button class="sign-in-btn btn">
+          <span>{{ 'sign in' | uppercase }}</span>
+        </button>
+      </div>
+      <div class="app__features-wrapper features">
+        <div class="features__one feature">
+          <mat-icon class="done-icon">done</mat-icon>
+          <span> Create, edit or delete your project</span>
+        </div>
+        <div class="features__two feature">
+          <mat-icon class="done-icon">done</mat-icon>
+          <span> Manage tasks with draggable interface</span>
+        </div>
+        <div class="features__three feature">
+          <mat-icon class="done-icon">done</mat-icon>
+          <span> Search by tasks or contributors</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="team-section team">
+    <div class="team__wrapper">
+      <h2 class="team__title">
+        {{ 'WELCOME.carousel.carousel-header' | translate }}
+      </h2>
+      <p class="team__text">
+        {{ 'WELCOME.heroText' | translate }}
+      </p>
+      <app-team-carousel></app-team-carousel>
+    </div>
+  </section>
+  <section class="course-section course">
+    <h2 class="course__title">Angular Course</h2>
+    <p class="course__text">
+      This is the final project of The Rolling Scopes
+      <a href="https://rs.school/angular/" class="course__link"
+        >Angular course</a
+      >
+    </p>
+    <div class="course__items">
+      <div class="course-item">
+        <h3 class="course-item__title">Free-of-charge learning</h3>
+        <p class="course-item__text">
+          The RS School is working by the principle of "Pay it forward". Members
+          of our community share their knowledge and check students' tasks for
+          free.
+        </p>
+      </div>
+      <div class="course-item">
+        <h3 class="course-item__title">Open to everyone</h3>
+        <p class="course-item__text">
+          Everyone can study at RS School, regardless of age, professional
+          employment, or place of residence.
+        </p>
+      </div>
+      <div class="course-item">
+        <h3 class="course-item__title">Certificate</h3>
+        <p class="course-item__text">
+          After accomplishing all three stages of education, students will
+          receive an electronic certificate of completion.
+        </p>
+      </div>
+    </div>
+  </section>
 </div>
