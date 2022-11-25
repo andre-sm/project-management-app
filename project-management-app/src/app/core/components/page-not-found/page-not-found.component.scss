@@ -24,8 +24,24 @@
     text-align: center;
     margin-bottom: 50px;
   }
+
   .page-not-found__button {
     display: block;
     margin: 0 auto;
+  }
+}
+@media (min-width: 320px) and (max-width: 463px) {
+  .container {
+    grid-template-rows: 1fr 2fr;
+  }
+  .page-not-found__face {
+    font-size: 3rem;
+  }
+  .page-not-found__text {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .page-not-found__capture {
+    font-size: 1rem;
   }
 }
