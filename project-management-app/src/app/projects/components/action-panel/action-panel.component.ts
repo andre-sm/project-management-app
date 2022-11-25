@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as ProjectsActions from '../../store/projects.actions';
+import { selectViewMode } from '../../store/projects.selector';
 
 @Component({
   selector: 'app-action-panel',
@@ -7,5 +10,19 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./action-panel.component.scss'],
 })
 export class ActionPanelComponent {
-  constructor() {}
+  selectedView!: string;
+
+  view$!: Observable<string>;
+
+  constructor(private store: Store) {
+    this.view$ = this.store.select(selectViewMode);
+  }
+
+  onViewChange(view: string) {
+    this.selectedView = view;
+    this.store.dispatch(
+      ProjectsActions.setViewMode({ view: this.selectedView }),
+    );
+    localStorage.setItem('projectsView', this.selectedView);
+  }
 }

@@ -3,7 +3,7 @@ import { catchError, map, of, switchMap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { HandleServerErrors } from 'src/app/shared/services/handle-server-errors.service';
+import { HandleServerErrors } from 'src/app/auth/services/handle-server-errors.service';
 import * as EditActions from './edit-user.actions';
 import * as AuthActions from '../../auth/store/auth.actions';
 import { environment } from '../../../environments/environment';
@@ -12,7 +12,7 @@ export interface IEditResponse {
   _id: string;
   name: string;
   login: string;
-  color: string
+  color: string;
 }
 
 @Injectable()
@@ -32,7 +32,7 @@ export class EditEffects {
             name,
             login,
             password,
-            color
+            color,
           })
           .pipe(
             map((data) => {
@@ -44,7 +44,7 @@ export class EditEffects {
                 login: data.login,
                 userId: data._id,
                 token: oldUser.token as string,
-                color: data.color
+                color: data.color,
               };
               localStorage.setItem('currentUser', JSON.stringify(updatedUser));
               return EditActions.editUserSuccess(updatedUser);

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { map, switchMap, catchError, of, mergeMap } from 'rxjs';
+import { map, switchMap, catchError, of, mergeMap, forkJoin } from 'rxjs';
+import { HandleErrorsService } from 'src/app/shared/services/handle-error.service';
 import { selectUserId } from '../../store/selectors/auth.selector';
+import { selectProjectsIds } from './projects.selector';
 import { User } from '../models';
 import { ProjectsService } from '../services/projects.service';
 import * as ProjectsActions from './projects.actions';
@@ -15,9 +17,34 @@ export class ProjectsEffects {
       switchMap(() =>
         this.projectsService.getProjects().pipe(
           map((projects) => ProjectsActions.getProjectsSuccess({ projects })),
-          catchError((error) =>
-            of(ProjectsActions.getProjectsError({ error: error.message })),
+          catchError((error) => {
+            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
+            return of(ProjectsActions.getProjectsError({ error: errorMessage }))},
           ),
+        ),
+      ),
+    );
+  });
+
+  getProjectsTasks$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProjectsActions.getProjectsSuccess),
+      concatLatestFrom(() => this.store.select(selectProjectsIds)),
+      mergeMap(([, ids]) =>
+        forkJoin(
+          ids.map((id) => {
+            return this.projectsService.getProjectTasks(id);
+          }),
+        ),
+      ),
+      map((tasks) =>
+        ProjectsActions.getProjectsTasksSuccess({ tasks: tasks.flat(1) }),
+      ),
+      catchError((error) =>
+        of(
+          ProjectsActions.getProjectsTasksError({
+            error: error.message,
+          }),
         ),
       ),
     );
@@ -34,8 +61,10 @@ export class ProjectsEffects {
             map((newProject) =>
               ProjectsActions.createProjectSuccess({ newProject }),
             ),
-            catchError((error) =>
-              of(ProjectsActions.createProjectError({ error: error.message })),
+            catchError((error) =>{
+              const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
+              return of(ProjectsActions.createProjectError({ error: errorMessage }))
+            }
             ),
           );
       }),
@@ -48,8 +77,10 @@ export class ProjectsEffects {
       mergeMap(({ id }) => {
         return this.projectsService.deleteProject(id).pipe(
           map(() => ProjectsActions.deleteProjectSuccess({ id })),
-          catchError((error) =>
-            of(ProjectsActions.deleteProjectError({ error: error.message })),
+          catchError((error) =>{
+            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
+            return of(ProjectsActions.deleteProjectError({ error: errorMessage }))
+          }
           ),
         );
       }),
@@ -66,8 +97,10 @@ export class ProjectsEffects {
             map((updatedProject) =>
               ProjectsActions.updateProjectSuccess({ updatedProject }),
             ),
-            catchError((error) =>
-              of(ProjectsActions.deleteProjectError({ error: error.message })),
+            catchError((error) => {
+                const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
+                return of(ProjectsActions.deleteProjectError({ error: errorMessage }))
+              }
             ),
           );
       }),
@@ -76,12 +109,14 @@ export class ProjectsEffects {
 
   getUsers$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ProjectsActions.getUsers),
+      ofType(ProjectsActions.getUsers, ProjectsActions.getProjects),
       switchMap(() => {
         return this.projectsService.getUsers().pipe(
           map((users: User[]) => ProjectsActions.getUsersSuccess({ users })),
-          catchError((error) =>
-            of(ProjectsActions.getUsersError({ error: error.message })),
+          catchError((error) => {
+            const errorMessage = this.handleErrorsService.handleErrorMessage(error.status);
+            return of(ProjectsActions.getUsersError({ error: errorMessage }))
+          }
           ),
         );
       }),
@@ -92,5 +127,6 @@ export class ProjectsEffects {
     private actions$: Actions,
     private projectsService: ProjectsService,
     private store: Store,
+    private handleErrorsService: HandleErrorsService
   ) {}
 }

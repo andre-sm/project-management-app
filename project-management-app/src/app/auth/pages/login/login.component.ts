@@ -10,13 +10,13 @@ import { Store } from '@ngrx/store';
 
 import { Location } from '@angular/common';
 import { Observable, Subscription } from 'rxjs';
+import { ThemePalette } from '@angular/material/core';
+import { Color } from '@angular-material-components/color-picker';
 import { ShowAlertService } from '../../../shared/services/show-alert.service';
 import { selectAuthState } from '../../../store/selectors/auth.selector';
 import * as AuthActions from '../../store/auth.actions';
 import { ValidationService } from '../../../shared/services/validation.service';
 import { AuthState } from '../../store/models';
-import { ThemePalette } from '@angular/material/core';
-import { Color } from '@angular-material-components/color-picker';
 
 @Component({
   selector: 'app-login',
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       Validators.required,
       this.validationService.passwordValidator.bind(this),
     ]),
-    color: new FormControl(new Color(252, 211, 71, 1))
+    color: new FormControl(new Color(252, 211, 71, 1)),
   });
 
   namesValidators: ValidatorFn[] = [
@@ -56,8 +56,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   colorValidators: ValidatorFn[] = [
     Validators.required,
-    Validators.pattern(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/)
-  ]
+    Validators.pattern(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/),
+  ];
+
   auth$!: Observable<AuthState>;
 
   constructor(
@@ -82,10 +83,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         ],
         this.namesValidators,
       );
-            this.validationService.addValidation(
-        [
-          this.authForm.controls['color'] as FormControl,
-        ],
+      this.validationService.addValidation(
+        [this.authForm.controls['color'] as FormControl],
         this.colorValidators,
       );
     }
@@ -110,7 +109,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authForm.patchValue({
       firstName: '',
       lastName: '',
-      color: new Color(252, 211, 71, 1)
+      color: new Color(252, 211, 71, 1),
     });
     if (!this.isLoginMode) {
       this.validationService.addValidation(
@@ -139,13 +138,18 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.authForm.patchValue({
         firstName: '',
         lastName: '',
-        color: new Color(252, 211, 71, 1)
+        color: new Color(252, 211, 71, 1),
       });
       this.store.dispatch(AuthActions.loginStart({ login, password }));
     } else {
       const color = `#${this.authForm.value.color.hex}`;
       const name = `${this.authForm.value.firstName} ${this.authForm.value.lastName}`;
       this.authForm.reset();
+      this.authForm.patchValue({
+        firstName: '',
+        lastName: '',
+        color: new Color(252, 211, 71, 1)
+      });
       this.store.dispatch(AuthActions.signupStart({ name, login, password, color }));
 
     }

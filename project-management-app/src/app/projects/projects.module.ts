@@ -14,6 +14,7 @@ import { ProjectFormComponent } from './components/project-form/project-form.com
 import { ProjectsEffects } from './store/projects.effects';
 import { ProjectsListComponent } from './components/projects-list/projects-list.component';
 import * as fromProjects from './store/projects.reducer';
+import { ProjectCardComponent } from './components/project-card/project-card.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import * as fromProjects from './store/projects.reducer';
     ProjectFormComponent,
     ProjectsListComponent,
     ActionPanelComponent,
+    ProjectCardComponent,
   ],
   imports: [
     CommonModule,

@@ -13,13 +13,16 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {
+  MAT_COLOR_FORMATS,
+  NgxMatColorPickerModule,
+  NGX_MAT_COLOR_FORMATS,
+} from '@angular-material-components/color-picker';
 import { AlertComponent } from './components/alert-component/alert-component.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { SearchComponent } from './components/search/search.component';
 import { InitialsPipe } from './pipes/initials.pipe';
-import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
-
 
 @NgModule({
   declarations: [
@@ -44,7 +47,7 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     MatSelectModule,
     DragDropModule,
     MatSlideToggleModule,
-    NgxMatColorPickerModule
+    NgxMatColorPickerModule,
   ],
   exports: [
     MatFormFieldModule,
@@ -65,10 +68,8 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     MatSlideToggleModule,
     SearchComponent,
     InitialsPipe,
-    NgxMatColorPickerModule
+    NgxMatColorPickerModule,
   ],
-  providers: [
-    { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }
-  ],
+  providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
 })
 export class SharedModule {}
