@@ -6,6 +6,7 @@ import { ProjectRender } from '../../models';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 import { ProjectFormComponent } from '../project-form/project-form.component';
 import * as ProjectActions from '../../store/projects.actions';
+import { HandleViewService } from '../../services/handle-view-on-mobile.service';
 
 @Component({
   selector: 'app-projects-list',
@@ -17,11 +18,15 @@ export class ProjectsListComponent {
 
   @Input() projects!: ProjectRender[];
 
+  screenSize$ = this.handleViewService.screenSize$;
+
   constructor(
     public dialog: MatDialog,
     private store: Store,
     private translate: TranslateService,
-  ) {}
+    protected handleViewService: HandleViewService
+  ) {
+  }
 
   deleteDialog(event: Event, id: string): void {
     event.stopPropagation();

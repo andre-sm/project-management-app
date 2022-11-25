@@ -14,9 +14,6 @@ export class MobileMenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onClick() {
-    console.log(this.isAuthenticated)
-  }
   onLogout() {
     this.store.dispatch(AuthActions.logout({ isAutoLogout: false }));
   }

@@ -104,8 +104,10 @@
     },
     "projectsList": {
       "header": {
+        "owner": "Owner",
         "title": "Title",
         "description": "Description",
+        "tasks": "Tasks",
         "actions": "Actions"
       },
       "deleteDialog": {

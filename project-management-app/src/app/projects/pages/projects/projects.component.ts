@@ -10,6 +10,7 @@ import {
   selectError,
   selectIsLoading,
 } from '../../store/projects.selector';
+import { HandleViewService } from '../../services/handle-view-on-mobile.service';
 
 @Component({
   selector: 'app-projects',
@@ -25,9 +26,14 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
   view$!: Observable<string>;
 
+  screenSize: number = 0;
+
+  screenSizeSub!: Subscription
+
   constructor(
     private store: Store,
     private showAlertService: ShowAlertService,
+    protected handleViewService: HandleViewService
   ) {
     this.projects$ = this.store.select(selectRenderProjects);
     this.view$ = this.store.select(selectViewMode);
@@ -44,14 +50,32 @@ export class ProjectsComponent implements OnInit, OnDestroy {
         }),
       )
       .subscribe();
+      window.onresize = () => {
+        this.screenSize = window.innerWidth;
+        this.handleViewService.screenSize$.next(this.screenSize);
+      }
+
+
   }
 
   ngOnInit(): void {
     this.store.dispatch(ProjectsActions.getProjects());
+    this.screenSize = window.innerWidth;
+    this.handleViewService.screenSize$.next(this.screenSize);
+    this.screenSizeSub = this.handleViewService.screenSize$.subscribe(
+      (screenSize) => {
+        if(screenSize <= 600) {
+          this.store.dispatch(ProjectsActions.setViewMode({view: 'grid'}))
+        } else {
+          this.store.dispatch(ProjectsActions.setViewMode({view: 'list'}))
+        }
+      }
+    )
   }
 
   ngOnDestroy(): void {
     this.errorSub.unsubscribe();
+    this.screenSizeSub.unsubscribe();
   }
 
   onHandleError() {
