@@ -4,6 +4,7 @@
   grid-column: 1 / 7;
   width: 501px;
   @media (min-width: 320px) and (max-width: 1032px) {
+    margin-bottom: 20px;
     order: 3;
   }
   @media (min-width: 320px) and (max-width: 767px) {

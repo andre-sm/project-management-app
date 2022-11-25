@@ -1,26 +1,19 @@
 @import '../../../shared/variables';
-:host {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  column-gap: 10px;
-  min-height: calc(100% - 240px);
-  @media (min-width: 320px) and (max-width: 449px) {
-    width: 100%;
-  }
-}
 
 .container {
-  grid-column: 2 / 12;
+  padding: 0 40px;
+  max-width: 1440px;
+  min-height: 100px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(3, 100px) 1fr 50px;
   @media (min-width: 320px) and (max-width: 710px) {
     grid-column: 1 / 13;
   }
-  @media (min-width: 320px) and (max-width: 1032px) {
-    display: flex;
-    flex-direction: column;
-  }
+  // @media (min-width: 320px) and (max-width: 1032px) {
+  //   display: flex;
+  // }
 }
 
 .welcome__main-header {
@@ -29,9 +22,9 @@
   margin-bottom: 0;
   display: flex;
   align-items: center;
-  @media (min-width: 320px) and (max-width: 1032px) {
-    align-self: flex-start;
-  }
+  // @media (min-width: 320px) and (max-width: 1032px) {
+  //   align-self: flex-start;
+  // }
 }
 
 .welcome__buttons-container {
@@ -39,9 +32,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  @media (min-width: 320px) and (max-width: 1032px) {
-    align-self: flex-start;
-  }
+  // @media (min-width: 320px) and (max-width: 1032px) {
+  //   align-self: flex-start;
+  // }
 }
 
 .welcome__spinner-container {
@@ -58,18 +51,18 @@
 .welcome__header-second {
   grid-row: 3 / 4;
   grid-column: 8 / 13;
-  @media (min-width: 320px) and (max-width: 1032px) {
-    order: 1;
-  }
+  // @media (min-width: 320px) and (max-width: 1032px) {
+  //   order: 1;
+  // }
 }
 
 .welcome__pros-list {
   grid-row: 4 / 5;
   grid-column: 8 / 13;
   list-style: none;
-  @media (min-width: 320px) and (max-width: 1032px) {
-    order: 2;
-  }
+  // @media (min-width: 320px) and (max-width: 1032px) {
+  //   order: 2;
+  // }
 }
 
 .welcome__list-item {
@@ -85,4 +78,7 @@
     margin-right: 10px;
     color: $color-violet;
   }
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
 }
