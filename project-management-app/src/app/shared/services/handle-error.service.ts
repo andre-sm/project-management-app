@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Injectable({ providedIn: 'root' })
 export class HandleErrorsService {
   errorMessage: string = '';
+
   alertMessageObj!: {
     default: string;
     400: string;
@@ -15,12 +16,10 @@ export class HandleErrorsService {
   constructor(private translate: TranslateService) {}
 
   handleErrorMessage(status: number): string {
-    this.translate.get('ERROR_ALERT_PROJECTS').subscribe(
-      (messageObj) => {
-        this.alertMessageObj = {...messageObj}
-        this.errorMessage = this.alertMessageObj.default;
-      }
-    )
+    this.translate.get('ERROR_ALERT_PROJECTS').subscribe((messageObj) => {
+      this.alertMessageObj = { ...messageObj };
+      this.errorMessage = this.alertMessageObj.default;
+    });
     switch (status) {
       case 404:
         this.errorMessage = this.alertMessageObj['404'];
@@ -36,5 +35,4 @@ export class HandleErrorsService {
     }
     return this.errorMessage;
   }
-
 }

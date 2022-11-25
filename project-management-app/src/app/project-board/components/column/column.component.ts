@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import {
   CdkDragDrop,
+  CdkDragStart,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
@@ -22,6 +23,8 @@ export class ColumnComponent {
   height!: number;
 
   @Input() column!: Column;
+
+  @Input() columnsIds!: string[];
 
   constructor(
     public dialog: MatDialog,
@@ -69,7 +72,12 @@ export class ColumnComponent {
 
     dialogRef.afterClosed().subscribe((result: Boolean) => {
       if (result) {
-        this.store.dispatch(BoardActions.deleteColumn({ id: this.column._id }));
+        this.store.dispatch(
+          BoardActions.deleteColumn({
+            id: this.column._id,
+            currentOrder: this.column.order,
+          }),
+        );
       }
     });
   }
@@ -199,7 +207,7 @@ export class ColumnComponent {
     });
   }
 
-  cdkDragStarted(event: any) {
+  cdkDragStarted(event: CdkDragStart) {
     this.height = event.source.element.nativeElement.offsetHeight;
   }
 }

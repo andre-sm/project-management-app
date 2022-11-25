@@ -25,13 +25,13 @@ export const selectUsers = createSelector(
 
 export const selectError = createSelector(
   selectProjectsState,
-  (state: ProjectsState) => state.error
-)
+  (state: ProjectsState) => state.error,
+);
 
 export const selectIsLoading = createSelector(
   selectProjectsState,
-  (state: ProjectsState) => state.isLoading
-)
+  (state: ProjectsState) => state.isLoading,
+);
 export const selectRenderProjects = createSelector(
   selectProjects,
   selectTasks,
