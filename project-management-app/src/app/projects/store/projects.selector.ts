@@ -59,3 +59,40 @@ export const selectViewMode = createSelector(
   selectProjectsState,
   (state: ProjectsState) => state.view,
 );
+
+export const selectGlobalSearchValue = createSelector(
+  selectProjectsState,
+  (state: ProjectsState) => state.globalSearch,
+);
+
+export const selectSearchResult = createSelector(
+  selectTasks,
+  selectGlobalSearchValue,
+  selectUsers,
+  (tasks: Task[], searchVal, allUsers: User[]) => {
+    if (searchVal) {
+      const search = searchVal.toLowerCase();
+      const newArr = tasks.map((el) => {
+        return {
+          ...el,
+          users: el.users.map((item) => {
+            return {
+              id: item,
+              name: allUsers.find((single) => single._id === item)?.name || '',
+            };
+          }),
+        };
+      });
+
+      const modifiedTasks = newArr.filter(
+        (task) =>
+          task._id.toLowerCase().includes(search) ||
+          task.title.toLowerCase().includes(search) ||
+          task.users.find((user) => user.name.toLowerCase().includes(search)) ||
+          task.description.toLowerCase().includes(search),
+      );
+      return modifiedTasks;
+    }
+    return undefined;
+  },
+);
