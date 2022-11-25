@@ -2,7 +2,8 @@
 
 .search-form {
   &__input {
-    min-width: 100%;
+    width: 100%;
+    max-width: 493px;
     height: 46px;
     padding: 0 20px;
     font-size: 14px;
