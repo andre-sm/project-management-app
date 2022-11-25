@@ -142,18 +142,6 @@
     color: $color-white;
   }
 
-  // @media (min-width: 768px) and (max-width: 1440px) {
-  //   grid-column: 3 / 11;
-  // }
-  // @media (min-width: 450px) and (max-width: 767px) {
-  //   grid-column: 2 / 12;
-  //   padding: 10px;
-  // }
-  // @media (min-width: 320px) and (max-width: 449px) {
-  //   grid-column: 1 / 13;
-  //   padding: 10px;
-  // }
-
   @media (min-width: 992px) and (max-width: 1440px) {
     grid-column: 4 / 10;
   }
