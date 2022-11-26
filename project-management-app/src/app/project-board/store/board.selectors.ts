@@ -2,6 +2,7 @@ import { createSelector, createFeatureSelector } from '@ngrx/store';
 import { Column, Task, ColumnSet } from '../models';
 import * as fromBoard from './board.reducer';
 import { BoardFeatureState } from './models';
+import { selectUserId } from '../../store/selectors/auth.selector';
 
 export const selectBoardState = createFeatureSelector<BoardFeatureState>(
   fromBoard.featureName,
@@ -32,6 +33,11 @@ export const selectMainTaskFilter = createSelector(
   (state: BoardFeatureState) => state.mainTaskFilter,
 );
 
+export const selectTaskViewMode = createSelector(
+  selectBoardState,
+  (state: BoardFeatureState) => state.taskViewMode,
+);
+
 export const selectFilteredTasks = createSelector(
   selectTasks,
   selectMainTaskFilter,
@@ -44,6 +50,20 @@ export const selectFilteredTasks = createSelector(
         task.title.toLowerCase().includes(filterValue) ||
         task.description.toLowerCase().includes(filterValue)
       );
+    });
+  },
+);
+
+export const selectFilteredTasksWithViewMode = createSelector(
+  selectFilteredTasks,
+  selectTaskViewMode,
+  selectUserId,
+  (tasks: Task[], viewMode: string, currentUser: string | undefined) => {
+    if (viewMode === 'all' || currentUser === undefined) {
+      return tasks;
+    }
+    return tasks.filter((task) => {
+      return task.users.find((user) => user === currentUser);
     });
   },
 );
@@ -89,7 +109,7 @@ export const selectNewColumnOrder = (index: number) =>
   );
 
 export const selectColumnsWithTasks = createSelector(
-  selectFilteredTasks,
+  selectFilteredTasksWithViewMode,
   selectBoardColumns,
   (tasks: Task[], columns: Column[]) =>
     columns.map((column) => {

@@ -82,6 +82,11 @@ export const setMainTaskFilter = createAction(
   props<{ filterValue: string }>(),
 );
 
+export const setTaskViewMode = createAction(
+  '[Tasks] Set Tasks View Mode',
+  props<{ viewMode: string }>(),
+);
+
 export const clearTaskFilters = createAction('[Task] Clear User Filters');
 
 export const getTasksSuccess = createAction(

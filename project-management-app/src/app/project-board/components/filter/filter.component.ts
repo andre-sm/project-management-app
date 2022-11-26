@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { distinctUntilChanged, map } from 'rxjs';
+import { distinctUntilChanged, map, Observable } from 'rxjs';
 import * as BoardActions from '../../store/board.actions';
+import { selectTaskViewMode } from '../../store/board.selectors';
 
 @Component({
   selector: 'app-filter',
@@ -12,7 +13,13 @@ import * as BoardActions from '../../store/board.actions';
 export class FilterComponent implements OnInit {
   filter = new FormControl();
 
-  constructor(private store: Store) {}
+  view$!: Observable<string>;
+
+  selectedView!: string;
+
+  constructor(private store: Store) {
+    this.view$ = this.store.select(selectTaskViewMode);
+  }
 
   ngOnInit(): void {
     this.filter.valueChanges
@@ -27,5 +34,13 @@ export class FilterComponent implements OnInit {
       .subscribe((filterValue: string) =>
         this.store.dispatch(BoardActions.setMainTaskFilter({ filterValue })),
       );
+  }
+
+  onTasksUserViewChange(view: string) {
+    this.selectedView = view;
+
+    this.store.dispatch(
+      BoardActions.setTaskViewMode({ viewMode: this.selectedView }),
+    );
   }
 }

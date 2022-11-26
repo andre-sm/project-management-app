@@ -8,3 +8,16 @@
     />
   </mat-form-field>
 </form>
+
+<div class="user-switcher">
+  <mat-button-toggle-group
+    #group="matButtonToggleGroup"
+    name="fontStyle"
+    aria-label="Font Style"
+    [value]="view$ | async"
+    (change)="onTasksUserViewChange(group.value)"
+  >
+    <mat-button-toggle value="all"> All Tasks</mat-button-toggle>
+    <mat-button-toggle value="my"> My Tasks </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>

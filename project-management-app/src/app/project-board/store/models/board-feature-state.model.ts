@@ -16,4 +16,5 @@ export interface BoardFeatureState {
   };
   taskColumnFilter: string;
   mainTaskFilter: string;
+  taskViewMode: string;
 }
