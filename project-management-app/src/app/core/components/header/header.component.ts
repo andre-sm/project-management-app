@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { TeamCarouselService } from 'src/app/welcome/components/team-carousel/services/team-carousel.service';
 import {
   selectIsAuthenticated,
