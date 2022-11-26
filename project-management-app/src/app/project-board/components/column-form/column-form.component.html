@@ -11,6 +11,14 @@
       }}</mat-label>
       <input matInput formControlName="title" />
     </mat-form-field>
+    <div
+      *ngIf="title?.invalid && (title?.dirty || title?.touched)"
+      class="alert"
+    >
+      <div *ngIf="title?.errors?.['required']">Please enter a title</div>
+      <div *ngIf="title?.errors?.['minlength']">The title is too short</div>
+      <div *ngIf="title?.errors?.['maxlength']">The title is too long</div>
+    </div>
     <mat-form-field appearance="fill">
       <mat-label>Color</mat-label>
       <mat-select formControlName="color" [(value)]="selectedColor">
@@ -28,16 +36,18 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <div
+      *ngIf="color?.invalid && (color?.dirty || color?.touched)"
+      class="alert"
+    >
+      <div *ngIf="color?.errors?.['required']">Please choose a color</div>
+    </div>
     <div class="column-form__btns">
-      <button
-        class="column-form__close-btn btn"
-        (click)="onCloseClick()"
-        type="button"
-      >
+      <button class="close-btn btn" (click)="onCloseClick()" type="button">
         {{ formData.cancelText }}
       </button>
       <button
-        class="column-form__confirm-btn btn"
+        class="create-btn btn"
         [class.disabled]="columnForm.invalid"
         type="submit"
       >

@@ -41,7 +41,7 @@ export class ProjectFormComponent implements OnInit {
       title: new FormControl(this.formData.title || '', [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(64),
+        Validators.maxLength(32),
       ]),
       description: new FormControl(this.formData.description || '', [
         Validators.required,
@@ -75,5 +75,17 @@ export class ProjectFormComponent implements OnInit {
 
   onCloseClick(): void {
     this.dialogRef.close();
+  }
+
+  get title() {
+    return this.projectForm.get('title');
+  }
+
+  get description() {
+    return this.projectForm.get('description');
+  }
+
+  get users() {
+    return this.projectForm.get('users');
   }
 }

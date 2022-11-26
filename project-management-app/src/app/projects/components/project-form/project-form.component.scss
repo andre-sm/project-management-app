@@ -12,23 +12,15 @@
     justify-content: center;
     gap: 20px;
   }
+}
 
-  &__create-btn {
-    padding: 10px 30px;
-    background-color: $color-violet;
-    color: $color-white;
-  }
-
-  &__create-btn.btn.disabled {
-    background-color: $color-grey;
-  }
-
-  &__close-btn {
-    padding: 10px 30px;
-    border: 1px solid $color-violet;
-    background-color: $color-white;
-    color: $color-violet;
-  }
+.alert {
+  background-color: $color-pink;
+  color: $color-brown;
+  padding: 3px 3px 3px 10px;
+  margin: -8px 0 10px 0;
+  border-radius: 5px;
+  border: 1px solid $color-pink-dark;
 }
 
 
