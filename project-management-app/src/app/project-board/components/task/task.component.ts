@@ -10,7 +10,7 @@ import { Task } from '../../models';
   styleUrls: ['./task.component.scss'],
 })
 export class TaskComponent implements OnInit {
-  users!: { id: string; name: string }[];
+  users!: { id: string; name: string; color: string }[];
 
   allUsers!: User[];
 
@@ -29,6 +29,7 @@ export class TaskComponent implements OnInit {
       return {
         id: user,
         name: this.allUsers.find((item) => item._id === user)?.name || '',
+        color: this.allUsers.find((item) => item._id === user)?.color || '',
       };
     });
   }
