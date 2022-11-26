@@ -42,6 +42,10 @@
   cursor: pointer;
 }
 
+.login-icon {
+  color: $color-grey;
+}
+
 @media (min-width: 320px) and (max-width: 550px) {
   .login__avatar {
     display: none;
