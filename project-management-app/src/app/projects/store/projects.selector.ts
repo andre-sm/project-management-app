@@ -60,6 +60,11 @@ export const selectViewMode = createSelector(
   (state: ProjectsState) => state.view,
 );
 
+export const selectSearchTask = createSelector(
+  selectProjectsState,
+  (state: ProjectsState) => state.searchTask,
+);
+
 export const selectGlobalSearchValue = createSelector(
   selectProjectsState,
   (state: ProjectsState) => state.globalSearch,

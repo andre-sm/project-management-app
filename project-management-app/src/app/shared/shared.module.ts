@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
+import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -36,6 +37,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -71,7 +73,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
     SearchComponent,
     InitialsPipe,
     NgxMatColorPickerModule,
-    TruncatePipe
+    TruncatePipe,
   ],
   providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
 })

@@ -15,9 +15,12 @@ export class ActionPanelComponent {
 
   view$!: Observable<string>;
 
-  screenSize$: BehaviorSubject<number> = this.handleViewService.screenSize$
+  screenSize$: BehaviorSubject<number> = this.handleViewService.screenSize$;
 
-  constructor(private store: Store, protected handleViewService: HandleViewService) {
+  constructor(
+    private store: Store,
+    protected handleViewService: HandleViewService,
+  ) {
     this.view$ = this.store.select(selectViewMode);
   }
 

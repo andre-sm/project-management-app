@@ -12,6 +12,7 @@ export const initialState: ProjectsState = {
   tasks: [],
   view: localStorage.getItem('projectsView') || 'grid',
   globalSearch: '',
+  searchTask: '',
 };
 
 export const projectsReducer = createReducer(
@@ -136,4 +137,10 @@ export const projectsReducer = createReducer(
       globalSearch: globalSearchValue,
     }),
   ),
+  on(ProjectActions.setSearchTask, (state, { searchTask }): ProjectsState => {
+    return {
+      ...state,
+      searchTask,
+    };
+  }),
 );

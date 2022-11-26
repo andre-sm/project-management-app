@@ -28,12 +28,12 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
   screenSize: number = 0;
 
-  screenSizeSub!: Subscription
+  screenSizeSub!: Subscription;
 
   constructor(
     private store: Store,
     private showAlertService: ShowAlertService,
-    protected handleViewService: HandleViewService
+    protected handleViewService: HandleViewService,
   ) {
     this.projects$ = this.store.select(selectRenderProjects);
     this.view$ = this.store.select(selectViewMode);
@@ -50,12 +50,10 @@ export class ProjectsComponent implements OnInit, OnDestroy {
         }),
       )
       .subscribe();
-      window.onresize = () => {
-        this.screenSize = window.innerWidth;
-        this.handleViewService.screenSize$.next(this.screenSize);
-      }
-
-
+    window.onresize = () => {
+      this.screenSize = window.innerWidth;
+      this.handleViewService.screenSize$.next(this.screenSize);
+    };
   }
 
   ngOnInit(): void {
@@ -64,13 +62,13 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     this.handleViewService.screenSize$.next(this.screenSize);
     this.screenSizeSub = this.handleViewService.screenSize$.subscribe(
       (screenSize) => {
-        if(screenSize <= 600) {
-          this.store.dispatch(ProjectsActions.setViewMode({view: 'grid'}))
+        if (screenSize <= 600) {
+          this.store.dispatch(ProjectsActions.setViewMode({ view: 'grid' }));
         } else {
-          this.store.dispatch(ProjectsActions.setViewMode({view: 'list'}))
+          this.store.dispatch(ProjectsActions.setViewMode({ view: 'list' }));
         }
-      }
-    )
+      },
+    );
   }
 
   ngOnDestroy(): void {

@@ -9,4 +9,5 @@ export interface ProjectsState {
   tasks: Task[];
   view: string;
   globalSearch: string;
+  searchTask: string;
 }

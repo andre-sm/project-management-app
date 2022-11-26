@@ -24,9 +24,8 @@ export class ProjectsListComponent {
     public dialog: MatDialog,
     private store: Store,
     private translate: TranslateService,
-    protected handleViewService: HandleViewService
-  ) {
-  }
+    protected handleViewService: HandleViewService,
+  ) {}
 
   deleteDialog(event: Event, id: string): void {
     event.stopPropagation();

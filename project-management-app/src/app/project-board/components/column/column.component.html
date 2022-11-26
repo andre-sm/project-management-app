@@ -36,6 +36,7 @@
   >
     <app-task
       *ngFor="let task of column.tasks; let i = index"
+      [resultTask]="(searchTask$ | async) === task._id ? true : false"
       [task]="task"
       [cdkDragData]="task"
       (click)="editTaskDialog(task)"

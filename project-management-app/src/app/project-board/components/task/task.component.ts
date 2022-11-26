@@ -16,6 +16,8 @@ export class TaskComponent implements OnInit {
 
   @Input() task!: Task;
 
+  @Input() resultTask!: boolean;
+
   @Output() deleteClick = new EventEmitter<Task>();
 
   constructor(private store: Store) {
@@ -31,6 +33,8 @@ export class TaskComponent implements OnInit {
         name: this.allUsers.find((item) => item._id === user)?.name || '',
       };
     });
+
+    console.log(this.resultTask);
   }
 
   deleteTask(event: Event) {

@@ -94,7 +94,7 @@
         "cancelText": "Закрыть"
       },
       "search": {
-        "placeholder": "Поиск проекта..."
+        "placeholder": "Поиск задания..."
       }
     },
     "projectForm": {

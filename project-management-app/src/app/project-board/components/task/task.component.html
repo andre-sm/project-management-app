@@ -1,4 +1,4 @@
-<div class="task">
+<div class="task" [ngClass]="{ 'result-task': resultTask }">
   <div class="task__header">
     <h3 class="task__title">{{ task.title }}</h3>
     <button
