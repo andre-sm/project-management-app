@@ -13,6 +13,7 @@ import { ColumnComponent } from './components/column/column.component';
 import { TaskComponent } from './components/task/task.component';
 import { TaskFormComponent } from './components/task-form/task-form.component';
 import { BoardActionsComponent } from './components/board-actions/board-actions.component';
+import { FilterComponent } from './components/filter/filter.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { BoardActionsComponent } from './components/board-actions/board-actions.
     TaskComponent,
     TaskFormComponent,
     BoardActionsComponent,
+    FilterComponent,
   ],
   imports: [
     CommonModule,

@@ -98,3 +98,8 @@ export const setGlobalSearch = createAction(
   '[Projects] Set Global Search',
   props<{ globalSearchValue: string }>(),
 );
+
+export const setSearchTask = createAction(
+  '[Projects] Set Search Task',
+  props<{ searchTask: string }>(),
+);

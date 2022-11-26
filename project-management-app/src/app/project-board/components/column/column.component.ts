@@ -8,6 +8,8 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { TranslateService } from '@ngx-translate/core';
+import { selectSearchTask } from 'src/app/projects/store/projects.selector';
+import { Observable } from 'rxjs';
 import { Column, Task } from '../../models';
 import { ColumnFormComponent } from '../column-form/column-form.component';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
@@ -22,6 +24,8 @@ import { TaskFormComponent } from '../task-form/task-form.component';
 export class ColumnComponent {
   height!: number;
 
+  searchTask$: Observable<string>;
+
   @Input() column!: Column;
 
   @Input() columnsIds!: string[];
@@ -30,7 +34,9 @@ export class ColumnComponent {
     public dialog: MatDialog,
     private store: Store,
     private translate: TranslateService,
-  ) {}
+  ) {
+    this.searchTask$ = this.store.select(selectSearchTask);
+  }
 
   editColumnDialog(): void {
     const editDialogConfig = new MatDialogConfig();

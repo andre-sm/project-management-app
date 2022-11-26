@@ -95,7 +95,6 @@ export class BoardEffects {
               );
             }),
           );
-
       }),
     );
   });
@@ -265,7 +264,6 @@ export class BoardEffects {
               BoardActions.updateTasksSetError({ error: errorMessage }),
             );
           }),
-
         );
       }),
     );
@@ -282,7 +280,6 @@ export class BoardEffects {
           catchError((error) =>
             of(BoardActions.updateColumnsSetError({ error: error.message })),
           ),
-
         );
       }),
     );

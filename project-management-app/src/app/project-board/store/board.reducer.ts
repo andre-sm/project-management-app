@@ -20,6 +20,8 @@ export const initialState: BoardFeatureState = {
     tasks: [],
   },
   taskColumnFilter: '',
+  taskViewMode: 'all',
+  mainTaskFilter: '',
 };
 
 export const projectsReducer = createReducer(
@@ -200,6 +202,21 @@ export const projectsReducer = createReducer(
     (state, { filterValue }): BoardFeatureState => ({
       ...state,
       taskColumnFilter: filterValue,
+    }),
+  ),
+  on(
+    BoardActions.setMainTaskFilter,
+    (state, { filterValue }): BoardFeatureState => ({
+      ...state,
+      mainTaskFilter: filterValue,
+    }),
+  ),
+
+  on(
+    BoardActions.setTaskViewMode,
+    (state, { viewMode }): BoardFeatureState => ({
+      ...state,
+      taskViewMode: viewMode,
     }),
   ),
   on(

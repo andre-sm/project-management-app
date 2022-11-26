@@ -16,6 +16,8 @@ export class TaskComponent implements OnInit {
 
   @Input() task!: Task;
 
+  @Input() resultTask!: boolean;
+
   @Output() deleteClick = new EventEmitter<Task>();
 
   constructor(private store: Store) {

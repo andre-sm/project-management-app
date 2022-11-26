@@ -36,6 +36,10 @@
   }
 }
 
+.task.result-task {
+  border: 2px solid $color-green;
+}
+
 .users {
   display: flex;
   padding: 10px;

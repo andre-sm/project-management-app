@@ -24,3 +24,8 @@
     }
   }
 }
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 8px 8px 0 0 !important;
+  padding: 5px !important ;
+}

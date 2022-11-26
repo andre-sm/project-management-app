@@ -60,4 +60,8 @@ export class SearchComponent implements AfterViewInit {
       )
       .subscribe();
   }
+
+  onResultClick(searchTask: string) {
+    this.store.dispatch(ProjectsActions.setSearchTask({ searchTask }));
+  }
 }
