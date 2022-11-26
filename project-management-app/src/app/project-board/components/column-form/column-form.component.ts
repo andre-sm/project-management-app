@@ -46,7 +46,7 @@ export class ColumnFormComponent implements OnInit {
       title: new FormControl(this.formData.title || '', [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(64),
+        Validators.maxLength(24),
       ]),
       color: new FormControl('', [Validators.required]),
     });
@@ -71,5 +71,13 @@ export class ColumnFormComponent implements OnInit {
 
   onCloseClick(): void {
     this.dialogRef.close();
+  }
+
+  get title() {
+    return this.columnForm.get('title');
+  }
+
+  get color() {
+    return this.columnForm.get('color');
   }
 }
