@@ -7,7 +7,10 @@ import jwt_decode from 'jwt-decode';
 
 import { HandleServerErrors } from 'src/app/auth/services/handle-server-errors.service';
 import * as AuthActions from './auth.actions';
+import * as ProjectsActions from '../../projects/store/projects.actions';
+import * as BoardActions from '../../project-board/store/board.actions';
 import { environment } from '../../../environments/environment';
+import { Store } from '@ngrx/store';
 
 export interface ISignupResponse {
   userId: string;
@@ -37,6 +40,7 @@ export class AuthEffects {
     private http: HttpClient,
     private router: Router,
     private handleErrorsService: HandleServerErrors,
+    private store: Store
   ) {}
 
   authSignup$ = createEffect(() => {
@@ -139,6 +143,9 @@ export class AuthEffects {
           if (!isAutoLogout) {
             this.router.navigate(['/welcome']);
           }
+          this.store.dispatch(AuthActions.clearError());
+          this.store.dispatch(ProjectsActions.clearError());
+          this.store.dispatch(BoardActions.clearError());
         }),
       );
     },
@@ -189,6 +196,9 @@ export class AuthEffects {
           if (!isAutoLogin) {
             this.router.navigate(['/projects']);
           }
+          this.store.dispatch(AuthActions.clearError());
+          this.store.dispatch(ProjectsActions.clearError());
+          this.store.dispatch(BoardActions.clearError());
         }),
       );
     },

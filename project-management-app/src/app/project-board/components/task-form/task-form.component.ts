@@ -73,7 +73,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
       title: new FormControl(this.taskData?.title || '', [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(64),
+        Validators.maxLength(32),
       ]),
       description: new FormControl(this.taskData?.description || '', [
         Validators.required,
@@ -146,5 +146,17 @@ export class TaskFormComponent implements OnInit, OnDestroy {
       }
     }
     return null;
+  }
+
+  get title() {
+    return this.taskForm.get('title');
+  }
+
+  get description() {
+    return this.taskForm.get('description');
+  }
+
+  get formControl() {
+    return this.taskForm.controls;
   }
 }

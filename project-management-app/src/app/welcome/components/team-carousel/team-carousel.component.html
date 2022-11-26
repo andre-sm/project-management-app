@@ -1,25 +1,24 @@
-<div #carouselWrapper>
-  <mdb-carousel
-    [controls]="true"
-    class="welcome__carousel"
-    (slideChange)="onSlideChange()"
-  >
-    <mdb-carousel-item *ngFor="let slide of slides" [attr.aria-id]="slide.id">
-      <img
-        src="{{ slide.src }}"
-        class="d-block w-100"
-        alt="{{ slide.title | async }}"
-      />
-      <div class="carousel-caption d-none d-md-block">
-        <h5>{{ slide.title | async }}</h5>
-        <p>{{ slide.subtitle | async }}</p>
-      </div>
-    </mdb-carousel-item>
-  </mdb-carousel>
+<div #carouselWrapper class="welcome__carousel-wrapper">
+  <div class="carousel-wrapper">
+    <mdb-carousel class="welcome__carousel" (slideChange)="onSlideChange()">
+      <mdb-carousel-item *ngFor="let slide of slides" [attr.aria-id]="slide.id">
+        <img
+          src="{{ slide.src }}"
+          class="d-block w-100"
+          alt="{{ slide.title | async }}"
+        />
+        <div class="carousel-caption d-none d-md-block">
+          <h3>{{ slide.title | async }}</h3>
+          <p>{{ slide.subtitle | async }}</p>
+        </div>
+      </mdb-carousel-item>
+    </mdb-carousel>
+  </div>
+
   <div class="welcome__caption" *ngIf="smallDevice$ | async">
-    <p class="title">
+    <h3 class="title">
       {{ caption.title | translate }}
-    </p>
+    </h3>
     <p class="subtitle">
       {{ caption.subtitle | translate }}
     </p>

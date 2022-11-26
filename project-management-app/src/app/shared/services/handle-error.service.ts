@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../auth/store/auth.actions'
 
 @Injectable({ providedIn: 'root' })
 export class HandleErrorsService {
@@ -13,7 +14,7 @@ export class HandleErrorsService {
     403: string;
   };
 
-  constructor(private translate: TranslateService) {}
+  constructor(private translate: TranslateService, private store: Store) {}
 
   handleErrorMessage(status: number): string {
     this.translate.get('ERROR_ALERT_PROJECTS').subscribe((messageObj) => {
@@ -32,6 +33,9 @@ export class HandleErrorsService {
         break;
       default:
         break;
+    }
+    if(status === 403) {
+      this.store.dispatch(AuthActions.logout({isAutoLogout: false}));
     }
     return this.errorMessage;
   }

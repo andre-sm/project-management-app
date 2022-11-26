@@ -65,7 +65,11 @@ export class ProjectsComponent implements OnInit, OnDestroy {
         if (screenSize <= 600) {
           this.store.dispatch(ProjectsActions.setViewMode({ view: 'grid' }));
         } else {
-          this.store.dispatch(ProjectsActions.setViewMode({ view: 'list' }));
+          this.store.dispatch(
+            ProjectsActions.setViewMode({
+              view: localStorage.getItem('projectsView') || 'list',
+            }),
+          );
         }
       },
     );

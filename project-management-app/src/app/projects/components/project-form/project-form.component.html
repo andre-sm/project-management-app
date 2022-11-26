@@ -9,6 +9,14 @@
       <mat-label>{{ 'PROJECTS.projectForm.titleLabel' | translate }}</mat-label>
       <input matInput formControlName="title" />
     </mat-form-field>
+    <div
+      *ngIf="title?.invalid && (title?.dirty || title?.touched)"
+      class="alert"
+    >
+      <div *ngIf="title?.errors?.['required']">Please enter a title</div>
+      <div *ngIf="title?.errors?.['minlength']">The title is too short</div>
+      <div *ngIf="title?.errors?.['maxlength']">The title is too long</div>
+    </div>
     <mat-form-field appearance="fill">
       <mat-label>{{
         'PROJECTS.projectForm.descriptionLabel' | translate
@@ -21,6 +29,22 @@
         formControlName="description"
       ></textarea>
     </mat-form-field>
+    <div
+      *ngIf="
+        description?.invalid && (description?.dirty || description?.touched)
+      "
+      class="alert"
+    >
+      <div *ngIf="description?.errors?.['required']">
+        Please enter a description
+      </div>
+      <div *ngIf="description?.errors?.['minlength']">
+        The description is too short
+      </div>
+      <div *ngIf="description?.errors?.['maxlength']">
+        The description is too long
+      </div>
+    </div>
     <mat-form-field appearance="fill">
       <mat-label>{{ 'PROJECTS.projectForm.userLabel' | translate }}</mat-label>
       <mat-select formControlName="users" multiple>
@@ -29,20 +53,22 @@
         }}</mat-option>
       </mat-select>
     </mat-form-field>
+    <div
+      *ngIf="users?.invalid && (users?.dirty || users?.touched)"
+      class="alert"
+    >
+      <div *ngIf="users?.errors?.['required']">Please choose an user</div>
+    </div>
     <div class="create-project__btns">
-      <button
-        class="create-project__close-btn btn"
-        (click)="onCloseClick()"
-        type="button"
-      >
-        {{ formData.cancelText }}
+      <button class="close-btn btn" (click)="onCloseClick()" type="button">
+        {{ formData.cancelText | uppercase }}
       </button>
       <button
-        class="create-project__create-btn btn"
+        class="create-btn btn"
         [class.disabled]="projectForm.invalid"
         type="submit"
       >
-        {{ formData.confirmText }}
+        {{ formData.confirmText | uppercase }}
       </button>
     </div>
   </form>

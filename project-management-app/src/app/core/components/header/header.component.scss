@@ -85,8 +85,8 @@
   }
 }
 
-.nav__link:hover,
-.nav__list .active .nav__link {
+.nav__link:hover {
+  color: $color-purple;
 }
 
 .toggle-lable {
@@ -121,6 +121,8 @@
 }
 
 .new-project-btn:hover {
+  color: $color-purple-bright;
+  border: 1px solid $color-purple-bright;
 }
 
 .new-project-btn__mobile {

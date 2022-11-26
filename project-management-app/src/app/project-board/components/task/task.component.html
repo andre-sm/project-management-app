@@ -15,7 +15,11 @@
   <p class="task__description">{{ task.description }}</p>
   <span class="task__separator"></span>
   <div class="task__users users">
-    <div class="users__avatar" *ngFor="let user of users">
+    <div
+      class="users__avatar"
+      *ngFor="let user of users"
+      [ngStyle]="{ backgroundColor: user.color }"
+    >
       {{ user.name | initials }}
     </div>
   </div>

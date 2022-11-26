@@ -176,7 +176,7 @@
     "default": "An unknown error occurred!",
     "404": "Not found.",
     "400": "Bad request",
-    "403": "Forbidden"
+    "403": "Your access token has expired, you need to login again."
   },
   "WELCOME": {
     "mainHeader": {
