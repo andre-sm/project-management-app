@@ -187,6 +187,13 @@
       "login": "Login",
       "signup": "Signup"
     },
+    "appTitle": "Powerful Project Management Software",
+    "appText": "Helps planning your projects, track work efficiently and collaborate with your team",
+    "appFeatures": {
+      "featureOne": "Create, edit or delete your project",
+      "featureTwo": "Manage tasks with draggable interface",
+      "featureThree": "Search by tasks or contributors"
+    },
     "heroText": "Hello there! Our team glad to welcome you and introduce our project management application \"OnBoard\". Thank you for choosing our app. We hope it will help you a great deal with managing your team work and daily tasks.",
     "secondHeader": "Why OnBoard?",
     "prosList": {
@@ -210,6 +217,25 @@
         "slide2": {
           "title": "Vitaliy",
           "subtitle": "Contribution: tasks search, task filters."
+        }
+      }
+    },
+    "courseSection": {
+      "header": "Angular Course",
+      "text": "This is the final project of The Rolling Scopes",
+      "link": "Angular course",
+      "items": {
+        "item1": {
+          "header": "Free-of-charge learning",
+          "text": "The RS School is working by the principle of \"Pay it forward\". Members of our community share their knowledge and check students' tasks for free."
+        },
+        "item2": {
+          "header": "Open to everyone",
+          "text": "Everyone can study at RS School, regardless of age, professional employment, or place of residence."
+        },
+        "item3": {
+          "header": "Certificate",
+          "text": "After accomplishing all three stages of education, students will receive an electronic certificate of completion."
         }
       }
     }

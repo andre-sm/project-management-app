@@ -8,9 +8,8 @@ describe('MobileMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MobileMenuComponent ]
-    })
-    .compileComponents();
+      declarations: [MobileMenuComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MobileMenuComponent);
     component = fixture.componentInstance;
