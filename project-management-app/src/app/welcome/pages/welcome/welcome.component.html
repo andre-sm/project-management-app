@@ -11,27 +11,26 @@
             >{{ 'WELCOME.mainHeader.styled' | translate }}</span
           >
         </h3>
-        <h2 class="app__title">Powerful Project Management Software</h2>
+        <h2 class="app__title">{{ 'WELCOME.appTitle' | translate }}</h2>
         <p class="app__text">
-          Helps plan your projects, track work efficiently and collaborate with
-          your team
+          {{ 'WELCOME.appText' | translate }}
         </p>
-        <button class="sign-in-btn btn">
-          <span>{{ 'sign in' | uppercase }}</span>
+        <button class="sign-in-btn btn" routerLink="/auth/login">
+          <span>{{ 'WELCOME.buttons.login' | translate | uppercase }}</span>
         </button>
       </div>
       <div class="app__features-wrapper features">
         <div class="features__one feature">
           <mat-icon class="done-icon">done</mat-icon>
-          <span> Create, edit or delete your project</span>
+          <span>{{ 'WELCOME.appFeatures.featureOne' | translate }} </span>
         </div>
         <div class="features__two feature">
           <mat-icon class="done-icon">done</mat-icon>
-          <span> Manage tasks with draggable interface</span>
+          <span>{{ 'WELCOME.appFeatures.featureTwo' | translate }} </span>
         </div>
         <div class="features__three feature">
           <mat-icon class="done-icon">done</mat-icon>
-          <span> Search by tasks or contributors</span>
+          <span>{{ 'WELCOME.appFeatures.featureThree' | translate }} </span>
         </div>
       </div>
     </div>
@@ -48,34 +47,38 @@
     </div>
   </section>
   <section class="course-section course">
-    <h2 class="course__title">Angular Course</h2>
+    <h2 class="course__title">
+      {{ 'WELCOME.courseSection.header' | translate }}
+    </h2>
     <p class="course__text">
-      This is the final project of The Rolling Scopes
-      <a href="https://rs.school/angular/" class="course__link"
-        >Angular course</a
-      >
+      {{ 'WELCOME.courseSection.text' | translate }}
+      <a href="https://rs.school/angular/" class="course__link">{{
+        'WELCOME.courseSection.link' | translate
+      }}</a>
     </p>
     <div class="course__items">
       <div class="course-item">
-        <h3 class="course-item__title">Free-of-charge learning</h3>
+        <h3 class="course-item__title">
+          {{ 'WELCOME.courseSection.items.item1.header' | translate }}
+        </h3>
         <p class="course-item__text">
-          The RS School is working by the principle of "Pay it forward". Members
-          of our community share their knowledge and check students' tasks for
-          free.
+          {{ 'WELCOME.courseSection.items.item1.text' | translate }}
         </p>
       </div>
       <div class="course-item">
-        <h3 class="course-item__title">Open to everyone</h3>
+        <h3 class="course-item__title">
+          {{ 'WELCOME.courseSection.items.item2.header' | translate }}
+        </h3>
         <p class="course-item__text">
-          Everyone can study at RS School, regardless of age, professional
-          employment, or place of residence.
+          {{ 'WELCOME.courseSection.items.item2.text' | translate }}
         </p>
       </div>
       <div class="course-item">
-        <h3 class="course-item__title">Certificate</h3>
+        <h3 class="course-item__title">
+          {{ 'WELCOME.courseSection.items.item3.header' | translate }}
+        </h3>
         <p class="course-item__text">
-          After accomplishing all three stages of education, students will
-          receive an electronic certificate of completion.
+          {{ 'WELCOME.courseSection.items.item3.text' | translate }}
         </p>
       </div>
     </div>
