@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { Store } from '@ngrx/store';
 import * as AuthActions from '../store/auth.actions';
 import * as EditActions from '../../user/store/edit-user.actions';
-import { Store } from '@ngrx/store';
 
 @Injectable({ providedIn: 'root' })
 export class HandleServerErrors {
@@ -19,7 +19,11 @@ export class HandleServerErrors {
     409: string;
   };
 
-  constructor(private router: Router, private translate: TranslateService, private store: Store) {}
+  constructor(
+    private router: Router,
+    private translate: TranslateService,
+    private store: Store,
+  ) {}
 
   handleError = (errorRes: any) => {
     this.translate.get('ERROR_ALERT').subscribe((messageObj) => {
@@ -57,8 +61,8 @@ export class HandleServerErrors {
       default:
         break;
     }
-    if(errorRes.status === 403) {
-      this.store.dispatch(AuthActions.logout({isAutoLogout: false}));
+    if (errorRes.status === 403) {
+      this.store.dispatch(AuthActions.logout({ isAutoLogout: false }));
     }
     if (this.page === 'auth') {
       return of(AuthActions.loginFail({ error: errorMessage }));

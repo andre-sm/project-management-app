@@ -8,9 +8,11 @@
     height: 100%;
     font-size: 14px;
     color: $color-black-light;
+    border: 1px solid $color-grey-light;
     border-radius: 8px;
     background-color: $color-white;
     outline: none;
+    padding: 10px;
     transition: all 0.35s ease;
   }
 }

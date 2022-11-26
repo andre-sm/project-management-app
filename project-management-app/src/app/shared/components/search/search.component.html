@@ -1,12 +1,27 @@
 <form class="search-form">
-  <mat-form-field appearance="fill" class="search-form__input">
-    <input
-      #searchInput
-      matInput
-      aria-label="State"
-      [placeholder]="'PROJECTS.actionPanel.search.placeholder' | translate"
-      [matAutocomplete]="auto"
-    />
+  <input
+    class="search-form__input"
+    type="text"
+    name="search"
+    [placeholder]="'PROJECTS.actionPanel.search.placeholder' | translate"
+    [formControl]="search"
+    [matAutocomplete]="auto"
+  />
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option
+      *ngFor="let search of searchResults$ | async; let i = index"
+      (click)="onResultClick(search._id)"
+    >
+      <span
+        class="search-form__result"
+        [routerLink]="['/projects/board/', search.boardId]"
+      >
+        {{ i + 1 }}. {{ search.title }}
+      </span>
+    </mat-option>
+  </mat-autocomplete>
+
+  <!-- <mat-form-field appearance="fill" class="search-form__input">
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option
         *ngFor="let search of searchResults; let i = index"
@@ -20,5 +35,5 @@
         </span>
       </mat-option>
     </mat-autocomplete>
-  </mat-form-field>
+  </mat-form-field> -->
 </form>
