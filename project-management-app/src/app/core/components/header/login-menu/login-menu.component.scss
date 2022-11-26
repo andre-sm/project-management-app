@@ -4,6 +4,13 @@
     display: none;
   }
 }
+
+button.mat-menu-item{
+  color: $color-black-light;
+  font-size: 18px;
+  font-weight: 300;
+}
+
 .login {
   display: flex;
   justify-content: center;
@@ -23,12 +30,13 @@
     align-items: center;
     font-family: 'Raleway', sans-serif;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 1.2px;
     color: $color-white;
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    border: 2px solid $color-white;
   }
 }
 
