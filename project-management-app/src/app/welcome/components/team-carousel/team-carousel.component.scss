@@ -1,10 +1,7 @@
-@import 'mdb-angular-ui-kit/assets/scss/mdb.scss';
+@import '../../../shared/variables';
 :host {
-  grid-row: 3 / 5;
-  grid-column: 1 / 7;
-  width: 501px;
+  height: 100%;
   @media (min-width: 320px) and (max-width: 1032px) {
-    margin-bottom: 20px;
     order: 3;
   }
   @media (min-width: 320px) and (max-width: 767px) {
@@ -12,6 +9,21 @@
     flex-wrap: wrap;
     justify-content: space-between;
   }
+  @media (min-width: 400px) and (max-width: 449px) {
+    min-height: 507px;
+  }
+  @media (min-width: 320px) and (max-width: 399px) {
+    min-height: 460px;
+  }
+}
+
+.carousel-wrapper {
+  max-width: 501px;
+  margin: 0 auto 20px auto;
+}
+
+.welcome__carousel-wrapper {
+  position: relative;
 }
 
 .welcome__carousel {
@@ -24,11 +36,30 @@
 }
 
 .welcome__caption {
-  @media (min-width: 600px) and (max-width: 767px) {
-    flex-basis: 100%;
+  @media (min-width: 450px) and (max-width: 767px) {
+    position: absolute;
+    width: 100%;
+    padding: 0 20px;
+    top: 66%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: $color-white;
+    .title,
+    .subtitle {
+      text-align: center;
+    }
+    .subtitle {
+      margin: 0 auto;
+    }
   }
-  @media (min-width: 320px) and (max-width: 601px) {
-    flex-basis: 100%;
+  @media (min-width: 320px) and (max-width: 450px) {
+    .title {
+      font-size: 20px;
+    }
+    .subtitle {
+      font-size: 16px;
+      line-height: 1.3;
+    }
   }
 }
 
