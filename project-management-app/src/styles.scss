@@ -25,11 +25,40 @@ body {
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  transition: all 0.35s ease;
 }
 
 .btn.disabled {
   pointer-events: none;
   cursor: default;
+}
+
+.close-btn {
+  padding: 10px 30px;
+  border: 1px solid $color-violet;
+  background-color: $color-white;
+  color: $color-violet;
+}
+
+.close-btn:hover {
+  border: 1px solid $color-violet;
+  background-color: $color-violet;
+  color: $color-white;
+}
+
+.create-btn {
+  padding: 10px 30px;
+  background-color: $color-orange;
+  color: $color-white;
+}
+
+.create-btn:hover {
+  color: $color-white;
+  background-color: $color-orange-dark;
+}
+
+.create-btn.btn.disabled {
+  background-color: $color-grey;
 }
 
 .arrow-icon,
