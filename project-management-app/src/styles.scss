@@ -53,3 +53,7 @@ body {
 .mat-slide-toggle .mat-slide-toggle-thumb {
   background-color: $color-purple-light;
 }
+
+.mat-slide-toggle .mat-slide-toggle-thumb:hover {
+  background-color: $color-purple;
+}
