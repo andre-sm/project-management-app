@@ -44,13 +44,14 @@ export class ProjectsEffects {
       map((tasks) =>
         ProjectsActions.getProjectsTasksSuccess({ tasks: tasks.flat(1) }),
       ),
-      catchError((error) =>
-        of(
-          ProjectsActions.getProjectsTasksError({
-            error: error.message,
-          }),
-        ),
-      ),
+      catchError((error) => {
+        const errorMessage = this.handleErrorsService.handleErrorMessage(
+          error.status,
+        );
+        return of(
+          ProjectsActions.getProjectsTasksError({ error: errorMessage }),
+        );
+      }),
     );
   });
 
