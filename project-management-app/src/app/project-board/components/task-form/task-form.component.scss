@@ -5,6 +5,9 @@
     display: flex;
     flex-direction: column;
     min-width: 280px;
+    @media (min-width: 320px) and (max-width: 409px) {
+      min-width: 208px;
+    }
   }
 
   &__btns {
