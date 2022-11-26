@@ -57,21 +57,6 @@ export const deleteColumnError = createAction(
   props<{ error: string }>(),
 );
 
-// export const updateColumnsOrder = createAction(
-//   '[Column] Update Columns Order',
-//   props<{ newOrder: { _id: string; order: number }[] }>(),
-// );
-
-// export const updateColumnsOrderSuccess = createAction(
-//   '[Column] Update Columns Order Success',
-//   props<{ updatedColumns: Column[] }>(),
-// );
-
-// export const updateColumnsOrderError = createAction(
-//   '[Column] Update Columns Order Error',
-//   props<{ error: string }>(),
-// );
-
 export const updateColumn = createAction(
   '[Column] Update Column',
   props<{ title: string; color: string; id: string; order: number | null }>(),
@@ -89,6 +74,11 @@ export const updateColumnError = createAction(
 
 export const setTaskColumnFilter = createAction(
   '[Task] Set Column Filter',
+  props<{ filterValue: string }>(),
+);
+
+export const setMainTaskFilter = createAction(
+  '[Tasks] Set Tasks Filter',
   props<{ filterValue: string }>(),
 );
 

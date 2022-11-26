@@ -33,8 +33,6 @@ export class TaskComponent implements OnInit {
         name: this.allUsers.find((item) => item._id === user)?.name || '',
       };
     });
-
-    console.log(this.resultTask);
   }
 
   deleteTask(event: Event) {

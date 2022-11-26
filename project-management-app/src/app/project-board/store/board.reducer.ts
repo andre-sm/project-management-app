@@ -20,6 +20,7 @@ export const initialState: BoardFeatureState = {
     tasks: [],
   },
   taskColumnFilter: '',
+  mainTaskFilter: '',
 };
 
 export const projectsReducer = createReducer(
@@ -200,6 +201,13 @@ export const projectsReducer = createReducer(
     (state, { filterValue }): BoardFeatureState => ({
       ...state,
       taskColumnFilter: filterValue,
+    }),
+  ),
+  on(
+    BoardActions.setMainTaskFilter,
+    (state, { filterValue }): BoardFeatureState => ({
+      ...state,
+      mainTaskFilter: filterValue,
     }),
   ),
   on(

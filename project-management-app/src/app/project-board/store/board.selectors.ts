@@ -27,6 +27,27 @@ export const selectColumnsIds = createSelector(
   (state: BoardFeatureState) => state.board.columns.map((column) => column._id),
 );
 
+export const selectMainTaskFilter = createSelector(
+  selectBoardState,
+  (state: BoardFeatureState) => state.mainTaskFilter,
+);
+
+export const selectFilteredTasks = createSelector(
+  selectTasks,
+  selectMainTaskFilter,
+  (tasks: Task[], filterValue: string) => {
+    if (filterValue === '') {
+      return tasks;
+    }
+    return tasks.filter((task) => {
+      return (
+        task.title.toLowerCase().includes(filterValue) ||
+        task.description.toLowerCase().includes(filterValue)
+      );
+    });
+  },
+);
+
 export const selectBoardColumns = createSelector(
   selectBoardState,
   (state: BoardFeatureState) =>
@@ -68,7 +89,7 @@ export const selectNewColumnOrder = (index: number) =>
   );
 
 export const selectColumnsWithTasks = createSelector(
-  selectTasks,
+  selectFilteredTasks,
   selectBoardColumns,
   (tasks: Task[], columns: Column[]) =>
     columns.map((column) => {

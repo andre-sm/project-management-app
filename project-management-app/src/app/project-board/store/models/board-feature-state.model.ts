@@ -15,4 +15,5 @@ export interface BoardFeatureState {
     tasks: Task[];
   };
   taskColumnFilter: string;
+  mainTaskFilter: string;
 }
