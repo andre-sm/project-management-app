@@ -17,6 +17,7 @@ import {
   selectFilteredColumns,
 } from '../../store/board.selectors';
 import { selectUsers } from '../../../projects/store/projects.selector';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-task-form',
@@ -40,6 +41,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     private store: Store,
     private dialogRef: MatDialogRef<TaskFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: TaskForm,
+    private translate: TranslateService,
   ) {
     this.taskData = { ...data };
     this.selectedColumnId = this.taskData?.columnData?.columnId || '';

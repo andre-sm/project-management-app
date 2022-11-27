@@ -13,9 +13,15 @@
       *ngIf="title?.invalid && (title?.dirty || title?.touched)"
       class="alert"
     >
-      <div *ngIf="title?.errors?.['required']">Please enter a title</div>
-      <div *ngIf="title?.errors?.['minlength']">The title is too short</div>
-      <div *ngIf="title?.errors?.['maxlength']">The title is too long</div>
+      <div *ngIf="title?.errors?.['required']">
+        {{ 'PROJECTS.projectForm.errors.title.required' | translate }}
+      </div>
+      <div *ngIf="title?.errors?.['minlength']">
+        {{ 'PROJECTS.projectForm.errors.title.minLength' | translate }}
+      </div>
+      <div *ngIf="title?.errors?.['maxlength']">
+        {{ 'PROJECTS.projectForm.errors.title.maxLength' | translate }}
+      </div>
     </div>
     <mat-form-field appearance="fill">
       <mat-label>{{
@@ -36,13 +42,13 @@
       class="alert"
     >
       <div *ngIf="description?.errors?.['required']">
-        Please enter a description
+        {{ 'PROJECTS.projectForm.errors.description.required' | translate }}
       </div>
       <div *ngIf="description?.errors?.['minlength']">
-        The description is too short
+        {{ 'PROJECTS.projectForm.errors.description.minLength' | translate }}
       </div>
       <div *ngIf="description?.errors?.['maxlength']">
-        The description is too long
+        {{ 'PROJECTS.projectForm.errors.description.maxLength' | translate }}
       </div>
     </div>
     <mat-form-field appearance="fill">
@@ -57,7 +63,9 @@
       *ngIf="users?.invalid && (users?.dirty || users?.touched)"
       class="alert"
     >
-      <div *ngIf="users?.errors?.['required']">Please choose an user</div>
+      <div *ngIf="users?.errors?.['required']">
+        {{ 'PROJECTS.projectForm.errors.user.required' | translate }}
+      </div>
     </div>
     <div class="create-project__btns">
       <button class="close-btn btn" (click)="onCloseClick()" type="button">

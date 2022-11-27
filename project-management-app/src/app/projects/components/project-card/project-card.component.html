@@ -19,15 +19,17 @@
     </button>
     <mat-menu #menu="matMenu" class="project__menu">
       <button mat-menu-item (click)="editDialog($event, project._id)">
-        Edit
+        {{ 'PROJECTS.projectCard.buttons.edit' | translate }}
       </button>
       <button mat-menu-item (click)="deleteDialog($event, project._id)">
-        Delete
+        {{ 'PROJECTS.projectCard.buttons.delete' | translate }}
       </button>
     </mat-menu>
   </div>
   <div class="project__description">
     {{ project.description }}
   </div>
-  <span class="project__task-count">{{ project.tasks }} Tasks</span>
+  <span class="project__task-count"
+    >{{ project.tasks }} {{ 'PROJECTS.projectCard.tasks' | translate }}</span
+  >
 </div>

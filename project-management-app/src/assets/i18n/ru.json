@@ -104,7 +104,29 @@
     "projectForm": {
       "titleLabel": "Название",
       "descriptionLabel": "Описание",
-      "userLabel": "Пользователь"
+      "userLabel": "Пользователь",
+      "errors": {
+        "title": {
+          "required": "Пожалуйста, введите название",
+          "minLength": "Слишком короткое название",
+          "maxLength": "Слишком длинное название"
+        },
+        "description": {
+          "required": "Пожалуйста, введите описание",
+          "minLength": "Слишком короткое описание",
+          "maxLength": "Слишком длинное описание"
+        },
+        "user": {
+          "required": "Пожалуйста, выберете пользователя"
+        }
+      }
+    },
+    "projectCard": {
+      "tasks": "",
+      "buttons": {
+        "delete": "Удалить",
+        "edit": "Редактировать"
+      }
     },
     "projectsList": {
       "header": {
@@ -132,10 +154,18 @@
         "newColumn": "Колонка",
         "newTask": "Задание"
       },
+
       "dialog": {
-        "formTitle": "Создать колонку",
-        "confirmText": "Создать",
-        "cancelText": "Закрыть"
+        "createTask": {
+          "formTitle": "Создать задание",
+          "confirmText": "Создать",
+          "cancelText": "Закрыть"
+        },
+        "createColumn": {
+          "formTitle": "Создать колонку",
+          "confirmText": "Создать",
+          "cancelText": "Закрыть"
+        }
       }
     },
     "column": {
@@ -155,7 +185,18 @@
       }
     },
     "columnForm": {
-      "titleLabel": "Название"
+      "titleLabel": "Название",
+      "color": "Цвет",
+      "errors": {
+        "title": {
+          "required": "Пожалуйста, введите название",
+          "minLength": "Слишком короткое название",
+          "maxLength": "Слишком длинное название"
+        },
+        "color": {
+          "required": "Пожалуйста, выберете цвет"
+        }
+      }
     },
     "taskForm": {
       "editDialog": {
@@ -173,6 +214,25 @@
         "description": "Описание",
         "column": "Колонка",
         "users": "Пользователи"
+      },
+      "errors": {
+        "title": {
+          "required": "Пожалуйста, введите название",
+          "minLength": "Слишком короткое название",
+          "maxLength": "Слишком длинное название"
+        },
+        "description": {
+          "required": "Пожалуйста, введите описание",
+          "minLength": "Слишком короткое описание",
+          "maxLength": "Слишком длинное описание"
+        },
+        "column": {
+          "required": "Пожалуйста, выберете колонку",
+          "columnError": "Пожалуйста, выберете колонку из списка"
+        },
+        "user": {
+          "required": "Пожалуйста, выберете хотя бы одного пользователя"
+        }
       }
     }
   },

@@ -15,12 +15,18 @@
       *ngIf="title?.invalid && (title?.dirty || title?.touched)"
       class="alert"
     >
-      <div *ngIf="title?.errors?.['required']">Please enter a title</div>
-      <div *ngIf="title?.errors?.['minlength']">The title is too short</div>
-      <div *ngIf="title?.errors?.['maxlength']">The title is too long</div>
+      <div *ngIf="title?.errors?.['required']">
+        {{ 'PROJECT_BOARD.columnForm.errors.title.required' | translate }}
+      </div>
+      <div *ngIf="title?.errors?.['minlength']">
+        {{ 'PROJECT_BOARD.columnForm.errors.title.minLength' | translate }}
+      </div>
+      <div *ngIf="title?.errors?.['maxlength']">
+        {{ 'PROJECT_BOARD.columnForm.errors.title.maxLength' | translate }}
+      </div>
     </div>
     <mat-form-field appearance="fill">
-      <mat-label>Color</mat-label>
+      <mat-label>{{ 'PROJECT_BOARD.columnForm.color' | translate }}</mat-label>
       <mat-select formControlName="color" [(value)]="selectedColor">
         <mat-select-trigger>
           <span
@@ -40,7 +46,9 @@
       *ngIf="color?.invalid && (color?.dirty || color?.touched)"
       class="alert"
     >
-      <div *ngIf="color?.errors?.['required']">Please choose a color</div>
+      <div *ngIf="color?.errors?.['required']">
+        {{ 'PROJECT_BOARD.columnForm.errors.color.required' | translate }}
+      </div>
     </div>
     <div class="column-form__btns">
       <button class="close-btn btn" (click)="onCloseClick()" type="button">

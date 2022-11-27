@@ -104,7 +104,29 @@
     "projectForm": {
       "titleLabel": "Title",
       "descriptionLabel": "Description",
-      "userLabel": "User"
+      "userLabel": "User",
+      "errors": {
+        "title": {
+          "required": "Please enter a title",
+          "minLength": "The title is too short",
+          "maxLength": "The title is too long"
+        },
+        "description": {
+          "required": "Please enter a description",
+          "minLength": "The description is too short",
+          "maxLength": "The description is too long"
+        },
+        "user": {
+          "required": "Please choose an user"
+        }
+      }
+    },
+    "projectCard": {
+      "tasks": "Tasks",
+      "buttons": {
+        "delete": "Delete",
+        "edit": "Edit"
+      }
     },
     "projectsList": {
       "header": {
@@ -133,9 +155,16 @@
         "newTask": "Task"
       },
       "dialog": {
-        "formTitle": "Create column",
-        "confirmText": "Create",
-        "cancelText": "Close"
+        "createTask": {
+          "formTitle": "Create task",
+          "confirmText": "Create",
+          "cancelText": "Close"
+        },
+        "createColumn": {
+          "formTitle": "Create column",
+          "confirmText": "Create",
+          "cancelText": "Close"
+        }
       }
     },
     "column": {
@@ -155,8 +184,20 @@
       }
     },
     "columnForm": {
-      "titleLabel": "Title"
+      "titleLabel": "Title",
+      "color": "Color",
+      "errors": {
+        "title": {
+          "required": "Please enter a title",
+          "minLength": "The title is too short",
+          "maxLength": "The title is too long"
+        },
+        "color": {
+          "required": "Please choose an color"
+        }
+      }
     },
+
     "taskForm": {
       "editDialog": {
         "formTitle": "Edit task",
@@ -173,6 +214,25 @@
         "description": "Description",
         "column": "Column",
         "users": "Users"
+      },
+      "errors": {
+        "title": {
+          "required": "Please enter a title",
+          "minLength": "The title is too short",
+          "maxLength": "The title is too long"
+        },
+        "description": {
+          "required": "Please enter a description",
+          "minLength": "The description is too short",
+          "maxLength": "The description is too long"
+        },
+        "column": {
+          "required": "Please choose a column",
+          "columnError": "Please choose a column from the list"
+        },
+        "user": {
+          "required": "Please choose at least one user"
+        }
       }
     }
   },
