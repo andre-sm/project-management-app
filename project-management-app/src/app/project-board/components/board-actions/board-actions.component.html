@@ -13,18 +13,22 @@
     <app-filter></app-filter>
   </div>
   <div class="board__buttons">
+    <button
+      class="new-task-btn btn"
+      *ngIf="columnsCount"
+      (click)="openCreateTaskDialog()"
+    >
+      <mat-icon class="add-icon" aria-hidden="false" fontIcon="add"></mat-icon>
+      <span>{{
+        'PROJECT_BOARD.projectBoardPage.actions.newTask' | translate | uppercase
+      }}</span>
+    </button>
     <button class="new-column-btn btn" (click)="openCreateColumnDialog()">
       <mat-icon class="add-icon" aria-hidden="false" fontIcon="add"></mat-icon>
       <span>{{
         'PROJECT_BOARD.projectBoardPage.actions.newColumn'
           | translate
           | uppercase
-      }}</span>
-    </button>
-    <button class="new-task-btn btn" (click)="openCreateTaskDialog()">
-      <mat-icon class="add-icon" aria-hidden="false" fontIcon="add"></mat-icon>
-      <span>{{
-        'PROJECT_BOARD.projectBoardPage.actions.newTask' | translate | uppercase
       }}</span>
     </button>
   </div>

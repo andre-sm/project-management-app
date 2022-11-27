@@ -13,6 +13,8 @@ import { TaskFormComponent } from '../task-form/task-form.component';
 export class BoardActionsComponent {
   @Input() boardInfo!: BoardInfo;
 
+  @Input() columnsCount!: number | undefined;
+
   constructor(public dialog: MatDialog, private translate: TranslateService) {}
 
   openCreateColumnDialog(): void {
