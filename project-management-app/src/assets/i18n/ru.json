@@ -125,8 +125,8 @@
   "PROJECT_BOARD": {
     "projectBoardPage": {
       "actions": {
-        "newColumn": "Новая колонка",
-        "newTask": "Новое задание"
+        "newColumn": "Колонка",
+        "newTask": "Задание"
       },
       "dialog": {
         "formTitle": "Создать колонку",
