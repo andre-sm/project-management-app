@@ -19,7 +19,14 @@ export class ColumnFormComponent implements OnInit {
 
   columns$!: Observable<Column[]>;
 
-  colors: string[] = ['#49c385', '#63baff', '#fcd347', '#4f30e5'];
+  colors: string[] = [
+    '#49c385',
+    '#63baff',
+    '#e71079',
+    '#fcd347',
+    '#4f30e5',
+    '#fa6628',
+  ];
 
   selectedColor = '';
 

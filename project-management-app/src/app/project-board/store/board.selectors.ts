@@ -3,6 +3,8 @@ import { Column, Task, ColumnSet } from '../models';
 import * as fromBoard from './board.reducer';
 import { BoardFeatureState } from './models';
 import { selectUserId } from '../../store/selectors/auth.selector';
+import { selectUsers } from '../../projects/store/projects.selector';
+import { User } from '../../projects/models';
 
 export const selectBoardState = createFeatureSelector<BoardFeatureState>(
   fromBoard.featureName,
@@ -41,14 +43,23 @@ export const selectTaskViewMode = createSelector(
 export const selectFilteredTasks = createSelector(
   selectTasks,
   selectMainTaskFilter,
-  (tasks: Task[], filterValue: string) => {
+  selectUsers,
+  (tasks: Task[], filterValue: string, allUsers: User[]) => {
     if (filterValue === '') {
       return tasks;
     }
     return tasks.filter((task) => {
       return (
         task.title.toLowerCase().includes(filterValue) ||
-        task.description.toLowerCase().includes(filterValue)
+        task.description.toLowerCase().includes(filterValue) ||
+        task.users.find((user) => {
+          return allUsers
+            .find((item) => {
+              return item._id === user;
+            })
+            ?.name.toLowerCase()
+            .includes(filterValue);
+        })
       );
     });
   },

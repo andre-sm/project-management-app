@@ -86,3 +86,9 @@ body {
 .mat-slide-toggle .mat-slide-toggle-thumb:hover {
   background-color: $color-purple;
 }
+
+.custom-snackbar {
+  background-color: $color-pink;
+  border-radius: 8px;
+  border: 1px solid $color-pink-dark;
+}

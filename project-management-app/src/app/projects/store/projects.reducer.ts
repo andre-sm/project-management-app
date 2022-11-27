@@ -143,4 +143,12 @@ export const projectsReducer = createReducer(
       searchTask,
     };
   }),
+  on(
+    ProjectActions.clearSearch,
+    (state): ProjectsState => ({
+      ...state,
+      globalSearch: '',
+      searchTask: '',
+    }),
+  ),
 );

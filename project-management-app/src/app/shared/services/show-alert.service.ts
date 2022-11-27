@@ -8,7 +8,7 @@ import { AlertComponent } from '../components/alert-component/alert-component.co
 
 @Injectable({ providedIn: 'root' })
 export class ShowAlertService {
-  position = { horizontal: 'right', vertical: 'top' };
+  position = { horizontal: 'right', vertical: 'bottom' };
 
   durationInSeconds = 5;
 
@@ -21,6 +21,7 @@ export class ShowAlertService {
       horizontalPosition: this.position
         .horizontal as MatSnackBarHorizontalPosition,
       verticalPosition: this.position.vertical as MatSnackBarVerticalPosition,
+      panelClass: ['custom-snackbar'],
     });
   }
 }

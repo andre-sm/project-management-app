@@ -52,14 +52,14 @@
     </div>
     <div class="column-form__btns">
       <button class="close-btn btn" (click)="onCloseClick()" type="button">
-        {{ formData.cancelText }}
+        {{ formData.cancelText | uppercase }}
       </button>
       <button
         class="create-btn btn"
         [class.disabled]="columnForm.invalid"
         type="submit"
       >
-        {{ formData.confirmText }}
+        {{ formData.confirmText | uppercase }}
       </button>
     </div>
   </form>

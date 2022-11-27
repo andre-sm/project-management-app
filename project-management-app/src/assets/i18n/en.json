@@ -95,11 +95,14 @@
         "cancelText": "Close"
       },
       "search": {
-        "placeholder": "Filter tasks...",
+        "placeholder": "Search tasks...",
         "filter": {
           "allTasks": "All Tasks",
           "myTasks": "My Tasks"
         }
+      },
+      "filter": {
+        "placeholder": "Filter tasks..."
       }
     },
     "projectForm": {
