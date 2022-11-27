@@ -66,7 +66,9 @@ export class ProjectBoardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.errorSub.unsubscribe();
-    this.store.dispatch(BoardActions.clearProjectData());
+    [BoardActions.clearProjectData(), ProjectsActions.clearSearch()].forEach(
+      (action) => this.store.dispatch(action),
+    );
   }
 
   onHandleError() {

@@ -5,12 +5,12 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { TeamCarouselService } from 'src/app/welcome/components/team-carousel/services/team-carousel.service';
+import { Router, Scroll } from '@angular/router';
 import {
   selectIsAuthenticated,
   selectUserName,
 } from '../../../store/selectors/auth.selector';
 import { ProjectFormComponent } from '../../../projects/components/project-form/project-form.component';
-import { Router, Scroll } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -27,9 +27,12 @@ export class HeaderComponent implements OnDestroy {
   isChecked!: boolean;
 
   boardIsTrue$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   boardIsTrue: boolean = false;
+
   boardIsTrueSub!: Subscription;
-  routerSub!: Subscription
+
+  routerSub!: Subscription;
 
   constructor(
     private store: Store,
@@ -37,7 +40,7 @@ export class HeaderComponent implements OnDestroy {
     private translate: TranslateService,
     private teamCarouselService: TeamCarouselService,
     private router: Router,
-    private location: Location
+    private location: Location,
   ) {
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
     this.userName$ = this.store.select(selectUserName);
@@ -53,19 +56,24 @@ export class HeaderComponent implements OnDestroy {
     } else {
       this.isChecked = true;
     }
-    this.boardIsTrueSub = this.boardIsTrue$.subscribe((val)=>{
+    this.boardIsTrueSub = this.boardIsTrue$.subscribe((val) => {
       this.boardIsTrue = val;
-    })
+    });
 
     this.routerSub = router.events.subscribe((val) => {
-      if(val instanceof Scroll && this.location.path().indexOf('board') !== -1) {
-        this.boardIsTrue$.next(true)
+      if (
+        val instanceof Scroll &&
+        this.location.path().indexOf('board') !== -1
+      ) {
+        this.boardIsTrue$.next(true);
       } else {
-        this.boardIsTrue$.next(false)
+        this.boardIsTrue$.next(false);
       }
-    })
+    });
 
-    this.location.path().indexOf('board') !== -1 ? this.boardIsTrue$.next(true) : this.boardIsTrue$.next(false);
+    this.location.path().indexOf('board') !== -1
+      ? this.boardIsTrue$.next(true)
+      : this.boardIsTrue$.next(false);
   }
 
   ngOnDestroy(): void {
@@ -99,9 +107,9 @@ export class HeaderComponent implements OnDestroy {
   }
 
   onNavigate() {
-    if(this.boardIsTrue) {
-      this.boardIsTrue$.next(false)
+    if (this.boardIsTrue) {
+      this.boardIsTrue$.next(false);
     }
-    this.router.navigate(['/projects'])
+    this.router.navigate(['/projects']);
   }
 }

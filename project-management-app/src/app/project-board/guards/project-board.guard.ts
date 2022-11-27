@@ -6,7 +6,7 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { catchError, Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, Observable, of, switchMap } from 'rxjs';
 import { BoardService } from '../services/board.service';
 
 @Injectable({ providedIn: 'root' })

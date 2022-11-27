@@ -103,3 +103,5 @@ export const setSearchTask = createAction(
   '[Projects] Set Search Task',
   props<{ searchTask: string }>(),
 );
+
+export const clearSearch = createAction('[Projects] Clear Search');
