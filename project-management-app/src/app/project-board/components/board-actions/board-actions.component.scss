@@ -11,7 +11,7 @@
   padding: 0 40px;
 
   &__info {
-    min-width: 300px;
+    min-width: 290px;
     max-width: 400px;
     padding: 10px 0 10px 0;
     height: 100px;
@@ -96,7 +96,7 @@
 @media (min-width: 320px) and (max-width: 767px) {
   .board {
     flex-wrap: wrap;
-    padding: 20px;
+    padding: 0 10px;
     &__info {
       width: 50%;
     }

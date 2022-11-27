@@ -276,8 +276,8 @@
       "carousel-header": "Our team",
       "slides": {
         "slide0": {
-          "title": "Andrey",
-          "subtitle": "Team leader. Contribution: backend deploy and modification, application setup, boards, columns, tasks, design."
+          "title": "Andrei",
+          "subtitle": "Team lead. Contribution: backend deploy and modification, application setup, boards, columns, tasks, drag and drop, design."
         },
         "slide1": {
           "title": "Anna",
@@ -285,7 +285,7 @@
         },
         "slide2": {
           "title": "Vitaliy",
-          "subtitle": "Contribution: tasks search, task filters."
+          "subtitle": "Contribution: tasks search, task filters, form validation, pipes"
         }
       }
     },
