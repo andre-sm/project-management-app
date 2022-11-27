@@ -1,0 +1,316 @@
+{
+  "AUTH": {
+    "firstName": {
+      "value": "First Name",
+      "validation": {
+        "error1": "Please enter a first name",
+        "error2": "Min length 2 characters"
+      }
+    },
+    "lastName": {
+      "value": "Last Name",
+      "validation": {
+        "error1": "Please enter a last name",
+        "error2": "Min length 2 characters"
+      }
+    },
+    "email": {
+      "value": "Email",
+      "validation": {
+        "error1": "Please enter a login email",
+        "error2": "The login email is invalid"
+      }
+    },
+    "password": {
+      "value": "Password",
+      "hint": "Your password should include at least 1 uppercase character, lowercase character, number, special symbol and be at least 8 characters long",
+      "validation": {
+        "common": "Your password isn't strong enough: ",
+        "error1": "Please enter a password",
+        "error2": "Password must contain at least 1 uppercase letter",
+        "error3": "Password must contain at least 1 lowercase letter",
+        "error4": "Password must contain at least 1 number",
+        "error5": "Password must contain at least 1 special character",
+        "error6": "Password must be at least 8 characters long"
+      }
+    },
+    "color": {
+      "label": "Pick the avatar color",
+      "error": "Please enter color in HEX format or just pick it from the picker"
+    },
+    "buttons": {
+      "submit": {
+        "login": "Login",
+        "signup": "Signup"
+      },
+      "switch": {
+        "toLogin": "Switch to login",
+        "toSignup": "Switch to signup"
+      }
+    }
+  },
+  "EDIT_USER": {
+    "header": "Edit user:",
+    "passwordDisclaimer": "Enter a new password. Enter the old one in case if you don't want to change it.",
+    "buttons": {
+      "save": "Save changes",
+      "delete": "Delete user"
+    },
+    "confirmDialog": {
+      "message": "Deleting user will remove all data about your existence form our database. Are you sure you want it?",
+      "confirmText": "I'm sure, delete user!",
+      "cancelText": "Cancel!!!"
+    }
+  },
+  "HEADER": {
+    "nav": {
+      "projects": "Projects",
+      "tasks": "Tasks",
+      "team": "Team",
+      "boardTrue": "Go Back"
+    },
+    "buttons": {
+      "logout": "Logout",
+      "editUser": "Edit user",
+      "signin": "Sign in",
+      "signup": "Sign up"
+    }
+  },
+  "ERROR_ALERT": {
+    "default": "An unknown error occurred!",
+    "400": "Password must be a string!",
+    "401": "Authorization error occurred. Check email and password.",
+    "403": "Your access token has expired, you need to login again.",
+    "404": "User was not found.",
+    "409": "This email exists already."
+  },
+  "PROJECTS": {
+    "actionPanel": {
+      "header": "Projects",
+      "description": "Manage your projects",
+      "addProjectBtn": "New project",
+      "dialog": {
+        "formTitle": "Create project",
+        "confirmText": "Create",
+        "cancelText": "Close"
+      },
+      "search": {
+        "placeholder": "Search tasks...",
+        "filter": {
+          "allTasks": "All Tasks",
+          "myTasks": "My Tasks"
+        }
+      },
+      "filter": {
+        "placeholder": "Filter tasks..."
+      }
+    },
+    "projectForm": {
+      "titleLabel": "Title",
+      "descriptionLabel": "Description",
+      "userLabel": "User",
+      "errors": {
+        "title": {
+          "required": "Please enter a title",
+          "minLength": "The title is too short",
+          "maxLength": "The title is too long"
+        },
+        "description": {
+          "required": "Please enter a description",
+          "minLength": "The description is too short",
+          "maxLength": "The description is too long"
+        },
+        "user": {
+          "required": "Please choose an user"
+        }
+      }
+    },
+    "projectCard": {
+      "tasks": "Tasks",
+      "buttons": {
+        "delete": "Delete",
+        "edit": "Edit"
+      }
+    },
+    "projectsList": {
+      "header": {
+        "owner": "Owner",
+        "title": "Title",
+        "description": "Description",
+        "tasks": "Tasks",
+        "actions": "Actions"
+      },
+      "deleteDialog": {
+        "message": "Do you want to delete the project?",
+        "confirmText": "Yes",
+        "cancelText": "No"
+      },
+      "editDialog": {
+        "formTitle": "Edit project",
+        "confirmText": "Save",
+        "cancelText": "Close"
+      }
+    }
+  },
+  "PROJECT_BOARD": {
+    "projectBoardPage": {
+      "actions": {
+        "newColumn": "Column",
+        "newTask": "Task"
+      },
+      "dialog": {
+        "createTask": {
+          "formTitle": "Create task",
+          "confirmText": "Create",
+          "cancelText": "Close"
+        },
+        "createColumn": {
+          "formTitle": "Create column",
+          "confirmText": "Create",
+          "cancelText": "Close"
+        }
+      }
+    },
+    "column": {
+      "menu": {
+        "addTask": "Add task",
+        "deleteColumn": "Delete column"
+      },
+      "editDialog": {
+        "formTitle": "Edit column",
+        "confirmText": "Save",
+        "cancelText": "Close"
+      },
+      "deleteDialog": {
+        "message": "Do you want to delete the column?",
+        "confirmText": "Yes",
+        "cancelText": "No"
+      }
+    },
+    "columnForm": {
+      "titleLabel": "Title",
+      "color": "Color",
+      "errors": {
+        "title": {
+          "required": "Please enter a title",
+          "minLength": "The title is too short",
+          "maxLength": "The title is too long"
+        },
+        "color": {
+          "required": "Please choose an color"
+        }
+      }
+    },
+
+    "taskForm": {
+      "editDialog": {
+        "formTitle": "Edit task",
+        "confirmText": "Save",
+        "cancelText": "Close"
+      },
+      "deleteDialog": {
+        "message": "Do you want to delete the task?",
+        "confirmText": "Yes",
+        "cancelText": "No"
+      },
+      "labels": {
+        "title": "Title",
+        "description": "Description",
+        "column": "Column",
+        "users": "Users"
+      },
+      "errors": {
+        "title": {
+          "required": "Please enter a title",
+          "minLength": "The title is too short",
+          "maxLength": "The title is too long"
+        },
+        "description": {
+          "required": "Please enter a description",
+          "minLength": "The description is too short",
+          "maxLength": "The description is too long"
+        },
+        "column": {
+          "required": "Please choose a column",
+          "columnError": "Please choose a column from the list"
+        },
+        "user": {
+          "required": "Please choose at least one user"
+        }
+      }
+    }
+  },
+
+  "ERROR_ALERT_PROJECTS": {
+    "default": "An unknown error occurred!",
+    "404": "Not found.",
+    "400": "Bad request",
+    "403": "Your access token has expired, you need to login again."
+  },
+  "WELCOME": {
+    "mainHeader": {
+      "value": "Welcome",
+      "styled": "OnBoard!"
+    },
+    "buttons": {
+      "login": "Login",
+      "signup": "Signup"
+    },
+    "appTitle": "Powerful Project Management Software",
+    "appText": "Helps planning your projects, track work efficiently and collaborate with your team",
+    "appFeatures": {
+      "featureOne": "Create, edit or delete your project",
+      "featureTwo": "Manage tasks with draggable interface",
+      "featureThree": "Search by tasks or contributors"
+    },
+    "heroText": "Hello there! Our team glad to welcome you and introduce our project management application \"OnBoard\". Thank you for choosing our app. We hope it will help you a great deal with managing your team work and daily tasks.",
+    "secondHeader": "Why OnBoard?",
+    "prosList": {
+      "item1": "Add new projects",
+      "item2": "Edit existing projects",
+      "item3": "Add progress columns",
+      "item4": "Manage your tasks with draggable interface",
+      "item5": "Search tasks, sort tasks"
+    },
+    "carousel": {
+      "carousel-header": "Our team",
+      "slides": {
+        "slide0": {
+          "title": "Andrei",
+          "subtitle": "Team lead. Contribution: backend deploy and modification, application setup, boards, columns, tasks, drag and drop, design."
+        },
+        "slide1": {
+          "title": "Anna",
+          "subtitle": "Contribution: login, signup, user editing, redirection, welcome page, not found page, routing."
+        },
+        "slide2": {
+          "title": "Vitaliy",
+          "subtitle": "Contribution: tasks search, task filters, form validation, pipes"
+        }
+      }
+    },
+    "courseSection": {
+      "header": "Angular Course",
+      "text": "This is the final project of The Rolling Scopes",
+      "link": "Angular course",
+      "items": {
+        "item1": {
+          "header": "Free-of-charge learning",
+          "text": "The RS School is working by the principle of \"Pay it forward\". Members of our community share their knowledge and check students' tasks for free."
+        },
+        "item2": {
+          "header": "Open to everyone",
+          "text": "Everyone can study at RS School, regardless of age, professional employment, or place of residence."
+        },
+        "item3": {
+          "header": "Certificate",
+          "text": "After accomplishing all three stages of education, students will receive an electronic certificate of completion."
+        }
+      }
+    }
+  },
+  "PAGE_NOT_FOUND": {
+    "text": "Unfortunately we couldn't find this page.",
+    "button": "Go to main page"
+  }
+}

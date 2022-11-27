@@ -1,0 +1,61 @@
+@import '../../../../shared/variables';
+:host {
+  @media (min-width: 320px) and (max-width: 767px) {
+    display: none;
+  }
+}
+
+button.mat-menu-item{
+  color: $color-black-light;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+    cursor: pointer;
+  }
+
+  &__avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    color: $color-white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid $color-white;
+  }
+}
+
+.sign-in-link {
+  font-size: 20px;
+  font-weight: 300;
+  color: $color-grey;
+  position: relative;
+  text-decoration: none;
+  transition: all 0.35s ease;
+  cursor: pointer;
+}
+
+.login-icon {
+  color: $color-grey;
+}
+
+@media (min-width: 320px) and (max-width: 550px) {
+  .login__avatar {
+    display: none;
+  }
+}

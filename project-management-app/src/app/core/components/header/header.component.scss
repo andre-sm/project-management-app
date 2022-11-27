@@ -1,0 +1,217 @@
+@import '../../../shared/variables';
+
+:host {
+  background-color: $color-grey-lighter;
+  border-bottom: 1px solid $color-grey-light;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  max-width: 1440px;
+  min-height: 80px;
+  margin: 0 auto;
+
+  &__logo {
+    font-family: 'Raleway', sans-serif;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+
+  &__language {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__bottom-section {
+    background-color: $color-white;
+    min-height: 100px;
+  }
+}
+
+.logo-link {
+  color: $color-black-light;
+  text-decoration: none;
+  transition: all 0.35s ease;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav {
+  &__list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+    font-size: 1.3em;
+    margin: 0;
+    transition: all 0.35s ease;
+    padding: 0;
+    margin-bottom: 0;
+  }
+
+  &__item {
+    list-style: none;
+  }
+
+  &__link {
+    padding: 0.3em 0;
+    color: $color-black-light;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: none;
+    cursor: pointer;
+  }
+}
+
+.nav__link:hover {
+  color: $color-purple;
+}
+
+.toggle-lable {
+  color: $color-grey;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.add-icon {
+  display: flex;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  font-size: 20px;
+}
+
+.button-back .arrow-icon {
+  display: flex;
+  align-items: center;
+  width: 22px;
+  height: 19px;
+  margin-right: 5px;
+  color: $color-purple;
+}
+
+.new-project-btn,
+.button-back {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  min-width: 188px;
+  color: $color-purple;
+  background-color: rgba($color: $color-white, $alpha: 0.5);
+  line-height: 1;
+  letter-spacing: 1px;
+  border: 1px solid $color-purple;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.35s ease;
+}
+
+.new-project-btn:hover,
+.button-back:hover {
+  color: $color-purple-bright;
+  border: 1px solid $color-purple-bright;
+}
+
+.button-back {
+  min-width: 130px;
+  gap: 0;
+  padding: 12px 16px;
+  justify-content: space-between;
+  transition: none;
+}
+
+.new-project-btn__mobile {
+  display: none;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .mobile-menu {
+    display: block;
+  }
+  .nav {
+    display: none;
+  }
+
+  .nav-container {
+    order: 1;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .header {
+    padding: 0 20px;
+  }
+  .new-project-btn {
+    display: none;
+  }
+
+  .new-project-btn__mobile {
+    display: flex;
+    flex-basis: 20%;
+    padding: 10px;
+    min-width: 58px;
+    justify-content: center;
+    order: 1;
+  }
+  .add-icon {
+    justify-content: center;
+  }
+  .mobile-menu {
+    order: 2;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 550px) {
+  .header {
+    &__logo {
+      font-size: 28px;
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 450px) {
+  .header {
+    padding: 0 5px;
+  }
+  .new-project-btn__mobile {
+    display: flex;
+    flex-basis: 20%;
+    padding: 5px;
+    min-width: 30px;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 400px) {
+  .nav-container,
+  .header__actions {
+    gap: 10px;
+  }
+  .toggle-lable {
+    font-size: 12px;
+  }
+}
