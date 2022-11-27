@@ -1,12 +1,11 @@
 <form class="filter-form">
-  <mat-form-field appearance="fill">
-    <input
-      matInput
-      [formControl]="filter"
-      class="filter-form__input"
-      type="text"
-    />
-  </mat-form-field>
+  <input
+    class="filter-form__input"
+    type="text"
+    name="search"
+    [placeholder]="'PROJECTS.actionPanel.search.placeholder' | translate"
+    [formControl]="filter"
+  />
 </form>
 
 <div class="user-switcher">

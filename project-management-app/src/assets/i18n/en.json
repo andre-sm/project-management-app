@@ -94,7 +94,7 @@
         "cancelText": "Close"
       },
       "search": {
-        "placeholder": "Search tasks..."
+        "placeholder": "Filter tasks..."
       }
     },
     "projectForm": {

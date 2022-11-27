@@ -4,10 +4,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
   min-height: 130px;
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 40px;
+
+  &__info {
+    min-width: 300px;
+    max-width: 400px;
+    padding: 20px 0 10px 0;
+  }
 
   &__title {
     color: $color-black-light;
@@ -20,16 +27,14 @@
   }
 
   &__search-bar {
-    flex-basis: 40%;
-    margin: 20px 20px 20px 0;
     flex-shrink: 1;
   }
 
   &__buttons {
     display: flex;
-    gap: 10px;
-    flex-basis: 397px;
-    flex-shrink: 0;
+    justify-content: flex-end;
+    gap: 20px;
+    max-width: 400px;
   }
 }
 
@@ -51,9 +56,17 @@
   color: $color-white;
 }
 
+.new-column-btn:hover {
+  background-color: $color-blue-dark;
+}
+
 .new-task-btn {
   background-color: $color-green;
   color: $color-white;
+}
+
+.new-task-btn:hover {
+  background-color: $color-green-dark;
 }
 
 .add-icon {
