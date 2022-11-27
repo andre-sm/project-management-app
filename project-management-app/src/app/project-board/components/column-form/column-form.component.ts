@@ -53,7 +53,7 @@ export class ColumnFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if(this.columnForm.invalid) return;
+    if (this.columnForm.invalid) return;
     const { title, color } = this.columnForm.value;
     if (this.formData.id === null) {
       this.store.dispatch(BoardActions.createColumn({ title, color }));

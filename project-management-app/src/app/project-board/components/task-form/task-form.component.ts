@@ -9,6 +9,7 @@ import {
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 import { MatOptionSelectionChange } from '@angular/material/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Column, TaskForm } from '../../models';
 import { User } from '../../../projects/models';
 import * as BoardActions from '../../store/board.actions';
@@ -17,7 +18,6 @@ import {
   selectFilteredColumns,
 } from '../../store/board.selectors';
 import { selectUsers } from '../../../projects/store/projects.selector';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-task-form',
@@ -91,7 +91,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    if(this.taskForm.invalid) return;
+    if (this.taskForm.invalid) return;
     const { title, description, users } = this.taskForm.value;
 
     if (this.taskData.id === null) {

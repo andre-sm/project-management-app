@@ -256,9 +256,6 @@
   margin-bottom: 0;
   display: flex;
   align-items: center;
-  // @media (min-width: 320px) and (max-width: 1032px) {
-  //   align-self: flex-start;
-  // }
 }
 
 .welcome__buttons-container {
@@ -266,9 +263,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  // @media (min-width: 320px) and (max-width: 1032px) {
-  //   align-self: flex-start;
-  // }
 }
 
 .spinner-container {
@@ -285,18 +279,12 @@
 .welcome__header-second {
   grid-row: 3 / 4;
   grid-column: 8 / 13;
-  // @media (min-width: 320px) and (max-width: 1032px) {
-  //   order: 1;
-  // }
 }
 
 .welcome__pros-list {
   grid-row: 4 / 5;
   grid-column: 8 / 13;
   list-style: none;
-  // @media (min-width: 320px) and (max-width: 1032px) {
-  //   order: 2;
-  // }
 }
 
 .welcome__list-item {

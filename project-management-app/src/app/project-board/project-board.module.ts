@@ -34,7 +34,7 @@ import { FilterComponent } from './components/filter/filter.component';
     ReactiveFormsModule,
     StoreModule.forFeature(fromBoard.featureName, fromBoard.projectsReducer),
     EffectsModule.forFeature([BoardEffects]),
-    NgScrollbarModule
+    NgScrollbarModule,
   ],
 })
 export class ProjectBoardModule {}

@@ -143,9 +143,13 @@ export class AuthEffects {
           if (!isAutoLogout) {
             this.router.navigate(['/welcome']);
           }
-          this.store.dispatch(AuthActions.clearError());
-          this.store.dispatch(ProjectsActions.clearError());
-          this.store.dispatch(BoardActions.clearError());
+          [
+            AuthActions.clearError(),
+            ProjectsActions.clearError(),
+            BoardActions.clearError(),
+          ].forEach((action): void => {
+            this.store.dispatch(action);
+          });
         }),
       );
     },
@@ -192,13 +196,17 @@ export class AuthEffects {
     () => {
       return this.actions$.pipe(
         ofType(AuthActions.loginSuccess),
-        tap(({ login, token, userId, name, isAutoLogin }) => {
+        tap(({ isAutoLogin }) => {
           if (!isAutoLogin) {
             this.router.navigate(['/projects']);
           }
-          this.store.dispatch(AuthActions.clearError());
-          this.store.dispatch(ProjectsActions.clearError());
-          this.store.dispatch(BoardActions.clearError());
+          [
+            AuthActions.clearError(),
+            ProjectsActions.clearError(),
+            BoardActions.clearError(),
+          ].forEach((action) => {
+            this.store.dispatch(action);
+          });
         }),
       );
     },

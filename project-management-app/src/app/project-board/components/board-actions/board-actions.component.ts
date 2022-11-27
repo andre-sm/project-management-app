@@ -48,8 +48,7 @@ export class BoardActionsComponent {
           cancelText: config.cancelText,
           id: null,
         };
-      })
-
+      });
 
     this.dialog.open(TaskFormComponent, createDialogConfig);
   }
