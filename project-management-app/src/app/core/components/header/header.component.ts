@@ -47,9 +47,11 @@ export class HeaderComponent implements OnDestroy {
 
     if (localStorage.getItem('lang')) {
       this.initialLang = localStorage.getItem('lang');
-      this.initialLang === 'en'
-        ? (this.isChecked = true)
-        : (this.isChecked = false);
+      if (this.initialLang === 'en') {
+        this.isChecked = true;
+      } else {
+        this.isChecked = false;
+      }
       if (this.initialLang) {
         this.teamCarouselService.languageChanged$.next();
       }
@@ -70,10 +72,11 @@ export class HeaderComponent implements OnDestroy {
         this.boardIsTrue$.next(false);
       }
     });
-
-    this.location.path().indexOf('board') !== -1
-      ? this.boardIsTrue$.next(true)
-      : this.boardIsTrue$.next(false);
+    if (this.location.path().indexOf('board') !== -1) {
+      this.boardIsTrue$.next(true);
+    } else {
+      this.boardIsTrue$.next(false);
+    }
   }
 
   ngOnDestroy(): void {
@@ -83,7 +86,12 @@ export class HeaderComponent implements OnDestroy {
 
   onLanguageChange() {
     this.isChecked = !this.isChecked;
-    const language = this.isChecked ? 'en' : 'ru';
+    let language;
+    if (this.isChecked) {
+      language = 'en';
+    } else {
+      language = 'ru';
+    }
     this.translate.use(language);
     localStorage.setItem('lang', language);
     this.teamCarouselService.languageChanged$.next();

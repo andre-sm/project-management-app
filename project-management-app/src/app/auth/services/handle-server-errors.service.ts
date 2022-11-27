@@ -29,9 +29,11 @@ export class HandleServerErrors {
     this.translate.get('ERROR_ALERT').subscribe((messageObj) => {
       this.alertMessageObj = messageObj;
     });
-    this.router.url.indexOf('auth') !== -1
-      ? (this.page = 'auth')
-      : (this.page = 'edit');
+    if (this.router.url.indexOf('auth') !== -1) {
+      this.page = 'auth';
+    } else {
+      this.page = 'edit';
+    }
     let errorMessage = this.alertMessageObj.default;
     if (!errorRes.error || !errorRes.status) {
       if (this.page === 'auth') {

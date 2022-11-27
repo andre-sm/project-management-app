@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 import { SharedModule } from '../shared/shared.module';
 import { ProjectBoardRoutingModule } from './project-board-routing.module';
 import { ProjectBoardComponent } from './pages/project-board/project-board.component';
@@ -33,6 +34,7 @@ import { FilterComponent } from './components/filter/filter.component';
     ReactiveFormsModule,
     StoreModule.forFeature(fromBoard.featureName, fromBoard.projectsReducer),
     EffectsModule.forFeature([BoardEffects]),
+    NgScrollbarModule,
   ],
 })
 export class ProjectBoardModule {}

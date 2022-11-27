@@ -95,7 +95,11 @@ export class TeamCarouselComponent implements OnInit, OnDestroy {
     const activeId = +(this.carousel.nativeElement
       .querySelector('.active')
       ?.getAttribute('aria-id') as string);
-    activeId === 2 ? (this.activeSlide = 0) : (this.activeSlide = activeId + 1);
+    if (activeId === 2) {
+      this.activeSlide = 0;
+    } else {
+      this.activeSlide = activeId + 1;
+    }
     this.caption.title = `WELCOME.carousel.slides.slide${this.activeSlide}.title`;
     this.caption.subtitle = `WELCOME.carousel.slides.slide${this.activeSlide}.subtitle`;
   }
