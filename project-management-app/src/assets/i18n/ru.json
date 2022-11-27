@@ -100,7 +100,11 @@
           "allTasks": "Все задания",
           "myTasks": "Мои задания"
         }
+      },
+      "filter": {
+        "placeholder": "Фильтр задания..."
       }
+
     },
     "projectForm": {
       "titleLabel": "Название",
