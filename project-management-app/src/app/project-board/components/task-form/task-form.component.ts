@@ -91,6 +91,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
+    if(this.taskForm.invalid) return;
     const { title, description, users } = this.taskForm.value;
 
     if (this.taskData.id === null) {
