@@ -19,9 +19,15 @@
   flex-wrap: nowrap;
   gap: 25px;
   max-width: 1440px;
-  margin: 20px auto 0 auto;
+  margin: 35px auto 0 auto;
   padding: 0 40px 20px;
   overflow-x: auto;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .columns-section {
+    padding: 0 20px 20px;
+  }
 }
 
 .column-placeholder {
