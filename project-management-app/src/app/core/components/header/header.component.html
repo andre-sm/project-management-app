@@ -15,8 +15,10 @@
           routerLinkActive="active"
           *ngIf="isAuthenticated$ | async"
         >
-          <a routerLink="/projects" class="nav__link">{{
-            'HEADER.nav.projects' | translate
+          <a class="nav__link" (click)="onNavigate()">{{
+            boardIsTrue
+              ? ('HEADER.nav.boardTrue' | translate)
+              : ('HEADER.nav.projects' | translate)
           }}</a>
         </li>
       </ul>
