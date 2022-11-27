@@ -1,5 +1,8 @@
 <ng-container *ngIf="boardInfo$ | async as info">
-  <app-board-actions [boardInfo]="info"></app-board-actions>
+  <app-board-actions
+    [boardInfo]="info"
+    [columnsCount]="(columns$ | async)?.length"
+  ></app-board-actions>
 </ng-container>
 
 <div class="board" cdkDropListGroup>

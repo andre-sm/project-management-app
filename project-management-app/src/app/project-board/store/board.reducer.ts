@@ -43,6 +43,8 @@ export const projectsReducer = createReducer(
         tasks: [],
       },
       taskColumnFilter: '',
+      taskViewMode: 'all',
+      mainTaskFilter: '',
     }),
   ),
   on(BoardActions.getBoardSuccess, (state, { board }): BoardFeatureState => {
@@ -311,6 +313,28 @@ export const projectsReducer = createReducer(
     (state): BoardFeatureState => ({
       ...state,
       error: null,
+    }),
+  ),
+  on(
+    BoardActions.clearProjectData,
+    (state): BoardFeatureState => ({
+      ...state,
+      isLoading: false,
+      error: null,
+      board: {
+        info: {
+          id: '',
+          title: '',
+          description: '',
+          owner: '',
+          users: [],
+        },
+        columns: [],
+        tasks: [],
+      },
+      taskColumnFilter: '',
+      taskViewMode: 'all',
+      mainTaskFilter: '',
     }),
   ),
 );

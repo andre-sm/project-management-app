@@ -18,14 +18,23 @@
 }
 
 .confirm-btn {
-  background-color: $color-violet;
+  background-color: $color-orange;
   color: $color-white;
+}
+
+.confirm-btn:hover {
+  background-color: $color-orange-dark;
 }
 
 .dismiss-btn {
   color: $color-violet;
   background-color: $color-white;
   border: 1px solid $color-violet;
+}
+
+.dismiss-btn:hover {
+  background-color: $color-violet;
+  color: $color-white;
 }
 
 .danger-btn {

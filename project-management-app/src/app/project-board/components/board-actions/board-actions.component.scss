@@ -4,10 +4,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 130px;
+  gap: 20px;
+  min-height: 120px;
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 40px;
+
+  &__info {
+    min-width: 300px;
+    max-width: 400px;
+    padding: 10px 0 10px 0;
+    height: 100px;
+    overflow: auto;
+  }
 
   &__title {
     color: $color-black-light;
@@ -20,16 +29,14 @@
   }
 
   &__search-bar {
-    flex-basis: 40%;
-    margin: 20px 20px 20px 0;
     flex-shrink: 1;
   }
 
   &__buttons {
     display: flex;
-    gap: 10px;
-    flex-basis: 397px;
-    flex-shrink: 0;
+    justify-content: flex-end;
+    gap: 20px;
+    max-width: 400px;
   }
 }
 
@@ -51,9 +58,17 @@
   color: $color-white;
 }
 
+.new-column-btn:hover {
+  background-color: $color-blue-dark;
+}
+
 .new-task-btn {
   background-color: $color-green;
   color: $color-white;
+}
+
+.new-task-btn:hover {
+  background-color: $color-green-dark;
 }
 
 .add-icon {
@@ -64,7 +79,7 @@
   font-size: 20px;
 }
 
-@media (min-width: 768px) and (max-width: 1033px) {
+@media (min-width: 768px) and (max-width: 1110px) {
   .board {
     flex-wrap: wrap;
     padding: 20px;
@@ -104,11 +119,10 @@
     justify-content: space-between;
   }
 }
-
-@media (min-width: 320px) and (max-width: 450px) {
+@media (min-width: 320px) and (max-width: 555px) {
   .board {
     &__buttons {
-      flex-direction: row;
+      flex-direction: column;
       flex-basis: 46px;
       .btn {
         padding: 15px 15px;
@@ -121,6 +135,13 @@
         justify-content: center;
         align-items: center;
       }
+    }
+  }
+}
+@media (min-width: 320px) and (max-width: 450px) {
+  .board {
+    &__buttons {
+      flex-direction: row;
     }
   }
 }

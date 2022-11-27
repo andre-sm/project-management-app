@@ -53,6 +53,7 @@ export class ProjectFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.projectForm.invalid) return;
     const { title, description, users } = this.projectForm.value;
 
     if (this.formData.id === null) {

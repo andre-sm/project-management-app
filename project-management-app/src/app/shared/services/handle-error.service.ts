@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
-import * as AuthActions from '../../auth/store/auth.actions'
+import * as AuthActions from '../../auth/store/auth.actions';
 
 @Injectable({ providedIn: 'root' })
 export class HandleErrorsService {
@@ -34,8 +34,8 @@ export class HandleErrorsService {
       default:
         break;
     }
-    if(status === 403) {
-      this.store.dispatch(AuthActions.logout({isAutoLogout: false}));
+    if (status === 403) {
+      this.store.dispatch(AuthActions.logout({ isAutoLogout: false }));
     }
     return this.errorMessage;
   }

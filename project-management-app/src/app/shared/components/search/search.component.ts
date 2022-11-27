@@ -1,12 +1,7 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  fromEvent,
-  tap,
-} from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { distinctUntilChanged, map, Observable } from 'rxjs';
 import { selectSearchResult } from 'src/app/projects/store/projects.selector';
 import * as ProjectsActions from '../../../projects/store/projects.actions';
 
@@ -26,39 +21,32 @@ export interface SearchTasks {
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements AfterViewInit {
-  @ViewChild('searchInput', { static: true })
-  searchInput!: ElementRef;
+export class SearchComponent implements OnInit {
+  search = new FormControl('');
 
-  searchResults!: SearchTasks[] | undefined;
+  searchResults$!: Observable<SearchTasks[] | undefined>;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    this.searchResults$ = this.store.select(selectSearchResult);
+  }
 
-  ngAfterViewInit(): void {
-    fromEvent(this.searchInput.nativeElement, 'input')
+  ngOnInit(): void {
+    this.search.valueChanges
       .pipe(
-        filter(Boolean),
-        debounceTime(1500),
-        distinctUntilChanged(),
-        tap(() => {
-          if (this.searchInput.nativeElement.value.length >= 3) {
-            this.store.dispatch(
-              ProjectsActions.setGlobalSearch({
-                globalSearchValue: this.searchInput.nativeElement.value,
-              }),
-            );
-            this.store.select(selectSearchResult).subscribe((result) => {
-              this.searchResults = result;
-            });
-          } else {
-            this.store.dispatch(
-              ProjectsActions.setGlobalSearch({ globalSearchValue: '' }),
-            );
-            this.searchResults = undefined;
+        map((value) => {
+          if (value) {
+            const clearValue = value.trim().toLowerCase();
+            return clearValue.length > 2 ? clearValue : '';
           }
+          return '';
         }),
+        distinctUntilChanged(),
       )
-      .subscribe();
+      .subscribe((filterValue: string) =>
+        this.store.dispatch(
+          ProjectsActions.setGlobalSearch({ globalSearchValue: filterValue }),
+        ),
+      );
   }
 
   onResultClick(searchTask: string) {

@@ -13,6 +13,8 @@ import { TaskFormComponent } from '../task-form/task-form.component';
 export class BoardActionsComponent {
   @Input() boardInfo!: BoardInfo;
 
+  @Input() columnsCount!: number | undefined;
+
   constructor(public dialog: MatDialog, private translate: TranslateService) {}
 
   openCreateColumnDialog(): void {
@@ -20,7 +22,7 @@ export class BoardActionsComponent {
     createDialogConfig.disableClose = true;
     createDialogConfig.autoFocus = true;
     this.translate
-      .get('PROJECT_BOARD.projectBoardPage.dialog')
+      .get('PROJECT_BOARD.projectBoardPage.dialog.createColumn')
       .subscribe((config) => {
         createDialogConfig.data = {
           formTitle: config.formTitle,
@@ -37,12 +39,16 @@ export class BoardActionsComponent {
     const createDialogConfig = new MatDialogConfig();
     createDialogConfig.disableClose = true;
     createDialogConfig.autoFocus = true;
-    createDialogConfig.data = {
-      formTitle: 'Create task',
-      confirmText: 'Create',
-      cancelText: 'Close',
-      id: null,
-    };
+    this.translate
+      .get('PROJECT_BOARD.projectBoardPage.dialog.createTask')
+      .subscribe((config) => {
+        createDialogConfig.data = {
+          formTitle: config.formTitle,
+          confirmText: config.confirmText,
+          cancelText: config.cancelText,
+          id: null,
+        };
+      });
 
     this.dialog.open(TaskFormComponent, createDialogConfig);
   }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../../../auth/store/auth.actions';
 
@@ -7,12 +7,10 @@ import * as AuthActions from '../../../../auth/store/auth.actions';
   templateUrl: './mobile-menu.component.html',
   styleUrls: ['./mobile-menu.component.scss'],
 })
-export class MobileMenuComponent implements OnInit {
+export class MobileMenuComponent {
   @Input() isAuthenticated!: boolean | null;
 
   constructor(private store: Store) {}
-
-  ngOnInit(): void {}
 
   onLogout() {
     this.store.dispatch(AuthActions.logout({ isAutoLogout: false }));
