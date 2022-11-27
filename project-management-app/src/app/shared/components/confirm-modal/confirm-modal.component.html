@@ -1,7 +1,7 @@
 <div class="confirm-modal-message">{{ message }}</div>
 <div class="confirm-modal-btns" mat-dialog-actions>
   <button class="dismiss-btn btn" mat-dialog-close (click)="onDismiss()">
-    {{ cancelText }}
+    {{ cancelText | uppercase }}
   </button>
   <button
     [class]="source === 'projects' ? 'confirm-btn btn' : 'danger-btn btn'"
@@ -9,6 +9,6 @@
     cdkFocusInitial
     (click)="onConfirm()"
   >
-    {{ confirmText }}
+    {{ confirmText | uppercase }}
   </button>
 </div>
