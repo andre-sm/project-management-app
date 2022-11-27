@@ -187,3 +187,5 @@ export const updateColumnsSetError = createAction(
 );
 
 export const clearError = createAction('[Boards] Clear Error');
+
+export const clearProjectData = createAction('[Board] Clear Data');
