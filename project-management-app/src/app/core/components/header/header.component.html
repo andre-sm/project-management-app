@@ -15,11 +15,23 @@
           routerLinkActive="active"
           *ngIf="isAuthenticated$ | async"
         >
-          <a class="nav__link" (click)="onNavigate()">{{
-            boardIsTrue
-              ? ('HEADER.nav.boardTrue' | translate)
-              : ('HEADER.nav.projects' | translate)
-          }}</a>
+          <a
+            class="nav__link"
+            (click)="onNavigate()"
+            [ngClass]="{ 'button-back btn': boardIsTrue }"
+          >
+            <mat-icon
+              *ngIf="boardIsTrue"
+              class="arrow-icon"
+              aria-hidden="false"
+              fontIcon="keyboard_double_arrow_left"
+            ></mat-icon>
+            {{
+              boardIsTrue
+                ? ('HEADER.nav.boardTrue' | translate)
+                : ('HEADER.nav.projects' | translate)
+            }}
+          </a>
         </li>
       </ul>
     </nav>

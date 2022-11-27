@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  min-height: 130px;
+  min-height: 120px;
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 40px;
@@ -13,7 +13,9 @@
   &__info {
     min-width: 300px;
     max-width: 400px;
-    padding: 20px 0 10px 0;
+    padding: 10px 0 10px 0;
+    height: 100px;
+    overflow: auto;
   }
 
   &__title {
