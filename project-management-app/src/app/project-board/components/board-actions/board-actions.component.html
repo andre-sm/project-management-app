@@ -1,13 +1,14 @@
 <div class="board-actions board">
   <div class="board__info">
-    <div class="board__title-wrapper">
-      <div class="arrow-container">
-        <div class="arrow"></div>
+    <ng-scrollbar style="height: 100px">
+      <div class="board__title-wrapper">
+        <div class="arrow-container">
+          <div class="arrow"></div>
+        </div>
+        <h2 class="board__title">{{ boardInfo.title }}</h2>
       </div>
-      <h2 class="board__title">{{ boardInfo.title }}</h2>
-    </div>
-
-    <p class="board__description">{{ boardInfo.description }}</p>
+      <p class="board__description">{{ boardInfo.description }}</p>
+    </ng-scrollbar>
   </div>
   <div class="board__search-bar">
     <app-filter></app-filter>
