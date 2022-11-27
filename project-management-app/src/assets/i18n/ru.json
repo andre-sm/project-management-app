@@ -94,7 +94,11 @@
         "cancelText": "Закрыть"
       },
       "search": {
-        "placeholder": "Поиск задания..."
+        "placeholder": "Поиск задания...",
+        "filter": {
+          "allTasks": "Все задания",
+          "myTasks": "Мои задания"
+        }
       }
     },
     "projectForm": {

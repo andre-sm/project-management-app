@@ -9,18 +9,15 @@
   @media (min-width: 320px) and (max-width: 555px) {
     width: 100%;
     max-width: none;
-    justify-content: space-between;
-  }
-  @media (min-width: 320px) and (max-width: 450px) {
     flex-wrap: wrap;
-    margin: auto;
+    justify-content: space-between;
   }
 }
 
 .filter-form {
   width: 240px;
   height: 46px;
-  @media (min-width: 320px) and (max-width: 450px) {
+  @media (min-width: 320px) and (max-width: 518px) {
     width: 100%;
   }
 

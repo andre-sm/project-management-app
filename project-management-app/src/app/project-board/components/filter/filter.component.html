@@ -16,7 +16,13 @@
     [value]="view$ | async"
     (change)="onTasksUserViewChange(group.value)"
   >
-    <mat-button-toggle value="all"> All Tasks</mat-button-toggle>
-    <mat-button-toggle value="my"> My Tasks </mat-button-toggle>
+    <mat-button-toggle value="all">
+      {{
+        'PROJECTS.actionPanel.search.filter.allTasks' | translate
+      }}</mat-button-toggle
+    >
+    <mat-button-toggle value="my">
+      {{ 'PROJECTS.actionPanel.search.filter.myTasks' | translate }}
+    </mat-button-toggle>
   </mat-button-toggle-group>
 </div>

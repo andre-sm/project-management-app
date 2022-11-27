@@ -94,7 +94,11 @@
         "cancelText": "Close"
       },
       "search": {
-        "placeholder": "Filter tasks..."
+        "placeholder": "Filter tasks...",
+        "filter": {
+          "allTasks": "All Tasks",
+          "myTasks": "My Tasks"
+        }
       }
     },
     "projectForm": {
@@ -125,8 +129,8 @@
   "PROJECT_BOARD": {
     "projectBoardPage": {
       "actions": {
-        "newColumn": "New column",
-        "newTask": "New task"
+        "newColumn": "Column",
+        "newTask": "Task"
       },
       "dialog": {
         "formTitle": "Create column",
@@ -172,6 +176,7 @@
       }
     }
   },
+
   "ERROR_ALERT_PROJECTS": {
     "default": "An unknown error occurred!",
     "404": "Not found.",
