@@ -2,7 +2,7 @@
 
 1. Task: https://github.com/rolling-scopes-school/js-fe-course-en/blob/main/tasks/angular/project-management-system.md
 2. ![projects_board](https://user-images.githubusercontent.com/93344252/204153383-d3f08211-01b8-460a-97e3-c08975cf0385.png)
-3. Deploy: https://project-managment-app-t5.netlify.app/
+3. Deploy: https://delicate-muffin-e9f8a4.netlify.app/
 4. Done 27.11.2022 / deadline 27.11.2022
 5. Score: 620 / 620
 
