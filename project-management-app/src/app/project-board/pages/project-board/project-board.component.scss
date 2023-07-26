@@ -1,0 +1,39 @@
+@import '../../../shared/variables';
+
+.board {
+  border-top: 1px solid $color-grey-light;
+}
+
+.board.is-loading {
+  display: flex;
+  justify-content: center;
+  min-height: 50%;
+}
+
+.spinner-container {
+  align-self: center;
+}
+
+.columns-section {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 25px;
+  max-width: 1440px;
+  margin: 35px auto 0 auto;
+  padding: 0 40px 20px;
+  overflow-x: auto;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .columns-section {
+    padding: 0 20px 20px;
+  }
+}
+
+.column-placeholder {
+  background-color: $color-grey-lighter-second;
+  border: dashed 1px $color-grey;
+  border-radius: 8px;
+  min-width: 300px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

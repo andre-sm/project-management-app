@@ -1,0 +1,238 @@
+<div class="container">
+  <div class="spinner-container" *ngIf="isLoading">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <form
+    class="auth-form"
+    [formGroup]="authForm"
+    (ngSubmit)="onSubmit()"
+    [ngClass]="!isLoginMode ? 'signup' : 'login'"
+    *ngIf="!isLoading"
+  >
+    <mat-form-field
+      class="auth-field"
+      floatLabel="auto"
+      appearance="outline"
+      *ngIf="!isLoginMode"
+    >
+      <mat-label class="auth-label">{{
+        'AUTH.firstName.value' | translate
+      }}</mat-label>
+      <input
+        type="text"
+        id="first-name"
+        formControlName="firstName"
+        matInput
+        name="first-name"
+        [placeholder]="'AUTH.firstName.value' | translate"
+      />
+      <mat-error
+        *ngIf="
+          validationService.hasError(authForm, 'firstName', 'required') &&
+          authForm.get('firstName')?.touched
+        "
+        >{{ 'AUTH.firstName.validation.error1' | translate }}</mat-error
+      >
+      <mat-error
+        *ngIf="
+          validationService.hasError(authForm, 'firstName', 'minlength') &&
+          authForm.get('firstName')?.touched
+        "
+        >{{ 'AUTH.firstName.validation.error2' | translate }}</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field
+      class="auth-field"
+      floatLabel="auto"
+      appearance="outline"
+      *ngIf="!isLoginMode"
+    >
+      <mat-label class="auth-label">{{
+        'AUTH.lastName.value' | translate
+      }}</mat-label>
+      <input
+        type="text"
+        id="last-name"
+        formControlName="lastName"
+        matInput
+        name="last-name"
+        [placeholder]="'AUTH.lastName.value' | translate"
+      />
+      <mat-error
+        *ngIf="
+          validationService.hasError(authForm, 'lastName', 'required') &&
+          authForm.get('firstName')?.touched
+        "
+        >{{ 'AUTH.lastName.validation.error1' | translate }}</mat-error
+      >
+      <mat-error
+        *ngIf="
+          validationService.hasError(authForm, 'lastName', 'minlength') &&
+          authForm.get('firstName')?.touched
+        "
+        >{{ 'AUTH.lastName.validation.error2' | translate }}</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field class="auth-field" floatLabel="auto" appearance="outline">
+      <mat-label class="auth-label">{{
+        'AUTH.email.value' | translate
+      }}</mat-label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        matInput
+        name="email"
+        [placeholder]="'AUTH.email.value' | translate"
+      />
+      <mat-error
+        *ngIf="
+          validationService.hasError(authForm, 'email', 'required') &&
+          authForm.get('email')?.touched
+        "
+        >{{ 'AUTH.email.validation.error1' | translate }}</mat-error
+      >
+      <mat-error
+        *ngIf="
+          validationService.hasError(authForm, 'email', 'email') &&
+          authForm.get('email')?.touched
+        "
+        >{{ 'AUTH.email.validation.error2' | translate }}</mat-error
+      >
+    </mat-form-field>
+    <div class="color-field-wrapper" *ngIf="!isLoginMode">
+      <mat-form-field
+        class="auth-field color-field"
+        floatLabel="auto"
+        appearance="outline"
+      >
+        <mat-label class="auth-label">{{
+          'AUTH.color.label' | translate
+        }}</mat-label>
+        <input matInput [ngxMatColorPicker]="picker" formControlName="color" />
+        <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+        <ngx-mat-color-picker
+          #picker
+          [touchUi]="touchUi"
+          [color]="color"
+        ></ngx-mat-color-picker>
+        <mat-error
+          *ngIf="
+            (validationService.hasError(authForm, 'color', 'required') &&
+              authForm.get('color')?.touched) ||
+            (validationService.hasError(authForm, 'color', 'pattern') &&
+              authForm.get('color')?.touched)
+          "
+        >
+          {{ 'AUTH.color.error' | translate }}
+        </mat-error>
+      </mat-form-field>
+      <div
+        class="avatar-preview"
+        [ngStyle]="{ 'background-color': authForm.value.color }"
+      >
+        <p class="avatar-initials">
+          {{
+            authForm.value.firstName + ' ' + authForm.value.lastName | initials
+          }}
+        </p>
+      </div>
+    </div>
+
+    <mat-form-field
+      class="auth-field password-field"
+      floatLabel="auto"
+      appearance="outline"
+    >
+      <mat-label class="auth-label">{{
+        'AUTH.password.value' | translate
+      }}</mat-label>
+      <input
+        class="auth-input"
+        [type]="hidePassword ? 'password' : 'text'"
+        id="password"
+        formControlName="password"
+        matInput
+        [placeholder]="'AUTH.password.value' | translate"
+        name="password"
+      />
+      <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
+        hidePassword ? 'visibility_off' : 'visibility'
+      }}</mat-icon>
+      <mat-hint align="start" class="password-hint">{{
+        'AUTH.password.hint' | translate
+      }}</mat-hint>
+      <mat-error
+        *ngIf="validationService.hasError(authForm, 'password', 'required')"
+        >{{ 'AUTH.password.validation.error1' | translate }}</mat-error
+      >
+      <mat-error
+        *ngIf="
+          !authForm.get('password')?.valid && authForm.get('password')?.touched
+        "
+        >{{ 'AUTH.password.validation.common' | translate }}
+        <span
+          class="err-span"
+          *ngIf="validationService.passwordHasErrors(authForm) === 'uppercase'"
+        >
+          {{ 'AUTH.password.validation.error2' | translate }}</span
+        >
+        <span
+          class="err-span"
+          *ngIf="validationService.passwordHasErrors(authForm) === 'lowercase'"
+        >
+          {{ 'AUTH.password.validation.error3' | translate }}</span
+        >
+        <span
+          class="err-span"
+          *ngIf="validationService.passwordHasErrors(authForm) === 'number'"
+        >
+          {{ 'AUTH.password.validation.error4' | translate }}</span
+        >
+        <span
+          class="err-span"
+          *ngIf="
+            validationService.passwordHasErrors(authForm) === 'specialChar'
+          "
+        >
+          {{ 'AUTH.password.validation.error5' | translate }}</span
+        >
+        <span
+          class="err-span"
+          *ngIf="validationService.passwordHasErrors(authForm) === 'length'"
+        >
+          {{ 'AUTH.password.validation.error6' | translate }}</span
+        >
+      </mat-error>
+    </mat-form-field>
+
+    <div class="buttons-container">
+      <button
+        type="submit"
+        mat-stroked-button
+        color="primary"
+        class="button login-button"
+        [disabled]="!authForm.valid"
+      >
+        {{
+          isLoginMode
+            ? ('AUTH.buttons.submit.login' | translate)
+            : ('AUTH.buttons.submit.signup' | translate)
+        }}
+      </button>
+      <button
+        type="button"
+        mat-stroked-button
+        color="primary"
+        class="button switch-button"
+        (click)="onSwitchMode()"
+      >
+        {{
+          isLoginMode
+            ? ('AUTH.buttons.switch.toSignup' | translate)
+            : ('AUTH.buttons.switch.toLogin' | translate)
+        }}
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,54 @@
+<div class="column">
+  <div class="column__title title">
+    <div class="title__wrapper">
+      <mat-icon
+        class="title__dot-icon"
+        [ngStyle]="{ color: column.color }"
+        fontIcon="circle"
+      ></mat-icon>
+      <h2 class="title__column-title" (click)="editColumnDialog()">
+        {{ column.title }}
+      </h2>
+      <div class="title__count-wrapper" *ngIf="column.tasks.length">
+        <span class="title__task-count">{{ column.tasks.length || '' }}</span>
+      </div>
+    </div>
+    <button
+      mat-icon-button
+      aria-label="delete icon"
+      (click)="deleteColumnDialog()"
+    >
+      <mat-icon class="delete-icon" fontIcon="close"></mat-icon>
+    </button>
+  </div>
+  <div
+    class="column__line"
+    [ngStyle]="{ 'background-color': column.color }"
+  ></div>
+  <div
+    class="column__body"
+    cdkDropList
+    id="{{ column._id }}"
+    [attr.data-columnId]="column._id"
+    [cdkDropListData]="column.tasks"
+    [cdkDropListConnectedTo]="columnsIds"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <app-task
+      *ngFor="let task of column.tasks; let i = index"
+      [resultTask]="(searchTask$ | async) === task._id ? true : false"
+      [task]="task"
+      [cdkDragData]="task"
+      (click)="editTaskDialog(task)"
+      (deleteClick)="deleteTaskDialog(task, i)"
+      (cdkDragStarted)="cdkDragStarted($event)"
+      cdkDrag
+    >
+      <div
+        class="task-placeholder"
+        [ngStyle]="{ 'min-height.px': height }"
+        *cdkDragPlaceholder
+      ></div
+    ></app-task>
+  </div>
+</div>

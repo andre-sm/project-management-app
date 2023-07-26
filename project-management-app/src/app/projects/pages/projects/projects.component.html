@@ -1,0 +1,25 @@
+<app-action-panel></app-action-panel>
+<div class="projects" [ngClass]="{ 'is-loading': isLoading$ | async }">
+  <div
+    class="spinner-container"
+    *ngIf="isLoading$ | async; else projectsContainer"
+  >
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <ng-template #projectsContainer>
+    <ng-container *ngIf="projects$ | async as projects">
+      <div [ngSwitch]="view$ | async">
+        <div class="projects-container" *ngSwitchCase="'grid'">
+          <app-project-card
+            *ngFor="let project of projects"
+            [project]="project"
+          ></app-project-card>
+        </div>
+        <app-projects-list
+          *ngSwitchCase="'list'"
+          [projects]="projects"
+        ></app-projects-list>
+      </div>
+    </ng-container>
+  </ng-template>
+</div>

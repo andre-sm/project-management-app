@@ -1,0 +1,94 @@
+@import './app/shared/variables';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.btn {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+
+.btn.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.close-btn {
+  padding: 10px 30px;
+  border: 1px solid $color-violet;
+  background-color: $color-white;
+  color: $color-violet;
+}
+
+.close-btn:hover {
+  border: 1px solid $color-violet;
+  background-color: $color-violet;
+  color: $color-white;
+}
+
+.create-btn {
+  padding: 10px 30px;
+  background-color: $color-orange;
+  color: $color-white;
+}
+
+.create-btn:hover {
+  color: $color-white;
+  background-color: $color-orange-dark;
+}
+
+.create-btn.btn.disabled {
+  background-color: $color-grey;
+}
+
+.arrow-icon,
+.delete-icon,
+.more-icon {
+  color: $color-grey;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: $color-grey-light;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: $color-purple-light;
+}
+
+.mat-slide-toggle .mat-slide-toggle-bar {
+  background-color: $color-grey-light;
+}
+
+.mat-slide-toggle .mat-slide-toggle-thumb {
+  background-color: $color-purple-light;
+}
+
+.mat-slide-toggle .mat-slide-toggle-thumb:hover {
+  background-color: $color-purple;
+}
+
+.custom-snackbar {
+  background-color: $color-pink;
+  border-radius: 8px;
+  border: 1px solid $color-pink-dark;
+}

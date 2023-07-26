@@ -1,0 +1,72 @@
+<header class="header">
+  <h1 class="header__logo">
+    <a routerLink="/" class="logo-link">OnBoard</a>
+  </h1>
+  <div class="nav-container">
+    <div class="mobile-menu">
+      <app-mobile-menu
+        [isAuthenticated]="isAuthenticated$ | async"
+      ></app-mobile-menu>
+    </div>
+    <nav class="header__navbar nav">
+      <ul class="nav__list">
+        <li
+          class="nav__item"
+          routerLinkActive="active"
+          *ngIf="isAuthenticated$ | async"
+        >
+          <a
+            class="nav__link"
+            (click)="onNavigate()"
+            [ngClass]="{ 'button-back btn': boardIsTrue }"
+          >
+            <mat-icon
+              *ngIf="boardIsTrue"
+              class="arrow-icon"
+              aria-hidden="false"
+              fontIcon="keyboard_double_arrow_left"
+            ></mat-icon>
+            {{
+              boardIsTrue
+                ? ('HEADER.nav.boardTrue' | translate)
+                : ('HEADER.nav.projects' | translate)
+            }}
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <button
+      class="new-project-btn btn"
+      *ngIf="isAuthenticated$ | async"
+      (click)="openCreateProjectDialog()"
+    >
+      <mat-icon class="add-icon" aria-hidden="false" fontIcon="add"></mat-icon>
+      <span>{{
+        'PROJECTS.actionPanel.addProjectBtn' | translate | uppercase
+      }}</span>
+    </button>
+    <button
+      class="new-project-btn btn new-project-btn__mobile"
+      *ngIf="isAuthenticated$ | async"
+      (click)="openCreateProjectDialog()"
+    >
+      <mat-icon class="add-icon" aria-hidden="false" fontIcon="add"></mat-icon>
+    </button>
+  </div>
+  <div class="header__actions">
+    <div class="header__language">
+      <mat-label mat-slide-toggle-content class="toggle-lable">ru</mat-label>
+      <mat-slide-toggle
+        class="toggle-language"
+        [checked]="isChecked"
+        (change)="onLanguageChange()"
+      ></mat-slide-toggle>
+      <mat-label mat-slide-toggle-content class="toggle-lable">en</mat-label>
+    </div>
+    <div class="header__login">
+      <app-login-menu
+        [isAuthenticated]="isAuthenticated$ | async"
+      ></app-login-menu>
+    </div>
+  </div>
+</header>

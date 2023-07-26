@@ -1,0 +1,148 @@
+@import '../../../shared/variables';
+
+.board {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  min-height: 120px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+
+  &__info {
+    min-width: 290px;
+    max-width: 400px;
+    padding: 10px 0 10px 0;
+    height: 100px;
+    overflow: auto;
+  }
+
+  &__title {
+    color: $color-black-light;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
+  &__description {
+    font-size: 16px;
+  }
+
+  &__search-bar {
+    flex-shrink: 1;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    max-width: 400px;
+  }
+}
+
+.new-column-btn,
+.new-task-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 15px 16px;
+  border-radius: 8px;
+  line-height: 1;
+  letter-spacing: 1px;
+  transition: all 0.35s ease;
+}
+
+.new-column-btn {
+  background-color: $color-blue;
+  color: $color-white;
+}
+
+.new-column-btn:hover {
+  background-color: $color-blue-dark;
+}
+
+.new-task-btn {
+  background-color: $color-green;
+  color: $color-white;
+}
+
+.new-task-btn:hover {
+  background-color: $color-green-dark;
+}
+
+.add-icon {
+  display: flex;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  font-size: 20px;
+}
+
+@media (min-width: 768px) and (max-width: 1110px) {
+  .board {
+    flex-wrap: wrap;
+    padding: 20px;
+    &__info {
+      width: 100%;
+    }
+    &__search-bar {
+      flex-basis: 40%;
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .board {
+    flex-wrap: wrap;
+    padding: 0 10px;
+    &__info {
+      width: 50%;
+    }
+    &__search-bar {
+      flex-basis: 100%;
+      margin: 20px 0 20px;
+      order: 3;
+    }
+    &__buttons {
+      flex-direction: column;
+      flex-basis: 194.891px;
+    }
+    .btn {
+      justify-content: space-between;
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 675px) {
+  .btn {
+    justify-content: space-between;
+  }
+}
+@media (min-width: 320px) and (max-width: 555px) {
+  .board {
+    &__buttons {
+      flex-direction: column;
+      flex-basis: 46px;
+      .btn {
+        padding: 15px 15px;
+      }
+      span {
+        display: none;
+      }
+      .add-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+@media (min-width: 320px) and (max-width: 450px) {
+  .board {
+    &__buttons {
+      flex-direction: row;
+    }
+  }
+}

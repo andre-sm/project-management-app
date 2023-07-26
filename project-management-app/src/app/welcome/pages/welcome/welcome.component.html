@@ -1,0 +1,86 @@
+<div class="spinner-container" *ngIf="isLoading">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+<div class="welcome" *ngIf="!isLoading">
+  <section class="app-section app">
+    <div class="app__wrapper">
+      <div class="app__hello-wrapper">
+        <h3 class="app__hello">
+          {{ 'WELCOME.mainHeader.value' | translate }} &nbsp;<span
+            class="app__name"
+            >{{ 'WELCOME.mainHeader.styled' | translate }}</span
+          >
+        </h3>
+        <h2 class="app__title">{{ 'WELCOME.appTitle' | translate }}</h2>
+        <p class="app__text">
+          {{ 'WELCOME.appText' | translate }}
+        </p>
+        <button class="sign-in-btn btn" routerLink="/auth/login">
+          <span>{{ 'WELCOME.buttons.login' | translate | uppercase }}</span>
+        </button>
+      </div>
+      <div class="app__features-wrapper features">
+        <div class="features__one feature">
+          <mat-icon class="done-icon">done</mat-icon>
+          <span>{{ 'WELCOME.appFeatures.featureOne' | translate }} </span>
+        </div>
+        <div class="features__two feature">
+          <mat-icon class="done-icon">done</mat-icon>
+          <span>{{ 'WELCOME.appFeatures.featureTwo' | translate }} </span>
+        </div>
+        <div class="features__three feature">
+          <mat-icon class="done-icon">done</mat-icon>
+          <span>{{ 'WELCOME.appFeatures.featureThree' | translate }} </span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="team-section team">
+    <div class="team__wrapper">
+      <h2 class="team__title">
+        {{ 'WELCOME.carousel.carousel-header' | translate }}
+      </h2>
+      <p class="team__text">
+        {{ 'WELCOME.heroText' | translate }}
+      </p>
+      <app-team-carousel></app-team-carousel>
+    </div>
+  </section>
+  <section class="course-section course">
+    <h2 class="course__title">
+      {{ 'WELCOME.courseSection.header' | translate }}
+    </h2>
+    <p class="course__text">
+      {{ 'WELCOME.courseSection.text' | translate }}
+      <a href="https://rs.school/angular/" class="course__link">{{
+        'WELCOME.courseSection.link' | translate
+      }}</a>
+    </p>
+    <div class="course__items">
+      <div class="course-item">
+        <h3 class="course-item__title">
+          {{ 'WELCOME.courseSection.items.item1.header' | translate }}
+        </h3>
+        <p class="course-item__text">
+          {{ 'WELCOME.courseSection.items.item1.text' | translate }}
+        </p>
+      </div>
+      <div class="course-item">
+        <h3 class="course-item__title">
+          {{ 'WELCOME.courseSection.items.item2.header' | translate }}
+        </h3>
+        <p class="course-item__text">
+          {{ 'WELCOME.courseSection.items.item2.text' | translate }}
+        </p>
+      </div>
+      <div class="course-item">
+        <h3 class="course-item__title">
+          {{ 'WELCOME.courseSection.items.item3.header' | translate }}
+        </h3>
+        <p class="course-item__text">
+          {{ 'WELCOME.courseSection.items.item3.text' | translate }}
+        </p>
+      </div>
+    </div>
+  </section>
+</div>

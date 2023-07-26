@@ -1,0 +1,26 @@
+<div #carouselWrapper class="welcome__carousel-wrapper">
+  <div class="carousel-wrapper">
+    <mdb-carousel class="welcome__carousel" (slideChange)="onSlideChange()">
+      <mdb-carousel-item *ngFor="let slide of slides" [attr.aria-id]="slide.id">
+        <img
+          src="{{ slide.src }}"
+          class="d-block w-100"
+          alt="{{ slide.title | async }}"
+        />
+        <div class="carousel-caption d-none d-md-block">
+          <h3>{{ slide.title | async }}</h3>
+          <p>{{ slide.subtitle | async }}</p>
+        </div>
+      </mdb-carousel-item>
+    </mdb-carousel>
+  </div>
+
+  <div class="welcome__caption" *ngIf="smallDevice$ | async">
+    <h3 class="title">
+      {{ caption.title | translate }}
+    </h3>
+    <p class="subtitle">
+      {{ caption.subtitle | translate }}
+    </p>
+  </div>
+</div>

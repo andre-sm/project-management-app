@@ -1,0 +1,34 @@
+<div class="action-panel projects">
+  <div class="action-panel-container">
+    <div class="projects__info">
+      <h2 class="projects__title">
+        {{ 'PROJECTS.actionPanel.header' | translate }}
+      </h2>
+      <p class="projects__description">
+        {{ 'PROJECTS.actionPanel.description' | translate }}
+      </p>
+    </div>
+    <div class="projects__search-bar">
+      <app-search></app-search>
+    </div>
+    <div class="projects__view-switcher">
+      <mat-button-toggle-group
+        #group="matButtonToggleGroup"
+        name="fontStyle"
+        aria-label="Font Style"
+        [value]="view$ | async"
+        (change)="onViewChange(group.value)"
+      >
+        <mat-button-toggle value="list" *ngIf="(screenSize$ | async)! >= 600">
+          <mat-icon
+            class="list-icon material-icons-outlined"
+            fontIcon="view_agenda"
+          ></mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="grid" *ngIf="(screenSize$ | async)! >= 600">
+          <mat-icon class="grid-icon" fontIcon="grid_view"></mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+</div>

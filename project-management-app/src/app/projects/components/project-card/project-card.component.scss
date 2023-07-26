@@ -1,0 +1,61 @@
+@import '../../../shared/variables';
+
+.project {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  background-color: $color-grey-lighter;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &__owner-name {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Raleway", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    color: $color-white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid $color-white;
+  }
+
+  &__menu-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &__title {
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    margin: 15px 0 0 0;
+  }
+
+  &__description {
+    padding: 0 20px;
+    font-size: 15px;
+  }
+
+  &__task-count {
+    align-self: center;
+    background-color: rgba($color: $color-grey, $alpha: 0.075);
+    border: 1px solid #c6c6c6;
+    border-radius: 8px;
+    font-size: 18px;
+    padding: 10px;
+    margin: 10px 0 20px 0;
+  }
+}
+
+.title-wrapper {
+  position: relative;
+  padding: 20px 20px 10px 20px;
+}

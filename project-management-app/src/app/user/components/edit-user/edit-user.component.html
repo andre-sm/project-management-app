@@ -1,0 +1,224 @@
+<div class="container">
+  <h2 class="edit-user-header">{{ 'EDIT_USER.header' | translate }}</h2>
+  <div class="spinner-container" *ngIf="isLoading">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <form
+    class="edit-form"
+    [formGroup]="editForm"
+    (ngSubmit)="onSaveChanges()"
+    *ngIf="!isLoading"
+  >
+    <mat-form-field class="edit-field" floatLabel="auto" appearance="outline">
+      <mat-label class="edit-label">{{
+        'AUTH.firstName.value' | translate
+      }}</mat-label>
+      <input
+        type="text"
+        id="first-name"
+        formControlName="firstName"
+        matInput
+        name="first-name"
+        [placeholder]="'AUTH.firstName.value' | translate"
+      />
+      <mat-error
+        *ngIf="
+          validationService.hasError(editForm, 'firstName', 'required') &&
+          editForm.get('firstName')?.touched
+        "
+        >{{ 'AUTH.firstName.validation.error1' | translate }}</mat-error
+      >
+      <mat-error
+        *ngIf="
+          validationService.hasError(editForm, 'firstName', 'minlength') &&
+          editForm.get('firstName')?.touched
+        "
+        >{{ 'AUTH.firstName.validation.error2' | translate }}</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field class="edit-field" floatLabel="auto" appearance="outline">
+      <mat-label class="edit-label">{{
+        'AUTH.lastName.value' | translate
+      }}</mat-label>
+      <input
+        type="text"
+        id="last-name"
+        formControlName="lastName"
+        matInput
+        name="last-name"
+        [placeholder]="'AUTH.lastName.value' | translate"
+      />
+      <mat-error
+        *ngIf="
+          validationService.hasError(editForm, 'lastName', 'required') &&
+          editForm.get('firstName')?.touched
+        "
+        >{{ 'AUTH.lastName.validation.error1' | translate }}</mat-error
+      >
+      <mat-error
+        *ngIf="
+          validationService.hasError(editForm, 'lastName', 'minlength') &&
+          editForm.get('firstName')?.touched
+        "
+        >{{ 'AUTH.lastName.validation.error2' | translate }}</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field class="edit-field" floatLabel="auto" appearance="outline">
+      <mat-label class="edit-label">{{
+        'AUTH.email.value' | translate
+      }}</mat-label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        matInput
+        name="email"
+        [placeholder]="'AUTH.email.value' | translate"
+      />
+      <mat-error
+        *ngIf="
+          validationService.hasError(editForm, 'email', 'required') &&
+          editForm.get('email')?.touched
+        "
+        >{{ 'AUTH.email.validation.error1' | translate }}</mat-error
+      >
+      <mat-error
+        *ngIf="
+          validationService.hasError(editForm, 'email', 'email') &&
+          editForm.get('email')?.touched
+        "
+        >{{ 'AUTH.email.validation.error2' | translate }}</mat-error
+      >
+    </mat-form-field>
+    <div class="color-field-wrapper">
+      <mat-form-field
+        class="edit-field color-field"
+        floatLabel="auto"
+        appearance="outline"
+      >
+        <mat-label class="edit-label">{{
+          'AUTH.color.label' | translate
+        }}</mat-label>
+        <input matInput [ngxMatColorPicker]="picker" formControlName="color" />
+        <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+        <ngx-mat-color-picker
+          #picker
+          [touchUi]="touchUi"
+          [color]="color"
+        ></ngx-mat-color-picker>
+        <mat-error
+          *ngIf="
+            (validationService.hasError(editForm, 'color', 'required') &&
+              editForm.get('color')?.touched) ||
+            (validationService.hasError(editForm, 'color', 'pattern') &&
+              editForm.get('color')?.touched)
+          "
+        >
+          {{ 'AUTH.color.error' | translate }}
+        </mat-error>
+      </mat-form-field>
+      <div
+        class="avatar-preview"
+        [ngStyle]="{ 'background-color': editForm.value.color }"
+      >
+        <p class="avatar-initials">
+          {{
+            editForm.value.firstName + ' ' + editForm.value.lastName | initials
+          }}
+        </p>
+      </div>
+    </div>
+
+    <div class="hint">
+      <p>
+        {{ 'EDIT_USER.passwordDisclaimer' | translate }}
+      </p>
+    </div>
+    <mat-form-field
+      class="edit-field password-field"
+      floatLabel="auto"
+      appearance="outline"
+    >
+      <mat-label class="edit-label">{{
+        'AUTH.password.value' | translate
+      }}</mat-label>
+      <input
+        [type]="hidePassword ? 'password' : 'text'"
+        class="edit-input"
+        id="password"
+        formControlName="password"
+        matInput
+        [placeholder]="'AUTH.password.value' | translate"
+        name="password"
+      />
+      <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
+        hidePassword ? 'visibility_off' : 'visibility'
+      }}</mat-icon>
+      <mat-hint align="start" class="password-hint">{{
+        'AUTH.password.hint' | translate
+      }}</mat-hint>
+      <mat-error
+        *ngIf="validationService.hasError(editForm, 'password', 'required')"
+        >{{ 'AUTH.password.validation.error1' | translate }}</mat-error
+      >
+      <mat-error
+        *ngIf="
+          !editForm.get('password')?.valid && editForm.get('password')?.touched
+        "
+        >{{ 'AUTH.password.validation.common' | translate }}
+        <span
+          class="err-span"
+          *ngIf="validationService.passwordHasErrors(editForm) === 'uppercase'"
+        >
+          {{ 'AUTH.password.validation.error2' | translate }}</span
+        >
+        <span
+          class="err-span"
+          *ngIf="validationService.passwordHasErrors(editForm) === 'lowercase'"
+        >
+          {{ 'AUTH.password.validation.error3' | translate }}</span
+        >
+        <span
+          class="err-span"
+          *ngIf="validationService.passwordHasErrors(editForm) === 'number'"
+        >
+          {{ 'AUTH.password.validation.error4' | translate }}</span
+        >
+        <span
+          class="err-span"
+          *ngIf="
+            validationService.passwordHasErrors(editForm) === 'specialChar'
+          "
+        >
+          {{ 'AUTH.password.validation.error5' | translate }}</span
+        >
+        <span
+          class="err-span"
+          *ngIf="validationService.passwordHasErrors(editForm) === 'length'"
+        >
+          {{ 'AUTH.password.validation.error6' | translate }}</span
+        >
+      </mat-error>
+    </mat-form-field>
+    <div class="buttons-container">
+      <button
+        type="submit"
+        mat-stroked-button
+        color="primary"
+        class="button save-button"
+        [disabled]="!editForm.valid"
+      >
+        {{ 'EDIT_USER.buttons.save' | translate }}
+      </button>
+      <button
+        type="button"
+        mat-stroked-button
+        color="danger"
+        class="button delete-button danger-btn"
+        (click)="onDeleteUser()"
+      >
+        {{ 'EDIT_USER.buttons.delete' | translate }}
+      </button>
+    </div>
+  </form>
+</div>

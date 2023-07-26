@@ -1,0 +1,74 @@
+<div class="projects">
+  <mat-table class="projects-table" [dataSource]="projects">
+    <ng-container matColumnDef="owner">
+      <mat-header-cell *matHeaderCellDef>{{
+        'PROJECTS.projectsList.header.owner' | translate | uppercase
+      }}</mat-header-cell>
+      <mat-cell class="owner-cell" *matCellDef="let project">
+        <span
+          class="projects-table__owner-avatar"
+          [ngStyle]="{ backgroundColor: project.ownerData.color }"
+          >{{ project.ownerData.name | initials }}</span
+        >
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>{{
+        'PROJECTS.projectsList.header.title' | translate | uppercase
+      }}</mat-header-cell>
+      <mat-cell class="title-cell" *matCellDef="let project">{{
+        (screenSize$ | async)! <= 767
+          ? (project.title | truncate: 10)
+          : project.title
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef>{{
+        'PROJECTS.projectsList.header.description' | translate | uppercase
+      }}</mat-header-cell>
+      <mat-cell class="description-cell" *matCellDef="let project">{{
+        (screenSize$ | async)! <= 767
+          ? (project.description | truncate: 10)
+          : project.description
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="tasks">
+      <mat-header-cell *matHeaderCellDef>{{
+        'PROJECTS.projectsList.header.tasks' | translate | uppercase
+      }}</mat-header-cell>
+      <mat-cell class="tasks-cell" *matCellDef="let project">{{
+        project.tasks
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>{{
+        'PROJECTS.projectsList.header.actions' | translate | uppercase
+      }}</mat-header-cell>
+      <mat-cell class="action-cell" *matCellDef="let project">
+        <button
+          mat-icon-button
+          aria-label="delete icon"
+          (click)="deleteDialog($event, project._id)"
+        >
+          <mat-icon class="delete-icon" fontIcon="close"></mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          aria-label="edit icon"
+          (click)="editDialog($event, project._id)"
+        >
+          <mat-icon class="edit-icon" fontIcon="edit"></mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      [routerLink]="['./board', row._id]"
+    ></mat-row>
+  </mat-table>
+</div>

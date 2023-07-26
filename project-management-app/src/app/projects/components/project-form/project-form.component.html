@@ -1,0 +1,83 @@
+<div class="create-project" mat-dialog-content>
+  <h1 class="create-project__title">{{ formData.formTitle }}</h1>
+  <form
+    class="create-project__form"
+    [formGroup]="projectForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'PROJECTS.projectForm.titleLabel' | translate }}</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+    <div
+      *ngIf="title?.invalid && (title?.dirty || title?.touched)"
+      class="alert"
+    >
+      <div *ngIf="title?.errors?.['required']">
+        {{ 'PROJECTS.projectForm.errors.title.required' | translate }}
+      </div>
+      <div *ngIf="title?.errors?.['minlength']">
+        {{ 'PROJECTS.projectForm.errors.title.minLength' | translate }}
+      </div>
+      <div *ngIf="title?.errors?.['maxlength']">
+        {{ 'PROJECTS.projectForm.errors.title.maxLength' | translate }}
+      </div>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>{{
+        'PROJECTS.projectForm.descriptionLabel' | translate
+      }}</mat-label>
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="3"
+        cdkAutosizeMaxRows="7"
+        formControlName="description"
+      ></textarea>
+    </mat-form-field>
+    <div
+      *ngIf="
+        description?.invalid && (description?.dirty || description?.touched)
+      "
+      class="alert"
+    >
+      <div *ngIf="description?.errors?.['required']">
+        {{ 'PROJECTS.projectForm.errors.description.required' | translate }}
+      </div>
+      <div *ngIf="description?.errors?.['minlength']">
+        {{ 'PROJECTS.projectForm.errors.description.minLength' | translate }}
+      </div>
+      <div *ngIf="description?.errors?.['maxlength']">
+        {{ 'PROJECTS.projectForm.errors.description.maxLength' | translate }}
+      </div>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'PROJECTS.projectForm.userLabel' | translate }}</mat-label>
+      <mat-select formControlName="users" multiple>
+        <mat-option *ngFor="let user of users$ | async" [value]="user._id">{{
+          user.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div
+      *ngIf="users?.invalid && (users?.dirty || users?.touched)"
+      class="alert"
+    >
+      <div *ngIf="users?.errors?.['required']">
+        {{ 'PROJECTS.projectForm.errors.user.required' | translate }}
+      </div>
+    </div>
+    <div class="create-project__btns">
+      <button class="close-btn btn" (click)="onCloseClick()" type="button">
+        {{ formData.cancelText | uppercase }}
+      </button>
+      <button
+        class="create-btn btn"
+        [class.disabled]="projectForm.invalid"
+        type="submit"
+      >
+        {{ formData.confirmText | uppercase }}
+      </button>
+    </div>
+  </form>
+</div>

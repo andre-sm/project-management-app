@@ -1,0 +1,36 @@
+<div class="board-actions board">
+  <div class="board__info">
+    <ng-scrollbar style="height: 100px">
+      <div class="board__title-wrapper">
+        <div class="arrow-container">
+          <div class="arrow"></div>
+        </div>
+        <h2 class="board__title">{{ boardInfo.title }}</h2>
+      </div>
+      <p class="board__description">{{ boardInfo.description }}</p>
+    </ng-scrollbar>
+  </div>
+  <div class="board__search-bar">
+    <app-filter></app-filter>
+  </div>
+  <div class="board__buttons">
+    <button
+      class="new-task-btn btn"
+      *ngIf="columnsCount"
+      (click)="openCreateTaskDialog()"
+    >
+      <mat-icon class="add-icon" aria-hidden="false" fontIcon="add"></mat-icon>
+      <span>{{
+        'PROJECT_BOARD.projectBoardPage.actions.newTask' | translate | uppercase
+      }}</span>
+    </button>
+    <button class="new-column-btn btn" (click)="openCreateColumnDialog()">
+      <mat-icon class="add-icon" aria-hidden="false" fontIcon="add"></mat-icon>
+      <span>{{
+        'PROJECT_BOARD.projectBoardPage.actions.newColumn'
+          | translate
+          | uppercase
+      }}</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,159 @@
+@import '../../../shared/variables';
+:host {
+  min-height: calc(100% - 200px);
+  @media (min-width: 320px) and (max-width: 449px) {
+    width: 100%;
+  }
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  @media (min-width: 450px) and (max-width: 767px) {
+    padding: 0 20px;
+  }
+  @media (min-width: 320px) and (max-width: 449px) {
+    padding: 0 5px;
+    grid-column: 1 / 13;
+  }
+}
+
+.spinner-container {
+  grid-column: 6 / 8;
+  text-align: center;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  @media (min-width: 450px) and (max-width: 767px) {
+    flex-wrap: wrap;
+  }
+  @media (min-width: 320px) and (max-width: 449px) {
+    flex-wrap: wrap;
+  }
+}
+
+.edit-user-header {
+  grid-column: 5 / 9;
+  margin: 20px 0;
+  @media (min-width: 992px) and (max-width: 1440px) {
+    grid-column: 4 / 10;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    grid-column: 3 / 11;
+  }
+  @media (min-width: 532px) and (max-width: 767px) {
+    grid-column: 2 / 12;
+  }
+  @media (min-width: 320px) and (max-width: 532px) {
+    grid-column: 1 / 13;
+  }
+}
+
+.edit-form {
+  grid-column: 5 / 9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid $primary-color;
+  border-radius: 5px;
+  margin-bottom: 20px;
+
+  .edit-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .hint {
+    width: 100%;
+  }
+
+  .password-field {
+    margin-bottom: 50px;
+  }
+
+  .color-field-wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .color-field {
+    flex-basis: 70%;
+    margin-right: 10px;
+    flex-shrink: 1;
+    @media (min-width: 320px) and (max-width: 430px) {
+      width: 50%;
+    }
+  }
+
+  .avatar-preview {
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Raleway', sans-serif;
+    font-size: 25px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    color: $color-white;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    @media (min-width: 320px) and (max-width: 430px) {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  .avatar-initials {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .button {
+    flex-basis: 100%;
+    align-self: flex-start;
+    @media (min-width: 320px) and (max-width: 449px) {
+      padding: 0 5px;
+    }
+  }
+
+  span {
+    color: $primary-color;
+  }
+
+  .err-span {
+    color: $error-color;
+  }
+
+  .danger-btn {
+    background-color: $error-color;
+    color: $color-white;
+  }
+
+  @media (min-width: 992px) and (max-width: 1440px) {
+    grid-column: 4 / 10;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    grid-column: 3 / 11;
+  }
+  @media (min-width: 532px) and (max-width: 767px) {
+    grid-column: 2 / 12;
+    padding: 10px;
+  }
+  @media (min-width: 320px) and (max-width: 532px) {
+    grid-column: 1 / 13;
+    padding: 10px;
+  }
+}

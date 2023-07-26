@@ -1,0 +1,27 @@
+@import '../../../shared/variables';
+
+.create-project {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    min-width: 280px;
+    @media (min-width: 320px) and (max-width: 409px) {
+      min-width: 208px;
+    }
+  }
+
+  &__btns {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+}
+
+.alert {
+  background-color: $color-pink;
+  color: $color-brown;
+  padding: 3px 3px 3px 10px;
+  margin: -8px 0 10px 0;
+  border-radius: 5px;
+  border: 1px solid $color-pink-dark;
+}
